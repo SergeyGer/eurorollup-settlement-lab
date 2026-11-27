@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/a05-bridge-trace.schema.json",
+  "title": "A05 bridge trace",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportId",
+    "packId",
+    "generatedBy",
+    "generatedAt",
+    "devnet",
+    "contracts",
+    "timers",
+    "withdrawalInitiation",
+    "outputRootProof",
+    "l1Proving",
+    "disputeGameResolution",
+    "finalization",
+    "heads",
+    "summary"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "A05-bridge-trace" },
+    "packId": { "const": "A05-chain" },
+    "generatedBy": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "devnet": { "type": "object" },
+    "contracts": { "type": "object" },
+    "timers": {
+      "type": "object",
+      "required": ["proofMaturityDelaySeconds", "disputeGameFinalityDelaySeconds", "disputeGameMaxClockDurationSeconds", "disputeGameClockExtensionSeconds", "respectedGameType", "timeAcceleration", "timeAccelerationNote"],
+      "properties": {
+        "proofMaturityDelaySeconds": { "type": "string" },
+        "disputeGameFinalityDelaySeconds": { "type": "string" },
+        "disputeGameMaxClockDurationSeconds": { "type": "string" },
+        "disputeGameClockExtensionSeconds": { "type": "string" },
+        "respectedGameType": { "type": "integer" },
+        "timeAcceleration": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["requestedSeconds", "before", "after"],
+            "properties": {
+              "requestedSeconds": { "type": "number" },
+              "before": { "type": "integer" },
+              "after": { "type": "integer" }
+            }
+          }
+        },
+        "timeAccelerationNote": { "type": "string" }
+      }
+    },
+    "withdrawalInitiation": {
+      "type": "object",
+      "required": ["l2Tx", "l2Block", "withdrawalHash", "nonce", "sender", "target", "value", "gasLimit", "data"],
+      "properties": {
+        "l2Tx": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "l2Block": { "type": "integer", "minimum": 1 },
+        "withdrawalHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "nonce": { "type": "string" },
+        "sender": { "type": "string" },
+        "target": { "type": "string" },
+        "value": { "type": "string" },
+        "gasLimit": { "type": "string" },
+        "data": { "type": "string" }
+      }
+    },
+    "outputRootProof": { "type": "object" },
+    "l1Proving": {
+      "type": "object",
+      "required": ["txHash", "blockNumber", "provenGame", "provenTimestamp"],
+      "properties": {
+        "txHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "blockNumber": { "type": "integer", "minimum": 1 },
+        "provenGame": { "type": "string" },
+        "provenTimestamp": { "type": "string" }
+      }
+    },
+    "disputeGameResolution": { "type": "object" },
+    "finalization": {
+      "type": "object",
+      "required": ["txHash", "blockNumber", "status", "recipient", "recipientDeltaWei", "relayedByL1CrossDomainMessenger", "withdrawalValueWei"],
+      "properties": {
+        "txHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "blockNumber": { "type": "integer", "minimum": 1 },
+        "status": { "const": 1 },
+        "recipient": { "type": "string" },
+        "recipientDeltaWei": { "type": "string" },
+        "relayedByL1CrossDomainMessenger": { "type": "boolean" },
+        "withdrawalValueWei": { "type": "string" }
+      }
+    },
+    "heads": { "type": "object" },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "withdrawalProven", "disputeGameResolved", "withdrawalFinalized"],
+      "properties": {
+        "passed": { "type": "boolean" },
+        "withdrawalProven": { "type": "boolean" },
+        "disputeGameResolved": { "type": "boolean" },
+        "withdrawalFinalized": { "type": "boolean" }
+      }
+    }
+  }
+}

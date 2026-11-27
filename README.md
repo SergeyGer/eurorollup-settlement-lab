@@ -164,6 +164,33 @@ Eligibility documentation: [`docs/policy-lab/eligibility.md`](docs/policy-lab/el
 account abstraction: [`docs/aa/account-abstraction.md`](docs/aa/account-abstraction.md);
 verification: [`docs/verification/s05-eligibility-aa.md`](docs/verification/s05-eligibility-aa.md).
 
+## Controlled rollup devnet and bridge evidence
+
+S06 adds a reproducible local OP Stack network and a real bridge trace. The
+network runs op-reth `v2.4.0` with op-node `v1.19.3`, op-batcher `v1.16.11` and
+op-proposer `v1.16.3` on an anvil L1, with the full L1 contract stack deployed by
+op-deployer `v0.6.0`.
+
+```bash
+pnpm devnet:local:up     # deploy and start the network
+pnpm local:evidence      # capture evidence/a05/protocol-run.json and bridge-trace.json
+pnpm devnet:local:down   # stop it
+```
+
+The evidence run deposits test ETH through the portal, publishes labelled L2
+settlement activity as calldata batches, withdraws test ETH through the
+L2StandardBridge, proves the output root against a dispute game, resolves the
+game and finalizes the withdrawal through the portal. Every claim is reproducible
+from the committed evidence and the launcher is deterministic.
+
+Two limitations are recorded rather than hidden: the local L1 is execution-only,
+so batches use calldata mode instead of blobs and L1 consensus finality is not
+modelled; the portal's production timers are satisfied with a recorded private
+`evm_increaseTime` acceleration. See [`devnet/README.md`](devnet/README.md),
+[`docs/architecture/adr-01-execution.md`](docs/architecture/adr-01-execution.md)
+and the verification record
+[`docs/verification/s06-protocol-run.md`](docs/verification/s06-protocol-run.md).
+
 ## Quick start
 
 Requirements: Node.js 22 or newer and pnpm 9 or newer
@@ -202,6 +229,7 @@ packages/policy-lab  Proposal schema, draft revisions and two-branch replay (sha
 packages/sdk         Typed partner SDK and HTTP client
 contracts           Foundry contracts (spot router, fund vault, share token)
 circuits            Noir eligibility circuit and vectors
+devnet              Controlled local OP Stack devnet launcher and docs
 fixtures            Frozen synthetic inputs (G01, P01, calendars, instruments)
 schemas             Versioned JSON Schemas for receipts, journals and evidence packs
 evidence            Committed evidence packs for released gates
@@ -227,8 +255,11 @@ merged, and larger steps are tagged as GitHub Releases.
 - `v0.5.0` — eligibility and sponsorship: real Noir membership circuit, three
   personas and policy matrix, browser proving, sponsored account lane against the
   pinned ERC-4337 EntryPoint and A04 receipts.
-- Next: the pinned local rollup, blob batch publication and bridge withdrawal
-  (S06).
+- `v0.6.0` — controlled rollup devnet and bridge withdrawal: reproducible local
+  OP Stack, calldata batch publication linked to the L2 safe head, canonical
+  withdrawal proven and finalized on the portal, ADR-01 to ADR-04 and the A05
+  evidence packs (blob DA remains an open gap).
+- Next: economics and operations (S07).
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:

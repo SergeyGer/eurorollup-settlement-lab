@@ -1,0 +1,360 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A05-protocol-run",
+  "packId": "A05-chain",
+  "generatedBy": "pnpm local:evidence",
+  "generatedAt": "2026-11-27T14:12:54.845Z",
+  "devnet": {
+    "orchestrator": "devnet/local/up.sh (anvil L1 clock + pinned OP Stack images)",
+    "l1": "anvil execution chain (Cancun hardfork) with a synthetic two-second block clock",
+    "l2": "op-reth execution + op-node sequencer + op-batcher + op-proposer",
+    "dataAvailabilityMode": "calldata",
+    "limitations": [
+      "The local L1 is execution-only: no consensus client, no beacon API, no blob sidecars.",
+      "L1 finality is not modelled; the evidence records the L2 safe/finalized heads and marks L1 finality unavailable.",
+      "This is a private development test lane, not a production network."
+    ]
+  },
+  "images": [
+    {
+      "container": "op-reth-local",
+      "image": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-reth:v2.4.0",
+      "digest": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-reth@sha256:4bc077fc2068b537ec0bffb86fca027b30cac9a0b02dbfdece2363f1c1bbc861"
+    },
+    {
+      "container": "op-node-local",
+      "image": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.19.3",
+      "digest": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node@sha256:2254e2a715cff6a937dbbfe1b44b8dc23c464f8b0cac60e4013b30a202fcb72e"
+    },
+    {
+      "container": "op-batcher-local",
+      "image": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-batcher:v1.16.11",
+      "digest": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-batcher@sha256:af95492b091d0d7759074d8866a0c0daa5227cfdcc1520efc5e3d3ec9934af48"
+    },
+    {
+      "container": "op-proposer-local",
+      "image": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-proposer:v1.16.3",
+      "digest": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-proposer@sha256:31b21fae8941245b5f47c42c0e6aff19fb4ccee4a42dbb72b4cf02f245d87836"
+    }
+  ],
+  "rollupConfig": {
+    "l1ChainId": 11155111,
+    "l2ChainId": 16584,
+    "blockTimeSeconds": 2,
+    "maxSequencerDrift": 600,
+    "seqWindowSize": 3600,
+    "channelTimeout": 300,
+    "batchInboxAddress": "0x0098faa3fd68e74587cfad4029165ae7a85a73b5",
+    "depositContractAddress": "0xf7f5bf6f23443b8424ae9b597b695e8a8cc3dade",
+    "systemConfigAddress": "0x003671a7621758a51f1bb42db31171687d93ae64",
+    "genesis": {
+      "l1": {
+        "hash": "0x414ae4cf746db0dc0226edae920908b46d9646a5c74ac2a8e2608eeaeea33f0c",
+        "number": 35
+      },
+      "l2": {
+        "hash": "0x1a750420e99629b8f0b4ff9a7804958300d3cb437587b3953616a29e3e7fe845",
+        "number": 0
+      },
+      "l2_time": 1795788484,
+      "system_config": {
+        "batcherAddr": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "overhead": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "scalar": "0x010000000000000000000000000000000000000000000000000c3c9d00000558",
+        "gasLimit": 60000000,
+        "eip1559Params": "0x0000000000000000",
+        "operatorFeeParams": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "minBaseFee": 0,
+        "daFootprintGasScalar": 0
+      }
+    }
+  },
+  "chains": {
+    "l1": {
+      "chainId": 11155111,
+      "blockTimeSeconds": 2,
+      "latestHead": {
+        "number": 286,
+        "hash": "0x76089407707afb85fe81dc6eb0447c06876f5d912e16e80d69be75d02b882899",
+        "timestamp": 1795788889,
+        "parentHash": "0x61de003217a30d4615249a30ac76ee5d24079a4a73882540268ef278225f83eb"
+      },
+      "safeHead": {
+        "number": 254,
+        "hash": "0x097545da85ff2d1feb590cb15f23fbdde5a79cf7c9e400daba5e52128eb61e18",
+        "timestamp": 1795788837,
+        "parentHash": "0x3219913446b3268bbdcda0aaaf4470973e505d49d493aba61d30785772dd3531"
+      },
+      "finalizedHead": {
+        "number": 222,
+        "hash": "0x146fd92919a4d0657830f0c02afd98541a0b59ef65f7d550645450b699cc6082",
+        "timestamp": 1795788786,
+        "parentHash": "0xfa0125614dd8fbd5dd0e6de780c744630a7e5c52ea45631d1f53556f55e51488"
+      },
+      "finalityAvailable": false,
+      "finalityNote": "anvil exposes synthetic safe/finalized block tags derived from the head; the local L1 has no consensus client, so these are not consensus finality observations. L2 safe/finalized heads from op-node are recorded instead."
+    },
+    "l2": {
+      "chainId": 16584,
+      "blockTimeSeconds": 2,
+      "latestHead": {
+        "number": 203,
+        "hash": "0xd41ad29cf710979227febce6f24e3dda0761e7a5fcca4beaf4ec756df5daf194",
+        "timestamp": 1795788890,
+        "parentHash": "0xcd2121cfb80e8a4d5797f8f068687d64eff4b0bb9f9ff043b360ebc9f96aa102"
+      },
+      "syncStatus": {
+        "unsafeL2": {
+          "hash": "0xcd2121cfb80e8a4d5797f8f068687d64eff4b0bb9f9ff043b360ebc9f96aa102",
+          "number": 202,
+          "parentHash": "0xe6d3b5af410d32302ec8813e29b018a2dee321de2047fc17d0721b7349e90494",
+          "timestamp": 1795788888,
+          "l1origin": {
+            "hash": "0x298ce89547be3168677693224b4f29ca6a95096e171d776f965406794a7b2a1a",
+            "number": 227
+          },
+          "sequenceNumber": 0
+        },
+        "safeL2": {
+          "hash": "0xddd0bd0907e9fb55ea2715ef64fbd00d08640c7f0cafe9d1982193be0b4427d6",
+          "number": 189,
+          "parentHash": "0x4473ddcde1c756dd26dbebcee9e82f13cb879be17108aa91aa70488a40ec46fd",
+          "timestamp": 1795788862,
+          "l1origin": {
+            "hash": "0x1d54656dba44976c4099992e6a752dd6a8338c72fa84af9056f095fa19d66b79",
+            "number": 214
+          },
+          "sequenceNumber": 0
+        },
+        "finalizedL2": {
+          "hash": "0x6516dccefb68b7e250acb5622b3ea9c7dfdd963069c2d6dc63ba240875aef111",
+          "number": 129,
+          "parentHash": "0x05f2bacb02511c0aba3306f95f957130fd52f2226f22d0e0c6082d4c01f581b7",
+          "timestamp": 1795788742,
+          "l1origin": {
+            "hash": "0xb0b0244532ad9fc02f89e130adb29d1da7f88ad3cb39cf8c9a8b4b289428e574",
+            "number": 154
+          },
+          "sequenceNumber": 0
+        },
+        "safeL1": {
+          "hash": "0x1265f0a11a1c60740c75a672c55b54301e4cd60a4efc5eb0ff5c4642b9e6dfb6",
+          "number": 239,
+          "parentHash": "0x3d4fcc5b82527144d7166d42e34b85721781f3d595360f25466d2c72bf1c3d86",
+          "timestamp": 1795788813
+        },
+        "finalizedL1": {
+          "hash": "0x0ded9acc95f1ff6a4ae201d3f1d3f8caa2f168fe5060c41fc6c179c16c907e03",
+          "number": 207,
+          "parentHash": "0x25479b3a925228d7f7ebdf12875b9c6e795fcef997457277f0b736eddb0e2722",
+          "timestamp": 1795788764
+        }
+      },
+      "headBeforeActivity": {
+        "number": 145,
+        "hash": "0x63e905687b66b9dd76eb55748ebad5f4b78508e4e8f5dcbe74c6d6a1a1acbb65",
+        "timestamp": 1795788774,
+        "parentHash": "0x0b99a090e0b45cb8299d468e33b4fb6efcc51f4edc8b234e5177f875b53ba5a8"
+      },
+      "headAfterActivity": {
+        "number": 203,
+        "hash": "0xd41ad29cf710979227febce6f24e3dda0761e7a5fcca4beaf4ec756df5daf194",
+        "timestamp": 1795788890,
+        "parentHash": "0xcd2121cfb80e8a4d5797f8f068687d64eff4b0bb9f9ff043b360ebc9f96aa102"
+      },
+      "safeHeadAdvancedByActivity": true
+    }
+  },
+  "contracts": {
+    "OptimismPortalProxy": "0xf7f5bf6f23443b8424ae9b597b695e8a8cc3dade",
+    "SystemConfigProxy": "0x003671a7621758a51f1bb42db31171687d93ae64",
+    "L1StandardBridgeProxy": "0x9d453f53411ba0a28db9bfafa78510d44d29f5df",
+    "L1CrossDomainMessengerProxy": "0x0d1109fccf8d45ee7f8ea2f3eb6be4aa171a3bbc",
+    "DisputeGameFactoryProxy": "0xc2d47eb05a7f8f815598072b0e8225f1cd5ae3ae",
+    "AnchorStateRegistryProxy": "0x432c9562df818695f9e7486a079325bac66ebc7b",
+    "PermissionedDisputeGameImpl": "0x58bf355c5d4edfc723ef89d99582eccfd143266a",
+    "FaultDisputeGameImpl": "0x6ddba09bc4ccb0d6ca9fc5350580f74165707499"
+  },
+  "actors": {
+    "deployer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "admin": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "systemConfigOwner": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+    "unsafeBlockSigner": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+    "batcher": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+    "proposer": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+    "challenger": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+    "baseFeeRecipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+    "l1FeeRecipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+    "sequencerFeeRecipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+    "withdrawalRecipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+  },
+  "deposit": {
+    "l1Tx": "0xa7ab85cc29e7e9078295db092712e8b25311c64dd886f900756ce7de1450437d",
+    "l1Block": 215,
+    "l2Tx": "0x81295df4eda86d1b4d661b595f8bef8531636bf2cf6d4edee7df2f60aa61755e",
+    "l2Block": 190,
+    "value": "500000000000000000",
+    "l2BalanceAfterDeposit": "500000000000000000",
+    "description": "Canonical deposit through OptimismPortal.depositTransaction, minted on L2 by derivation."
+  },
+  "l2Activity": {
+    "description": "Six L2 transactions carrying synthetic settlement-order labels.",
+    "transactions": [
+      {
+        "label": "EUROROLLUP-ORDER:001:SETTLEMENT-BATCH",
+        "hash": "0x65001bba9c890469a36b867cd15f9a083982055dbda6cc18643a67d638fc3209",
+        "blockNumber": 191
+      },
+      {
+        "label": "EUROROLLUP-ORDER:002:SETTLEMENT-BATCH",
+        "hash": "0x79983e33de692192f9d2943d294ba475a2a30cc1d9d1142b7c7f610640581bc4",
+        "blockNumber": 193
+      },
+      {
+        "label": "EUROROLLUP-ORDER:003:SETTLEMENT-BATCH",
+        "hash": "0xa1db201a5ebf2d681b95eba1a888e5bcc6f855c3aab0cd9563963d35d2cc2037",
+        "blockNumber": 195
+      },
+      {
+        "label": "EUROROLLUP-ORDER:004:SETTLEMENT-BATCH",
+        "hash": "0xf99e60e91fa9ef2e4f46c17c45e9ee6ab7c79a846e49b98fa4a962c391c8df45",
+        "blockNumber": 197
+      },
+      {
+        "label": "EUROROLLUP-ORDER:005:SETTLEMENT-BATCH",
+        "hash": "0xbefcd0a55ccce7180c50acf460f1e5a4771ee3b603b1278ea92dbf37194ca341",
+        "blockNumber": 199
+      },
+      {
+        "label": "EUROROLLUP-ORDER:006:SETTLEMENT-BATCH",
+        "hash": "0x93ad8a3212b88756626bfa63671e5b1e13f1f257509eb85568f4dfefc936b2bf",
+        "blockNumber": 201
+      }
+    ],
+    "lastBlock": 201
+  },
+  "batches": {
+    "dataAvailabilityMode": "calldata",
+    "batchInboxAddress": "0x0098faa3fd68e74587cfad4029165ae7a85a73b5",
+    "observedBatchTransactions": [
+      {
+        "l1Block": 217,
+        "txHash": "0xc863862fe8606574fadaa4c23f92893aea52485eb680c2784993c13d943dc044",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x17",
+        "calldataBytes": 501,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      },
+      {
+        "l1Block": 224,
+        "txHash": "0x438e3599977bdda2d72f01ea2906acfbd4191726d5f7bd720777725df7cb4c74",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x18",
+        "calldataBytes": 503,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      },
+      {
+        "l1Block": 232,
+        "txHash": "0xb275eaafd8d0aae4f76a198265e73a2a9f3953b8a0135936ed84f6da26d56bf7",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x19",
+        "calldataBytes": 499,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      },
+      {
+        "l1Block": 239,
+        "txHash": "0xe872e77d9025f2842ae9421354c84bbf4ec3524ca52ac63aa323a85ee7624396",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x1a",
+        "calldataBytes": 505,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      },
+      {
+        "l1Block": 247,
+        "txHash": "0x58bcf6da32e68d8fbbee8533f77cef21de3c4f6d4f8c268befa1fd8fb8a5e0e1",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x1b",
+        "calldataBytes": 500,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      },
+      {
+        "l1Block": 254,
+        "txHash": "0x9830c92e9b577b5c0bfbff694804ccd3ed444572f11c8ee73348b26caa49f2c0",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x1c",
+        "calldataBytes": 501,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      },
+      {
+        "l1Block": 262,
+        "txHash": "0xacd6e6446d455dbc48c8eb89e452ab7f20ff5a1a11a9f5bde00925be5eb709c9",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x1d",
+        "calldataBytes": 497,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      },
+      {
+        "l1Block": 269,
+        "txHash": "0xea7a908fd386ab00b39fb8ef5fd69a6ee0956b8f02458ede3da7b5925af098c4",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x1e",
+        "calldataBytes": 503,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      },
+      {
+        "l1Block": 277,
+        "txHash": "0x28f356db825abbb53626a16168074608e34200e5489ff5be9359e54aa7ac954e",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x1f",
+        "calldataBytes": 501,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      },
+      {
+        "l1Block": 284,
+        "txHash": "0x0e4a001c83cc606031116e10cb50a57b0a923e952a53f28a703283a5211a1559",
+        "from": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
+        "type": "0x2",
+        "nonce": "0x20",
+        "calldataBytes": 821,
+        "versionedBlobHashes": [],
+        "dataAvailabilityMode": "calldata"
+      }
+    ],
+    "safeHeadAfterIndexing": {
+      "hash": "0xddd0bd0907e9fb55ea2715ef64fbd00d08640c7f0cafe9d1982193be0b4427d6",
+      "number": 189,
+      "parentHash": "0x4473ddcde1c756dd26dbebcee9e82f13cb879be17108aa91aa70488a40ec46fd",
+      "timestamp": 1795788862,
+      "l1origin": {
+        "hash": "0x1d54656dba44976c4099992e6a752dd6a8338c72fa84af9056f095fa19d66b79",
+        "number": 214
+      },
+      "sequenceNumber": 0
+    }
+  },
+  "summary": {
+    "passed": true,
+    "batchTransactionsObserved": 10,
+    "safeHeadAdvanced": true,
+    "blobDataAvailability": false,
+    "l1FinalityObserved": false
+  }
+}
