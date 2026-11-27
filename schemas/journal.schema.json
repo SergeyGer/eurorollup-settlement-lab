@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SergeyGer/eurorollup-settlement-lab/schemas/journal.schema.json",
+  "title": "Settlement journal",
+  "description": "Double-entry journal of the synthetic settlement ledger. Every event balances to zero per asset, including issuance and burn control accounts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "entries", "imbalances"],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/journalEntry" }
+    },
+    "imbalances": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["assetId", "sumBase"],
+        "properties": {
+          "assetId": { "type": "string", "enum": ["dEUR", "tWETH", "eFUND"] },
+          "sumBase": { "type": "string", "pattern": "^-?[0-9]+$" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "journalAccount": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "accountId"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["investor", "dealer", "fundEscrow", "issuerTreasury", "feeRecipient", "issuanceControl"]
+        },
+        "accountId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "posting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["account", "assetId", "amountBase"],
+      "properties": {
+        "account": { "$ref": "#/$defs/journalAccount" },
+        "assetId": { "type": "string", "enum": ["dEUR", "tWETH", "eFUND"] },
+        "amountBase": { "type": "string", "pattern": "^-?[0-9]+$" }
+      }
+    },
+    "journalEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entryId", "stepId", "occurredAt", "eventType", "description", "postings"],
+      "properties": {
+        "entryId": { "type": "string", "minLength": 1 },
+        "stepId": { "type": "string", "minLength": 1 },
+        "orderId": { "type": "string", "minLength": 1 },
+        "occurredAt": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$" },
+        "eventType": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "postings": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/posting" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit and fixture tests
+        run: pnpm test
+
+      - name: Build web replay
+        run: pnpm build
+
+      - name: Replay G01 evidence and check committed bytes
+        run: pnpm scenario:golden -- --check
+
+      - name: Check A02 boundary dealing cases
+        run: pnpm scenario:boundary -- --check
+
+      - name: Verify the committed evidence pack
+        run: pnpm verify
+
+      - name: Upload evidence artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-g01
+          path: |
+            evidence/g01
+            evidence/a02
+          retention-days: 30
+          if-no-files-found: error

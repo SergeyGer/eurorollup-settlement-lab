@@ -1,0 +1,7 @@
+{
+  "calendarId": "LAB-UTC-1",
+  "version": "1.0.0",
+  "timezone": "UTC",
+  "description": "Primary fixture calendar: Friday 20 November 2026 and Monday 23 November 2026 are dealing days; the weekend is closed.",
+  "dealingDays": ["2026-11-20", "2026-11-23"]
+}

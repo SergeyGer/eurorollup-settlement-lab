@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SergeyGer/eurorollup-settlement-lab/schemas/dealing-cases.schema.json",
+  "title": "Dealing boundary cases evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "fixtureId",
+    "fixtureVersion",
+    "engineVersion",
+    "calendarIds",
+    "cases",
+    "summary",
+    "businessDigest"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "fixtureId": { "type": "string", "minLength": 1 },
+    "fixtureVersion": { "type": "string", "minLength": 1 },
+    "engineVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "calendarIds": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["caseId", "description", "calendarId", "requestedAt", "baseline", "candidate", "expected", "pass"],
+        "properties": {
+          "caseId": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "calendarId": { "type": "string", "minLength": 1 },
+          "requestedAt": { "type": "string", "minLength": 1 },
+          "baseline": { "$ref": "#/$defs/assignment" },
+          "candidate": { "$ref": "#/$defs/assignment" },
+          "expected": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["baselineDealingDate", "candidateDealingDate", "baselineReason", "candidateReason"],
+            "properties": {
+              "baselineDealingDate": { "type": "string", "minLength": 1 },
+              "candidateDealingDate": { "type": "string", "minLength": 1 },
+              "baselineReason": { "type": "string", "minLength": 1 },
+              "candidateReason": { "type": "string", "minLength": 1 }
+            }
+          },
+          "pass": { "type": "boolean" }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "passed", "failed"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 1 },
+        "passed": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "businessDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "$defs": {
+    "assignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dealingDate", "reason"],
+      "properties": {
+        "dealingDate": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

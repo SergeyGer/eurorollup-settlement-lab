@@ -1,0 +1,14 @@
+{
+  "name": "@eurorollup/dealing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pure deterministic dealing engine shared by the browser replay, the CLI and the workers.",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@noble/hashes": "^1.7.1"
+  }
+}

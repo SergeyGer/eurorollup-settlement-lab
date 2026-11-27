@@ -1,0 +1,90 @@
+{
+  "fixtureId": "G01",
+  "fixtureVersion": "1.0.0",
+  "description": "One synthetic investor, a spot fill with a fixed EUR 0.05 charge, and a fund lifecycle that resolves at an authorized NAV of 96.00 EUR per unit.",
+  "calendarId": "LAB-UTC-1",
+  "accounts": {
+    "investorId": "investor-ada",
+    "dealerInventoryId": "dealer-inventory",
+    "feeRecipientId": "fee-recipient",
+    "issuerTreasuryId": "issuer-treasury",
+    "issuanceControlId": "issuance-control",
+    "fundEscrowId": "fund-escrow"
+  },
+  "marks": {
+    "tWETH": "2000000000",
+    "eFUND": "96000000"
+  },
+  "seed": {
+    "assetId": "dEUR",
+    "amountBase": "1000000000",
+    "occurredAt": "2026-11-20T14:00:00Z"
+  },
+  "spot": {
+    "orderId": "G01-SPOT-01",
+    "side": "BUY",
+    "amountBase": "200000000",
+    "priceBase": "2000000000",
+    "priceAsOf": "2026-11-20T14:10:00Z",
+    "expiresAt": "2026-11-20T14:10:30Z",
+    "chargeBase": "50000",
+    "quoteIssuedAt": "2026-11-20T14:10:00Z",
+    "filledAt": "2026-11-20T14:10:02Z"
+  },
+  "fund": {
+    "orderId": "G01-FUND-01",
+    "cashBase": "300000000",
+    "indicativeNavBase": "100000000",
+    "requestedAt": "2026-11-20T15:30:00Z",
+    "cutoffTimeUtc": "16:00",
+    "nav": {
+      "valuationDate": "2026-11-20",
+      "navBase": "96000000",
+      "sourceTime": "2026-11-20T17:00:00Z",
+      "revision": 1,
+      "signer": "issuer-nav-signer"
+    },
+    "allocatedAt": "2026-11-20T17:01:00Z"
+  },
+  "expected": {
+    "checkpoints": [
+      {
+        "label": "Seed",
+        "spendableCashBase": "1000000000",
+        "reservedCashBase": "0",
+        "tWethBalanceBase": "0",
+        "eFundBalanceBase": "0",
+        "totalMarkedValueBase": "1000000000"
+      },
+      {
+        "label": "Buy 200.00 dEUR at 2,000.00 EUR per tWETH",
+        "spendableCashBase": "799950000",
+        "reservedCashBase": "0",
+        "tWethBalanceBase": "100000000000000000",
+        "eFundBalanceBase": "0",
+        "totalMarkedValueBase": "999950000"
+      },
+      {
+        "label": "Request 300.00 dEUR at indicative NAV 100.00 EUR",
+        "spendableCashBase": "499950000",
+        "reservedCashBase": "300000000",
+        "tWethBalanceBase": "100000000000000000",
+        "eFundBalanceBase": "0",
+        "totalMarkedValueBase": "999950000"
+      },
+      {
+        "label": "Strike and settle at NAV 96.00 EUR",
+        "spendableCashBase": "499950000",
+        "reservedCashBase": "0",
+        "tWethBalanceBase": "100000000000000000",
+        "eFundBalanceBase": "3125000",
+        "totalMarkedValueBase": "999950000"
+      }
+    ],
+    "finalPortfolioValueBase": "999950000",
+    "spendableCashBase": "499950000",
+    "reservedCashBase": "0",
+    "tWethBalanceBase": "100000000000000000",
+    "eFundBalanceBase": "3125000"
+  }
+}

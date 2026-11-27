@@ -96,10 +96,13 @@ The project is delivered in documented steps tracked as GitHub Issues and
 Milestones. Each step closes only when its fixtures, tests and evidence are
 merged, and larger steps are tagged as GitHub Releases.
 
-- Current stage: foundation and repository publication.
-- Planned steps: settlement core, policy-lab simulation, live model adapter,
-  account abstraction and eligibility, pinned local rollup, economics and
-  operations, verification gates A01–A09, public release, release film.
+- Current stage: foundation released as `v0.1.0` — frozen fixtures, integer
+  money arithmetic, versioned UTC calendar, the G01 portfolio replay with a
+  reproducible evidence pack, and a basic browser replay.
+- Next: settlement core and partner API (step S02), then policy-lab simulation,
+  live model adapter, account abstraction and eligibility, pinned local rollup,
+  economics and operations, verification gates A01–A09, public release and the
+  release film.
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md).

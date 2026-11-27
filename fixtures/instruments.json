@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "description": "Synthetic instruments for the euro settlement sandbox. dEUR and eFUND use 6 decimals; tWETH uses 18. Prices are expressed in EUR with 6 decimals.",
+  "assets": [
+    {
+      "assetId": "dEUR",
+      "symbol": "dEUR",
+      "decimals": 6,
+      "kind": "cash",
+      "priceDecimals": 6,
+      "notes": "Test accounting device for the common cash leg; not a real e-money token."
+    },
+    {
+      "assetId": "tWETH",
+      "symbol": "tWETH",
+      "decimals": 18,
+      "kind": "spot",
+      "priceDecimals": 6,
+      "notes": "Unrestricted test wrapped ETH outside the issuer eligibility perimeter."
+    },
+    {
+      "assetId": "eFUND",
+      "symbol": "eFUND",
+      "decimals": 6,
+      "kind": "fund",
+      "priceDecimals": 6,
+      "notes": "Fictional euro short-duration bond fund unit with an issuer-defined eligibility class."
+    }
+  ]
+}

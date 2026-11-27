@@ -1,0 +1,99 @@
+{
+  "fixtureId": "P01",
+  "fixtureVersion": "1.0.0",
+  "description": "Friday subscription cutoff experiment: two independent 300.00 dEUR eFUND orders from two verified investors, compared between a 16:00 UTC and a 15:00 UTC Friday cutoff.",
+  "calendarId": "LAB-UTC-1",
+  "baselinePolicy": {
+    "policyId": "eFUND-dealing",
+    "version": 1,
+    "weekdayCutoffs": {
+      "MON": "16:00",
+      "TUE": "16:00",
+      "WED": "16:00",
+      "THU": "16:00",
+      "FRI": "16:00"
+    }
+  },
+  "candidatePolicy": {
+    "policyId": "eFUND-dealing",
+    "version": 2,
+    "weekdayCutoffs": {
+      "MON": "16:00",
+      "TUE": "16:00",
+      "WED": "16:00",
+      "THU": "16:00",
+      "FRI": "15:00"
+    }
+  },
+  "initialBalances": {
+    "investor-bea": { "dEUR": "1000000000" },
+    "investor-cy": { "dEUR": "1000000000" }
+  },
+  "orders": [
+    {
+      "orderId": "P01-F-1450",
+      "investorId": "investor-bea",
+      "cashBase": "300000000",
+      "requestedAt": "2026-11-20T14:50:00Z"
+    },
+    {
+      "orderId": "P01-F-1530",
+      "investorId": "investor-cy",
+      "cashBase": "300000000",
+      "requestedAt": "2026-11-20T15:30:00Z"
+    }
+  ],
+  "navs": [
+    {
+      "valuationDate": "2026-11-20",
+      "navBase": "96000000",
+      "sourceTime": "2026-11-20T17:00:00Z",
+      "revision": 1,
+      "signer": "issuer-nav-signer"
+    },
+    {
+      "valuationDate": "2026-11-23",
+      "navBase": "100000000",
+      "sourceTime": "2026-11-23T17:00:00Z",
+      "revision": 1,
+      "signer": "issuer-nav-signer"
+    }
+  ],
+  "snapshots": [
+    { "label": "Friday close", "at": "2026-11-20T17:01:00Z" },
+    { "label": "Monday close", "at": "2026-11-23T17:01:00Z" }
+  ],
+  "expected": {
+    "affectedOrders": 1,
+    "totalOrders": 2,
+    "extraReservedAtFridayCloseBase": "300000000",
+    "unitsByBranch": {
+      "baseline": { "P01-F-1450": "3125000", "P01-F-1530": "3125000" },
+      "candidate": { "P01-F-1450": "3125000", "P01-F-1530": "3000000" }
+    },
+    "fridaySnapshot": {
+      "baseline": {
+        "spendableCashBase": "1400000000",
+        "reservedCashBase": "0",
+        "eFundUnitsBase": "6250000"
+      },
+      "candidate": {
+        "spendableCashBase": "1400000000",
+        "reservedCashBase": "300000000",
+        "eFundUnitsBase": "3125000"
+      }
+    },
+    "mondaySnapshot": {
+      "baseline": {
+        "spendableCashBase": "1400000000",
+        "reservedCashBase": "0",
+        "eFundUnitsBase": "6250000"
+      },
+      "candidate": {
+        "spendableCashBase": "1400000000",
+        "reservedCashBase": "0",
+        "eFundUnitsBase": "6125000"
+      }
+    }
+  }
+}

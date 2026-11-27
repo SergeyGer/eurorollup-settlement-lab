@@ -1,0 +1,7 @@
+{
+  "calendarId": "LAB-UTC-2",
+  "version": "1.0.0",
+  "timezone": "UTC",
+  "description": "Alternate fixture calendar: Monday 23 November 2026 is closed, so the next dealing day after the weekend is Tuesday 24 November 2026.",
+  "closedDates": ["2026-11-23"]
+}
