@@ -20,7 +20,7 @@
     "verify": "tsx packages/dealing/src/cli.ts verify"
   },
   "devDependencies": {
-    "@types/node": "^22.10.5",
+    "@types/node": "^26.6.6",
     "ajv": "^8.17.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
