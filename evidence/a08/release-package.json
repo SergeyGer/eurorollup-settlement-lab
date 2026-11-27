@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A08-release-package",
+  "packId": "A08-release",
+  "generatedBy": "pnpm release:package",
+  "generatedAt": "2026-11-27T15:38:54.776Z",
+  "version": "0.9.0",
+  "commit": "acf13a5554d17e998cb921d1cd059e6542a7e3f0",
+  "fileName": "eurollup-settlement-lab-0.9.0.tar.gz",
+  "filePath": "release/eurollup-settlement-lab-0.9.0.tar.gz",
+  "bytes": 4094113,
+  "sha256": "9df9051a1e0a6bcca39688a9ec7303d7e56a14cbd06db4032ac405412e7c3ad6",
+  "manifestDigest": "6db0a40277522a709bb1ba108c65ce5189a7cb3c9bc5d29b21d942a93001f5e5",
+  "manifestFileCount": 289,
+  "verified": {
+    "extracted": true,
+    "manifestMatches": true,
+    "missingFiles": [],
+    "extraFiles": [],
+    "mismatchedFiles": []
+  },
+  "publicReplayUrl": "https://sergeyger.github.io/eurorollup-settlement-lab/",
+  "notes": [
+    "The package is a deterministic source archive of the release commit with a SHA-256 manifest.",
+    "The builder re-extracts the archive and verifies every manifest entry before writing this record."
+  ]
+}

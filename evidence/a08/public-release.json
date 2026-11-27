@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A08-public-release",
+  "packId": "A08-release",
+  "generatedBy": "pnpm a08:public-check",
+  "generatedAt": "2026-11-27T15:39:34.245Z",
+  "commit": "acf13a5554d17e998cb921d1cd059e6542a7e3f0",
+  "version": "0.9.0",
+  "publicReplay": {
+    "url": "https://sergeyger.github.io/eurorollup-settlement-lab/",
+    "authentication": "none",
+    "httpStatus": 200,
+    "contentType": "text/html; charset=utf-8",
+    "contentChecks": {
+      "hasTitle": true,
+      "hasAppMount": true
+    },
+    "cleanBrowser": {
+      "engine": "chromium (Playwright)",
+      "version": "131.0.6778.33",
+      "viewport": "1440x900",
+      "title": "EuroRollup Settlement Lab — portfolio replay",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "expectedConsoleErrors": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ],
+      "views": [
+        {
+          "button": "Recorded replay",
+          "marker": "Investor portfolio",
+          "rendered": true
+        },
+        {
+          "button": "Local API lab",
+          "marker": "Local API",
+          "rendered": true
+        },
+        {
+          "button": "AI Policy Lab",
+          "marker": "Policy",
+          "rendered": true
+        },
+        {
+          "button": "Eligibility & sponsorship",
+          "marker": "Eligibility",
+          "rendered": true
+        },
+        {
+          "button": "Economics & operations",
+          "marker": "Observed bundle",
+          "rendered": true
+        }
+      ],
+      "screenshots": [
+        {
+          "path": "docs/media/s09-public-replay.jpg",
+          "sha256": "6974358292dac6818b293669589bd7a82aeb78e570bb6b609bd2cc89c401eb3f"
+        },
+        {
+          "path": "docs/media/s09-eligibility.jpg",
+          "sha256": "4506e5d0eb1b04e7dd7c2c7e5ce0dbf8674ec7695985bbe8ceba0233e373b5e3"
+        },
+        {
+          "path": "docs/media/s09-economics.jpg",
+          "sha256": "80f19f9f58c6303182bdb8fe2774bb6e4cf1a5ae7357d25267e13181e2e95155"
+        }
+      ]
+    }
+  },
+  "quickstart": {
+    "commands": [
+      {
+        "command": "pnpm verify",
+        "exitCode": 0,
+        "durationMs": 1016
+      },
+      {
+        "command": "pnpm demo:partner",
+        "exitCode": 0,
+        "durationMs": 2107
+      }
+    ],
+    "note": "Representative documented commands were run locally; the complete documented quickstart command set is exercised by pnpm release:checks."
+  },
+  "publicLinks": [
+    {
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "authentication": "none"
+    },
+    {
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab/wiki",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "authentication": "none"
+    },
+    {
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "authentication": "none"
+    }
+  ],
+  "releasePackage": {
+    "fileName": "eurollup-settlement-lab-0.9.0.tar.gz",
+    "downloadMode": "local-build",
+    "downloadUrl": null,
+    "sha256": "9df9051a1e0a6bcca39688a9ec7303d7e56a14cbd06db4032ac405412e7c3ad6",
+    "bytes": 4094113,
+    "manifestDigest": "6db0a40277522a709bb1ba108c65ce5189a7cb3c9bc5d29b21d942a93001f5e5",
+    "manifestFileCount": 289,
+    "verified": {
+      "downloaded": true,
+      "extracted": true,
+      "manifestMatches": true,
+      "mismatchedFiles": [],
+      "missingFiles": [],
+      "extraFiles": []
+    }
+  },
+  "film": {
+    "status": "pending",
+    "requiredBy": "S10",
+    "requirements": [
+      "about 60 seconds",
+      "English narration",
+      "frame and narration checks"
+    ]
+  },
+  "publicPartsPassed": true,
+  "passed": false,
+  "notes": [
+    "A08 stays pending until the 60-second film exists; the public replay, quickstart, links and downloadable package are verified here.",
+    "All public checks were performed without authentication."
+  ]
+}
