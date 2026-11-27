@@ -114,6 +114,19 @@ export interface RecordedProposalFixture {
   readonly label: string;
   readonly question: string;
   readonly proposal: Proposal;
+  /** Metadata from the live adapter that captured the recorded proposal. */
+  readonly capture?: {
+    readonly provider: string;
+    readonly model: string;
+    readonly digest: string | null;
+    readonly promptVersion: string;
+    readonly temperature: number;
+    readonly seed: number;
+    readonly attempts: number;
+    readonly elapsedMs: number;
+    readonly rawOutput: string;
+    readonly capturedBy: string;
+  };
 }
 
 export interface BranchOrderResult {

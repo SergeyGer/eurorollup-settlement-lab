@@ -3,7 +3,7 @@
   "info": {
     "title": "EuroRollup Settlement Lab partner API",
     "description": "Local partner API for the synthetic euro settlement sandbox. Amounts are integer base units serialized as strings; timestamps are strict UTC instants. Business state and chain state are separate fields.",
-    "version": "0.3.0"
+    "version": "0.4.0"
   },
   "components": {
     "schemas": {}
@@ -12,6 +12,19 @@
     "/v1/health": {
       "get": {
         "summary": "Health and fixture metadata",
+        "tags": [
+          "system"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/model/status": {
+      "get": {
+        "summary": "Local model adapter status, pinned model and prompt version",
         "tags": [
           "system"
         ],

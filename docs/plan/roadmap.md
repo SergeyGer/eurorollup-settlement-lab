@@ -17,10 +17,11 @@ recording current calendar dates. Weeks are planning windows, not deadlines.
 | S01 | Released as `v0.1.0` (foundation) |
 | S02 | Released as `v0.2.0` (settlement core and partner API) |
 | S03 | Released as `v0.3.0` (AI Policy Lab and P01 comparison) |
-| S04–S10 | Planned; tracked as GitHub Issues |
+| S04 | Released as `v0.4.0` (live local model adapter and 40-prompt evaluation) |
+| S05–S10 | Planned; tracked as GitHub Issues |
 
-Current next step: S04, the live local model adapter and the 40-prompt
-evaluation.
+Current next step: S05, the sponsored account lane, sponsorship policy and the
+eligibility circuit.
 
 ## Steps
 
@@ -47,6 +48,7 @@ The umbrella tracking issue is [#12](https://github.com/SergeyGer/eurorollup-set
 | `v0.1.0` | Foundation: fixtures, money arithmetic, calendar, G01 evidence |
 | `v0.2.0` | Settlement core and partner API |
 | `v0.3.0` | AI Policy Lab: typed proposal, scenario API and deterministic P01 comparison |
+| `v0.4.0` | Live local model adapter: pinned model, failure policy and 40-prompt evaluation |
 | `v0.4.0` | Live model adapter and 40-prompt evaluation |
 | `v0.5.0` | Sponsored account lane and eligibility circuit |
 | `v0.6.0` | Pinned local rollup and protocol evidence |

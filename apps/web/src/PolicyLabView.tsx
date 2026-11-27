@@ -11,6 +11,20 @@ import { useCallback, useState } from "react";
 import { formatDisplayAmount, parseBaseUnits } from "@eurorollup/dealing";
 import type { ReplayDraft } from "@eurorollup/policy-lab";
 import {
+  PartnerApiError,
+  SettlementApiClient,
+  type ScenarioDraft,
+  type ScenarioModelInfo,
+} from "@eurorollup/sdk";
+import { API_BASE_URL } from "./LiveLab";
+
+const scenarioClient = new SettlementApiClient({
+  baseUrl: API_BASE_URL,
+  sessionId: "policy-lab-browser",
+  // The first live draft pays the one-time model warm-up.
+  timeoutMs: 120_000,
+});
+import {
   applyDraftEdit,
   baselineCutoff,
   baselinePolicyVersion,
@@ -87,9 +101,13 @@ function downloadText(fileName: string, text: string): void {
 }
 
 export function PolicyLabView(): JSX.Element {
-  const [mode, setMode] = useState<"recorded" | "manual">("recorded");
+  const [mode, setMode] = useState<"recorded" | "manual" | "live">("recorded");
   const [manualWeekday, setManualWeekday] = useState("FRI");
   const [manualTime, setManualTime] = useState("15:00");
+  const [liveQuestion, setLiveQuestion] = useState("What if the fund moved its Friday cutoff from 16:00 to 15:00 UTC?");
+  const [liveBusy, setLiveBusy] = useState(false);
+  const [liveError, setLiveError] = useState<string | null>(null);
+  const [modelInfo, setModelInfo] = useState<ScenarioModelInfo | null>(null);
   const [draft, setDraft] = useState<ReplayDraft | null>(null);
   const [result, setResult] = useState<LocalComparisonResult | null>(null);
   const [running, setRunning] = useState(false);
@@ -102,6 +120,9 @@ export function PolicyLabView(): JSX.Element {
       setDraft(next);
       setResult(null);
       setError(null);
+      if (next === null) {
+        setModelInfo(null);
+      }
       if (next !== null) {
         setEditWeekday(next.diff?.weekday ?? "FRI");
         setEditTime(next.diff?.newTimeUtc ?? (next.proposal !== null && next.proposal.status === "proposed" ? next.proposal.timeUtc : "15:00"));
@@ -121,6 +142,34 @@ export function PolicyLabView(): JSX.Element {
       setError(describeError(draftError));
     }
   }, [manualTime, manualWeekday, mode, selectDraft]);
+
+  const loadLiveDraft = useCallback(async (): Promise<void> => {
+    setLiveBusy(true);
+    setLiveError(null);
+    try {
+      const response = await scenarioClient.createScenarioDraft({
+        fixtureId: "P01",
+        mode: "live",
+        question: liveQuestion,
+      });
+      setModelInfo(response.model ?? null);
+      setDraft(response as unknown as ReplayDraft);
+      setResult(null);
+      setError(null);
+      setEditWeekday("FRI");
+      if (response.proposal !== null && response.proposal.status === "proposed") {
+        setEditTime(response.proposal.timeUtc);
+      }
+    } catch (liveDraftError) {
+      if (liveDraftError instanceof PartnerApiError) {
+        setLiveError(`${liveDraftError.code}: ${liveDraftError.message}`);
+      } else {
+        setLiveError(describeError(liveDraftError));
+      }
+    } finally {
+      setLiveBusy(false);
+    }
+  }, [liveQuestion]);
 
   const applyEdit = useCallback(
     (fields: { weekday: string; timeUtc: string; timezone: string }): void => {
@@ -216,17 +265,29 @@ export function PolicyLabView(): JSX.Element {
           >
             Manual edit
           </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === "live"}
+            className={mode === "live" ? "active" : ""}
+            onClick={() => {
+              setMode("live");
+              selectDraft(null);
+            }}
+          >
+            Live local model
+          </button>
         </div>
         {mode === "recorded" ? (
           <div className="lab-question">
             <span className="lab-question-label">Recorded question</span>
             <blockquote>{recordedProposal.question}</blockquote>
             <p className="notes-small">
-              {recordedProposal.label} — replayed as labelled model output. A genuine live-model
-              capture arrives in step S04; computed results never depend on model prose.
+              {recordedProposal.label} — replayed as labelled recorded model output. Computed
+              results never depend on model prose.
             </p>
           </div>
-        ) : (
+        ) : mode === "manual" ? (
           <div className="lab-form">
             <label>
               <span>Dealing weekday</span>
@@ -246,11 +307,42 @@ export function PolicyLabView(): JSX.Element {
               Review manual change
             </button>
           </div>
-        )}
+        ) : null}
         {mode === "recorded" ? (
           <button type="button" className="primary lab-load" onClick={loadDraft}>
             Load recorded proposal
           </button>
+        ) : null}
+        {mode === "live" ? (
+          <div className="lab-form lab-live-form">
+            <label className="lab-live-question">
+              <span>Rule question (English, at most 500 characters)</span>
+              <textarea
+                value={liveQuestion}
+                onChange={(event) => setLiveQuestion(event.target.value)}
+                rows={3}
+                maxLength={500}
+              />
+            </label>
+            <button
+              type="button"
+              className="primary"
+              onClick={() => void loadLiveDraft()}
+              disabled={liveBusy}
+            >
+              {liveBusy ? "Asking the local model…" : "Ask local model"}
+            </button>
+            <p className="notes-small">
+              Live mode calls the local model adapter through the API. The model only drafts the
+              typed change; outcomes are computed after confirmation. If the model is unavailable,
+              the recorded preset and manual editor stay usable. {API_BASE_URL}
+            </p>
+            {liveError === null ? null : (
+              <p className="live-error">
+                {liveError} — the recorded preset and manual editor remain available.
+              </p>
+            )}
+          </div>
         ) : null}
         {error === null ? null : <p className="live-error">{error}</p>}
       </div>
@@ -260,7 +352,11 @@ export function PolicyLabView(): JSX.Element {
           <div className="panel-head">
             <h2>2 · Review proposal</h2>
             <span className="fixture-tag">
-              revision {draft.revision} · {originLabel(draft)} · {draft.status}
+              revision {draft.revision} · {originLabel(draft)}
+              {modelInfo === null
+                ? ""
+                : ` · ${modelInfo.model} · ${modelInfo.promptVersion} · attempt ${modelInfo.attempts}`}{" "}
+              · {draft.status}
             </span>
           </div>
 

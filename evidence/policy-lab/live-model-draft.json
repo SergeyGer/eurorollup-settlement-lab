@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A09-recorded-live-draft",
+  "generatedBy": "pnpm policy:record",
+  "origin": "live",
+  "model": {
+    "provider": "ollama",
+    "model": "qwen3:4b",
+    "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "promptVersion": "p01-live-v10",
+    "temperature": 0,
+    "seed": 42,
+    "timeoutMs": 15000,
+    "numCtx": 4096,
+    "numPredict": 120
+  },
+  "question": "What if the fund moved its Friday cutoff from 16:00 to 15:00 UTC?",
+  "proposal": {
+    "status": "proposed",
+    "operation": "set_subscription_cutoff",
+    "asset": "eFUND",
+    "weekday": "FRI",
+    "timeUtc": "15:00",
+    "timezone": "UTC",
+    "expectedTimeUtc": "16:00"
+  },
+  "proposalStatus": "proposed",
+  "draftDigest": "c9edf139f17307b3879d87f34b2ad0a0c63eab0f1de4d354ddd2346e74934c32",
+  "confirmationDigest": "a720b00fa5c528343c59fcfb94b040cf6048f2e26ca43c7a3ee1e25ba9f21b40",
+  "attempts": 1,
+  "elapsedMs": 14170,
+  "rawOutput": "{\n  \"status\": \"proposed\",\n  \"operation\": \"set_subscription_cutoff\",\n  \"asset\": \"eFUND\",\n  \"weekday\": \"FRI\",\n  \"timeUtc\": \"15:00\",\n  \"timezone\": \"UTC\",\n  \"expectedTimeUtc\": \"16:00\"\n}"
+}

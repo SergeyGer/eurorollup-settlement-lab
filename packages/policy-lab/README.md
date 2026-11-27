@@ -20,6 +20,10 @@ fixtures, a confirmed patch reproduces the same comparison digest everywhere.
   results and Friday/Monday portfolio snapshots.
 - Boundary replay cases (cutoff instants, closed Monday, missing NAV).
 - The P01 evidence pack and its canonical digests.
+- The live local model adapter: Ollama HTTP port, schema-constrained decoding,
+  one retry with schema feedback, recoverable timeout/unavailable errors and a
+  40-prompt evaluation harness with a committed report.
+- Recorded live capture and scripted model ports for deterministic tests.
 
 ## Commands
 
@@ -29,10 +33,16 @@ From the repository root:
 pnpm policy:replay            # write evidence/policy-lab/p01-comparison.json
 pnpm policy:replay -- --check # verify the committed bytes
 pnpm policy:verify            # verify file digests, comparison digest and replay
+pnpm policy:eval              # 40-prompt evaluation against the local model
+pnpm policy:eval -- --verify-only  # validate the committed evaluation report
+pnpm policy:record            # capture a genuine live proposal as the preset
+pnpm policy:model:status      # local runtime and pinned model status
 ```
 
 ## Related documentation
 
 - `docs/policy-lab/p01-friday-cutoff.md` — the experiment and its result.
-- `docs/verification/s03-policy-lab.md` — verification record.
+- `docs/verification/s03-policy-lab.md` — verification record for the deterministic comparison.
+- `docs/verification/s04-live-model.md` — verification record for the live adapter.
+- `docs/policy-lab/live-model-adapter.md` — adapter contract, failure policy and evaluation.
 - `docs/api/partner-api.md` — scenario API surface.

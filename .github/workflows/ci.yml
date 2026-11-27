@@ -59,6 +59,12 @@ jobs:
       - name: Verify the Policy Lab comparison pack
         run: pnpm policy:verify
 
+      - name: Run the evaluation harness against a scripted model
+        run: pnpm policy:eval -- --adapter mock
+
+      - name: Verify the committed live-model evaluation
+        run: pnpm policy:eval -- --verify-only
+
       - name: Check the generated OpenAPI document
         run: pnpm api:openapi -- --check
 

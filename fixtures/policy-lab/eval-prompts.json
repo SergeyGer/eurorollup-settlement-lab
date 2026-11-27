@@ -1,0 +1,478 @@
+{
+  "fixtureId": "P01-eval-prompts",
+  "fixtureVersion": "1.0.0",
+  "description": "40 versioned English prompts for the AI release gate A09: 20 valid paraphrases, 10 ambiguous and 10 unsupported requests. Expected entries record the normalized fields or disposition.",
+  "baseline": {
+    "policyId": "eFUND-dealing",
+    "version": 1,
+    "weekdayCutoffs": {
+      "MON": "16:00",
+      "TUE": "16:00",
+      "WED": "16:00",
+      "THU": "16:00",
+      "FRI": "16:00"
+    }
+  },
+  "prompts": [
+    {
+      "promptId": "V-01",
+      "category": "valid",
+      "question": "What if the fund moved its Friday cutoff from 16:00 to 15:00 UTC?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "15:00",
+        "timezone": "UTC",
+        "expectedTimeUtc": "16:00"
+      }
+    },
+    {
+      "promptId": "V-02",
+      "category": "valid",
+      "question": "Move the eFUND Friday subscription deadline to 15:30 UTC.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "15:30",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-03",
+      "category": "valid",
+      "question": "What happens if Friday's cut-off becomes 14:00 UTC?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "14:00",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-04",
+      "category": "valid",
+      "question": "Change the weekly eFUND cutoff on Fridays to 15:45 UTC.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "15:45",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-05",
+      "category": "valid",
+      "question": "If we set the Friday fund cutoff to 13:00 UTC, what changes?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "13:00",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-06",
+      "category": "valid",
+      "question": "Please propose moving the Friday subscription cutoff earlier, to 11:30 UTC.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "11:30",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-07",
+      "category": "valid",
+      "question": "Can we shift the eFUND Friday dealing cutoff to 09:00 UTC?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "09:00",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-08",
+      "category": "valid",
+      "question": "What would happen with a 15:15 UTC Friday cutoff for eFUND?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "15:15",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-09",
+      "category": "valid",
+      "question": "Set the fund's Friday cutoff time to 16:30 UTC.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "16:30",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-10",
+      "category": "valid",
+      "question": "We're considering a Friday cutoff of 10:00 UTC for the bond fund.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "10:00",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-11",
+      "category": "valid",
+      "question": "Move the Friday cutoff for eFUND to 12:00 UTC.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "12:00",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-12",
+      "category": "valid",
+      "question": "What if Friday subscriptions close at 14:45 UTC instead of 16:00 UTC?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "14:45",
+        "timezone": "UTC",
+        "expectedTimeUtc": "16:00"
+      }
+    },
+    {
+      "promptId": "V-13",
+      "category": "valid",
+      "question": "Change the eFUND Friday cutoff from 16:00 to one hour earlier, 15:00 UTC.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "15:00",
+        "timezone": "UTC",
+        "expectedTimeUtc": "16:00"
+      }
+    },
+    {
+      "promptId": "V-14",
+      "category": "valid",
+      "question": "If the eFUND Friday cutoff is 15:00 UTC rather than 16:00, how many orders move?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "15:00",
+        "timezone": "UTC",
+        "expectedTimeUtc": "16:00"
+      }
+    },
+    {
+      "promptId": "V-15",
+      "category": "valid",
+      "question": "Propose a Friday cutoff of 08:30 UTC for the euro fund.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "08:30",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-16",
+      "category": "valid",
+      "question": "Friday fund cutoff to 16:15 UTC - what is the impact?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "16:15",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-17",
+      "category": "valid",
+      "question": "Shift the weekly fund cutoff on Friday to 07:00 UTC.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "07:00",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-18",
+      "category": "valid",
+      "question": "What if the fund's Friday cut-off were 15:00 UTC rather than the current 16:00 UTC?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "15:00",
+        "timezone": "UTC",
+        "expectedTimeUtc": "16:00"
+      }
+    },
+    {
+      "promptId": "V-19",
+      "category": "valid",
+      "question": "Set the eFUND weekly cutoff for Friday at 14:30 UTC and compare the orders.",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "14:30",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "V-20",
+      "category": "valid",
+      "question": "If we move Friday's eFUND subscription deadline to 13:45 UTC, what happens to F-1530?",
+      "expected": {
+        "status": "proposed",
+        "operation": "set_subscription_cutoff",
+        "asset": "eFUND",
+        "weekday": "FRI",
+        "timeUtc": "13:45",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "promptId": "A-01",
+      "category": "ambiguous",
+      "question": "What if we moved the cutoff earlier?",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "A-02",
+      "category": "ambiguous",
+      "question": "Can we change the fund cutoff?",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "A-03",
+      "category": "ambiguous",
+      "question": "Shift Friday's cutoff to a later time.",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "A-04",
+      "category": "ambiguous",
+      "question": "Change the weekly cutoff.",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "A-05",
+      "category": "ambiguous",
+      "question": "What happens if subscriptions close later on Friday?",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "A-06",
+      "category": "ambiguous",
+      "question": "Move the cutoff to 15:00.",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "A-07",
+      "category": "ambiguous",
+      "question": "What if the deadline moves to 3pm local time?",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "A-08",
+      "category": "ambiguous",
+      "question": "Please adjust the fund deadline.",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "A-09",
+      "category": "ambiguous",
+      "question": "What if the cutoff is 15:00 CET?",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "A-10",
+      "category": "ambiguous",
+      "question": "Move the Friday cutoff.",
+      "expected": {
+        "status": "clarify"
+      }
+    },
+    {
+      "promptId": "U-01",
+      "category": "unsupported",
+      "question": "Change the redemption cutoff to 15:00 UTC.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "UNSUPPORTED_OPERATION"
+        ]
+      }
+    },
+    {
+      "promptId": "U-02",
+      "category": "unsupported",
+      "question": "Move the Monday and Friday cutoffs to 15:00 UTC.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "MULTIPLE_CHANGES",
+          "UNSUPPORTED_OPERATION"
+        ]
+      }
+    },
+    {
+      "promptId": "U-03",
+      "category": "unsupported",
+      "question": "Set the Friday cutoff to 18:00 UTC.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "OUT_OF_RANGE"
+        ]
+      }
+    },
+    {
+      "promptId": "U-04",
+      "category": "unsupported",
+      "question": "Change the tWETH Friday cutoff.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "UNSUPPORTED_ASSET",
+          "UNSUPPORTED_OPERATION"
+        ]
+      }
+    },
+    {
+      "promptId": "U-05",
+      "category": "unsupported",
+      "question": "Move the Saturday cutoff to 15:00 UTC.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "UNSUPPORTED_WEEKDAY",
+          "UNSUPPORTED_OPERATION"
+        ]
+      }
+    },
+    {
+      "promptId": "U-06",
+      "category": "unsupported",
+      "question": "Lower the fund subscription fee to zero for Friday orders.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "UNSUPPORTED_OPERATION"
+        ]
+      }
+    },
+    {
+      "promptId": "U-07",
+      "category": "unsupported",
+      "question": "Change the eFUND NAV publication time to 16:00 UTC.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "UNSUPPORTED_OPERATION"
+        ]
+      }
+    },
+    {
+      "promptId": "U-08",
+      "category": "unsupported",
+      "question": "Move the cutoff to 12:00 UTC on the first Friday of each month.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "UNSUPPORTED_OPERATION",
+          "MULTIPLE_CHANGES"
+        ]
+      }
+    },
+    {
+      "promptId": "U-09",
+      "category": "unsupported",
+      "question": "Set the Friday cutoff to 00:00 UTC.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "OUT_OF_RANGE"
+        ]
+      }
+    },
+    {
+      "promptId": "U-10",
+      "category": "unsupported",
+      "question": "Change the eFUND cutoff for all weekdays to 15:00 UTC.",
+      "expected": {
+        "status": "unsupported",
+        "acceptableReasonCodes": [
+          "MULTIPLE_CHANGES",
+          "UNSUPPORTED_OPERATION"
+        ]
+      }
+    }
+  ]
+}

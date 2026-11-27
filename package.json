@@ -1,6 +1,6 @@
 {
   "name": "eurorollup-settlement-lab",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "Open-source euro settlement sandbox for crypto trades, tokenized fund orders and AI policy simulation.",
   "license": "Apache-2.0",
@@ -24,7 +24,11 @@
     "scenario:api": "tsx apps/api/scripts/run-evidence.ts",
     "api:openapi": "tsx apps/api/scripts/dump-openapi.ts",
     "policy:replay": "tsx packages/policy-lab/src/cli.ts replay",
-    "policy:verify": "tsx packages/policy-lab/src/cli.ts verify"
+    "policy:verify": "tsx packages/policy-lab/src/cli.ts verify",
+    "policy:eval": "tsx packages/policy-lab/src/cli.ts eval",
+    "policy:eval:mock": "tsx packages/policy-lab/src/cli.ts eval --adapter mock",
+    "policy:record": "tsx packages/policy-lab/src/cli.ts record",
+    "policy:model:status": "tsx packages/policy-lab/src/cli.ts model-status"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

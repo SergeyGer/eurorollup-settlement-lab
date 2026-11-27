@@ -19,7 +19,7 @@ import labUtc2Json from "../../../fixtures/calendar/LAB-UTC-2.json";
 import type { CalendarFixture } from "@eurorollup/dealing";
 import { randomIdFactory, type IdFactory } from "./ids.js";
 
-export const SERVICE_VERSION = "0.3.0";
+export const SERVICE_VERSION = "0.4.0";
 export const SCHEMA_VERSION = "1.0.0";
 export const DATA_MODE = "local-fixture";
 export const FIXTURE_CLOCK_START = "2026-11-20T15:00:00Z";
@@ -28,6 +28,9 @@ export const FIXTURE_INDICATIVE_NAV_BASE = 100_000_000n; // 100.00 EUR per eFUND
 export const DEFAULT_PORT = 3000;
 export const DEFAULT_HOST = "127.0.0.1";
 export const ISSUER_ROLE_IDENTITY = "issuer-nav-signer";
+export const DEFAULT_OLLAMA_BASE_URL = "http://127.0.0.1:11434";
+export const DEFAULT_OLLAMA_MODEL = "qwen3:4b";
+export const DEFAULT_MODEL_TIMEOUT_MS = 15_000;
 export const DEALER_PRICE_SOURCE_ID = "dealer-tWETH-fixture";
 
 export type CalendarId = "LAB-UTC-1" | "LAB-UTC-2";
@@ -72,6 +75,9 @@ export interface ApiConfigOptions {
   readonly devEndpoints?: boolean;
   readonly autoWorker?: boolean;
   readonly ids?: IdFactory;
+  readonly ollamaBaseUrl?: string;
+  readonly ollamaModel?: string;
+  readonly modelTimeoutMs?: number;
 }
 
 export interface ApiConfig {
@@ -91,6 +97,11 @@ export interface ApiConfig {
   readonly autoWorker: boolean;
   readonly ids: IdFactory;
   readonly seedInvestors: readonly SeedInvestor[];
+  readonly ollamaBaseUrl: string;
+  readonly ollamaModel: string;
+  readonly modelTemperature: number;
+  readonly modelSeed: number;
+  readonly modelTimeoutMs: number;
 }
 
 /** Repository root, resolved from this module rather than the process cwd. */
@@ -130,6 +141,18 @@ export function createApiConfig(options: ApiConfigOptions = {}): ApiConfig {
     autoWorker: options.autoWorker ?? true,
     ids: options.ids ?? randomIdFactory(),
     seedInvestors: SEED_INVESTORS,
+    ollamaBaseUrl:
+      options.ollamaBaseUrl ??
+      process.env["OLLAMA_BASE_URL"] ??
+      DEFAULT_OLLAMA_BASE_URL,
+    ollamaModel: options.ollamaModel ?? process.env["OLLAMA_MODEL"] ?? DEFAULT_OLLAMA_MODEL,
+    modelTemperature: 0,
+    modelSeed: 42,
+    modelTimeoutMs:
+      options.modelTimeoutMs ??
+      (process.env["MODEL_TIMEOUT_MS"] === undefined
+        ? DEFAULT_MODEL_TIMEOUT_MS
+        : Number(process.env["MODEL_TIMEOUT_MS"])),
   };
 }
 

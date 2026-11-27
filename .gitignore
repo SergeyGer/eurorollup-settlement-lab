@@ -38,3 +38,6 @@ tmp/
 
 # Local model adapter caches (the model itself is never committed)
 .models/
+eval-tmp/
+# Local model evaluation output
+.ollama-models/

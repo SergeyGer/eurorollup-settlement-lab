@@ -1144,3 +1144,31 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* --- Live model input in the Policy Lab --- */
+
+.lab-live-form {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.lab-live-question {
+  width: 100%;
+}
+
+.lab-live-question textarea {
+  width: 100%;
+  resize: vertical;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  padding: 10px 12px;
+}
+
+.lab-live-form .primary {
+  align-self: flex-start;
+}

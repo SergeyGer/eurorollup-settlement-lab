@@ -47,6 +47,7 @@ routes -> services -> engine service -> pure dealing engine
 | Partner | `POST /v1/quotes`, `POST /v1/orders`, `GET /v1/orders`, `GET /v1/orders/{id}`, `POST /v1/orders/{id}/cancel`, `GET /v1/portfolios`, `GET /v1/portfolios/{id}` |
 | Issuer | `POST /v1/issuer/nav` (requires `x-role-identity`) |
 | Policy Lab | `POST /v1/scenarios/drafts`, `PATCH /v1/scenarios/{id}/draft`, `POST /v1/scenarios/{id}/runs`, `GET /v1/scenario-runs/{id}`, `GET /v1/scenario-runs/{id}/evidence` |
+| Model | `GET /v1/model/status` |
 | Dev | `GET/POST /v1/dev/clock`, `POST /v1/dev/price-source`, `POST /v1/dev/tick`, `POST /v1/dev/reset` |
 
 ## Data model
@@ -79,4 +80,6 @@ credentials: a comparison only replays frozen fixtures through the pure engine.
 
 - Chain state is `NOT_SUBMITTED` until the pinned rollup integration (S06).
 - Eligibility personas are stored, not enforced, until S05.
-- Live model drafting returns `503` until the local adapter arrives in S04.
+- Live model drafting requires the local Ollama runtime and the pinned model;
+  when it is unreachable the endpoint returns a recoverable `503` and the manual
+  and recorded paths remain usable.

@@ -1,7 +1,7 @@
 {
   "proposalId": "P01-RECORDED-CUTOFF",
   "fixtureVersion": "1.0.0",
-  "label": "Recorded proposal preset",
+  "label": "Recorded live-model proposal (qwen3:4b, prompt p01-live-v10)",
   "question": "What if the fund moved its Friday cutoff from 16:00 to 15:00 UTC?",
   "proposal": {
     "status": "proposed",
@@ -11,5 +11,17 @@
     "timeUtc": "15:00",
     "timezone": "UTC",
     "expectedTimeUtc": "16:00"
+  },
+  "capture": {
+    "provider": "ollama",
+    "model": "qwen3:4b",
+    "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "promptVersion": "p01-live-v10",
+    "temperature": 0,
+    "seed": 42,
+    "attempts": 1,
+    "elapsedMs": 14170,
+    "rawOutput": "{\n  \"status\": \"proposed\",\n  \"operation\": \"set_subscription_cutoff\",\n  \"asset\": \"eFUND\",\n  \"weekday\": \"FRI\",\n  \"timeUtc\": \"15:00\",\n  \"timezone\": \"UTC\",\n  \"expectedTimeUtc\": \"16:00\"\n}",
+    "capturedBy": "pnpm policy:record"
   }
 }

@@ -106,6 +106,32 @@ passes. Policy Lab documentation:
 [`docs/policy-lab/p01-friday-cutoff.md`](docs/policy-lab/p01-friday-cutoff.md) and
 verification: [`docs/verification/s03-policy-lab.md`](docs/verification/s03-policy-lab.md).
 
+## Live local model
+
+The Policy Lab can draft the rule change from a short English question with a
+local model runtime. The model only produces the typed proposal; the deterministic
+engine still computes the comparison. On release 1.0 the adapter is pinned to
+`qwen3:4b` with prompt version `p01-live-v10`, temperature `0` and seed `42`.
+
+![AI Policy Lab live-mode proposal with model metadata and deterministic impact](docs/media/s04-policy-lab-live.jpg)
+
+```bash
+ollama serve
+ollama pull qwen3:4b
+pnpm policy:model:status   # provider, pinned model, digest, prompt version
+pnpm policy:eval           # 40-prompt A09 evaluation, writes evidence/policy-lab/eval.json
+pnpm policy:record         # capture a genuine live proposal as the recorded preset
+```
+
+The A09 evaluation requires at least 18/20 exact valid drafts, 10/10 clarification
+responses and 10/10 non-executable unsupported responses; the committed report
+passes all three with every prompt recorded, including each failure. Malformed
+model output is retried once with schema feedback and then rejected with a
+recoverable `503`; a failed free-text request is never silently replaced by the
+recorded preset, and the recorded preset and manual editor stay available.
+Adapter documentation: [`docs/policy-lab/live-model-adapter.md`](docs/policy-lab/live-model-adapter.md);
+verification: [`docs/verification/s04-live-model.md`](docs/verification/s04-live-model.md).
+
 ## Quick start
 
 Requirements: Node.js 22 or newer and pnpm 9 or newer
@@ -119,6 +145,8 @@ pnpm scenario:golden   # replay G01 and write the evidence pack
 pnpm scenario:api      # regenerate the A02 and A06 API evidence
 pnpm policy:replay     # replay the P01 comparison and write its evidence pack
 pnpm policy:verify     # verify the committed P01 comparison pack
+pnpm policy:eval       # run the 40-prompt live-model evaluation (needs Ollama)
+pnpm policy:record     # capture a genuine live-model proposal
 pnpm verify            # verify the committed G01 evidence pack
 pnpm dev               # browser: recorded replay, Local API lab and AI Policy Lab
 pnpm api               # local partner API on http://127.0.0.1:3000
@@ -162,7 +190,9 @@ merged, and larger steps are tagged as GitHub Releases.
 - `v0.3.0` — AI Policy Lab: typed proposal schema, revisioned drafts with
   confirmation binding, deterministic P01 two-branch comparison, scenario API,
   browser Policy Lab view and the A09 deterministic evidence pack.
-- Next: the live local model adapter and the 40-prompt evaluation (S04).
+- `v0.4.0` — live local model adapter: pinned `qwen3:4b`, prompt version
+  `p01-live-v10`, the 40-prompt evaluation and a genuine recorded live capture.
+- Next: the sponsored account lane and eligibility circuit (S05).
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:
