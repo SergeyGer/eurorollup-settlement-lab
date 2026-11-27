@@ -7,14 +7,14 @@ updates:
       day: monday
       time: "05:00"
       timezone: "UTC"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
     labels:
       - dependencies
       - area:infra
     commit-message:
       prefix: "chore(deps)"
     groups:
-      minor-and-patch:
+      npm-minor-and-patch:
         applies-to: version-updates
         update-types:
           - minor
@@ -27,9 +27,15 @@ updates:
       day: monday
       time: "05:15"
       timezone: "UTC"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     labels:
       - dependencies
       - area:infra
     commit-message:
       prefix: "chore(ci)"
+    groups:
+      actions-minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
