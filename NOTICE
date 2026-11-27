@@ -1,0 +1,11 @@
+EuroRollup Settlement Lab
+Copyright SergeyGer and contributors
+
+This product includes software developed by the EuroRollup Settlement Lab
+contributors and is licensed under the Apache License, Version 2.0.
+
+Third-party components, reference implementations and specifications that
+informed the design are attributed in the repository documentation and in the
+release dependency notices. The project is a synthetic-data research sandbox:
+it is not a production settlement system, not an investment product, and not
+legal, financial or regulatory advice.

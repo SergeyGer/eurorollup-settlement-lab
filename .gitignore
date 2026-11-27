@@ -1,0 +1,40 @@
+# Local credentials — never commit. The GitHub token is provided locally by the maintainer.
+.git-token
+.env
+.env.*
+!.env.example
+
+# Maintainer scratch space used by local automation
+.dsh-tmp/
+
+# Dependencies
+node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+
+# Build output
+dist/
+build/
+out/
+coverage/
+*.tsbuildinfo
+.vite/
+
+# Generated evidence runs (committed release packs live in evidence/)
+evidence/tmp/
+tmp/
+*.log
+
+# Local databases and snapshots
+*.sqlite
+*.sqlite-journal
+.data/
+
+# Editor and OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Local model adapter caches (the model itself is never committed)
+.models/
