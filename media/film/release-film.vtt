@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+EuroRollup shows how crypto trades and fund investments settle in euros.
+
+00:00:05.000 --> 00:00:14.000
+Starting with a thousand demo euros, I buy two hundred euros of test ether. The receipt shows the five-cent charge.
+
+00:00:14.000 --> 00:00:22.000
+My fund order waits for its valuation. At ninety-six euros per unit, three hundred euros buys three and one eighth units.
+
+00:00:22.000 --> 00:00:33.000
+Now I ask what happens if Friday's fund cutoff moves from four to three. The model turns my question into one proposed rule.
+
+00:00:33.000 --> 00:00:44.000
+I confirm the change and replay two orders. The earlier one still settles Friday. The three-thirty order now waits until Monday.
+
+00:00:44.000 --> 00:00:55.000
+That leaves three hundred extra euros reserved over the weekend. On Monday the later order receives three units. Both outcomes come with a reproducible record.
+
+00:00:55.000 --> 00:01:00.000
+Open the project on GitHub and replay the experiment yourself.

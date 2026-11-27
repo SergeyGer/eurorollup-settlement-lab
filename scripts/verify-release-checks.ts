@@ -67,11 +67,21 @@ function main(): void {
 
   for (const gate of checks.gates) {
     if (gate.gate === "A08") {
-      check(gate.status === "pending", "A08 must stay pending until the film exists");
+      // S10 completes A08: public replay, quickstart, links, package and the film.
+      if (gate.status === "pass") {
+        check(gate.evidence.length >= 2, "A08 must reference both the public-release evidence and the film metadata");
+        check(gate.evidence.every((entry) => entry.exists && entry.schemaValid && entry.sha256 !== null), "A08 evidence must exist and validate");
+        for (const entry of gate.evidence) {
+          check(sha256File(entry.path) === entry.sha256, `A08 digest mismatch for ${entry.path}`);
+        }
+        check(gate.commands.length >= 1 && gate.commands.every((command) => command.exitCode === 0), "A08 verification commands must all pass");
+        const publicEvidence = readJson("evidence/a08/public-release.json") as Record<string, any>;
+        check(publicEvidence["film"]["status"] === "complete", "A08 pass requires the film to be complete");
+        check(publicEvidence["passed"] === true, "A08 pass requires the public evidence to be complete");
+        continue;
+      }
+      check(gate.status === "pending", "A08 must be pending or pass");
       check((gate.requiredArtifacts ?? []).length >= 4, "A08 must list the required public-release and film artifacts");
-      // Before S09 the A08 row is an empty placeholder; after S09 it carries the
-      // public-release evidence and must pass its partial checks. The film still
-      // holds the gate open for S10.
       if (gate.evidence.length > 0) {
         check(gate.evidence.every((entry) => entry.exists && entry.schemaValid && entry.sha256 !== null), "A08 evidence must exist and validate");
         for (const entry of gate.evidence) {
@@ -95,7 +105,13 @@ function main(): void {
 
   check(checks.summary.failed === 0, "no gate may be failed");
   check(checks.summary.releaseCandidate === true, "the release-candidate flag must be true");
-  check(checks.summary.pendingGates.length === 1 && checks.summary.pendingGates[0] === "A08", "only A08 may be pending in the release candidate");
+  const a08Gate = checks.gates.find((gate) => gate.gate === "A08");
+  if (a08Gate?.status === "pass") {
+    check(checks.summary.pendingGates.length === 0, "a completed release must have no pending gate");
+    check(checks.summary.failed === 0, "a completed release must have no failed gate");
+  } else {
+    check(checks.summary.pendingGates.length === 1 && checks.summary.pendingGates[0] === "A08", "only A08 may be pending in the release candidate");
+  }
 
   check(checks.commands.every((command) => command.exitCode === 0), "every recorded command must exit zero");
   check(checks.commands.length >= 15, "at least fifteen verification commands are expected");

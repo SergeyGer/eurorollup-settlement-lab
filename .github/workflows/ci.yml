@@ -80,7 +80,10 @@ jobs:
       - name: Verify the committed A07 economics evidence
         run: pnpm a07:verify
 
-      - name: Verify the committed S08 release-check matrix
+      - name: Verify the committed A08 public-release evidence
+        run: pnpm a08:verify
+
+      - name: Verify the committed release-check matrix
         run: pnpm release:verify
 
       - name: Check the generated OpenAPI document

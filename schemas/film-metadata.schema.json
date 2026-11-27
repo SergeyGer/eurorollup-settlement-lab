@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/film-metadata.schema.json",
+  "title": "S10 release film metadata",
+  "type": "object",
+  "required": ["schemaVersion", "reportId", "generatedBy", "generatedAt", "version", "commit", "film", "ranges", "narration", "captions", "transcript", "socialPreview", "endCard", "captureEnvironment", "publicLinks", "checks", "passed"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "S10-release-film" },
+    "generatedBy": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "film": {
+      "type": "object",
+      "required": ["file", "assetName", "bytes", "sha256", "frameCount", "width", "height", "fps", "durationSeconds", "videoCodec", "audioCodec", "audioSampleRate", "audioChannels"],
+      "properties": {
+        "file": { "type": "string" },
+        "assetName": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1000 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "frameCount": { "const": 1800 },
+        "width": { "const": 1920 },
+        "height": { "const": 1080 },
+        "fps": { "const": "30/1" },
+        "durationSeconds": { "type": "number" },
+        "videoCodec": { "const": "h264" },
+        "audioCodec": { "const": "aac" },
+        "audioSampleRate": { "const": 48000 },
+        "audioChannels": { "const": 2 }
+      }
+    },
+    "ranges": {
+      "type": "object",
+      "required": ["socialPreview", "body", "repositoryCard"],
+      "properties": {
+        "socialPreview": { "$ref": "#/definitions/range" },
+        "body": { "$ref": "#/definitions/range" },
+        "repositoryCard": { "$ref": "#/definitions/range" }
+      }
+    },
+    "narration": { "type": "object", "required": ["scriptWords", "segments", "closingLineEndsAtSeconds", "loudnessIntegratedLufs", "truePeakDbtp"], "properties": { "scriptWords": { "const": 131 }, "segments": { "type": "array", "minItems": 7 } } },
+    "captions": { "type": "object", "required": ["file", "sha256", "cueCount", "safeMarginPercent", "burnedIn"] },
+    "transcript": { "type": "object", "required": ["file", "sha256"] },
+    "socialPreview": { "type": "object", "required": ["designFile", "sha256", "size"] },
+    "endCard": { "type": "object", "required": ["designFile", "sha256", "url", "urlSingleLineAt720p", "durationSeconds", "frames"] },
+    "captureEnvironment": { "type": "object" },
+    "publicLinks": { "type": "array", "minItems": 2 },
+    "checks": { "type": "array", "minItems": 10 },
+    "passed": { "type": "boolean" }
+  },
+  "definitions": {
+    "range": { "type": "object", "required": ["fromFrame", "toFrame", "seconds"], "properties": { "fromFrame": { "type": "integer" }, "toFrame": { "type": "integer" }, "seconds": { "type": "integer" } } }
+  }
+}

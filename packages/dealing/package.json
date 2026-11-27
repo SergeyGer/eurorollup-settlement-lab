@@ -1,6 +1,6 @@
 {
   "name": "@eurorollup/dealing",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Pure deterministic dealing engine shared by the browser replay, the CLI and the workers.",

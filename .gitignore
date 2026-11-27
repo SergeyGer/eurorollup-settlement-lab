@@ -51,3 +51,9 @@ circuits/**/Prover.toml
 
 # release packaging output
 release/
+
+# local film production workspace
+/tmp-film/
+
+# the release film is attached to the GitHub Release, not committed
+media/film/*.mp4

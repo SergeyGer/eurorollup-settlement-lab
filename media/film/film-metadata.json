@@ -1,0 +1,222 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S10-release-film",
+  "generatedBy": "pnpm film:build",
+  "generatedAt": "2026-11-27T16:15:07.306Z",
+  "version": "1.0.0",
+  "commit": "3f72845fd9891bdf57c6a46946a2d70fcba48ee3",
+  "film": {
+    "file": "media/film/release-film.mp4",
+    "assetName": "eurollup-release-film-1.0.0.mp4",
+    "bytes": 8723175,
+    "sha256": "0af81effc863c16797eaa0e09c6d01cc180642d036c87d2fed6cef4580837b93",
+    "frameCount": 1800,
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "durationSeconds": 60,
+    "videoCodec": "h264",
+    "audioCodec": "aac",
+    "audioSampleRate": 48000,
+    "audioChannels": 2
+  },
+  "ranges": {
+    "socialPreview": {
+      "fromFrame": 0,
+      "toFrame": 149,
+      "seconds": 5
+    },
+    "body": {
+      "fromFrame": 150,
+      "toFrame": 1649,
+      "seconds": 50
+    },
+    "repositoryCard": {
+      "fromFrame": 1650,
+      "toFrame": 1799,
+      "seconds": 5,
+      "url": "github.com/SergeyGer/eurorollup-settlement-lab"
+    }
+  },
+  "narration": {
+    "scriptWords": 131,
+    "segments": [
+      {
+        "id": "s0",
+        "start": 0,
+        "end": 4.904,
+        "text": "EuroRollup shows how crypto trades and fund investments settle in euros."
+      },
+      {
+        "id": "s1",
+        "start": 5,
+        "end": 13.481,
+        "text": "Starting with a thousand demo euros, I buy two hundred euros of test ether. The receipt shows the five-cent charge."
+      },
+      {
+        "id": "s2",
+        "start": 14,
+        "end": 21.846,
+        "text": "My fund order waits for its valuation. At ninety-six euros per unit, three hundred euros buys three and one eighth units."
+      },
+      {
+        "id": "s3",
+        "start": 22,
+        "end": 30.84,
+        "text": "Now I ask what happens if Friday's fund cutoff moves from four to three. The model turns my question into one proposed rule."
+      },
+      {
+        "id": "s4",
+        "start": 33,
+        "end": 42.389,
+        "text": "I confirm the change and replay two orders. The earlier one still settles Friday. The three-thirty order now waits until Monday."
+      },
+      {
+        "id": "s5",
+        "start": 44,
+        "end": 54.787,
+        "text": "That leaves three hundred extra euros reserved over the weekend. On Monday the later order receives three units. Both outcomes come with a reproducible record."
+      },
+      {
+        "id": "s6",
+        "start": 55,
+        "end": 59.751,
+        "text": "Open the project on GitHub and replay the experiment yourself."
+      }
+    ],
+    "closingLineEndsAtSeconds": 59.751,
+    "loudnessIntegratedLufs": -15.9,
+    "truePeakDbtp": -2.2
+  },
+  "captions": {
+    "file": "media/film/release-film.vtt",
+    "sha256": "04d24f32b54fb663e8bab35a3633d627667a449e03476bd12728d63d82d91182",
+    "cueCount": 7,
+    "safeMarginPercent": 5,
+    "burnedIn": true
+  },
+  "transcript": {
+    "file": "media/film/release-film-transcript.md",
+    "sha256": "bab63a2b6c080cdecaa5d177bdbf0da31532c307f10eb0826c62b14805e0749f"
+  },
+  "socialPreview": {
+    "designFile": "media/film/social-preview-1280x640.png",
+    "sha256": "8d49a49dff5dd0ad7ebbec9219d0698e25a3932b163062ca7ba7f283d68e76d1",
+    "size": "1280x640",
+    "introFrame": "media/film/intro-frame-1920x1080.png"
+  },
+  "endCard": {
+    "designFile": "media/film/end-card-1920x1080.png",
+    "sha256": "57f7d9170aa76a8032378b8f9ff7c27e5f5784b4632f7761986f7fba1823f63b",
+    "url": "github.com/SergeyGer/eurorollup-settlement-lab",
+    "urlSingleLineAt720p": true,
+    "urlWidthAt720p": 1038,
+    "durationSeconds": 5,
+    "frames": "1650-1799"
+  },
+  "captureEnvironment": {
+    "browser": "Chromium (Playwright)",
+    "viewport": "1600x900 recorded at 1920x1080, 1.2x readable zoom",
+    "model": "qwen3:4b via local Ollama (genuine live proposal)",
+    "modelTimeoutMs": 45000,
+    "modelTimeoutNote": "capture-only attempt deadline; the product default remains 15 s and is covered by A09 evidence",
+    "tts": "Piper en_GB-alan-medium local voice"
+  },
+  "publicLinks": [
+    {
+      "url": "https://sergeyger.github.io/eurorollup-settlement-lab/",
+      "statusCode": 200
+    },
+    {
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab",
+      "statusCode": 200
+    }
+  ],
+  "checks": [
+    {
+      "id": "video-resolution",
+      "label": "1920x1080 H.264",
+      "passed": true,
+      "detail": "1920x1080 h264 yuv420p"
+    },
+    {
+      "id": "video-frames",
+      "label": "exactly 1800 frames",
+      "passed": true,
+      "detail": "1800 frames"
+    },
+    {
+      "id": "video-duration",
+      "label": "exactly 60.0 seconds",
+      "passed": true,
+      "detail": "60.000 s"
+    },
+    {
+      "id": "video-fps",
+      "label": "constant 30 fps",
+      "passed": true,
+      "detail": "30/1"
+    },
+    {
+      "id": "audio-stream",
+      "label": "AAC 48 kHz stereo",
+      "passed": true,
+      "detail": "aac 48000 Hz 2 ch"
+    },
+    {
+      "id": "intro-range",
+      "label": "frames 0-149 show the static social preview",
+      "passed": true,
+      "detail": "SSIM 0.9998 (body 0.591)"
+    },
+    {
+      "id": "end-range",
+      "label": "frames 1650-1799 show the uninterrupted repository card",
+      "passed": true,
+      "detail": "SSIM 0.9998 / 1.0000, 5 s"
+    },
+    {
+      "id": "loudness-integrated",
+      "label": "about -16 LUFS integrated",
+      "passed": true,
+      "detail": "-15.9 LUFS"
+    },
+    {
+      "id": "loudness-true-peak",
+      "label": "at most -1 dBTP",
+      "passed": true,
+      "detail": "-2.2 dBTP"
+    },
+    {
+      "id": "end-card-url",
+      "label": "repository URL readable on one line at 720p",
+      "passed": true,
+      "detail": "1038px wide, singleLine=true"
+    },
+    {
+      "id": "public-links",
+      "label": "public links verified signed out",
+      "passed": true,
+      "detail": "https://sergeyger.github.io/eurorollup-settlement-lab/ 200, https://github.com/SergeyGer/eurorollup-settlement-lab 200"
+    },
+    {
+      "id": "captions",
+      "label": "English WebVTT with every script line",
+      "passed": true,
+      "detail": "7 cues"
+    },
+    {
+      "id": "transcript",
+      "label": "verbatim English transcript",
+      "passed": true,
+      "detail": "all 131 script words present"
+    },
+    {
+      "id": "script-words",
+      "label": "131-word script",
+      "passed": true,
+      "detail": "131 words"
+    }
+  ],
+  "passed": true
+}

@@ -3,9 +3,9 @@
   "reportId": "A08-public-release",
   "packId": "A08-release",
   "generatedBy": "pnpm a08:public-check",
-  "generatedAt": "2026-11-27T15:39:34.245Z",
-  "commit": "acf13a5554d17e998cb921d1cd059e6542a7e3f0",
-  "version": "0.9.0",
+  "generatedAt": "2026-11-27T16:15:23.840Z",
+  "commit": "e5d2f8c668e0ddc82b859b3973c5aebc769c162e",
+  "version": "1.0.0",
   "publicReplay": {
     "url": "https://sergeyger.github.io/eurorollup-settlement-lab/",
     "authentication": "none",
@@ -17,17 +17,12 @@
     },
     "cleanBrowser": {
       "engine": "chromium (Playwright)",
-      "version": "131.0.6778.33",
+      "version": "140.0.7339.186",
       "viewport": "1440x900",
       "title": "EuroRollup Settlement Lab — portfolio replay",
       "pageErrors": [],
       "consoleErrors": [],
-      "expectedConsoleErrors": [
-        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
-        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
-        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
-        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
-      ],
+      "expectedConsoleErrors": [],
       "views": [
         {
           "button": "Recorded replay",
@@ -58,15 +53,15 @@
       "screenshots": [
         {
           "path": "docs/media/s09-public-replay.jpg",
-          "sha256": "6974358292dac6818b293669589bd7a82aeb78e570bb6b609bd2cc89c401eb3f"
+          "sha256": "5b7ad6efffee4157aae367111f1d151b7f641c76b655bb2998e2918460af51f6"
         },
         {
           "path": "docs/media/s09-eligibility.jpg",
-          "sha256": "4506e5d0eb1b04e7dd7c2c7e5ce0dbf8674ec7695985bbe8ceba0233e373b5e3"
+          "sha256": "61d7c90a64c0ffee02d04dfda015dc6bf9b6eb378ff3e27421b4e03c4b2770c3"
         },
         {
           "path": "docs/media/s09-economics.jpg",
-          "sha256": "80f19f9f58c6303182bdb8fe2774bb6e4cf1a5ae7357d25267e13181e2e95155"
+          "sha256": "5ee64f4e558a40b7f4bf1cadd35c4f8c80cd016665406b9837c8cd2544fabe54"
         }
       ]
     }
@@ -76,12 +71,12 @@
       {
         "command": "pnpm verify",
         "exitCode": 0,
-        "durationMs": 1016
+        "durationMs": 1053
       },
       {
         "command": "pnpm demo:partner",
         "exitCode": 0,
-        "durationMs": 2107
+        "durationMs": 2199
       }
     ],
     "note": "Representative documented commands were run locally; the complete documented quickstart command set is exercised by pnpm release:checks."
@@ -107,13 +102,13 @@
     }
   ],
   "releasePackage": {
-    "fileName": "eurollup-settlement-lab-0.9.0.tar.gz",
+    "fileName": "eurollup-settlement-lab-1.0.0.tar.gz",
     "downloadMode": "local-build",
     "downloadUrl": null,
-    "sha256": "9df9051a1e0a6bcca39688a9ec7303d7e56a14cbd06db4032ac405412e7c3ad6",
-    "bytes": 4094113,
-    "manifestDigest": "6db0a40277522a709bb1ba108c65ce5189a7cb3c9bc5d29b21d942a93001f5e5",
-    "manifestFileCount": 289,
+    "sha256": "ca5d00492eac076fdd639f5b56bc12baafc7dea214c814a30fe945e57ed3d384",
+    "bytes": 5504712,
+    "manifestDigest": "d0874e74859f5f95bb5c001408db7686699e38e3d284b3c3468aa00be01d9bc0",
+    "manifestFileCount": 311,
     "verified": {
       "downloaded": true,
       "extracted": true,
@@ -124,16 +119,106 @@
     }
   },
   "film": {
-    "status": "pending",
+    "status": "complete",
     "requiredBy": "S10",
-    "requirements": [
-      "about 60 seconds",
-      "English narration",
-      "frame and narration checks"
+    "metadataFile": "media/film/film-metadata.json",
+    "metadataSha256": "7ef4884e0bd6c2e7b970db1bbccd4943611418c820372c457749b461cb98dc6b",
+    "filmSha256": "0af81effc863c16797eaa0e09c6d01cc180642d036c87d2fed6cef4580837b93",
+    "frameCount": 1800,
+    "durationSeconds": 60,
+    "captionsFile": "media/film/release-film.vtt",
+    "transcriptFile": "media/film/release-film-transcript.md",
+    "checksPassed": 14,
+    "checksTotal": 14,
+    "checks": [
+      {
+        "id": "video-resolution",
+        "label": "1920x1080 H.264",
+        "passed": true,
+        "detail": "1920x1080 h264 yuv420p"
+      },
+      {
+        "id": "video-frames",
+        "label": "exactly 1800 frames",
+        "passed": true,
+        "detail": "1800 frames"
+      },
+      {
+        "id": "video-duration",
+        "label": "exactly 60.0 seconds",
+        "passed": true,
+        "detail": "60.000 s"
+      },
+      {
+        "id": "video-fps",
+        "label": "constant 30 fps",
+        "passed": true,
+        "detail": "30/1"
+      },
+      {
+        "id": "audio-stream",
+        "label": "AAC 48 kHz stereo",
+        "passed": true,
+        "detail": "aac 48000 Hz 2 ch"
+      },
+      {
+        "id": "intro-range",
+        "label": "frames 0-149 show the static social preview",
+        "passed": true,
+        "detail": "SSIM 0.9998 (body 0.591)"
+      },
+      {
+        "id": "end-range",
+        "label": "frames 1650-1799 show the uninterrupted repository card",
+        "passed": true,
+        "detail": "SSIM 0.9998 / 1.0000, 5 s"
+      },
+      {
+        "id": "loudness-integrated",
+        "label": "about -16 LUFS integrated",
+        "passed": true,
+        "detail": "-15.9 LUFS"
+      },
+      {
+        "id": "loudness-true-peak",
+        "label": "at most -1 dBTP",
+        "passed": true,
+        "detail": "-2.2 dBTP"
+      },
+      {
+        "id": "end-card-url",
+        "label": "repository URL readable on one line at 720p",
+        "passed": true,
+        "detail": "1038px wide, singleLine=true"
+      },
+      {
+        "id": "public-links",
+        "label": "public links verified signed out",
+        "passed": true,
+        "detail": "https://sergeyger.github.io/eurorollup-settlement-lab/ 200, https://github.com/SergeyGer/eurorollup-settlement-lab 200"
+      },
+      {
+        "id": "captions",
+        "label": "English WebVTT with every script line",
+        "passed": true,
+        "detail": "7 cues"
+      },
+      {
+        "id": "transcript",
+        "label": "verbatim English transcript",
+        "passed": true,
+        "detail": "all 131 script words present"
+      },
+      {
+        "id": "script-words",
+        "label": "131-word script",
+        "passed": true,
+        "detail": "131 words"
+      }
     ]
   },
   "publicPartsPassed": true,
-  "passed": false,
+  "passed": true,
   "notes": [
     "A08 stays pending until the 60-second film exists; the public replay, quickstart, links and downloadable package are verified here.",
     "All public checks were performed without authentication."
