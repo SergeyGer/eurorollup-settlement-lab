@@ -154,8 +154,14 @@ async function main(): Promise<void> {
       const button = page.getByRole("button", { name: view.button });
       await button.click();
       await page.waitForTimeout(600);
-      const body = await page.locator("body").innerText({ timeout: 30_000 });
-      views.push({ button: view.button, marker: view.marker, rendered: body.includes(view.marker) });
+      let rendered = false;
+      for (let attempt = 0; attempt < 20 && !rendered; attempt += 1) {
+        const body = await page.locator("body").innerText({ timeout: 30_000 });
+        // innerText reflects CSS text-transform, so compare case-insensitively.
+        rendered = body.toLowerCase().includes(view.marker.toLowerCase());
+        if (!rendered) await page.waitForTimeout(200);
+      }
+      views.push({ button: view.button, marker: view.marker, rendered });
       const screenshotName = view.button === "Recorded replay"
         ? "s09-public-replay.jpg"
         : view.button === "Economics & operations"
@@ -169,13 +175,20 @@ async function main(): Promise<void> {
         screenshots.push({ path: `docs/media/${screenshotName}`, sha256: sha256File(path) });
       }
     }
+    // The static replay has no local API: the "Local API lab" view reports an
+    // expected connection-refused error when opened without a local server. Those
+    // are recorded separately and do not count as clean-browser failures.
+    const expectedConsoleErrorPattern = /ERR_CONNECTION_REFUSED|Failed to fetch|NetworkError|net::ERR_/i;
+    const expectedConsoleErrors = consoleErrors.filter((message) => expectedConsoleErrorPattern.test(message));
+    const unexpectedConsoleErrors = consoleErrors.filter((message) => !expectedConsoleErrorPattern.test(message));
     const cleanBrowser = {
       engine: "chromium (Playwright)",
       version: browser.version(),
       viewport: "1440x900",
       title,
       pageErrors,
-      consoleErrors,
+      consoleErrors: unexpectedConsoleErrors,
+      expectedConsoleErrors,
       views,
       screenshots,
     };
@@ -191,6 +204,7 @@ async function main(): Promise<void> {
     const publicPartsPassed =
       contentChecks.httpStatus === 200 &&
       pageErrors.length === 0 &&
+      unexpectedConsoleErrors.length === 0 &&
       views.every((view) => view.rendered === true) &&
       quickstartCommands.every((command) => command["exitCode"] === 0) &&
       publicLinks.every((link) => link.statusCode === 200) &&

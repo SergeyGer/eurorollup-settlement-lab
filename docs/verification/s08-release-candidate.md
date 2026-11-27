@@ -23,7 +23,7 @@ pnpm release:verify   # offline verification of the committed matrix
 | A05 | Chain batch publication and withdrawal | **pass with recorded limitations** | `evidence/a05/protocol-run.json`, `bridge-trace.json`; `a05:verify` |
 | A06 | Accounting invariants | pass | `evidence/a06/invariants.json`; `scenario:api --check` |
 | A07 | Economics and operations | pass | `evidence/a07/bundle-reconciliation.json`, `benchmarks/*`; `a07:verify` |
-| A08 | Public release | pending (S09/S10) | Requires the public replay URL verified signed out, a clean-browser replay check, a downloadable pack and the 60-second film |
+| A08 | Public release | pending (S10 film; public replay, package and links verified in S09) | `evidence/a08/public-release.json`, `evidence/a08/release-package.json`; `a08:verify`; requires the 60-second film |
 | A09 | AI Policy Lab | pass | `evidence/policy-lab/p01-comparison.json`, `eval.json`, recorded live draft; `policy:replay --check`, `policy:verify`, both evaluation modes |
 
 The matrix also runs the shared commands: `typecheck`, tests, build, the generated
@@ -53,5 +53,6 @@ These limitations are carried into the release-check matrix (`limitations` and
 
 The matrix summary is: 7 pass, 1 pass with recorded limitations, 1 pending (A08), 0
 failed. The release-candidate flag is true because no gate fails and the only pending
-gate is the public-release gate that S09/S10 close. `v0.8.0` is a release candidate,
-not the final public release: the final `v1.0.0` requires A08 on its commit.
+gate is the public-release gate. S09 delivers the public replay, the clean-browser
+check, the public links and the downloadable package; S10 delivers the 60-second film.
+The final `v1.0.0` requires A08 on its commit.
