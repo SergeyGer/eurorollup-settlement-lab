@@ -17,6 +17,7 @@ fixture dates and version numbers are content, not publication dates.
 | [`aa/account-abstraction.md`](aa/account-abstraction.md) | Pinned EntryPoint, verifying paymaster, sponsored UserOperation receipts and offline verification. |
 | [`../devnet/README.md`](../devnet/README.md) | Controlled local OP Stack devnet: pinned components, launcher commands and recorded limitations. |
 | [`economics/README.md`](economics/README.md) | A07 economics: measured bundle reconciliation, interactive cost experiment and funding guard. |
+| [`operations/`](operations/) | A07 operations: service objectives, drills, dashboard, provider evaluation and incident postmortem. |
 | [`architecture/adr/`](architecture/adr/) | Numbered decision records for the rollup, batch, finality and authority decisions. |
 | [`fixtures/`](fixtures/) | Frozen inputs: G01 portfolio, P01 cutoff experiment, calendar, instruments and boundary cases. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |

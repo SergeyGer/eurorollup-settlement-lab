@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A07-rpc-failover-drill",
+  "packId": "A07-operations",
+  "generatedBy": "pnpm a07:operations",
+  "drill": "RPC failover in a two-node lab",
+  "lab": {
+    "primary": {
+      "role": "primary reads",
+      "profile": "local fixture RPC (HTTP)"
+    },
+    "secondary": {
+      "role": "independent verifier RPC",
+      "profile": "local fixture RPC (HTTP)"
+    },
+    "probeIntervalMs": 5000,
+    "failuresBeforeSwitch": 3
+  },
+  "probes": [
+    {
+      "probe": 1,
+      "target": "primary",
+      "ok": false,
+      "latencyMs": 84.53,
+      "error": "HTTP 503"
+    },
+    {
+      "probe": 2,
+      "target": "primary",
+      "ok": false,
+      "latencyMs": 13.46,
+      "error": "HTTP 503"
+    },
+    {
+      "probe": 3,
+      "target": "primary",
+      "ok": false,
+      "latencyMs": 16.49,
+      "error": "HTTP 503"
+    },
+    {
+      "probe": 4,
+      "target": "secondary",
+      "ok": true,
+      "latencyMs": 8.75,
+      "error": null
+    },
+    {
+      "probe": 5,
+      "target": "secondary",
+      "ok": true,
+      "latencyMs": 8.67,
+      "error": null
+    }
+  ],
+  "detectionMs": 10117.5,
+  "switchoverMs": 15.1,
+  "firstHealthyRequestMs": 10132.6,
+  "recoveryMs": 10132.6,
+  "targetRecoveryMs": 60000,
+  "chainIdVerified": true,
+  "finalizedCheckpointVerified": true,
+  "passed": true,
+  "limitations": [
+    "Both RPC nodes are local fixture HTTP servers; the drill measures the failover procedure, not production internet latency."
+  ]
+}

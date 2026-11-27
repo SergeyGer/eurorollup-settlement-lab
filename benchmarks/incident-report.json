@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A07-incident-report",
+  "packId": "A07-operations",
+  "generatedBy": "pnpm a07:operations",
+  "incidentId": "A07-INC-01",
+  "roles": {
+    "incidentLead": "maintainer (simulated)",
+    "navAndCompliance": "issuer (simulated)",
+    "batchAndRpcOperations": "protocol operator (simulated)"
+  },
+  "simulated": true,
+  "trigger": "Primary RPC outage combined with a delayed NAV and a corrupted indexer statement in the local drill lab.",
+  "customerImpact": "Reads pause until failover, the delayed NAV keeps the affected order waiting with its cash reserved, and the corrupted statement is refused before promotion. No incorrect balance is presented.",
+  "timeline": [
+    {
+      "at": "T+0s",
+      "event": "primary RPC probes begin failing"
+    },
+    {
+      "at": "T+10117.5ms",
+      "event": "three failed probes detected; failover starts"
+    },
+    {
+      "at": "T+10132.6ms",
+      "event": "first healthy request on the independent verifier RPC; chain id and finalized checkpoint verified"
+    },
+    {
+      "at": "T+drill",
+      "event": "indexer restore replayed the finalized checkpoint; a deliberately corrupted statement was refused"
+    },
+    {
+      "at": "T+drill",
+      "event": "delayed NAV observation released exactly once after a valid new observation arrived"
+    }
+  ],
+  "recovery": {
+    "rpcFailoverMs": 10132.6,
+    "indexerRestoreMs": 19.1,
+    "navRelease": "released once after a valid new observation"
+  },
+  "followUp": [
+    "Production provider evaluation once a real provider contract exists.",
+    "Extend the indexer drill to a real external indexer and a real chain read.",
+    "Automate the failover alert in the operating dashboard interval."
+  ],
+  "targetMisses": []
+}

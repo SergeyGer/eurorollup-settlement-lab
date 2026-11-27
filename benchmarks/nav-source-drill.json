@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A07-nav-source-drill",
+  "packId": "A07-operations",
+  "generatedBy": "pnpm a07:operations",
+  "drill": "Delayed NAV or policy source",
+  "dealingDate": "2026-11-20",
+  "committedAt": "2026-11-20T15:30:00Z",
+  "cases": [
+    {
+      "caseId": "mismatched-valuation-date",
+      "outcome": "waiting",
+      "code": "NAV_MISSING",
+      "cashReservedBase": "300000000",
+      "pass": true
+    },
+    {
+      "caseId": "stale-nav-record",
+      "outcome": "waiting",
+      "code": "NAV_STALE",
+      "pass": true
+    },
+    {
+      "caseId": "valid-nav-release",
+      "outcome": "allocated",
+      "unitsBase": "3125000",
+      "postings": 1,
+      "duplicateReleaseRejected": true,
+      "duplicateCode": "INVALID_ORDER_STATE",
+      "pass": true
+    }
+  ],
+  "pendingAgeMs": 2400000,
+  "maxAcceptedNavAgeMs": 900000,
+  "passed": true
+}

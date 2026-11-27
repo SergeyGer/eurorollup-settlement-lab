@@ -24,6 +24,9 @@
       ],
       "@eurorollup/eligibility/prover": [
         "../../packages/eligibility/src/prover.ts"
+      ],
+      "@eurorollup/economics": [
+        "../../packages/economics/src/index.ts"
       ]
     }
   },

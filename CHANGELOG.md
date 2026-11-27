@@ -225,6 +225,59 @@ records current calendar dates.
 - 181 tests; CI rebuilds the policy matrix, verifies committed proofs and
   artifact hashes, and verifies the account-abstraction receipts offline.
 
+## [0.7.0] — Economics and operations
+
+### Added
+
+- `@eurorollup/economics`: deterministic integer arithmetic for measured bundle
+  reconciliation (sponsor payment, bundler revenue, per-operation allocation with a
+  separate failed/unattributable bucket and an explicit residual, named
+  reconciliation differences, unavailable components recorded as null), an
+  interactive cost experiment (scenario matrix, budget exhaustion, break-even
+  charge, explicit unavailable handling), a sponsorship funding guard and chain
+  operator economics.
+- `pnpm a07:economics`: measures one real two-operation sponsored ERC-4337 bundle on
+  a local Anvil chain (pinned EntryPoint v0.7.0, SimpleAccount factory and
+  VerifyingPaymaster) and writes `evidence/a07/bundle-reconciliation.json` plus
+  `benchmarks/cost-experiment.json`.
+- `pnpm a07:operations`: RPC failover drill in a two-node lab, indexer restore drill
+  over the frozen G01 event log, delayed-NAV drill over the dealing engine, and the
+  performance publication (200 warm portfolio reads and 30 real Noir UltraHonk proof
+  generations on the named local host).
+- `pnpm a07:batch-drill`: pauses and restores the batcher on the controlled local OP
+  Stack devnet under sustained L2 load, records the stalled safe head, the delayed
+  finality alert with the preserved unsafe receipt status, backlog clearance and the
+  resulting L1 batch publication.
+- Operating dashboard snapshot, weighted provider evaluation (two RPC profiles plus
+  one indexing alternative) and a simulated incident postmortem with named roles.
+- Browser view "Economics & operations" with the observed bundle beside an editable
+  cost scenario; API endpoints `GET /v1/economics/observed`,
+  `POST /v1/economics/scenario` and `GET /v1/operations/dashboard`.
+- Versioned evidence plus offline verifier `pnpm a07:verify` (also in CI), and
+  documentation under `docs/economics/` and `docs/operations/`.
+
+### Evidence
+
+- `evidence/a07/bundle-reconciliation.json`: real bundle outer tx `0x9c38a36a…`
+  status 1, sponsor payment `472351559302104` wei, bundler revenue equal to the
+  sponsor payment; allocations plus failed/unattributable bucket plus residual
+  reproduce the bundle total exactly; L1 data fee and operator fee recorded as
+  unavailable.
+- `benchmarks/cost-experiment.json`: five scenarios including a budget exhaustion
+  point and a default scenario built from the measured execution cost.
+- `benchmarks/rpc-failover.json`: recovery inside the 60 s target with chain id and
+  finalized checkpoint verified on the independent verifier RPC.
+- `benchmarks/indexer-restore.json`: a corrupted statement is refused, the restored
+  digest equals the pre-restore digest and the restore is within the five-minute
+  target.
+- `benchmarks/nav-source-drill.json`: a mismatched valuation date holds the order,
+  a stale NAV is rejected and a valid new observation releases the order exactly
+  once.
+- `benchmarks/performance.json`: 200 portfolio reads (p95 well under 500 ms) and 30
+  real proof generations (warm p95 well under 5 000 ms) on the named host.
+- `benchmarks/operations-dashboard.json`, `benchmarks/provider-evaluation.json`,
+  `benchmarks/incident-report.json` and `benchmarks/batch-publication-drill.json`.
+
 ## [0.6.0] — Controlled rollup devnet and bridge withdrawal
 
 ### Added

@@ -20,10 +20,10 @@ recording current calendar dates. Weeks are planning windows, not deadlines.
 | S04 | Released as `v0.4.0` (live local model adapter and 40-prompt evaluation) |
 | S05 | Released as `v0.5.0` (Noir eligibility circuit and sponsored account lane) |
 | S06 | Released as `v0.6.0` (controlled local rollup, protocol run and bridge withdrawal trace; blob DA stays an open gap) |
-| S07 | Economics and operations | In progress: measured bundle reconciliation, cost experiment and funding guard merged; operations drills, dashboard, provider evaluation and `v0.7.0` pending |
+| S07 | Economics and operations | Released as `v0.7.0` |
 | S08–S10 | Planned; tracked as GitHub Issues |
 
-Current next step: S07, economics and operations.
+Current next step: S08, verification gates A01-A09 and the offline evidence verifier.
 
 ## Steps
 
@@ -36,7 +36,7 @@ Current next step: S07, economics and operations.
 | S04 | [#5](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/5) | M3 Policy Lab | Typed model contract, live adapter, confirmation boundary, 40-prompt evaluation | `policy-lab/eval.json`, recorded proposal, release `v0.4.0` |
 | S05 | [#6](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/6) | M4 AA and devnet | EntryPoint, sponsorship, Noir eligibility circuit, personas | `policy-matrix.json`, `aa-receipts.json`, release `v0.5.0` |
 | S06 | [#7](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/7) | M4 AA and devnet | Controlled local OP Stack, calldata batch publication, bridge withdrawal, ADR-01 to ADR-04 | `evidence/a05/protocol-run.json`, `evidence/a05/bridge-trace.json`, release `v0.6.0` |
-| S07 | [#8](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/8) | M5 Economics and operations | Cost reconciliation, dashboard, drills, batch experiment, provider evaluation | `benchmarks/`, incident report, release `v0.7.0` |
+| S07 | [#8](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/8) | M5 Economics and operations | Measured bundle reconciliation, cost experiment, funding guard, RPC/batch/indexer/NAV drills, dashboard, provider evaluation, incident postmortem | `evidence/a07/bundle-reconciliation.json`, `benchmarks/`, `docs/operations/`, release `v0.7.0` |
 | S08 | [#9](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/9) | M6 Verification and release | Gates A01-A09, offline verifier, release candidate | Per-gate artifacts, `release-checks.json`, release `v0.8.0` |
 | S09 | [#10](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/10) | M6 Verification and release | Public replay, release package, documentation final pass | A08 evidence, public URL verified signed out, release `v1.0.0` |
 | S10 | [#11](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/11) | M6 Verification and release | Release film, captions and transcript | MP4, WebVTT, transcript, media metadata |

@@ -917,6 +917,105 @@
         }
       }
     },
+    "/v1/economics/observed": {
+      "get": {
+        "summary": "Observed bundle reconciliation and cost-experiment defaults",
+        "tags": [
+          "economics"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/economics/scenario": {
+      "post": {
+        "summary": "Evaluate an explicit cost-experiment scenario",
+        "tags": [
+          "economics"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "dailyOrders",
+                  "eligibleSponsorShareBps",
+                  "daPriceWeiPerByte",
+                  "batchUtilizationBps",
+                  "investorChargeEurMicros",
+                  "dailyBudgetEurMicros",
+                  "rateAgeSeconds"
+                ],
+                "properties": {
+                  "dailyOrders": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000000
+                  },
+                  "eligibleSponsorShareBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  },
+                  "daPriceWeiPerByte": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^[0-9]+$"
+                  },
+                  "batchUtilizationBps": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000
+                  },
+                  "investorChargeEurMicros": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$"
+                  },
+                  "dailyBudgetEurMicros": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^[0-9]+$"
+                  },
+                  "rateAgeSeconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 86400
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/operations/dashboard": {
+      "get": {
+        "summary": "Operating dashboard drill snapshot",
+        "tags": [
+          "operations"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
     "/v1/dev/tick": {
       "post": {
         "summary": "Process pending outbox tasks synchronously",

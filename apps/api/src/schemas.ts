@@ -263,3 +263,26 @@ export const eligibilityEpochQuerySchema = {
     epoch: { type: "string", pattern: "^[0-9]{1,4}$" },
   },
 } as const;
+
+export const economicsScenarioBodySchema = {
+  type: "object",
+  additionalProperties: false,
+  required: [
+    "dailyOrders",
+    "eligibleSponsorShareBps",
+    "daPriceWeiPerByte",
+    "batchUtilizationBps",
+    "investorChargeEurMicros",
+    "dailyBudgetEurMicros",
+    "rateAgeSeconds",
+  ],
+  properties: {
+    dailyOrders: { type: "integer", minimum: 1, maximum: 1_000_000 },
+    eligibleSponsorShareBps: { type: "integer", minimum: 0, maximum: 10_000 },
+    daPriceWeiPerByte: { type: ["string", "null"], pattern: "^[0-9]+$" },
+    batchUtilizationBps: { type: "integer", minimum: 1, maximum: 10_000 },
+    investorChargeEurMicros: { type: "string", pattern: "^[0-9]+$" },
+    dailyBudgetEurMicros: { type: ["string", "null"], pattern: "^[0-9]+$" },
+    rateAgeSeconds: { type: "integer", minimum: 0, maximum: 86_400 },
+  },
+} as const;

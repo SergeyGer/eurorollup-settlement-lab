@@ -60,6 +60,8 @@ corresponding GitHub Release:
 | `evidence/a03/proof-vectors.json` | A03 proof vectors | `pnpm eligibility:verify` |
 | `evidence/a05/protocol-run.json` | A05 protocol run (deposit, L2 activity, calldata batches, pinned images, actor inventory) | `pnpm devnet:local:up && pnpm local:evidence`; offline: `pnpm a05:verify` |
 | `evidence/a05/bridge-trace.json` | A05 canonical withdrawal trace (prove, dispute-game resolution, finalize) | same as above |
+| `evidence/a07/bundle-reconciliation.json` | A07 measured bundle reconciliation in wei | `pnpm a07:economics`; offline: `pnpm a07:verify` |
+| `benchmarks/` | A07 operations: cost experiment, RPC/batch/indexer/NAV drills, dashboard, provider evaluation, performance, incident report | `pnpm a07:operations`, `pnpm a07:batch-drill`; offline: `pnpm a07:verify` |
 | `evidence/a03/browser-proving.json` | A03 browser proving measurement | Playwright measurement |
 | `evidence/a04/aa-receipts.json` | A04 sponsored UserOperations | `pnpm aa:verify` |
 
