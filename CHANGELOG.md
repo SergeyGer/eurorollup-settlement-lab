@@ -225,7 +225,49 @@ records current calendar dates.
 - 181 tests; CI rebuilds the policy matrix, verifies committed proofs and
   artifact hashes, and verifies the account-abstraction receipts offline.
 
-## Unreleased
+## [0.6.0] — Controlled rollup devnet and bridge withdrawal
 
-- S06: pinned two-layer devnet, blob batch publication and bridge withdrawal.
+### Added
+
+- Reproducible controlled local OP Stack devnet under `devnet/local/`: anvil L1
+  with a synthetic two-second block clock, op-deployer `v0.6.0` deploying the full
+  L1 contract stack from a `custom` intent, op-reth `v2.4.0`, op-node `v1.19.3`
+  (sequencer), op-batcher `v1.16.11` and op-proposer `v1.16.3`. Commands:
+  `pnpm devnet:local:up`, `pnpm devnet:local:down`.
+- A05 evidence capture `pnpm local:evidence`: an L1 -> L2 deposit, six labelled L2
+  settlement transactions, calldata batch publication linked to the L2 safe head,
+  an L2 -> L1 ETH withdrawal, the output-root proof, dispute-game resolution and
+  portal finalization with the real portal timers.
+- Versioned JSON Schemas `schemas/a05-protocol-run.schema.json` and
+  `schemas/a05-bridge-trace.schema.json`, and the offline verifier
+  `pnpm a05:verify` (also run in CI).
+- Architecture decision records ADR-01 (execution), ADR-02 (batch and data
+  availability), ADR-03 (finality and withdrawals), ADR-04 (authority and
+  upgrades), plus `devnet/README.md` and the S06 verification record.
+
+### Evidence
+
+- `evidence/a05/protocol-run.json` — chain ids `11155111` / `16584`, deployed
+  contract addresses and actor roles, pinned images with resolved digests, a
+  0.5 ETH deposit (L1 tx `0xa7ab85cc…`, L2 tx `0x81295df4…`), six L2 settlement
+  transactions and ten calldata batch transactions on the batch inbox that
+  advanced the L2 safe head to block 189.
+- `evidence/a05/bridge-trace.json` — withdrawal hash
+  `0xfbdf46187f8f6d34e864473ee7b1c56d1c05d6c4a1aa32cd4f2acc4125ef79bc` proven
+  against dispute game 17 (`0xD469cD34…`), resolved to `DEFENDER_WINS`, and
+  finalized on L1 with tx `0xee79950e…`; the recipient received exactly
+  `100000000000000000` wei through the L1CrossDomainMessenger relay. The recorded
+  timers are the production values (604800 s proof maturity, 302400 s dispute-game
+  finality, 302400 s game clock); the private anvil clock was advanced with
+  `evm_increaseTime` and every acceleration is recorded in the pack.
+
+### Known limitations
+
+- The local L1 is execution-only: there is no L1 consensus client and no beacon
+  API. Batch data therefore uses calldata mode, the evidence reports
+  `blobDataAvailability: false`, and L1 consensus finality is not modelled. Blob
+  DA remains an open A05 gap and the pinned consensus-backed lane stays blocked by
+  an upstream package image/genesis mismatch.
+- The bridge trace satisfies the real portal timers with a recorded private-clock
+  acceleration; it does not measure production latency.
 

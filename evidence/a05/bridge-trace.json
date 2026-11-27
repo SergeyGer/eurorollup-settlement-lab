@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A05-bridge-trace",
+  "packId": "A05-chain",
+  "generatedBy": "pnpm local:evidence",
+  "generatedAt": "2026-11-27T14:12:54.845Z",
+  "devnet": {
+    "orchestrator": "devnet/local/up.sh",
+    "l1": "anvil execution chain with a synthetic two-second block clock",
+    "l2": "op-reth execution + op-node sequencer + op-batcher + op-proposer",
+    "blockTimeSeconds": {
+      "l1": 2,
+      "l2": 2
+    }
+  },
+  "contracts": {
+    "OptimismPortalProxy": "0xf7f5bf6f23443b8424ae9b597b695e8a8cc3dade",
+    "SystemConfigProxy": "0x003671a7621758a51f1bb42db31171687d93ae64",
+    "L1StandardBridgeProxy": "0x9d453f53411ba0a28db9bfafa78510d44d29f5df",
+    "L1CrossDomainMessengerProxy": "0x0d1109fccf8d45ee7f8ea2f3eb6be4aa171a3bbc",
+    "DisputeGameFactoryProxy": "0xc2d47eb05a7f8f815598072b0e8225f1cd5ae3ae",
+    "AnchorStateRegistryProxy": "0x432c9562df818695f9e7486a079325bac66ebc7b",
+    "PermissionedDisputeGameImpl": "0x58bf355c5d4edfc723ef89d99582eccfd143266a",
+    "FaultDisputeGameImpl": "0x6ddba09bc4ccb0d6ca9fc5350580f74165707499"
+  },
+  "timers": {
+    "proofMaturityDelaySeconds": "604800",
+    "disputeGameFinalityDelaySeconds": "302400",
+    "disputeGameMaxClockDurationSeconds": "302400",
+    "disputeGameClockExtensionSeconds": "10800",
+    "respectedGameType": 1,
+    "timeAcceleration": [
+      {
+        "requestedSeconds": 302507,
+        "before": 1795788931,
+        "after": 1796091440
+      },
+      {
+        "requestedSeconds": 604912,
+        "before": 1796091446,
+        "after": 1796696360
+      }
+    ],
+    "timeAccelerationNote": "The private anvil L1 clock is advanced with evm_increaseTime so the production portal timers can be satisfied in a test lane. These are the real configured timers, not shortened ones."
+  },
+  "withdrawalInitiation": {
+    "l2Tx": "0x522aca350c61a246ab201cd2cf5f03956036d0e6f6e5cac0146a1b003e9f41bf",
+    "l2Block": 204,
+    "withdrawalHash": "0xfbdf46187f8f6d34e864473ee7b1c56d1c05d6c4a1aa32cd4f2acc4125ef79bc",
+    "nonce": "1766847064778384329583297500742918515827483896875618958121606201292619776",
+    "sender": "0x4200000000000000000000000000000000000007",
+    "target": "0x0d1109FCCF8d45eE7F8eA2F3eB6BE4AA171a3bbC",
+    "value": "100000000000000000",
+    "gasLimit": "515958",
+    "data": "0xd764ad0b000100000000000000000000000000000000000000000000000000000000000000000000000000000000000042000000000000000000000000000000000000100000000000000000000000009d453f53411ba0a28db9bfafa78510d44d29f5df000000000000000000000000000000000000000000000000016345785d8a00000000000000000000000000000000000000000000000000000000000000030d4000000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000000a41635f5fd000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb9226600000000000000000000000090f79bf6eb2c4f870365e785982e1f101e93b906000000000000000000000000000000000000000000000000016345785d8a00000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "outputRootProof": {
+    "gameIndex": "17",
+    "gameAddress": "0xD469cD347faF02a9ded3641A3C5782507E4B9062",
+    "l2Block": "207",
+    "rootClaim": "0xaeba7231b658e015cd03305389d530575c284c6c7bbe3909708582121da5d32b",
+    "outputRoot": "0xaeba7231b658e015cd03305389d530575c284c6c7bbe3909708582121da5d32b",
+    "version": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "stateRoot": "0x842fd43190e8ec9d8edcea7f7e83ca52ec7fc1203b5aa217714be6f27665169e",
+    "messagePasserStorageRoot": "0x0bc020d186c42cbed42083ffaa23fd2bdaf57c551b4a8485f3968c3141a03bda",
+    "latestBlockhash": "0x5ebb4277f421786d302e453389d3e5f7dfc199f968c31ee20ea91d4d54a0a256",
+    "withdrawalStorageSlot": "0x1d44dbe2ceb41b5392a9045b385860dd29ef1540f222499d790bd142b0c02b55"
+  },
+  "l1Proving": {
+    "txHash": "0x08fa341056252c7b23edfcd7a374a078e8872570ab9a133dbe67ed13f905db90",
+    "blockNumber": 305,
+    "provenGame": "0xD469cD347faF02a9ded3641A3C5782507E4B9062",
+    "provenTimestamp": "1795788919"
+  },
+  "disputeGameResolution": {
+    "status": "2",
+    "resolvedAt": "1796091444",
+    "resolveClaimTx": "0x70ec65b82ec204ce8f978925c66bfc4258ac7d81d3b3cac512d3a7854ca93d18",
+    "resolveTx": "0x4f1abd49e2820d335fe5ef036342dd992a598f40316ec003bcee99a0a9d69d51"
+  },
+  "finalization": {
+    "txHash": "0xee79950e4773d3bd95fac9c71f28e7554aa739e26272ac342abbc37a7136b951",
+    "blockNumber": 323,
+    "status": 1,
+    "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+    "recipientDeltaWei": "100000000000000000",
+    "relayedByL1CrossDomainMessenger": true,
+    "withdrawalValueWei": "100000000000000000"
+  },
+  "heads": {
+    "beforeTimeAcceleration": {
+      "l1": {
+        "number": 308,
+        "hash": "0x37094fe72278415a7ae04d97545fb146da93b2b00805faca3aa0a778b52a5bbb",
+        "timestamp": 1795788922,
+        "parentHash": "0x4ce08fbd719342e7ecdd8803835ded38ca036bebda4f7cb631fdb2834ed62cb9"
+      },
+      "l2": {
+        "number": 220,
+        "hash": "0xa33b9f597696c7963f045f66e80eca5b2bf04425ea9baa84011897a29da2f8fd",
+        "timestamp": 1795788924,
+        "parentHash": "0xc8c84608d4fbdac042520b44e6e8b396f7eb3fd447a9a2b76f8224f907ffa0e8"
+      }
+    },
+    "afterFinalization": {
+      "l1": {
+        "number": 325,
+        "hash": "0xa35b2276e79452e80da156d7fbcadbbce16fa04f10e8bb599ac8b99acf77c113",
+        "timestamp": 1796696364,
+        "parentHash": "0xe71ce102c1bc660b90e833d93f67cd901ec9fb6e9338c7fc7d787efaf297b46b"
+      },
+      "l2": {
+        "number": 220,
+        "hash": "0xa33b9f597696c7963f045f66e80eca5b2bf04425ea9baa84011897a29da2f8fd",
+        "timestamp": 1795788924,
+        "parentHash": "0xc8c84608d4fbdac042520b44e6e8b396f7eb3fd447a9a2b76f8224f907ffa0e8"
+      }
+    }
+  },
+  "summary": {
+    "passed": true,
+    "withdrawalProven": true,
+    "disputeGameResolved": true,
+    "withdrawalFinalized": true
+  }
+}

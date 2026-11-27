@@ -45,3 +45,6 @@ eval-tmp/
 # Noir build output and generated witnesses
 circuits/target/
 circuits/**/Prover.toml
+
+# controlled local devnet runtime state
+.devnet-local/

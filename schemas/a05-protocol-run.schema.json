@@ -1,0 +1,350 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/a05-protocol-run.schema.json",
+  "title": "A05 protocol run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportId",
+    "packId",
+    "generatedBy",
+    "generatedAt",
+    "devnet",
+    "images",
+    "rollupConfig",
+    "chains",
+    "contracts",
+    "actors",
+    "deposit",
+    "l2Activity",
+    "batches",
+    "summary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "reportId": {
+      "const": "A05-protocol-run"
+    },
+    "packId": {
+      "const": "A05-chain"
+    },
+    "generatedBy": {
+      "type": "string"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "devnet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "orchestrator",
+        "l1",
+        "l2",
+        "dataAvailabilityMode",
+        "limitations"
+      ],
+      "properties": {
+        "orchestrator": {
+          "type": "string"
+        },
+        "l1": {
+          "type": "string"
+        },
+        "l2": {
+          "type": "string"
+        },
+        "dataAvailabilityMode": {
+          "enum": [
+            "calldata",
+            "blobs"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "container",
+          "image",
+          "digest"
+        ],
+        "properties": {
+          "container": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rollupConfig": {
+      "type": "object"
+    },
+    "chains": {
+      "type": "object"
+    },
+    "contracts": {
+      "type": "object"
+    },
+    "deposit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "l1Tx",
+        "l1Block",
+        "l2Tx",
+        "l2Block",
+        "value",
+        "l2BalanceAfterDeposit",
+        "description"
+      ],
+      "properties": {
+        "l1Tx": {
+          "type": "string",
+          "pattern": "^0x[0-9a-fA-F]{64}$"
+        },
+        "l1Block": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "l2Tx": {
+          "type": "string",
+          "pattern": "^0x[0-9a-fA-F]{64}$"
+        },
+        "l2Block": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "value": {
+          "type": "string"
+        },
+        "l2BalanceAfterDeposit": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "l2Activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "transactions",
+        "lastBlock"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "transactions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "hash",
+              "blockNumber"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "hash": {
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{64}$"
+              },
+              "blockNumber": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "lastBlock": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "batches": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dataAvailabilityMode",
+        "batchInboxAddress",
+        "observedBatchTransactions",
+        "safeHeadAfterIndexing"
+      ],
+      "properties": {
+        "dataAvailabilityMode": {
+          "enum": [
+            "calldata",
+            "blobs"
+          ]
+        },
+        "batchInboxAddress": {
+          "type": "string"
+        },
+        "observedBatchTransactions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "l1Block",
+              "txHash",
+              "from",
+              "type",
+              "nonce",
+              "calldataBytes",
+              "versionedBlobHashes",
+              "dataAvailabilityMode"
+            ],
+            "properties": {
+              "l1Block": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "txHash": {
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{64}$"
+              },
+              "from": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "nonce": {
+                "type": "string"
+              },
+              "calldataBytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "versionedBlobHashes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "dataAvailabilityMode": {
+                "enum": [
+                  "calldata",
+                  "blobs"
+                ]
+              }
+            }
+          }
+        },
+        "safeHeadAfterIndexing": {
+          "type": "object"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passed",
+        "batchTransactionsObserved",
+        "safeHeadAdvanced",
+        "blobDataAvailability",
+        "l1FinalityObserved"
+      ],
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "batchTransactionsObserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "safeHeadAdvanced": {
+          "type": "boolean"
+        },
+        "blobDataAvailability": {
+          "type": "boolean"
+        },
+        "l1FinalityObserved": {
+          "type": "boolean"
+        }
+      }
+    },
+    "actors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deployer",
+        "admin",
+        "systemConfigOwner",
+        "unsafeBlockSigner",
+        "batcher",
+        "proposer",
+        "challenger",
+        "baseFeeRecipient",
+        "l1FeeRecipient",
+        "sequencerFeeRecipient",
+        "withdrawalRecipient"
+      ],
+      "properties": {
+        "deployer": {
+          "type": "string"
+        },
+        "admin": {
+          "type": "string"
+        },
+        "systemConfigOwner": {
+          "type": "string"
+        },
+        "unsafeBlockSigner": {
+          "type": "string"
+        },
+        "batcher": {
+          "type": "string"
+        },
+        "proposer": {
+          "type": "string"
+        },
+        "challenger": {
+          "type": "string"
+        },
+        "baseFeeRecipient": {
+          "type": "string"
+        },
+        "l1FeeRecipient": {
+          "type": "string"
+        },
+        "sequencerFeeRecipient": {
+          "type": "string"
+        },
+        "withdrawalRecipient": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
