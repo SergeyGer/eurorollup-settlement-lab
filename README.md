@@ -132,6 +132,38 @@ recorded preset, and the recorded preset and manual editor stay available.
 Adapter documentation: [`docs/policy-lab/live-model-adapter.md`](docs/policy-lab/live-model-adapter.md);
 verification: [`docs/verification/s04-live-model.md`](docs/verification/s04-live-model.md).
 
+## Eligibility and euro sponsorship
+
+Managed spot and fund dealing require current synthetic screening and issuer
+class eligibility. The issuer commits wallet-bound credentials in versioned
+Merkle roots, a real Noir circuit proves membership bound to wallet, chain, gate,
+class, epoch and expiry, and a verified browser proof is generated locally:
+
+![Eligibility view: three personas, policy matrix, browser proof and sponsored UserOperations](docs/media/s05-eligibility.jpg)
+
+The policy matrix records 19 decisions (8 allow, 4 hold, 7 decline) and 9
+assertions. A basic investor's fund subscription is refused before reserving cash
+(`ELIGIBILITY_REQUIRED`), a flagged persona is declined on every managed route
+(`SCREENING_DECLINED`), and a root rotation between request and allocation holds
+the reserved cash, mints no units and exposes `POLICY_CHANGED`. A sponsorship
+limit is declined independently with `SPONSOR_LIMIT` and leaves holdings
+untouched. The sponsored lane runs against the pinned ERC-4337 EntryPoint v0.7.0
+with a verifying paymaster: a sponsored success, an included failure that still
+costs the sponsor and an exhausted sponsor that reverts with `AA31`.
+
+```bash
+pnpm eligibility:matrix -- --check   # documented policy decisions
+pnpm eligibility:verify              # circuit, verification key, proofs and vectors
+pnpm aa:verify                       # committed sponsored UserOperation receipts
+```
+
+Regenerating the circuit and receipts needs the pinned toolchain
+(`nargo` 1.0.0, `bb` 6.1.0, Foundry `anvil`): `pnpm eligibility:fixtures`,
+`pnpm eligibility:artifacts`, `pnpm eligibility:proofs`, `pnpm aa:scenario`.
+Eligibility documentation: [`docs/policy-lab/eligibility.md`](docs/policy-lab/eligibility.md);
+account abstraction: [`docs/aa/account-abstraction.md`](docs/aa/account-abstraction.md);
+verification: [`docs/verification/s05-eligibility-aa.md`](docs/verification/s05-eligibility-aa.md).
+
 ## Quick start
 
 Requirements: Node.js 22 or newer and pnpm 9 or newer
@@ -192,7 +224,11 @@ merged, and larger steps are tagged as GitHub Releases.
   browser Policy Lab view and the A09 deterministic evidence pack.
 - `v0.4.0` — live local model adapter: pinned `qwen3:4b`, prompt version
   `p01-live-v10`, the 40-prompt evaluation and a genuine recorded live capture.
-- Next: the sponsored account lane and eligibility circuit (S05).
+- `v0.5.0` — eligibility and sponsorship: real Noir membership circuit, three
+  personas and policy matrix, browser proving, sponsored account lane against the
+  pinned ERC-4337 EntryPoint and A04 receipts.
+- Next: the pinned local rollup, blob batch publication and bridge withdrawal
+  (S06).
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:

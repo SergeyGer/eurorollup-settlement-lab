@@ -213,3 +213,53 @@ export const scenarioRunHeadersSchema = {
     },
   },
 } as const;
+
+
+// ---------------------------------------------------------------------------
+// Eligibility and sponsorship
+// ---------------------------------------------------------------------------
+
+export const proofRequestSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["personaId", "epoch", "gateId"],
+  properties: {
+    personaId: { type: "string", maxLength: 64 },
+    epoch: { type: "integer", minimum: 1, maximum: 1000 },
+    gateId: {
+      type: "string",
+      enum: ["SPOT_ROUTER", "FUND_SUBSCRIPTION", "FUND_REDEMPTION", "SHARE_TRANSFER"],
+    },
+  },
+} as const;
+
+export const proofVerifySchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["proofHex", "publicInputs"],
+  properties: {
+    proofHex: { type: "string", maxLength: 200000 },
+    publicInputs: {
+      type: "object",
+      additionalProperties: false,
+      required: ["wallet", "root", "chainId", "gate", "classCode", "epoch", "expiry"],
+      properties: {
+        wallet: { type: "string" },
+        root: { type: "string" },
+        chainId: { type: "string" },
+        gate: { type: "string" },
+        classCode: { type: "string" },
+        epoch: { type: "string" },
+        expiry: { type: "string" },
+      },
+    },
+  },
+} as const;
+
+export const eligibilityEpochQuerySchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    epoch: { type: "string", pattern: "^[0-9]{1,4}$" },
+  },
+} as const;

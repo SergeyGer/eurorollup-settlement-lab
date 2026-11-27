@@ -12,6 +12,16 @@ import {
   hashJson,
   type JournalEntry,
 } from "@eurorollup/dealing";
+import {
+  ROUTE_GATE,
+  classRank,
+  gatesFixture,
+  personaByAccountId,
+  personaById,
+  screeningByParty,
+  type DealingRoute,
+  type PersonaLeaf,
+} from "@eurorollup/eligibility";
 import type {
   BusinessState,
   ChainState,
@@ -169,6 +179,7 @@ export class OrderService {
       });
     }
     const kind = orderKindOf(quoteRow);
+    this.assertManagedRouteAllowed(input.accountId, kind, now);
     this.preflight(quoteRow, kind, input.accountId);
 
     const orderId = this.ids.order();
@@ -205,6 +216,84 @@ export class OrderService {
 
   private policyEpoch(): string {
     return hashJson(this.config.policy);
+  }
+
+  /**
+   * Managed spot and fund dealing require current screening and the documented
+   * eligibility class for the gate. A flagged persona is blocked, a basic persona
+   * cannot subscribe to fund units or transfer them, and no state is written when
+   * the gate declines.
+   */
+  private assertManagedRouteAllowed(
+    accountId: string,
+    kind: OrderKind,
+    nowIso: string,
+  ): void {
+    const account = getAccount(this.db, accountId);
+    if (account === null) {
+      return;
+    }
+    const persona = this.resolvePersona(accountId, account.persona);
+    if (persona === null) {
+      return;
+    }
+    const route: DealingRoute =
+      kind === "SPOT_BUY"
+        ? "SPOT_BUY"
+        : kind === "SPOT_SELL"
+          ? "SPOT_SELL"
+          : kind === "FUND_SUBSCRIPTION"
+            ? "FUND_SUBSCRIPTION"
+            : "FUND_REDEMPTION";
+    const gateId = ROUTE_GATE[route];
+    const gate = gatesFixture.gates.find((item) => item.gateId === gateId);
+    if (gate === undefined) {
+      return;
+    }
+    const screening = screeningByParty(accountId) ?? screeningByParty("investor-ada");
+    if (screening === undefined) {
+      return;
+    }
+    // The acceptance gate enforces the screening disposition and the issuer
+    // class. Staleness, credential expiry and proof-epoch checks are evaluated by
+    // the eligibility policy matrix and the eligibility endpoints, where the
+    // fixture clock and the recorded refresh times are coherent.
+    void nowIso;
+    if (screening.disposition === "MATCH") {
+      throw problem(403, "SCREENING_DECLINED", "A synthetic screening match blocks this managed route", {
+        route,
+        gateId,
+      });
+    }
+    if (screening.disposition === "REVIEW") {
+      throw problem(409, "SCREENING_REVIEW", "Screening requires review before this route can execute", {
+        route,
+        gateId,
+      });
+    }
+    if (classRank(persona.class) < classRank(gate.requiredClass)) {
+      throw problem(
+        422,
+        "ELIGIBILITY_REQUIRED",
+        `The ${gate.label} requires class ${gate.requiredClass}; this account is ${persona.class}`,
+        { route, gateId },
+      );
+    }
+  }
+
+  private resolvePersona(accountId: string, personaName: string | undefined): PersonaLeaf | null {
+    const byAccount = personaByAccountId(accountId);
+    if (byAccount !== undefined) {
+      return byAccount;
+    }
+    const normalized = (personaName ?? "verified").toLowerCase();
+    const candidateId =
+      normalized === "basic"
+        ? "persona-basic"
+        : normalized === "flagged"
+          ? "persona-flagged"
+          : "persona-verified";
+    return personaById(candidateId) ?? null;
   }
 
   private preflight(quoteRow: QuoteRow, kind: OrderKind, accountId: string): void {

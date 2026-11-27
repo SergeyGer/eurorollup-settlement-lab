@@ -1,6 +1,6 @@
 {
   "name": "eurorollup-settlement-lab",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "description": "Open-source euro settlement sandbox for crypto trades, tokenized fund orders and AI policy simulation.",
   "license": "Apache-2.0",
@@ -35,11 +35,16 @@
     "eligibility:proofs": "tsx packages/eligibility/src/cli.ts proofs",
     "eligibility:evidence": "tsx packages/eligibility/src/cli.ts evidence",
     "eligibility:verify": "tsx packages/eligibility/src/cli.ts verify",
-    "eligibility:all": "pnpm eligibility:fixtures && pnpm eligibility:artifacts && pnpm eligibility:evidence && pnpm eligibility:verify"
+    "eligibility:all": "pnpm eligibility:fixtures && pnpm eligibility:artifacts && pnpm eligibility:evidence && pnpm eligibility:verify",
+    "aa:scenario": "tsx scripts/aa-scenario.ts",
+    "aa:verify": "tsx scripts/verify-aa-evidence.ts"
   },
   "devDependencies": {
+    "@account-abstraction/contracts": "0.7.0",
+    "@openzeppelin/contracts": "5.0.2",
     "@types/node": "^22.10.5",
     "ajv": "^8.17.1",
+    "ethers": "6.13.4",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vitest": "^5.1.2"

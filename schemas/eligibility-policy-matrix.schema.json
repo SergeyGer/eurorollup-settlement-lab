@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/eligibility-policy-matrix.schema.json",
+  "title": "A03 eligibility policy matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportId",
+    "packId",
+    "policyVersion",
+    "clock",
+    "fixtures",
+    "matrix",
+    "rotation",
+    "sponsorship",
+    "assertions",
+    "summary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "reportId": {
+      "const": "A03-policy-matrix"
+    },
+    "packId": {
+      "const": "A03-eligibility"
+    },
+    "generatedBy": {
+      "type": "string"
+    },
+    "policyVersion": {
+      "type": "string"
+    },
+    "clock": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "fixtures": {
+      "type": "object"
+    },
+    "matrix": {
+      "type": "array",
+      "minItems": 19
+    },
+    "rotation": {
+      "type": "object"
+    },
+    "sponsorship": {
+      "type": "object"
+    },
+    "assertions": {
+      "type": "array",
+      "minItems": 9
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "rows",
+        "allow",
+        "hold",
+        "decline",
+        "passed"
+      ],
+      "properties": {
+        "rows": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "allow": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hold": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "decline": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "passed": {
+          "const": true
+        }
+      }
+    }
+  }
+}

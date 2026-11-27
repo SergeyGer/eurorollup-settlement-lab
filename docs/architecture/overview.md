@@ -38,8 +38,13 @@ The foundation and settlement-core steps are implemented:
 - `apps/web` has three views: the recorded G01 replay, the live Local API lab and
   the AI Policy Lab.
 
-The subscription worker, eligibility circuit and pinned rollup are added by the
-later steps.
+Eligibility and account abstraction are implemented: the issuer commits
+wallet-bound class credentials in versioned Merkle roots, a real Noir UltraHonk
+circuit proves membership bound to wallet, chain, gate, class, epoch and expiry,
+the dealing policy applies the class and screening matrix, and a pinned
+ERC-4337 EntryPoint with a verifying sponsor paymaster handles the sponsored
+lane. The subscription worker and the pinned rollup are added by the later
+steps.
 
 ## Local partner API
 
@@ -87,6 +92,26 @@ question / manual fields
   runtime and re-validated by the adapter; malformed output is retried once and
   then rejected with a recoverable error. The model never contributes numbers,
   and a failed request never falls back to the recorded preset.
+
+## Eligibility and sponsored lane
+
+```text
+issuer root epochs ──► Noir membership proof (wallet, chain, gate, class, epoch, expiry)
+      │                        │
+      ▼                        ▼
+screening (versioned) ──► dealing policy matrix ──► order acceptance gate
+      │
+      ▼
+sponsor budget ──► ERC-4337 EntryPoint + verifying paymaster ──► sponsored UserOperation receipt
+```
+
+- The issuer set, screening fixtures and sponsor budget are versioned and
+  deterministic; the proof is a real circuit and the account-abstraction receipts
+  come from a local chain.
+- The three decisions stay separate: issuer class, dealing permission and gas
+  sponsorship. A sponsorship decline leaves holdings untouched.
+- A root rotation between a fund request and its allocation holds the reserved
+  cash and mints no units.
 
 ## Two independent state fields
 

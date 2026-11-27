@@ -5,7 +5,6 @@
  * module is used by the API, the CLI evidence runner and the browser view; the
  * caller supplies synthetic witness data from the bundled fixtures.
  */
-import { createHash } from "node:crypto";
 import { Barretenberg, UltraHonkBackend } from "@aztec-foundation/bb.js";
 import { Noir } from "@noir-lang/noir_js";
 import type { CompiledCircuit } from "@noir-lang/types";
@@ -139,12 +138,29 @@ async function getBackend(): Promise<UltraHonkBackend> {
   return backend;
 }
 
-function toHex(bytes: Uint8Array): string {
-  return Buffer.from(bytes).toString("hex");
+function hexToBytes(hex: string): Uint8Array {
+  const normalized = hex.startsWith("0x") ? hex.slice(2) : hex;
+  if (normalized.length % 2 !== 0) {
+    throw new Error("proof hex must have an even length");
+  }
+  const bytes = new Uint8Array(normalized.length / 2);
+  for (let index = 0; index < bytes.length; index += 1) {
+    bytes[index] = Number.parseInt(normalized.slice(index * 2, index * 2 + 2), 16);
+  }
+  return bytes;
 }
 
-function sha256Hex(bytes: Uint8Array): string {
-  return createHash("sha256").update(bytes).digest("hex");
+function toHex(bytes: Uint8Array): string {
+  let hex = "";
+  for (const byte of bytes) {
+    hex += byte.toString(16).padStart(2, "0");
+  }
+  return hex;
+}
+
+async function sha256Hex(bytes: Uint8Array): Promise<string> {
+  const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes as unknown as ArrayBuffer);
+  return toHex(new Uint8Array(digest));
 }
 
 export async function proveEligibility(
@@ -166,7 +182,7 @@ export async function proveEligibility(
   }
   return {
     proofHex: toHex(generated.proof),
-    proofDigest: sha256Hex(generated.proof),
+    proofDigest: await sha256Hex(generated.proof),
     publicInputs,
     provingMs,
     proofSizeBytes: generated.proof.byteLength,
@@ -196,7 +212,7 @@ export async function verifyEligibilityProof(
   ];
   try {
     const valid = await honk.verifyProof({
-      proof: Uint8Array.from(Buffer.from(params.proofHex, "hex")),
+      proof: hexToBytes(params.proofHex),
       publicInputs: expectedInputs,
     });
     return {

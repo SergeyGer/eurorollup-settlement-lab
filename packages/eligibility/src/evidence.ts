@@ -30,7 +30,7 @@ import {
   proveEligibility,
   verifyEligibilityProof,
 } from "./prover.js";
-import { checkReceiptFields } from "./verifier.js";
+import { checkReceiptFields } from "./receipt.js";
 import type {
   DealingRoute,
   DecisionCode,

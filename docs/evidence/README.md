@@ -56,6 +56,10 @@ corresponding GitHub Release:
 | `evidence/policy-lab/p01-comparison.json` | A09 (deterministic subset) | `pnpm policy:replay -- --check` |
 | `evidence/policy-lab/eval.json` | A09 (live-model subset) | `pnpm policy:eval -- --verify-only` |
 | `evidence/policy-lab/live-model-draft.json` | A09 recorded live capture | `pnpm policy:record` |
+| `evidence/a03/policy-matrix.json` | A03 eligibility policy matrix | `pnpm eligibility:matrix -- --check` |
+| `evidence/a03/proof-vectors.json` | A03 proof vectors | `pnpm eligibility:verify` |
+| `evidence/a03/browser-proving.json` | A03 browser proving measurement | Playwright measurement |
+| `evidence/a04/aa-receipts.json` | A04 sponsored UserOperations | `pnpm aa:verify` |
 
 Transient local runs are written under `evidence/tmp/` (ignored) and are never
 referenced by release notes.

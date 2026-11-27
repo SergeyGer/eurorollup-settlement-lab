@@ -21,12 +21,15 @@ import {
   cancelOrderBodySchema,
   clockBodySchema,
   createQuoteBodySchema,
+  eligibilityEpochQuerySchema,
   emptyBodySchema,
   idempotencyHeadersSchema,
   navBodySchema,
   orderIdParamsSchema,
   placeOrderBodySchema,
   priceSourceBodySchema,
+  proofRequestSchema,
+  proofVerifySchema,
   roleHeaderSchema,
   runIdParamsSchema,
   scenarioDraftBodySchema,
@@ -65,6 +68,105 @@ export function registerRoutes(app: FastifyInstance, ctx: AppContext): void {
       eventCount: countEvents(ctx.db),
       pendingOutbox: pendingOutboxCount(ctx.db),
     }),
+  );
+
+  app.get(
+    "/v1/eligibility/policy",
+    {
+      schema: {
+        tags: ["eligibility"],
+        summary:
+          "Eligibility policy version, personas, issuer roots, gates, circuit metadata and the current epoch",
+      },
+    },
+    async () => ctx.eligibility.policy(),
+  );
+
+  app.get(
+    "/v1/eligibility/accounts/:accountId",
+    {
+      schema: {
+        tags: ["eligibility"],
+        summary: "Eligibility decisions for one account under one issuer epoch",
+        querystring: eligibilityEpochQuerySchema,
+      },
+    },
+    async (
+      request: FastifyRequest<{ Params: { accountId: string }; Querystring: { epoch?: string } }>,
+    ) => {
+      const epoch =
+        request.query.epoch === undefined ? undefined : Number.parseInt(request.query.epoch, 10);
+      return ctx.eligibility.accountDecision(request.params.accountId, epoch);
+    },
+  );
+
+  app.post(
+    "/v1/eligibility/proofs",
+    {
+      schema: {
+        tags: ["eligibility"],
+        summary: "Generate a real Noir eligibility membership proof",
+        body: proofRequestSchema,
+      },
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const body = request.body as {
+        personaId: string;
+        epoch: number;
+        gateId: "SPOT_ROUTER" | "FUND_SUBSCRIPTION" | "FUND_REDEMPTION" | "SHARE_TRANSFER";
+      };
+      const response = await ctx.eligibility.createProof(body);
+      return reply.code(201).send(response);
+    },
+  );
+
+  app.post(
+    "/v1/eligibility/proofs/verify",
+    {
+      schema: {
+        tags: ["eligibility"],
+        summary: "Verify an eligibility proof against its public inputs",
+        body: proofVerifySchema,
+      },
+    },
+    async (request: FastifyRequest) => {
+      const body = request.body as {
+        proofHex: string;
+        publicInputs: {
+          wallet: string;
+          root: string;
+          chainId: string;
+          gate: string;
+          classCode: string;
+          epoch: string;
+          expiry: string;
+        };
+      };
+      return ctx.eligibility.verifyProof(body);
+    },
+  );
+
+  app.get(
+    "/v1/sponsorship/status",
+    {
+      schema: {
+        tags: ["eligibility"],
+        summary: "Sponsorship budget, native deposit and the current SPONSOR_LIMIT decision",
+      },
+    },
+    async () => ctx.eligibility.sponsorship(),
+  );
+
+  app.get(
+    "/v1/account-abstraction/receipts",
+    {
+      schema: {
+        tags: ["eligibility"],
+        summary:
+          "Recorded A04 sponsored UserOperations: success, included failure and exhausted sponsor",
+      },
+    },
+    async () => ctx.eligibility.accountAbstraction(),
   );
 
   app.get(

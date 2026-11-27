@@ -3,7 +3,7 @@
   "info": {
     "title": "EuroRollup Settlement Lab partner API",
     "description": "Local partner API for the synthetic euro settlement sandbox. Amounts are integer base units serialized as strings; timestamps are strict UTC instants. Business state and chain state are separate fields.",
-    "version": "0.4.0"
+    "version": "0.5.0"
   },
   "components": {
     "schemas": {}
@@ -14,6 +14,196 @@
         "summary": "Health and fixture metadata",
         "tags": [
           "system"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/eligibility/policy": {
+      "get": {
+        "summary": "Eligibility policy version, personas, issuer roots, gates, circuit metadata and the current epoch",
+        "tags": [
+          "eligibility"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/eligibility/accounts/{accountId}": {
+      "get": {
+        "summary": "Eligibility decisions for one account under one issuer epoch",
+        "tags": [
+          "eligibility"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{1,4}$"
+            },
+            "in": "query",
+            "name": "epoch",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "accountId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/eligibility/proofs": {
+      "post": {
+        "summary": "Generate a real Noir eligibility membership proof",
+        "tags": [
+          "eligibility"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "personaId",
+                  "epoch",
+                  "gateId"
+                ],
+                "properties": {
+                  "personaId": {
+                    "type": "string",
+                    "maxLength": 64
+                  },
+                  "epoch": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000
+                  },
+                  "gateId": {
+                    "type": "string",
+                    "enum": [
+                      "SPOT_ROUTER",
+                      "FUND_SUBSCRIPTION",
+                      "FUND_REDEMPTION",
+                      "SHARE_TRANSFER"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/eligibility/proofs/verify": {
+      "post": {
+        "summary": "Verify an eligibility proof against its public inputs",
+        "tags": [
+          "eligibility"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "proofHex",
+                  "publicInputs"
+                ],
+                "properties": {
+                  "proofHex": {
+                    "type": "string",
+                    "maxLength": 200000
+                  },
+                  "publicInputs": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "wallet",
+                      "root",
+                      "chainId",
+                      "gate",
+                      "classCode",
+                      "epoch",
+                      "expiry"
+                    ],
+                    "properties": {
+                      "wallet": {
+                        "type": "string"
+                      },
+                      "root": {
+                        "type": "string"
+                      },
+                      "chainId": {
+                        "type": "string"
+                      },
+                      "gate": {
+                        "type": "string"
+                      },
+                      "classCode": {
+                        "type": "string"
+                      },
+                      "epoch": {
+                        "type": "string"
+                      },
+                      "expiry": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/sponsorship/status": {
+      "get": {
+        "summary": "Sponsorship budget, native deposit and the current SPONSOR_LIMIT decision",
+        "tags": [
+          "eligibility"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/account-abstraction/receipts": {
+      "get": {
+        "summary": "Recorded A04 sponsored UserOperations: success, included failure and exhausted sponsor",
+        "tags": [
+          "eligibility"
         ],
         "responses": {
           "200": {

@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/aa-receipts.schema.json",
+  "title": "A04 sponsored UserOperation receipts",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportId",
+    "packId",
+    "chain",
+    "contracts",
+    "cases",
+    "summary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "reportId": {
+      "const": "A04-aa-receipts"
+    },
+    "packId": {
+      "const": "A04-account-abstraction"
+    },
+    "generatedBy": {
+      "type": "string"
+    },
+    "chain": {
+      "type": "object"
+    },
+    "contracts": {
+      "type": "object"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 3
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "cases",
+        "passed",
+        "passedAll"
+      ],
+      "properties": {
+        "cases": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "passed": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "passedAll": {
+          "const": true
+        }
+      }
+    }
+  }
+}

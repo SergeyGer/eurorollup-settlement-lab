@@ -71,6 +71,9 @@ jobs:
       - name: Verify the committed eligibility evidence and proofs
         run: pnpm eligibility:verify
 
+      - name: Verify the committed account-abstraction receipts
+        run: pnpm aa:verify
+
       - name: Check the generated OpenAPI document
         run: pnpm api:openapi -- --check
 

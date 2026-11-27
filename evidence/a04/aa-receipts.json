@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A04-aa-receipts",
+  "packId": "A04-account-abstraction",
+  "generatedBy": "pnpm aa:scenario",
+  "chain": {
+    "chainId": 31337,
+    "rpc": "http://127.0.0.1:8545",
+    "runtime": "anvil (local, ephemeral)"
+  },
+  "contracts": {
+    "entryPoint": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "entryPointArtifact": "@account-abstraction/contracts@0.7.0 EntryPoint",
+    "accountFactory": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "account": "0xCd922ca05B97119C84Ee56C2F4d68EA6b315E18C",
+    "paymaster": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "paymasterArtifact": "@account-abstraction/contracts@0.7.0 VerifyingPaymaster",
+    "bundler": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "beneficiary": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+    "sponsorSigner": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"
+  },
+  "cases": [
+    {
+      "caseId": "A04-C01",
+      "kind": "sponsored-success",
+      "target": "0x000000000000000000000000000000000000dEaD",
+      "targetLabel": "zero-value transfer",
+      "userOpHashPresent": true,
+      "userOpHash": "0x9a21bdbc5c3d7b17852d6b32c932c1f1b3657a4e6e983de98a5904448b059e76",
+      "outerTxHash": "0x84234e6f9578d35aa2c0386299c920072985ad70951d163c3866024b3a9757cc",
+      "outerTxStatus": 1,
+      "gasUsed": "113070",
+      "blockNumber": 7,
+      "userOperationEvent": {
+        "success": true,
+        "actualGasCost": "253265142014420",
+        "actualGasUsed": "170986",
+        "nonce": "0"
+      },
+      "userChargeBase": "0",
+      "paymasterDepositBeforeBase": "1000000000000000000",
+      "paymasterDepositAfterBase": "999746734857985580",
+      "paymasterDepositDeltaBase": "-253265142014420",
+      "sponsorPaid": true,
+      "permit": {
+        "validUntil": "1795781351",
+        "validAfter": "0",
+        "verifyingSigner": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"
+      },
+      "revertReason": null,
+      "expected": {
+        "outerTxStatus": 1,
+        "userOperationEvent": true,
+        "success": true,
+        "depositDeltaSign": "negative"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "A04-C02",
+      "kind": "included-failure",
+      "target": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      "targetLabel": "always-reverting target contract",
+      "userOpHashPresent": true,
+      "userOpHash": "0xea134adca539dd4917f090ec520adf28833555e605f805fa2c2797ec1815b993",
+      "outerTxHash": "0xd98293bb8a85255d5ab3ae5637c06e61e1846dd13b563804fbf4f26fbf10f680",
+      "outerTxStatus": 1,
+      "gasUsed": "96332",
+      "blockNumber": 8,
+      "userOperationEvent": {
+        "success": false,
+        "actualGasCost": "218920589947334",
+        "actualGasUsed": "154006",
+        "nonce": "1"
+      },
+      "userChargeBase": "0",
+      "paymasterDepositBeforeBase": "999746734857985580",
+      "paymasterDepositAfterBase": "999527814268038246",
+      "paymasterDepositDeltaBase": "-218920589947334",
+      "sponsorPaid": true,
+      "permit": {
+        "validUntil": "1795781351",
+        "validAfter": "0",
+        "verifyingSigner": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"
+      },
+      "revertReason": null,
+      "expected": {
+        "outerTxStatus": 1,
+        "userOperationEvent": true,
+        "success": false,
+        "depositDeltaSign": "negative"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "A04-C03",
+      "kind": "exhausted-sponsor",
+      "target": "0x000000000000000000000000000000000000dEaD",
+      "targetLabel": "zero-value transfer after deposit withdrawal",
+      "userOpHashPresent": false,
+      "userOpHash": "0xff5a06a354739fd6d0c0ecb99bdfb778b6bc884b781c3a4c6828778378b934cf",
+      "outerTxHash": "0x68a6cfa566cebe9f828ea846950dfe071a9cb3ee952a616e7822d106a17565bd",
+      "outerTxStatus": 0,
+      "gasUsed": "60942",
+      "blockNumber": 10,
+      "userOperationEvent": null,
+      "userChargeBase": "0",
+      "paymasterDepositBeforeBase": "0",
+      "paymasterDepositAfterBase": "0",
+      "paymasterDepositDeltaBase": "0",
+      "sponsorPaid": false,
+      "permit": {
+        "validUntil": "1795781351",
+        "validAfter": "0",
+        "verifyingSigner": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"
+      },
+      "revertReason": "FailedOp(0,AA31 paymaster deposit too low)",
+      "expected": {
+        "outerTxStatus": 0,
+        "userOperationEvent": false,
+        "success": null,
+        "depositDeltaSign": "zero"
+      },
+      "pass": true
+    }
+  ],
+  "summary": {
+    "cases": 3,
+    "passed": 3,
+    "passedAll": true
+  }
+}

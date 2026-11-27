@@ -182,6 +182,63 @@ A revision must be newer than the stored one (`409 NAV_REVISION_NOT_NEWER`
 otherwise), and the source time cannot be in the future relative to the fixture
 clock.
 
+## Eligibility, sponsorship and account-abstraction endpoints
+
+Eligibility endpoints expose the synthetic eligibility policy and generate real
+Noir membership proofs. They never write settlement state.
+
+### `GET /v1/eligibility/policy`
+
+Returns the policy version, the three demo personas with class and epoch, the
+issuer roots for both epochs, the gate addresses and required classes, the
+screening source version, and the committed circuit metadata (circuit version,
+proof system, verification-key hash, circuit hash, public inputs, tree depth and
+the current epoch).
+
+### `GET /v1/eligibility/accounts/{accountId}`
+
+Returns the account's persona, class, selected epoch and the decisions for the
+five supported routes. Accepts an optional `?epoch=` to select an issuer epoch.
+When the selected epoch differs from the current epoch the response includes the
+root-rotation outcome: a persona that the current root no longer contains holds
+its reserved cash and mints no units with `POLICY_CHANGED`.
+
+### `POST /v1/eligibility/proofs`
+
+Generates a real UltraHonk membership proof for a demo persona:
+
+```json
+{ "personaId": "persona-verified", "epoch": 1, "gateId": "FUND_SUBSCRIPTION" }
+```
+
+Returns `201` with the receipt: proof bytes, proof digest, seven public inputs,
+proving time, circuit version and verification-key hash. A persona that the
+selected epoch does not contain returns `422 PROOF_UNAVAILABLE`.
+
+### `POST /v1/eligibility/proofs/verify`
+
+Verifies a proof against its public inputs. Returns `{ valid, verifyMs, reasons }`.
+A proof checked against a different root returns `valid: false`.
+
+### `GET /v1/sponsorship/status`
+
+Returns the sponsor daily budget, budget used, per-operation ceiling, native
+deposit and the current decision. The demo configuration exceeds the remaining
+budget, so sponsorship is declined with `SPONSOR_LIMIT`; holdings are untouched.
+
+### `GET /v1/account-abstraction/receipts`
+
+Returns the committed A04 sponsored UserOperation receipts: the sponsored
+success, the included failure, the exhausted sponsor, the sponsor deposit
+movements, user charge and the pinned contract addresses.
+
+### Managed-order eligibility gate
+
+Every managed spot or fund order is checked before any state is written. A basic
+persona's fund subscription returns `422 ELIGIBILITY_REQUIRED` and reserves no
+cash, a flagged persona's managed route returns `403 SCREENING_DECLINED`, and a
+sponsorship decline never blocks the business movement.
+
 ## AI Policy Lab scenario endpoints
 
 The deterministic Policy Lab flow: create a draft, review and edit it into a new
@@ -294,3 +351,8 @@ Registered only when dev endpoints are enabled:
 - The live model adapter requires a local Ollama runtime with the pinned model
   pulled; when it is unavailable the recorded preset and manual editor remain
   usable.
+- Eligibility proofs are generated against the synthetic issuer set; staleness
+  and expiry checks run in the policy matrix, while order acceptance enforces the
+  screening disposition and issuer class.
+- Account-abstraction receipts come from an ephemeral local Anvil chain; the
+  pinned two-layer devnet is part of S06.

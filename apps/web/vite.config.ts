@@ -9,6 +9,12 @@ const dealingSource = fileURLToPath(
 const policyLabSource = fileURLToPath(
   new URL("../../packages/policy-lab/src/index.ts", import.meta.url),
 );
+const eligibilityBrowserSource = fileURLToPath(
+  new URL("../../packages/eligibility/src/browser.ts", import.meta.url),
+);
+const eligibilityProverSource = fileURLToPath(
+  new URL("../../packages/eligibility/src/prover.ts", import.meta.url),
+);
 
 export default defineConfig({
   plugins: [react()],
@@ -16,6 +22,8 @@ export default defineConfig({
     alias: {
       "@eurorollup/dealing": dealingSource,
       "@eurorollup/policy-lab": policyLabSource,
+      "@eurorollup/eligibility/prover": eligibilityProverSource,
+      "@eurorollup/eligibility": eligibilityBrowserSource,
     },
   },
   server: {
