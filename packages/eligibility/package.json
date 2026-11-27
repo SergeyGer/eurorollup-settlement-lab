@@ -1,0 +1,24 @@
+{
+  "name": "@eurorollup/eligibility",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic eligibility policy, Noir membership proofs and A03 evidence for the EuroRollup Settlement Lab.",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./src/index.ts",
+    "./browser": "./src/browser.ts",
+    "./policy": "./src/policy.ts",
+    "./fixtures": "./src/fixtures.ts",
+    "./receipt": "./src/receipt.ts",
+    "./prover": "./src/prover.ts",
+    "./verifier": "./src/verifier.ts",
+    "./types": "./src/types.ts"
+  },
+  "dependencies": {
+    "@aztec-foundation/bb.js": "6.1.0",
+    "@eurorollup/dealing": "workspace:*",
+    "@noir-lang/noir_js": "1.0.0",
+    "@noir-lang/types": "1.0.0"
+  }
+}

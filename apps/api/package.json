@@ -1,6 +1,6 @@
 {
   "name": "@eurorollup/api",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "type": "module",
   "description": "Local partner API, order worker and relational projection for EuroRollup Settlement Lab.",
@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "@eurorollup/dealing": "workspace:*",
+    "@eurorollup/eligibility": "workspace:*",
+    "@eurorollup/policy-lab": "workspace:*",
     "@eurorollup/sdk": "workspace:*",
     "@fastify/cors": "^11.4.3",
+    "@fastify/rate-limit": "^11.3.0",
     "@fastify/swagger": "^9.9.5",
-    "fastify": "^5.12.8",
-    "@eurorollup/policy-lab": "workspace:*"
+    "fastify": "^5.12.8"
   }
 }

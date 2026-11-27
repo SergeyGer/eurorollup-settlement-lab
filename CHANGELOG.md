@@ -176,7 +176,56 @@ records current calendar dates.
 - 157 tests green; CI runs the scripted evaluation harness and validates the
   committed evaluation structure and thresholds.
 
+## [0.5.0] — Eligibility and sponsorship
+
+### Added
+
+- Real Noir eligibility circuit (UltraHonk over BN254, pedersen Merkle tree):
+  proves membership of a wallet-bound credential in the issuer's current root and
+  binds the proof to wallet, chain id, gate address, class, epoch and expiry.
+  The compiled circuit, verification key and verifier metadata (circuit hash,
+  verification-key hash, versions) are committed.
+- Deterministic fixture pipeline: versioned personas, two issuer epochs with a
+  root rotation, screening fixtures and demo witnesses generated with the pinned
+  Noir hash tools.
+- Three-persona dealing policy matrix: verified investors may use every route;
+  basic investors get spot and redemption but receive `ELIGIBILITY_REQUIRED`
+  before reserving cash for fund subscription and share transfer; flagged personas
+  are declined with `SCREENING_DECLINED`. Stale screening, review dispositions,
+  missing proofs and expired credentials hold the movement with a reason.
+- Root rotation between fund request and allocation: reserved cash stays in
+  custody, no units are minted, `POLICY_CHANGED` exposes `authorized_refund` and
+  `revalidate_with_current_proof`.
+- Independent sponsorship decision (`SPONSOR_LIMIT`) that leaves holdings
+  untouched.
+- Browser proving and local verification in the new "Eligibility & sponsorship"
+  view; the demo witness stays in the tab and is discarded after proving.
+- Sponsored account lane against the pinned ERC-4337 EntryPoint v0.7.0 with the
+  `VerifyingPaymaster` sample on a local Anvil chain: sponsored success, included
+  failure and exhausted sponsor receipts, with sponsor deposit movements, user
+  charge and hash presence recorded.
+- API: `GET /v1/eligibility/policy`, `GET /v1/eligibility/accounts/{accountId}`,
+  `POST /v1/eligibility/proofs`, `POST /v1/eligibility/proofs/verify`,
+  `GET /v1/sponsorship/status`, `GET /v1/account-abstraction/receipts`. Managed
+  order acceptance enforces the screening disposition and issuer class before any
+  state is written.
+- CLI: `pnpm eligibility:fixtures`, `eligibility:artifacts`, `eligibility:matrix`,
+  `eligibility:proofs`, `eligibility:verify`, `aa:scenario`, `aa:verify`.
+
+### Evidence
+
+- `evidence/a03/policy-matrix.json` — 19 decisions (8 allow, 4 hold, 7 decline)
+  and 9 assertions, all passing.
+- `evidence/a03/proof-vectors.json` — 3/3 positive proofs verified and 5/5
+  negative vectors rejected.
+- `evidence/a03/browser-proving.json` — cold proving 20,530 ms including backend
+  initialisation, warm proving 3,334 ms and 3,285 ms, verification about 1.3 s.
+- `evidence/a04/aa-receipts.json` — sponsored success, included failure and
+  exhausted sponsor observed on the local chain with consistent deposit deltas.
+- 181 tests; CI rebuilds the policy matrix, verifies committed proofs and
+  artifact hashes, and verifies the account-abstraction receipts offline.
+
 ## Unreleased
 
-- S05: sponsored account lane, sponsorship policy and the eligibility circuit.
+- S06: pinned two-layer devnet, blob batch publication and bridge withdrawal.
 

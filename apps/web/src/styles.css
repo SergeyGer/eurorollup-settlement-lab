@@ -1172,3 +1172,83 @@ body {
 .lab-live-form .primary {
   align-self: flex-start;
 }
+
+/* --- Eligibility & sponsorship --- */
+
+.eligibility-view .persona-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.persona-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+}
+
+.persona-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.persona-card .primary {
+  align-self: flex-start;
+  border: none;
+  border-radius: 9px;
+  padding: 9px 12px;
+  font: inherit;
+  font-weight: 800;
+  font-size: 12.5px;
+  background: linear-gradient(140deg, #38d0b0, #2f9fe0);
+  color: #04121a;
+  cursor: pointer;
+}
+
+.persona-card .primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.proof-result {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.state {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.state-good {
+  background: rgba(56, 208, 176, 0.16);
+  color: #7bf0d8;
+}
+
+.state-warn {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.state-bad {
+  background: rgba(240, 110, 130, 0.18);
+  color: #ff9bab;
+}
+
+@media (max-width: 960px) {
+  .eligibility-view .persona-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

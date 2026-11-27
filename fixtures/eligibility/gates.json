@@ -1,0 +1,31 @@
+{
+  "fixtureId": "ELIG-GATES",
+  "fixtureVersion": "1.0.0",
+  "description": "Local policy gates and their required eligibility class. The dealing policy applies these rules; the circuit only proves set membership and context binding.",
+  "gates": [
+    {
+      "gateId": "SPOT_ROUTER",
+      "address": "0x2000000000000000000000000000000000000001",
+      "label": "Managed spot router",
+      "requiredClass": "BASIC"
+    },
+    {
+      "gateId": "FUND_SUBSCRIPTION",
+      "address": "0x2000000000000000000000000000000000000002",
+      "label": "Fund subscription gate",
+      "requiredClass": "VERIFIED"
+    },
+    {
+      "gateId": "FUND_REDEMPTION",
+      "address": "0x2000000000000000000000000000000000000003",
+      "label": "Fund redemption gate",
+      "requiredClass": "BASIC"
+    },
+    {
+      "gateId": "SHARE_TRANSFER",
+      "address": "0x2000000000000000000000000000000000000004",
+      "label": "Share transfer gate",
+      "requiredClass": "VERIFIED"
+    }
+  ]
+}

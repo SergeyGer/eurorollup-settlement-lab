@@ -1,0 +1,7 @@
+[package]
+name = "eligibility"
+type = "bin"
+authors = ["EuroRollup Settlement Lab"]
+compiler_version = ">=1.0.0"
+
+[dependencies]

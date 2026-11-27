@@ -18,6 +18,12 @@
       ],
       "@eurorollup/policy-lab": [
         "../../packages/policy-lab/src/index.ts"
+      ],
+      "@eurorollup/eligibility": [
+        "../../packages/eligibility/src/browser.ts"
+      ],
+      "@eurorollup/eligibility/prover": [
+        "../../packages/eligibility/src/prover.ts"
       ]
     }
   },

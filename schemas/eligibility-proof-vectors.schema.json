@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/eligibility-proof-vectors.schema.json",
+  "title": "A03 eligibility proof vectors",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportId",
+    "packId",
+    "circuit",
+    "fixtures",
+    "positive",
+    "negative",
+    "summary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "reportId": {
+      "const": "A03-proof-vectors"
+    },
+    "packId": {
+      "const": "A03-eligibility"
+    },
+    "generatedBy": {
+      "type": "string"
+    },
+    "circuit": {
+      "type": "object",
+      "required": [
+        "circuitVersion",
+        "proofSystem",
+        "vkHash",
+        "circuitSha256",
+        "vkSha256",
+        "publicInputs"
+      ],
+      "properties": {
+        "circuitVersion": {
+          "const": "1.0.0"
+        },
+        "proofSystem": {
+          "const": "ultra_honk"
+        },
+        "vkHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "circuitSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "vkSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "publicInputs": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7
+        }
+      }
+    },
+    "fixtures": {
+      "type": "object"
+    },
+    "positive": {
+      "type": "array",
+      "minItems": 3
+    },
+    "negative": {
+      "type": "array",
+      "minItems": 5
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "positives",
+        "positivesVerified",
+        "negatives",
+        "negativesRejected",
+        "passed"
+      ],
+      "properties": {
+        "positives": {
+          "type": "integer"
+        },
+        "positivesVerified": {
+          "type": "integer"
+        },
+        "negatives": {
+          "type": "integer"
+        },
+        "negativesRejected": {
+          "type": "integer"
+        },
+        "passed": {
+          "const": true
+        }
+      }
+    }
+  }
+}

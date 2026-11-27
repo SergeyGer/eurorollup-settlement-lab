@@ -1,0 +1,61 @@
+{
+  "fixtureId": "ELIG-SCREENING",
+  "fixtureVersion": "1.0.0",
+  "description": "Versioned synthetic screening fixtures for both parties. Managed spot and fund dealing enforce the current disposition; missing or stale results produce a hold with a reason.",
+  "sourceVersion": "SCREEN-1.0.0",
+  "maxAgeSeconds": 3600,
+  "parties": [
+    {
+      "partyId": "investor-ada",
+      "role": "investor",
+      "disposition": "CLEAR",
+      "refreshedAt": "2026-11-20T15:00:00Z",
+      "sourceVersion": "SCREEN-1.0.0"
+    },
+    {
+      "partyId": "investor-cy",
+      "role": "investor",
+      "disposition": "CLEAR",
+      "refreshedAt": "2026-11-20T15:00:00Z",
+      "sourceVersion": "SCREEN-1.0.0"
+    },
+    {
+      "partyId": "investor-dee",
+      "role": "investor",
+      "disposition": "MATCH",
+      "refreshedAt": "2026-11-20T15:00:00Z",
+      "sourceVersion": "SCREEN-1.0.0"
+    },
+    {
+      "partyId": "fund-issuer",
+      "role": "counterparty",
+      "disposition": "CLEAR",
+      "refreshedAt": "2026-11-20T15:00:00Z",
+      "sourceVersion": "SCREEN-1.0.0"
+    }
+  ],
+  "specialCases": {
+    "stale": {
+      "partyId": "investor-stale",
+      "disposition": "CLEAR",
+      "refreshedAt": "2026-11-20T10:00:00Z",
+      "sourceVersion": "SCREEN-1.0.0",
+      "note": "Refresh is older than maxAgeSeconds at the fixture clock, so the policy holds the movement."
+    },
+    "ambiguous": {
+      "partyId": "investor-ambiguous",
+      "disposition": "REVIEW",
+      "refreshedAt": "2026-11-20T15:00:00Z",
+      "sourceVersion": "SCREEN-1.0.0",
+      "note": "A review disposition never becomes an executable decision."
+    },
+    "freshAfterExpiry": {
+      "partyId": "investor-ada",
+      "role": "investor",
+      "disposition": "CLEAR",
+      "refreshedAt": "2026-12-02T00:00:00Z",
+      "sourceVersion": "SCREEN-1.0.0",
+      "note": "Refreshed after the credential expiry so the expiry rule is the first failure."
+    }
+  }
+}

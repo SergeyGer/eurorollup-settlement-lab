@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A03-browser-proving",
+  "packId": "A03-eligibility",
+  "generatedBy": "playwright (chromium headless) on the pinned build",
+  "browser": "Chromium 131.0.6778.33",
+  "hardware": {
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "Intel Xeon Processor (Skylake, IBRS, no TSX)",
+    "cpuCount": 8,
+    "memoryGb": 15
+  },
+  "circuit": {
+    "circuitVersion": "1.0.0",
+    "proofSystem": "ultra_honk"
+  },
+  "measurement": "Proof generation and verification run locally in the browser tab; the first proof also initialises the proving backend in the tab.",
+  "samples": [
+    {
+      "personaId": "persona-verified",
+      "sample": 1,
+      "kind": "cold",
+      "provingMs": 20530,
+      "verifyMs": 1324,
+      "wallMs": 22412,
+      "proofDigestShort": "proof 1c9277c244a9…bdfacb"
+    },
+    {
+      "personaId": "persona-basic",
+      "sample": 2,
+      "kind": "warm",
+      "provingMs": 3334,
+      "verifyMs": 1314,
+      "wallMs": 4960,
+      "proofDigestShort": "proof 7b09d3427de7…8f50dc"
+    },
+    {
+      "personaId": "persona-flagged",
+      "sample": 3,
+      "kind": "warm",
+      "provingMs": 3285,
+      "verifyMs": 1309,
+      "wallMs": 4956,
+      "proofDigestShort": "proof 1433ecf4c0cb…80db56"
+    }
+  ],
+  "targets": {
+    "warmProvingP95Ms": 5000,
+    "note": "Target applies to warm proving; the first sample includes backend initialisation."
+  },
+  "pageErrors": []
+}

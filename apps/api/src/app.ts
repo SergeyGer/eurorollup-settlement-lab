@@ -12,6 +12,7 @@ import Fastify, {
   type FastifyRequest,
 } from "fastify";
 import cors from "@fastify/cors";
+import rateLimit from "@fastify/rate-limit";
 import swagger from "@fastify/swagger";
 import type { IdFactory } from "./ids.js";
 import type { ApiConfig } from "./config.js";
@@ -26,6 +27,7 @@ import { PortfolioService } from "./services/portfolio.js";
 import { IssuerService } from "./services/issuer.js";
 import { OrderWorker } from "./worker.js";
 import { ScenarioService } from "./services/scenarios.js";
+import { EligibilityService } from "./services/eligibility.js";
 import { ModelService } from "./services/model-service.js";
 import { registerRoutes } from "./routes.js";
 import { problem, toApiProblem } from "./problems.js";
@@ -54,6 +56,7 @@ export interface AppContext {
   readonly issuer: IssuerService;
   readonly model: ModelService;
   readonly scenarios: ScenarioService;
+  readonly eligibility: EligibilityService;
   readonly worker: OrderWorker;
   resetDemo(): void;
   close(): Promise<void>;
@@ -78,6 +81,7 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
   const issuer = new IssuerService(db, config, engine, clock);
   const model = new ModelService(config, options.modelPort);
   const scenarios = new ScenarioService(db, config, clock, ids, model);
+  const eligibility = new EligibilityService(db, config, clock);
   const worker = new OrderWorker(db, config, engine, clock, {
     scenarioRunner: (runId) => {
       scenarios.executeRun(runId);
@@ -97,6 +101,10 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
   });
 
   await app.register(cors, { origin: true });
+  // Expensive endpoints (proof generation, live model drafting) opt into a
+  // strict per-route limiter; the default is disabled so replay routes stay
+  // unaffected.
+  await app.register(rateLimit, { global: false });
   await app.register(swagger, {
     openapi: {
       openapi: "3.1.0",
@@ -128,6 +136,7 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
     issuer,
     model,
     scenarios,
+    eligibility,
     worker,
   };
 
