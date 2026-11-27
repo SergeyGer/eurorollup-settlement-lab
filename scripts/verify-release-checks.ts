@@ -69,15 +69,19 @@ function main(): void {
     if (gate.gate === "A08") {
       check(gate.status === "pending", "A08 must stay pending until the film exists");
       check((gate.requiredArtifacts ?? []).length >= 4, "A08 must list the required public-release and film artifacts");
-      // S09 adds the public replay, quickstart, public-link and downloadable-package
-      // checks; the film still holds the gate open for S10.
-      check(gate.evidence.length >= 1, "A08 must reference the public-release evidence once S09 has run");
-      check(gate.evidence.every((entry) => entry.exists && entry.schemaValid && entry.sha256 !== null), "A08 evidence must exist and validate");
-      for (const entry of gate.evidence) {
-        check(sha256File(entry.path) === entry.sha256, `A08 digest mismatch for ${entry.path}`);
+      // Before S09 the A08 row is an empty placeholder; after S09 it carries the
+      // public-release evidence and must pass its partial checks. The film still
+      // holds the gate open for S10.
+      if (gate.evidence.length > 0) {
+        check(gate.evidence.every((entry) => entry.exists && entry.schemaValid && entry.sha256 !== null), "A08 evidence must exist and validate");
+        for (const entry of gate.evidence) {
+          check(sha256File(entry.path) === entry.sha256, `A08 digest mismatch for ${entry.path}`);
+        }
+        check(gate.commands.length >= 1 && gate.commands.every((command) => command.exitCode === 0), "A08 verification commands must all pass");
+        check(gate.pendingChecksPassed === true, "A08 pending checks must pass once the public-release evidence exists");
+      } else {
+        check(gate.commands.length === 0, "A08 must not claim a verification command before evidence exists");
       }
-      check(gate.commands.length >= 1 && gate.commands.every((command) => command.exitCode === 0), "A08 verification commands must all pass");
-      check(gate.pendingChecksPassed === true, "A08 pending checks must pass");
       continue;
     }
     check(gate.status === "pass" || gate.status === "pass_with_recorded_limitations", `${gate.gate} must pass or pass with recorded limitations (got ${gate.status})`);
