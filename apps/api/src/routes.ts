@@ -16,30 +16,8 @@ import {
 } from "./services/scenarios.js";
 import { countEvents, pendingOutboxCount, readClock, readPriceSource, writePriceSource } from "./db.js";
 import { problem } from "./problems.js";
-import {
-  accountIdParamsSchema,
-  accountQuerySchema,
-  cancelOrderBodySchema,
-  clockBodySchema,
-  createQuoteBodySchema,
-  eligibilityEpochQuerySchema,
-  emptyBodySchema,
-  idempotencyHeadersSchema,
-  navBodySchema,
-  orderIdParamsSchema,
-  placeOrderBodySchema,
-  priceSourceBodySchema,
-  proofRequestSchema,
-  proofVerifySchema,
-  roleHeaderSchema,
-  runIdParamsSchema,
-  scenarioDraftBodySchema,
-  scenarioEditBodySchema,
-  scenarioIdParamsSchema,
-  scenarioRunHeadersSchema,
-  sessionHeadersSchema,
-  startScenarioRunBodySchema,
-} from "./schemas.js";
+import { readObservedEconomics, evaluateScenario, readOperationsDashboard } from "./services/economics.js";
+import { accountIdParamsSchema, accountQuerySchema, cancelOrderBodySchema, clockBodySchema, createQuoteBodySchema, economicsScenarioBodySchema, eligibilityEpochQuerySchema, emptyBodySchema, idempotencyHeadersSchema, navBodySchema, orderIdParamsSchema, placeOrderBodySchema, priceSourceBodySchema, proofRequestSchema, proofVerifySchema, roleHeaderSchema, runIdParamsSchema, scenarioDraftBodySchema, scenarioEditBodySchema, scenarioIdParamsSchema, scenarioRunHeadersSchema, sessionHeadersSchema, startScenarioRunBodySchema } from "./schemas.js";
 
 function headerValue(value: string | string[] | undefined): string | undefined {
   if (Array.isArray(value)) {
@@ -466,6 +444,33 @@ export function registerRoutes(app: FastifyInstance, ctx: AppContext): void {
         unavailable: updated.unavailable,
       };
     },
+  );
+
+  app.get(
+    "/v1/economics/observed",
+    { schema: { tags: ["economics"], summary: "Observed bundle reconciliation and cost-experiment defaults" } },
+    async () => readObservedEconomics(),
+  );
+
+  app.post(
+    "/v1/economics/scenario",
+    {
+      schema: {
+        tags: ["economics"],
+        summary: "Evaluate an explicit cost-experiment scenario",
+        body: economicsScenarioBodySchema,
+      },
+    },
+    async (request: FastifyRequest) => {
+      const body = request.body as Parameters<typeof evaluateScenario>[0];
+      return evaluateScenario(body);
+    },
+  );
+
+  app.get(
+    "/v1/operations/dashboard",
+    { schema: { tags: ["operations"], summary: "Operating dashboard drill snapshot" } },
+    async () => readOperationsDashboard(),
   );
 
   app.post(

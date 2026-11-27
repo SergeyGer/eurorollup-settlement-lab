@@ -1,0 +1,244 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A07-batch-publication-drill",
+  "packId": "A07-operations",
+  "generatedBy": "pnpm a07:batch-drill",
+  "drill": "Batch publication pause and restore under sustained L2 load",
+  "lab": {
+    "devnet": "controlled local OP Stack devnet",
+    "clock": "anvil L1 clock, one block every two seconds",
+    "postingWindowDefinition": "4 L1 blocks (lab clock accelerated relative to the rollup channel timeout of 300 seconds)",
+    "windowsWithoutProgressBeforeAlert": 2
+  },
+  "deposit": {
+    "l1Tx": "0x23c41df15914c41618c0ec9cd34cc0da3806f051b92906c86bedd72f5cfad2c2",
+    "l1Block": 372,
+    "value": "500000000000000000",
+    "l2Account": "0xdc644d7C2A4296481125051622fA8F0943a4706d"
+  },
+  "load": {
+    "count": 30,
+    "lastL2Block": 408,
+    "samples": [
+      {
+        "hash": "0x8d9a06bfbda4296c0816b5d98fe2dd3095ee20ea637080896ed213cd40200e99",
+        "blockNumber": 348
+      },
+      {
+        "hash": "0xee5bfeacfee9e1d22f861274f1e71d02e1a892b3d2e27fa3a7087e5c0baf0807",
+        "blockNumber": 350
+      },
+      {
+        "hash": "0x39673540d9face983f7752a3f9d572aea9f7ed6801b905d62a0415eeee9e2ab2",
+        "blockNumber": 352
+      },
+      {
+        "hash": "0xb4344323ce7ba720e384aefab37852235b30a75a3a395fd1babb50ac1426e68e",
+        "blockNumber": 354
+      },
+      {
+        "hash": "0x03eeab13c7a2ff7e93ac5cf3cbbc1aa9c1a1b340842285d4a173ce19b638ff57",
+        "blockNumber": 356
+      }
+    ]
+  },
+  "pause": {
+    "pausedAtMs": 1795792081542,
+    "l1Block": 543,
+    "snapshots": [
+      {
+        "l1Block": 543,
+        "heads": {
+          "unsafe": 1040,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 112
+      },
+      {
+        "l1Block": 544,
+        "heads": {
+          "unsafe": 1041,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 1134
+      },
+      {
+        "l1Block": 544,
+        "heads": {
+          "unsafe": 1041,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 2152
+      },
+      {
+        "l1Block": 545,
+        "heads": {
+          "unsafe": 1042,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 3174
+      },
+      {
+        "l1Block": 545,
+        "heads": {
+          "unsafe": 1042,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 4191
+      },
+      {
+        "l1Block": 546,
+        "heads": {
+          "unsafe": 1043,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 5209
+      },
+      {
+        "l1Block": 546,
+        "heads": {
+          "unsafe": 1043,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 6228
+      },
+      {
+        "l1Block": 547,
+        "heads": {
+          "unsafe": 1044,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 7253
+      },
+      {
+        "l1Block": 547,
+        "heads": {
+          "unsafe": 1044,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 8276
+      },
+      {
+        "l1Block": 548,
+        "heads": {
+          "unsafe": 1045,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 9296
+      },
+      {
+        "l1Block": 548,
+        "heads": {
+          "unsafe": 1045,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 10315
+      },
+      {
+        "l1Block": 549,
+        "heads": {
+          "unsafe": 1046,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 11335
+      },
+      {
+        "l1Block": 549,
+        "heads": {
+          "unsafe": 1046,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 12355
+      },
+      {
+        "l1Block": 550,
+        "heads": {
+          "unsafe": 1047,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 13375
+      },
+      {
+        "l1Block": 550,
+        "heads": {
+          "unsafe": 1047,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 14393
+      },
+      {
+        "l1Block": 551,
+        "heads": {
+          "unsafe": 1048,
+          "safe": 920,
+          "finalized": 800
+        },
+        "elapsedMs": 15411
+      }
+    ],
+    "windowTargetL1Block": 551,
+    "postingWindowBlocks": 4
+  },
+  "baseline": {
+    "unsafe": 1040,
+    "safe": 920,
+    "finalized": 800
+  },
+  "alert": {
+    "type": "finality-delayed",
+    "detectedAtL1Block": 551,
+    "windowsWithoutProgress": 2,
+    "unsafeReceiptStatusPreserved": true,
+    "safeHeadStuckAt": 920,
+    "unsafeHeadAtAlert": 1048,
+    "activityLastBlock": 408
+  },
+  "finalityDelayed": true,
+  "headsAtAlert": {
+    "unsafe": 1048,
+    "safe": 920,
+    "finalized": 800
+  },
+  "restore": {
+    "resumeAtMs": 1795792096968,
+    "resumeL1Block": 551,
+    "resumeUnsafeHead": 1048,
+    "backlogTargetSafeHead": 1048,
+    "backlogClearanceMs": 11290,
+    "clearedSafeHead": 1049
+  },
+  "l1Publication": {
+    "batchTransactionCount": 1,
+    "batchTransactions": [
+      {
+        "l1Block": 552,
+        "txHash": "0xa22a982f53b964fb645dd86bc2c1d178cfa8fea1c36994359711accbf17f6cff",
+        "calldataBytes": 2115
+      }
+    ],
+    "fromL1Block": 551
+  },
+  "pausedHeadPreserved": true,
+  "passed": true,
+  "targetClearanceMs": 120000,
+  "missedTargets": [],
+  "limitations": [
+    "The drill window is measured in L1 blocks on an accelerated lab clock; it stands in for two configured production posting windows.",
+    "The batcher container is paused directly in the lab; no production orchestration is involved."
+  ]
+}

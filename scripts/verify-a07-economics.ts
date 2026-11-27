@@ -146,6 +146,73 @@ function main(): void {
     );
   }
 
+  // --- A07 operations evidence (drills, dashboard, provider evaluation, incident report) ---
+  const failover = readJson("benchmarks/rpc-failover.json") as Record<string, any>;
+  const indexer = readJson("benchmarks/indexer-restore.json") as Record<string, any>;
+  const nav = readJson("benchmarks/nav-source-drill.json") as Record<string, any>;
+  const performance = readJson("benchmarks/performance.json") as Record<string, any>;
+  const dashboard = readJson("benchmarks/operations-dashboard.json") as Record<string, any>;
+  const provider = readJson("benchmarks/provider-evaluation.json") as Record<string, any>;
+  const incident = readJson("benchmarks/incident-report.json") as Record<string, any>;
+
+  check(failover["passed"] === true, "RPC failover drill must pass");
+  check(typeof failover["recoveryMs"] === "number" && failover["recoveryMs"] <= failover["targetRecoveryMs"], "RPC recovery must be within the 60 s target");
+  check(failover["chainIdVerified"] === true && failover["finalizedCheckpointVerified"] === true, "failover must verify chain id and finalized checkpoint");
+  check((failover["probes"] as Array<{ target: string; ok: boolean }>).some((probe) => probe.target === "secondary" && probe.ok), "a healthy secondary probe is required");
+
+  check(indexer["passed"] === true, "indexer restore drill must pass");
+  check(indexer["discrepancyDetected"] === true && indexer["promotionRefused"] === true, "the corrupted statement must be refused");
+  check(indexer["digestsEqualAfterRestore"] === true, "the restored digest must equal the pre-restore digest");
+  check(indexer["restoreDurationMs"] <= indexer["targetRestoreMs"], "restore must be within the five-minute target");
+
+  check(nav["passed"] === true, "delayed NAV drill must pass");
+  const navCases = nav["cases"] as Array<{ caseId: string; pass: boolean; code?: string; duplicateReleaseRejected?: boolean }>;
+  check(navCases.every((entry) => entry.pass === true), "all delayed-NAV cases must pass");
+  check(navCases.some((entry) => entry.code === "NAV_MISSING"), "a mismatched valuation date must leave the order waiting");
+  check(navCases.some((entry) => entry.code === "NAV_STALE"), "a stale NAV record must be rejected");
+  check(navCases.some((entry) => entry.duplicateReleaseRejected === true), "a second release must be rejected");
+
+  check(performance["passed"] === true, "performance publication must pass its targets");
+  check(performance["apiReads"]["count"] === 200, "200 API reads are required");
+  check(performance["apiReads"]["p95Ms"] <= 500, "portfolio read p95 must be under 500 ms");
+  check(performance["proofGenerations"]["count"] === 30, "30 proof generations are required");
+  check(performance["proofGenerations"]["p95Ms"] <= 5_000, "warm proving p95 must be under 5 s");
+  check(performance["proofGenerations"]["proofVerifications"] === 2, "the generated proofs must verify");
+
+  check(dashboard["panels"] !== undefined, "the operating dashboard must publish panels");
+  for (const panel of ["rpcLatency", "chainLags", "indexerLag", "pendingNavAge", "sponsorshipRunway", "ledgerDifference"]) {
+    check(dashboard["panels"][panel] !== undefined, `dashboard panel ${panel} is required`);
+  }
+  check(dashboard["panels"]["emptyIntervalExample"]["noSamples"] === true, "an empty interval must display 'no samples' instead of zero");
+  check(typeof dashboard["dataMode"] === "string" && dashboard["dataMode"].length > 0, "dashboard data mode must be stated");
+
+  const weights = provider["weights"] as Array<{ weight: number }>;
+  const weightSum = weights.reduce((sum, entry) => sum + entry.weight, 0);
+  check(Math.abs(weightSum - 1) < 1e-9, "provider evaluation weights must sum to 1");
+  check((provider["profiles"] as unknown[]).length >= 3, "two RPC profiles and one indexing alternative are required");
+  check((provider["unknowns"] as unknown[]).length >= 1, "provider evaluation must record unknowns");
+
+  check(incident["simulated"] === true, "the incident report must label simulated roles");
+  check(Object.keys(incident["roles"] as Record<string, unknown>).length >= 3, "the incident report must name the lead and role owners");
+  check((incident["timeline"] as unknown[]).length >= 3, "the incident timeline must be recorded");
+
+  // --- batch publication drill (produced by pnpm a07:batch-drill on the devnet) ---
+  let batch: Record<string, any> | null = null;
+  try {
+    batch = readJson("benchmarks/batch-publication-drill.json") as Record<string, any>;
+  } catch {
+    batch = null;
+  }
+  check(batch !== null, "the batch publication drill evidence is required");
+  if (batch !== null) {
+    check(batch["passed"] === true, "the batch publication drill must pass");
+    check(batch["finalityDelayed"] === true, "the stalled safe head must be marked as delayed finality");
+    check(batch["alert"]["unsafeReceiptStatusPreserved"] === true, "the unsafe receipt status must be preserved");
+    check(batch["pausedHeadPreserved"] === true, "the unsafe head must keep advancing while the batcher is paused");
+    check(batch["l1Publication"]["batchTransactionCount"] > 0, "the resumed batcher must publish L1 batch transactions");
+    check((batch["missedTargets"] as unknown[]).length === 0, "the batch drill must report any missed performance target");
+  }
+
   if (failures.length > 0) {
     console.error("A07 economics evidence verification failed:");
     failures.forEach((failure) => console.error(`- ${failure}`));

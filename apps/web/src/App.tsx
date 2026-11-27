@@ -15,6 +15,7 @@ import {
 import { LiveLab } from "./LiveLab";
 import { PolicyLabView } from "./PolicyLabView";
 import { EligibilityView } from "./EligibilityView";
+import { EconomicsView } from "./EconomicsView";
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const MONTHS = [
@@ -339,7 +340,7 @@ export function App(): JSX.Element {
   );
   const [index, setIndex] = useState(() => g01Replay.length - 1);
   const [playing, setPlaying] = useState(false);
-  const [view, setView] = useState<"replay" | "live" | "policy" | "eligibility">("replay");
+  const [view, setView] = useState<"replay" | "live" | "policy" | "eligibility" | "economics">("replay");
 
   const currentStep = steps[index] ?? steps[steps.length - 1];
 
@@ -446,6 +447,13 @@ export function App(): JSX.Element {
         >
           Eligibility &amp; sponsorship
         </button>
+        <button
+          type="button"
+          className={view === "economics" ? "active" : ""}
+          onClick={() => setView("economics")}
+        >
+          Economics &amp; operations
+        </button>
       </nav>
 
       {view === "live" ? (
@@ -454,6 +462,8 @@ export function App(): JSX.Element {
         <PolicyLabView />
       ) : view === "eligibility" ? (
         <EligibilityView />
+      ) : view === "economics" ? (
+        <EconomicsView />
       ) : (
         <>
       <main className="layout">

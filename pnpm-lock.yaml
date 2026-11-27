@@ -40,6 +40,9 @@ importers:
       '@eurorollup/dealing':
         specifier: workspace:*
         version: link:../../packages/dealing
+      '@eurorollup/economics':
+        specifier: workspace:*
+        version: link:../../packages/economics
       '@eurorollup/eligibility':
         specifier: workspace:*
         version: link:../../packages/eligibility
@@ -67,6 +70,9 @@ importers:
       '@eurorollup/dealing':
         specifier: workspace:*
         version: link:../../packages/dealing
+      '@eurorollup/economics':
+        specifier: workspace:*
+        version: link:../../packages/economics
       '@eurorollup/eligibility':
         specifier: workspace:*
         version: link:../../packages/eligibility

@@ -191,6 +191,31 @@ modelled; the portal's production timers are satisfied with a recorded private
 and the verification record
 [`docs/verification/s06-protocol-run.md`](docs/verification/s06-protocol-run.md).
 
+## Economics and operations
+
+The settlement lane is instrumented on both sides of the charge. A real two-operation
+sponsored ERC-4337 bundle is measured and reconciled in wei: sponsor payment, bundler
+revenue, per-operation allocation with a failed/unattributable bucket and an explicit
+residual, plus an explicit 0.05 EUR investor charge leg and a timestamped demo EUR/ETH
+conversion. Missing fee components are reported as unavailable, never as zero.
+
+```bash
+pnpm a07:economics    # measure the bundle and regenerate the economics evidence
+pnpm a07:operations   # run the RPC, indexer, delayed-NAV and performance drills
+pnpm a07:batch-drill  # batch publication pause/restore drill (requires devnet:local:up)
+pnpm a07:verify       # offline verification of all A07 evidence (also in CI)
+```
+
+The operating drills cover RPC failover (independent verifier RPC, chain id and
+finalized checkpoint verified, recovery inside the 60 s target), a paused-batcher
+publication drill on the local OP Stack devnet, an indexer restore that refuses a
+discrepant statement, and a delayed NAV that releases exactly once after a valid new
+observation. `benchmarks/` publishes the drill outputs, the operating dashboard snapshot,
+the weighted provider evaluation and the performance figures (200 portfolio reads and 30
+real proof generations on the named local host). See
+[`docs/economics/README.md`](docs/economics/README.md) and
+[`docs/operations/`](docs/operations/).
+
 ## Quick start
 
 Requirements: Node.js 22 or newer and pnpm 9 or newer
@@ -227,6 +252,7 @@ apps/api             Local partner API, event log, journal, outbox worker and sc
 packages/dealing     Pure deterministic dealing engine shared by browser, CLI and worker
 packages/policy-lab  Proposal schema, draft revisions and two-branch replay (shared by browser, API and CLI)
 packages/sdk         Typed partner SDK and HTTP client
+packages/economics   Deterministic A07 economics: reconciliation, cost experiment, funding guard
 contracts           Foundry contracts (spot router, fund vault, share token)
 circuits            Noir eligibility circuit and vectors
 devnet              Controlled local OP Stack devnet launcher and docs
@@ -259,7 +285,11 @@ merged, and larger steps are tagged as GitHub Releases.
   OP Stack, calldata batch publication linked to the L2 safe head, canonical
   withdrawal proven and finalized on the portal, ADR-01 to ADR-04 and the A05
   evidence packs (blob DA remains an open gap).
-- Next: economics and operations (S07).
+- `v0.7.0` — economics and operations: measured bundle reconciliation, interactive
+  browser cost experiment, funding guard, RPC failover, batch publication, indexer
+  restore and delayed-NAV drills, operating dashboard, provider evaluation and
+  performance publication.
+- Next: verification gates A01-A09 and the offline evidence verifier (S08).
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:

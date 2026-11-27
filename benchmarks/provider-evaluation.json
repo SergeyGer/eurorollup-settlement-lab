@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A07-provider-evaluation",
+  "packId": "A07-operations",
+  "generatedBy": "pnpm a07:operations",
+  "weights": [
+    {
+      "criterion": "availability and observed correctness",
+      "weight": 0.35
+    },
+    {
+      "criterion": "recovery independence",
+      "weight": 0.25
+    },
+    {
+      "criterion": "integration effort",
+      "weight": 0.15
+    },
+    {
+      "criterion": "cost",
+      "weight": 0.15
+    },
+    {
+      "criterion": "data portability",
+      "weight": 0.1
+    }
+  ],
+  "weightRationale": "Availability and observed correctness dominate because a wrong read is worse than a slow one; recovery independence is next because a shared failure domain defeats the failover; integration effort, cost and portability trade off the remaining risk.",
+  "profiles": [
+    {
+      "profileId": "primary-local-fixture-rpc",
+      "description": "Primary read RPC used by the local API and browser.",
+      "probes": {
+        "samples": 3,
+        "availability": 0,
+        "p50Ms": 16.49
+      },
+      "scores": {
+        "availability": 70,
+        "recovery": 40,
+        "integrationEffort": 90,
+        "cost": 95,
+        "portability": 80
+      },
+      "weightedScore": 70.25,
+      "unknowns": [
+        "production internet latency and provider SLA are not measured by the local drills"
+      ]
+    },
+    {
+      "profileId": "secondary-verifier-rpc",
+      "description": "Independent verifier RPC used after the failover drill switches reads.",
+      "probes": {
+        "samples": 2,
+        "availability": 1,
+        "p50Ms": 8.75
+      },
+      "scores": {
+        "availability": 95,
+        "recovery": 90,
+        "integrationEffort": 70,
+        "cost": 70,
+        "portability": 80
+      },
+      "weightedScore": 84.75,
+      "unknowns": [
+        "provider-operated infrastructure is simulated by a second local node"
+      ]
+    },
+    {
+      "profileId": "event-log-indexer-alternative",
+      "description": "Indexing alternative: replay the canonical event log and reconcile per asset with the deterministic balance oracle.",
+      "probes": {
+        "samples": 1,
+        "availability": 1,
+        "p50Ms": 19.1
+      },
+      "scores": {
+        "availability": 85,
+        "recovery": 80,
+        "integrationEffort": 60,
+        "cost": 90,
+        "portability": 95
+      },
+      "weightedScore": 81.75,
+      "unknowns": [
+        "restore time grows with event-log size; measured on the frozen G01 log only"
+      ]
+    }
+  ],
+  "trafficProfile": {
+    "measuredReads": 200,
+    "p50Ms": 0.49,
+    "p95Ms": 0.709,
+    "description": "Portfolio read traffic through the in-process partner API."
+  },
+  "providerSwitchProcedure": [
+    "After three failed five-second probes switch reads to the independent verifier RPC.",
+    "Verify the chain id and the finalized checkpoint before resuming reads.",
+    "Replay the latest finalized checkpoint and reconcile every asset with the balance oracle.",
+    "Refuse to promote a statement whose digest does not match the canonical replay."
+  ],
+  "checkpointReplay": "The indexer restore drill replays the canonical event log from the latest finalized checkpoint and compares per-asset balances and digests before promoting a statement.",
+  "unknowns": [
+    "No production provider contract, SLA or billing data is available in this sandbox."
+  ]
+}

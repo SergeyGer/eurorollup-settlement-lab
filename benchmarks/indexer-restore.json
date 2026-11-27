@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A07-indexer-restore-drill",
+  "packId": "A07-operations",
+  "generatedBy": "pnpm a07:operations",
+  "drill": "Indexer restore from the latest finalized checkpoint",
+  "checkpoint": {
+    "eventCount": 3,
+    "checkpointDigest": "0a8f3e1101c17cdbb2e369673bbfac9f5644a63987e1ac79c0b5ecac033287ce",
+    "description": "Deterministic replay checkpoint over the frozen G01 event log."
+  },
+  "preRestoreDigest": "1dba2a47c6275fdef0f2f98feab2a2dbf32cea98a82fed6e333d1b95718cea01",
+  "corruptedStatementDigest": "42827d40ec9cd6cc03b48c40c4ddd900ed5b4a2b83a014cf2955531736f263be",
+  "restoredDigest": "1dba2a47c6275fdef0f2f98feab2a2dbf32cea98a82fed6e333d1b95718cea01",
+  "discrepancyDetected": true,
+  "promotionRefused": true,
+  "refusalReason": "statement digest and per-asset balances disagree with the canonical replay",
+  "assetReconciliation": [
+    {
+      "assetId": "dEUR",
+      "canonicalBalanceBase": "0",
+      "corruptedBalanceBase": "4",
+      "differenceBase": "4"
+    },
+    {
+      "assetId": "tWETH",
+      "canonicalBalanceBase": "0",
+      "corruptedBalanceBase": "0",
+      "differenceBase": "0"
+    },
+    {
+      "assetId": "eFUND",
+      "canonicalBalanceBase": "0",
+      "corruptedBalanceBase": "0",
+      "differenceBase": "0"
+    }
+  ],
+  "restoreDurationMs": 19.1,
+  "targetRestoreMs": 300000,
+  "digestsEqualAfterRestore": true,
+  "passed": true,
+  "dataMode": "deterministic replay over the frozen G01 event log",
+  "limitations": [
+    "The contract read is represented by the deterministic engine balance oracle; this local lab has no external chain indexer."
+  ]
+}

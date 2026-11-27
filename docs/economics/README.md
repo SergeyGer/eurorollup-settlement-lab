@@ -84,6 +84,5 @@ pnpm a07:verify      # offline verification (also run in CI)
   unavailable in the measured reconciliation rather than modeled as measured data.
 - The EUR/ETH conversion is a frozen demo fixture stamped at measurement time, not
   a live market rate.
-- The operations drills, dashboard, provider evaluation and incident report are
-  the remaining S07 work and get their own evidence under `benchmarks/` and
-  `docs/operations/`.
+- The operations drills, dashboard, provider evaluation and incident report live in
+  [`../operations/`](../operations/) with their evidence under `benchmarks/`.
