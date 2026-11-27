@@ -86,6 +86,15 @@ async function fetchJson<T>(
   }
 }
 
+/** Removes trailing slashes without a regular expression (linear scan). */
+function trimTrailingSlashes(value: string): string {
+  let end = value.length;
+  while (end > 0 && value[end - 1] === "/") {
+    end -= 1;
+  }
+  return value.slice(0, end);
+}
+
 export interface OllamaHealth {
   readonly available: boolean;
   readonly version: string | null;
@@ -103,7 +112,7 @@ export class OllamaModelPort implements ModelPort {
   constructor(
     options: OllamaPortOptions & { readonly digest: string | null; readonly promptVersion: string },
   ) {
-    this.baseUrl = (options.baseUrl ?? DEFAULT_OLLAMA_BASE_URL).replace(/\/+$/, "");
+    this.baseUrl = trimTrailingSlashes(options.baseUrl ?? DEFAULT_OLLAMA_BASE_URL);
     this.numPredict = options.numPredict ?? DEFAULT_NUM_PREDICT;
     this.numCtx = options.numCtx ?? DEFAULT_NUM_CTX;
     this.metadata = {
@@ -186,7 +195,7 @@ export async function checkOllamaHealth(options: {
   baseUrl?: string;
   model?: string;
 }): Promise<OllamaHealth> {
-  const baseUrl = (options.baseUrl ?? DEFAULT_OLLAMA_BASE_URL).replace(/\/+$/, "");
+  const baseUrl = trimTrailingSlashes(options.baseUrl ?? DEFAULT_OLLAMA_BASE_URL);
   const model = options.model ?? DEFAULT_OLLAMA_MODEL;
   try {
     const version = await fetchJson<OllamaVersionResponse>(`${baseUrl}/api/version`, {

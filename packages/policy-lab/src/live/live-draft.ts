@@ -34,10 +34,16 @@ interface ParsedProposal {
 export function parseProposalText(text: string): ParsedProposal {
   const trimmed = text.trim();
   let candidate = trimmed;
-  // Tolerate a single code fence even though the prompt forbids it.
-  const fenceMatch = /^```(?:json)?\s*([\s\S]*?)```$/u.exec(trimmed);
-  if (fenceMatch !== null && fenceMatch[1] !== undefined) {
-    candidate = fenceMatch[1].trim();
+  // Tolerate a single code fence even though the prompt forbids it. A linear
+  // scan is used instead of a regular expression so model-controlled input
+  // cannot trigger pathological backtracking.
+  if (candidate.startsWith("```")) {
+    const firstLineBreak = candidate.indexOf("\n");
+    const bodyStart = firstLineBreak === -1 ? 3 : firstLineBreak + 1;
+    const closingFence = candidate.lastIndexOf("```");
+    if (closingFence > bodyStart) {
+      candidate = candidate.slice(bodyStart, closingFence).trim();
+    }
   }
   const objectStart = candidate.indexOf("{");
   const objectEnd = candidate.lastIndexOf("}");
