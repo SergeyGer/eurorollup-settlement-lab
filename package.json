@@ -37,7 +37,11 @@
     "eligibility:verify": "tsx packages/eligibility/src/cli.ts verify",
     "eligibility:all": "pnpm eligibility:fixtures && pnpm eligibility:artifacts && pnpm eligibility:evidence && pnpm eligibility:verify",
     "aa:scenario": "tsx scripts/aa-scenario.ts",
-    "aa:verify": "tsx scripts/verify-aa-evidence.ts"
+    "aa:verify": "tsx scripts/verify-aa-evidence.ts",
+    "devnet:up": "bash devnet/up.sh",
+    "devnet:down": "bash devnet/down.sh",
+    "devnet:status": "bash devnet/status.sh",
+    "devnet:evidence": "tsx scripts/devnet-evidence.ts"
   },
   "devDependencies": {
     "@account-abstraction/contracts": "0.7.0",
