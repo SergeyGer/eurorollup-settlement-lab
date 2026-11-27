@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "1.0.0",
+  "fixtureId": "A02-boundaries",
+  "fixtureVersion": "1.0.0",
+  "engineVersion": "0.1.0",
+  "calendarIds": [
+    "LAB-UTC-1",
+    "LAB-UTC-2"
+  ],
+  "cases": [
+    {
+      "caseId": "B-1459-59",
+      "description": "One second before the candidate Friday cutoff",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-20T14:59:59Z",
+      "baseline": {
+        "dealingDate": "2026-11-20",
+        "reason": "BEFORE_CUTOFF_SAME_DAY"
+      },
+      "candidate": {
+        "dealingDate": "2026-11-20",
+        "reason": "BEFORE_CUTOFF_SAME_DAY"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-20",
+        "baselineReason": "BEFORE_CUTOFF_SAME_DAY",
+        "candidateReason": "BEFORE_CUTOFF_SAME_DAY"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "B-1500-00",
+      "description": "Exactly at the candidate Friday cutoff",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-20T15:00:00Z",
+      "baseline": {
+        "dealingDate": "2026-11-20",
+        "reason": "BEFORE_CUTOFF_SAME_DAY"
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "reason": "AT_OR_AFTER_CUTOFF"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "BEFORE_CUTOFF_SAME_DAY",
+        "candidateReason": "AT_OR_AFTER_CUTOFF"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "B-1600-00",
+      "description": "Exactly at the baseline Friday cutoff",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-20T16:00:00Z",
+      "baseline": {
+        "dealingDate": "2026-11-23",
+        "reason": "AT_OR_AFTER_CUTOFF"
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "reason": "AT_OR_AFTER_CUTOFF"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "AT_OR_AFTER_CUTOFF",
+        "candidateReason": "AT_OR_AFTER_CUTOFF"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "B-1630-00",
+      "description": "After both Friday cutoffs",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-20T16:30:00Z",
+      "baseline": {
+        "dealingDate": "2026-11-23",
+        "reason": "AT_OR_AFTER_CUTOFF"
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "reason": "AT_OR_AFTER_CUTOFF"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "AT_OR_AFTER_CUTOFF",
+        "candidateReason": "AT_OR_AFTER_CUTOFF"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "B-SATURDAY",
+      "description": "Saturday request moves to Monday under both policies",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-21T14:00:00Z",
+      "baseline": {
+        "dealingDate": "2026-11-23",
+        "reason": "NON_DEALING_DAY"
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "reason": "NON_DEALING_DAY"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "NON_DEALING_DAY",
+        "candidateReason": "NON_DEALING_DAY"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "B-SUNDAY",
+      "description": "Sunday request moves to Monday under both policies",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-22T12:00:00Z",
+      "baseline": {
+        "dealingDate": "2026-11-23",
+        "reason": "NON_DEALING_DAY"
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "reason": "NON_DEALING_DAY"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "NON_DEALING_DAY",
+        "candidateReason": "NON_DEALING_DAY"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "B-MONDAY-BEFORE",
+      "description": "Monday request before the unchanged Monday cutoff stays same day",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-23T10:00:00Z",
+      "baseline": {
+        "dealingDate": "2026-11-23",
+        "reason": "BEFORE_CUTOFF_SAME_DAY"
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "reason": "BEFORE_CUTOFF_SAME_DAY"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "BEFORE_CUTOFF_SAME_DAY",
+        "candidateReason": "BEFORE_CUTOFF_SAME_DAY"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "B-HOLIDAY-MONDAY",
+      "description": "Monday closed in the alternate calendar moves both policies to Tuesday",
+      "calendarId": "LAB-UTC-2",
+      "requestedAt": "2026-11-23T10:00:00Z",
+      "baseline": {
+        "dealingDate": "2026-11-24",
+        "reason": "NON_DEALING_DAY"
+      },
+      "candidate": {
+        "dealingDate": "2026-11-24",
+        "reason": "NON_DEALING_DAY"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-24",
+        "candidateDealingDate": "2026-11-24",
+        "baselineReason": "NON_DEALING_DAY",
+        "candidateReason": "NON_DEALING_DAY"
+      },
+      "pass": true
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0
+  },
+  "businessDigest": "0340e01bac5e8edb72f40c0a33beb017d328c9c75d73c50b6beeecaaaa0273f2"
+}

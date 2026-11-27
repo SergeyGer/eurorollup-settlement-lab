@@ -1,0 +1,22 @@
+{
+  "fixtureId": "G01-R",
+  "fixtureVersion": "1.0.0",
+  "description": "Separate redemption case appended to G01: one eFUND unit redeemed at the next applicable NAV of 98.00 EUR after the Friday cutoff.",
+  "orderId": "G01-RED-01",
+  "investorId": "investor-ada",
+  "unitsBase": "1000000",
+  "requestedAt": "2026-11-20T17:05:00Z",
+  "cutoffTimeUtc": "16:00",
+  "nav": {
+    "valuationDate": "2026-11-23",
+    "navBase": "98000000",
+    "sourceTime": "2026-11-23T17:00:00Z",
+    "revision": 1,
+    "signer": "issuer-nav-signer"
+  },
+  "settledAt": "2026-11-23T17:01:00Z",
+  "expected": {
+    "spendableCashBase": "597950000",
+    "eFundUnitsBase": "2125000"
+  }
+}

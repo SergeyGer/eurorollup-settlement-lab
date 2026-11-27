@@ -58,6 +58,18 @@ Result card: **1 of 2 orders changes dealing date** and **€300 more reserved a
 Friday close**. F-1530 settles 72 hours later and receives 0.125000 fewer units
 at the supplied Monday NAV.
 
+## Replay preview
+
+The browser replay steps through the recorded G01 settlement with the pure
+dealing engine running locally. While the fund request awaits its authorized
+NAV, EUR 300.00 is displayed once as pending cash and is not counted as a
+holding:
+
+![Recorded replay: spendable EUR 499.95 and EUR 300.00 pending while awaiting NAV](docs/media/s01-portfolio-reserved.jpg)
+
+See [`docs/verification/s01-foundation.md`](docs/verification/s01-foundation.md)
+for the verified checkpoints, receipts and digests of the foundation step.
+
 ## Quick start
 
 Requirements: Node.js 22 or newer and pnpm 9 or newer
@@ -96,10 +108,13 @@ The project is delivered in documented steps tracked as GitHub Issues and
 Milestones. Each step closes only when its fixtures, tests and evidence are
 merged, and larger steps are tagged as GitHub Releases.
 
-- Current stage: foundation and repository publication.
-- Planned steps: settlement core, policy-lab simulation, live model adapter,
-  account abstraction and eligibility, pinned local rollup, economics and
-  operations, verification gates A01–A09, public release, release film.
+- Current stage: foundation released as `v0.1.0` — frozen fixtures, integer
+  money arithmetic, versioned UTC calendar, the G01 portfolio replay with a
+  reproducible evidence pack, and a basic browser replay.
+- Next: settlement core and partner API (step S02), then policy-lab simulation,
+  live model adapter, account abstraction and eligibility, pinned local rollup,
+  economics and operations, verification gates A01–A09, public release and the
+  release film.
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md).

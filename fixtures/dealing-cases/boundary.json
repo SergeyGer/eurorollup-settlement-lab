@@ -1,0 +1,122 @@
+{
+  "fixtureId": "A02-boundaries",
+  "fixtureVersion": "1.0.0",
+  "description": "Cutoff boundary, weekend and holiday dealing-day assignment cases used by gate A02.",
+  "calendarId": "LAB-UTC-1",
+  "baselineCutoffTimeUtc": "16:00",
+  "candidateCutoffTimeUtc": "15:00",
+  "cutoffs": {
+    "baseline": {
+      "MON": "16:00",
+      "TUE": "16:00",
+      "WED": "16:00",
+      "THU": "16:00",
+      "FRI": "16:00"
+    },
+    "candidate": {
+      "MON": "16:00",
+      "TUE": "16:00",
+      "WED": "16:00",
+      "THU": "16:00",
+      "FRI": "15:00"
+    }
+  },
+  "cases": [
+    {
+      "caseId": "B-1459-59",
+      "description": "One second before the candidate Friday cutoff",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-20T14:59:59Z",
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-20",
+        "baselineReason": "BEFORE_CUTOFF_SAME_DAY",
+        "candidateReason": "BEFORE_CUTOFF_SAME_DAY"
+      }
+    },
+    {
+      "caseId": "B-1500-00",
+      "description": "Exactly at the candidate Friday cutoff",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-20T15:00:00Z",
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "BEFORE_CUTOFF_SAME_DAY",
+        "candidateReason": "AT_OR_AFTER_CUTOFF"
+      }
+    },
+    {
+      "caseId": "B-1600-00",
+      "description": "Exactly at the baseline Friday cutoff",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-20T16:00:00Z",
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "AT_OR_AFTER_CUTOFF",
+        "candidateReason": "AT_OR_AFTER_CUTOFF"
+      }
+    },
+    {
+      "caseId": "B-1630-00",
+      "description": "After both Friday cutoffs",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-20T16:30:00Z",
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "AT_OR_AFTER_CUTOFF",
+        "candidateReason": "AT_OR_AFTER_CUTOFF"
+      }
+    },
+    {
+      "caseId": "B-SATURDAY",
+      "description": "Saturday request moves to Monday under both policies",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-21T14:00:00Z",
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "NON_DEALING_DAY",
+        "candidateReason": "NON_DEALING_DAY"
+      }
+    },
+    {
+      "caseId": "B-SUNDAY",
+      "description": "Sunday request moves to Monday under both policies",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-22T12:00:00Z",
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "NON_DEALING_DAY",
+        "candidateReason": "NON_DEALING_DAY"
+      }
+    },
+    {
+      "caseId": "B-MONDAY-BEFORE",
+      "description": "Monday request before the unchanged Monday cutoff stays same day",
+      "calendarId": "LAB-UTC-1",
+      "requestedAt": "2026-11-23T10:00:00Z",
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineReason": "BEFORE_CUTOFF_SAME_DAY",
+        "candidateReason": "BEFORE_CUTOFF_SAME_DAY"
+      }
+    },
+    {
+      "caseId": "B-HOLIDAY-MONDAY",
+      "description": "Monday closed in the alternate calendar moves both policies to Tuesday",
+      "calendarId": "LAB-UTC-2",
+      "requestedAt": "2026-11-23T10:00:00Z",
+      "expected": {
+        "baselineDealingDate": "2026-11-24",
+        "candidateDealingDate": "2026-11-24",
+        "baselineReason": "NON_DEALING_DAY",
+        "candidateReason": "NON_DEALING_DAY"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "packId": "G01",
+  "engineVersion": "0.1.0",
+  "fixtureId": "G01",
+  "fixtureVersion": "1.0.0",
+  "businessDigest": "72b49ec1256c38fe68f1d63f12a73bc299cbeaa2e74108eb09f86f7b4c0d08cf",
+  "checklist": [
+    "G01 spendable cash 799.95 after the spot fill",
+    "G01 reserved cash 300.00 while awaiting NAV",
+    "G01 0.100000 tWETH and 3.125000 eFUND at the closing marks",
+    "G01 redemption case 597.95 spendable and 2.125000 units",
+    "Journal balances to zero per asset",
+    "Canonical business digest reproduced by pnpm verify"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/g01/scenario.json",
+      "sha256": "481cbbe87bc74d0a7a47679fdf88b1e831e534b837efe3da2b6b2452fe0d0cba",
+      "bytes": 2753
+    },
+    {
+      "path": "fixtures/g01/redemption.json",
+      "sha256": "7b94e0feff6702847f2e1eb2ac491118212281d6dc4f4e21c278752cbf506d14",
+      "bytes": 664
+    },
+    {
+      "path": "fixtures/calendar/LAB-UTC-1.json",
+      "sha256": "ee85156acb40f16f7e771e383efc5ecdaa671fd490471683e9774f3d6af4af80",
+      "bytes": 261
+    },
+    {
+      "path": "fixtures/instruments.json",
+      "sha256": "30641a0a72cab88afde7aa1c41e3fd3329fcacc0bd8a112cf8745592168777ad",
+      "bytes": 897
+    }
+  ],
+  "files": [
+    {
+      "path": "golden-run.json",
+      "sha256": "9adac504b5c1fb696a33737f77631651bd1fac7f92090b63f9c70cbe03ac7723",
+      "bytes": 25823
+    }
+  ]
+}

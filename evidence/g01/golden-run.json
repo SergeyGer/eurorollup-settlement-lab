@@ -1,0 +1,743 @@
+{
+  "schemaVersion": "1.0.0",
+  "fixtureId": "G01",
+  "fixtureVersion": "1.0.0",
+  "engineVersion": "0.1.0",
+  "calendar": {
+    "calendarId": "LAB-UTC-1",
+    "version": "1.0.0"
+  },
+  "cases": [
+    {
+      "caseId": "G01",
+      "title": "One investor, one spot fill and one fund lifecycle",
+      "inputs": {
+        "fixtureId": "G01",
+        "fixtureVersion": "1.0.0",
+        "calendar": {
+          "calendarId": "LAB-UTC-1",
+          "version": "1.0.0",
+          "timezone": "UTC",
+          "description": "Primary fixture calendar: Friday 20 November 2026 and Monday 23 November 2026 are dealing days; the weekend is closed.",
+          "dealingDays": [
+            "2026-11-20",
+            "2026-11-23"
+          ]
+        },
+        "accounts": {
+          "investorId": "investor-ada",
+          "dealerInventoryId": "dealer-inventory",
+          "feeRecipientId": "fee-recipient",
+          "issuerTreasuryId": "issuer-treasury",
+          "issuanceControlId": "issuance-control",
+          "fundEscrowId": "fund-escrow"
+        },
+        "marks": {
+          "tWETH": "2000000000",
+          "eFUND": "96000000"
+        },
+        "seed": {
+          "assetId": "dEUR",
+          "amountBase": "1000000000",
+          "occurredAt": "2026-11-20T14:00:00Z"
+        },
+        "spot": {
+          "orderId": "G01-SPOT-01",
+          "side": "BUY",
+          "amountBase": "200000000",
+          "priceBase": "2000000000",
+          "priceAsOf": "2026-11-20T14:10:00Z",
+          "expiresAt": "2026-11-20T14:10:30Z",
+          "chargeBase": "50000",
+          "quoteIssuedAt": "2026-11-20T14:10:00Z",
+          "filledAt": "2026-11-20T14:10:02Z"
+        },
+        "fund": {
+          "orderId": "G01-FUND-01",
+          "cashBase": "300000000",
+          "indicativeNavBase": "100000000",
+          "requestedAt": "2026-11-20T15:30:00Z",
+          "cutoffTimeUtc": "16:00",
+          "nav": {
+            "valuationDate": "2026-11-20",
+            "navBase": "96000000",
+            "sourceTime": "2026-11-20T17:00:00Z",
+            "revision": 1,
+            "signer": "issuer-nav-signer"
+          },
+          "allocatedAt": "2026-11-20T17:01:00Z"
+        },
+        "expected": {
+          "checkpoints": [
+            {
+              "label": "Seed",
+              "spendableCashBase": "1000000000",
+              "reservedCashBase": "0",
+              "tWethBalanceBase": "0",
+              "eFundBalanceBase": "0",
+              "totalMarkedValueBase": "1000000000"
+            },
+            {
+              "label": "Buy 200.00 dEUR at 2,000.00 EUR per tWETH",
+              "spendableCashBase": "799950000",
+              "reservedCashBase": "0",
+              "tWethBalanceBase": "100000000000000000",
+              "eFundBalanceBase": "0",
+              "totalMarkedValueBase": "999950000"
+            },
+            {
+              "label": "Request 300.00 dEUR at indicative NAV 100.00 EUR",
+              "spendableCashBase": "499950000",
+              "reservedCashBase": "300000000",
+              "tWethBalanceBase": "100000000000000000",
+              "eFundBalanceBase": "0",
+              "totalMarkedValueBase": "999950000"
+            },
+            {
+              "label": "Strike and settle at NAV 96.00 EUR",
+              "spendableCashBase": "499950000",
+              "reservedCashBase": "0",
+              "tWethBalanceBase": "100000000000000000",
+              "eFundBalanceBase": "3125000",
+              "totalMarkedValueBase": "999950000"
+            }
+          ],
+          "finalPortfolioValueBase": "999950000",
+          "spendableCashBase": "499950000",
+          "reservedCashBase": "0",
+          "tWethBalanceBase": "100000000000000000",
+          "eFundBalanceBase": "3125000"
+        }
+      },
+      "inputsHash": "4c516472ad52653f65c21e49c7e0d53fad057ef684bd959c26fec01d00fb1c6c",
+      "steps": [
+        {
+          "stepId": "G01-EV-01",
+          "eventType": "account.seeded",
+          "title": "Synthetic account seeded",
+          "description": "Seeded 1000.00 dEUR into investor-ada",
+          "occurredAt": "2026-11-20T14:00:00Z",
+          "businessEffects": [
+            "Investor dEUR: +1000.00 dEUR",
+            "Issuance control dEUR: -1000.00 dEUR"
+          ],
+          "journal": [
+            {
+              "entryId": "G01-EV-01-JE",
+              "stepId": "G01-EV-01",
+              "occurredAt": "2026-11-20T14:00:00Z",
+              "eventType": "account.seeded",
+              "description": "Seeded 1000.00 dEUR into investor-ada",
+              "postings": [
+                {
+                  "account": {
+                    "kind": "investor",
+                    "accountId": "investor-ada"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "1000000000"
+                },
+                {
+                  "account": {
+                    "kind": "issuanceControl",
+                    "accountId": "issuance-control"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "-1000000000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stepId": "G01-EV-02",
+          "eventType": "spot.quote.issued",
+          "title": "Spot quote issued",
+          "description": "Spot quote G01-SPOT-01: BUY 200.00 dEUR at 2000.00 EUR per tWETH, fixed charge 0.05 dEUR, expires 2026-11-20T14:10:30Z",
+          "occurredAt": "2026-11-20T14:10:00Z",
+          "businessEffects": [
+            "Order G01-SPOT-01 is quoted",
+            "No cash or asset movement before settlement"
+          ],
+          "journal": []
+        },
+        {
+          "stepId": "G01-EV-03",
+          "eventType": "spot.order.filled",
+          "title": "Spot order filled",
+          "description": "Bought 0.100000 tWETH for 200.00 dEUR plus 0.05 dEUR fixed charge",
+          "occurredAt": "2026-11-20T14:10:02Z",
+          "businessEffects": [
+            "Investor spendable cash: -200.05 dEUR",
+            "Investor tWETH: +0.100000 tWETH",
+            "Investor charge: 0.05 dEUR",
+            "Dealer cash: +200.00 dEUR",
+            "Fee recipient: 0.05 dEUR"
+          ],
+          "journal": [
+            {
+              "entryId": "G01-EV-03-JE",
+              "stepId": "G01-EV-03",
+              "orderId": "G01-SPOT-01",
+              "occurredAt": "2026-11-20T14:10:02Z",
+              "eventType": "spot.order.filled",
+              "description": "Bought 0.100000 tWETH for 200.00 dEUR plus 0.05 dEUR fixed charge",
+              "postings": [
+                {
+                  "account": {
+                    "kind": "dealer",
+                    "accountId": "dealer-inventory"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "200000000"
+                },
+                {
+                  "account": {
+                    "kind": "dealer",
+                    "accountId": "dealer-inventory"
+                  },
+                  "assetId": "tWETH",
+                  "amountBase": "-100000000000000000"
+                },
+                {
+                  "account": {
+                    "kind": "feeRecipient",
+                    "accountId": "fee-recipient"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "50000"
+                },
+                {
+                  "account": {
+                    "kind": "investor",
+                    "accountId": "investor-ada"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "-200000000"
+                },
+                {
+                  "account": {
+                    "kind": "investor",
+                    "accountId": "investor-ada"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "-50000"
+                },
+                {
+                  "account": {
+                    "kind": "investor",
+                    "accountId": "investor-ada"
+                  },
+                  "assetId": "tWETH",
+                  "amountBase": "100000000000000000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stepId": "G01-EV-04",
+          "eventType": "fund.subscription.requested",
+          "title": "Fund subscription reserved",
+          "description": "Reserved 300.00 dEUR for eFUND; dealing day 2026-11-20 assigned because the request at 2026-11-20T15:30:00Z was before the cutoff on a dealing day",
+          "occurredAt": "2026-11-20T15:30:00Z",
+          "businessEffects": [
+            "Investor spendable cash: -300.00 dEUR",
+            "Fund escrow: +300.00 dEUR",
+            "Pending cash reserved: 300.00 dEUR",
+            "Assigned dealing day: 2026-11-20",
+            "No units issued before the authorized NAV"
+          ],
+          "journal": [
+            {
+              "entryId": "G01-EV-04-JE",
+              "stepId": "G01-EV-04",
+              "orderId": "G01-FUND-01",
+              "occurredAt": "2026-11-20T15:30:00Z",
+              "eventType": "fund.subscription.requested",
+              "description": "Reserved 300.00 dEUR for eFUND; dealing day 2026-11-20 assigned because the request at 2026-11-20T15:30:00Z was before the cutoff on a dealing day",
+              "postings": [
+                {
+                  "account": {
+                    "kind": "fundEscrow",
+                    "accountId": "fund-escrow"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "300000000"
+                },
+                {
+                  "account": {
+                    "kind": "investor",
+                    "accountId": "investor-ada"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "-300000000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stepId": "G01-EV-05",
+          "eventType": "nav.observed",
+          "title": "NAV observation recorded",
+          "description": "Authorized NAV for eFUND on 2026-11-20: 96.00 EUR per unit (revision 1, signer issuer-nav-signer, source 2026-11-20T17:00:00Z)",
+          "occurredAt": "2026-11-20T17:00:00Z",
+          "businessEffects": [
+            "NAV eFUND 2026-11-20: 96.00 EUR per unit",
+            "Revision 1 accepted from issuer-nav-signer"
+          ],
+          "journal": []
+        },
+        {
+          "stepId": "G01-EV-06",
+          "eventType": "fund.subscription.allocated",
+          "title": "Fund units allocated",
+          "description": "Allocated 3.125000 eFUND units to investor-ada at 96.00 EUR per unit; 300.00 dEUR moved to the issuer treasury and 0.00 dEUR residual returned",
+          "occurredAt": "2026-11-20T17:01:00Z",
+          "businessEffects": [
+            "Reserved cash released: 300.00 dEUR",
+            "Investor eFUND: +3.12 eFUND",
+            "Investor residual cash: +0.00 dEUR",
+            "Applied NAV: 96.00 EUR per unit"
+          ],
+          "journal": [
+            {
+              "entryId": "G01-EV-06-JE",
+              "stepId": "G01-EV-06",
+              "orderId": "G01-FUND-01",
+              "occurredAt": "2026-11-20T17:01:00Z",
+              "eventType": "fund.subscription.allocated",
+              "description": "Allocated 3.125000 eFUND units to investor-ada at 96.00 EUR per unit; 300.00 dEUR moved to the issuer treasury and 0.00 dEUR residual returned",
+              "postings": [
+                {
+                  "account": {
+                    "kind": "fundEscrow",
+                    "accountId": "fund-escrow"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "-300000000"
+                },
+                {
+                  "account": {
+                    "kind": "investor",
+                    "accountId": "investor-ada"
+                  },
+                  "assetId": "eFUND",
+                  "amountBase": "3125000"
+                },
+                {
+                  "account": {
+                    "kind": "issuanceControl",
+                    "accountId": "issuance-control"
+                  },
+                  "assetId": "eFUND",
+                  "amountBase": "-3125000"
+                },
+                {
+                  "account": {
+                    "kind": "issuerTreasury",
+                    "accountId": "issuer-treasury"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "300000000"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "receipts": [
+        {
+          "schemaVersion": "1.0",
+          "orderId": "G01-SPOT-01",
+          "businessState": "FILLED",
+          "assetId": "tWETH",
+          "unitsBase": "100000000000000000",
+          "assetDecimals": 18,
+          "cashAssetId": "dEUR",
+          "cashDeployedBase": "200000000",
+          "cashDecimals": 6,
+          "priceEurPerUnit": "2000.00",
+          "investorChargeBase": "50000"
+        },
+        {
+          "schemaVersion": "1.0",
+          "orderId": "G01-FUND-01",
+          "businessState": "ALLOCATED",
+          "assetId": "eFUND",
+          "unitsBase": "3125000",
+          "assetDecimals": 6,
+          "cashAssetId": "dEUR",
+          "cashDeployedBase": "300000000",
+          "cashDecimals": 6,
+          "navEurPerUnit": "96.00",
+          "investorChargeBase": "0"
+        }
+      ],
+      "checkpoints": [
+        {
+          "label": "Seed",
+          "investorId": "investor-ada",
+          "at": "2026-11-20T14:00:00Z",
+          "spendableCashBase": "1000000000",
+          "reservedCashBase": "0",
+          "holdings": [
+            {
+              "assetId": "tWETH",
+              "balanceBase": "0",
+              "reservedBase": "0",
+              "markPriceBase": "2000000000",
+              "markedValueBase": "0",
+              "displayDecimals": 6
+            },
+            {
+              "assetId": "eFUND",
+              "balanceBase": "0",
+              "reservedBase": "0",
+              "markPriceBase": "96000000",
+              "markedValueBase": "0",
+              "displayDecimals": 6
+            }
+          ],
+          "totalMarkedValueBase": "1000000000",
+          "pendingOrders": []
+        },
+        {
+          "label": "Buy 200.00 dEUR at 2,000.00 EUR per tWETH",
+          "investorId": "investor-ada",
+          "at": "2026-11-20T14:10:02Z",
+          "spendableCashBase": "799950000",
+          "reservedCashBase": "0",
+          "holdings": [
+            {
+              "assetId": "tWETH",
+              "balanceBase": "100000000000000000",
+              "reservedBase": "0",
+              "markPriceBase": "2000000000",
+              "markedValueBase": "200000000",
+              "displayDecimals": 6
+            },
+            {
+              "assetId": "eFUND",
+              "balanceBase": "0",
+              "reservedBase": "0",
+              "markPriceBase": "96000000",
+              "markedValueBase": "0",
+              "displayDecimals": 6
+            }
+          ],
+          "totalMarkedValueBase": "999950000",
+          "pendingOrders": []
+        },
+        {
+          "label": "Request 300.00 dEUR at indicative NAV 100.00 EUR",
+          "investorId": "investor-ada",
+          "at": "2026-11-20T15:30:00Z",
+          "spendableCashBase": "499950000",
+          "reservedCashBase": "300000000",
+          "holdings": [
+            {
+              "assetId": "tWETH",
+              "balanceBase": "100000000000000000",
+              "reservedBase": "0",
+              "markPriceBase": "2000000000",
+              "markedValueBase": "200000000",
+              "displayDecimals": 6
+            },
+            {
+              "assetId": "eFUND",
+              "balanceBase": "0",
+              "reservedBase": "0",
+              "markPriceBase": "96000000",
+              "markedValueBase": "0",
+              "displayDecimals": 6
+            }
+          ],
+          "totalMarkedValueBase": "999950000",
+          "pendingOrders": [
+            {
+              "orderId": "G01-FUND-01",
+              "kind": "fund-subscription",
+              "status": "AWAITING_NAV",
+              "dealingDate": "2026-11-20",
+              "reason": "AWAITING_AUTHORIZED_NAV"
+            }
+          ]
+        },
+        {
+          "label": "Strike and settle at NAV 96.00 EUR",
+          "investorId": "investor-ada",
+          "at": "2026-11-20T17:01:00Z",
+          "spendableCashBase": "499950000",
+          "reservedCashBase": "0",
+          "holdings": [
+            {
+              "assetId": "tWETH",
+              "balanceBase": "100000000000000000",
+              "reservedBase": "0",
+              "markPriceBase": "2000000000",
+              "markedValueBase": "200000000",
+              "displayDecimals": 6
+            },
+            {
+              "assetId": "eFUND",
+              "balanceBase": "3125000",
+              "reservedBase": "0",
+              "markPriceBase": "96000000",
+              "markedValueBase": "300000000",
+              "displayDecimals": 6
+            }
+          ],
+          "totalMarkedValueBase": "999950000",
+          "pendingOrders": []
+        }
+      ],
+      "finalPortfolio": {
+        "label": "Closing portfolio at fixture marks",
+        "investorId": "investor-ada",
+        "at": "2026-11-20T17:01:00Z",
+        "spendableCashBase": "499950000",
+        "reservedCashBase": "0",
+        "holdings": [
+          {
+            "assetId": "tWETH",
+            "balanceBase": "100000000000000000",
+            "reservedBase": "0",
+            "markPriceBase": "2000000000",
+            "markedValueBase": "200000000",
+            "displayDecimals": 6
+          },
+          {
+            "assetId": "eFUND",
+            "balanceBase": "3125000",
+            "reservedBase": "0",
+            "markPriceBase": "96000000",
+            "markedValueBase": "300000000",
+            "displayDecimals": 6
+          }
+        ],
+        "totalMarkedValueBase": "999950000",
+        "pendingOrders": []
+      },
+      "businessDigest": "308c143f41e0d38f3454b269b60cab5ad3b43c325107b011a38544bcbafa5715"
+    },
+    {
+      "caseId": "G01-R",
+      "title": "Separate redemption case at the next applicable NAV",
+      "inputs": {
+        "baseCase": "G01",
+        "fixtureId": "G01-R",
+        "fixtureVersion": "1.0.0",
+        "orderId": "G01-RED-01",
+        "investorId": "investor-ada",
+        "unitsBase": "1000000",
+        "requestedAt": "2026-11-20T17:05:00Z",
+        "cutoffTimeUtc": "16:00",
+        "nav": {
+          "valuationDate": "2026-11-23",
+          "navBase": "98000000",
+          "sourceTime": "2026-11-23T17:00:00Z",
+          "revision": 1,
+          "signer": "issuer-nav-signer"
+        },
+        "settledAt": "2026-11-23T17:01:00Z",
+        "expected": {
+          "spendableCashBase": "597950000",
+          "eFundUnitsBase": "2125000"
+        }
+      },
+      "inputsHash": "a8762bf548166e2d38c55f93236d679ab5da80ac383a80d230122b3770defc4b",
+      "steps": [
+        {
+          "stepId": "G01-R-EV-01",
+          "eventType": "fund.redemption.requested",
+          "title": "Redemption request reserved",
+          "description": "Reserved 1.000000 eFUND units for redemption; dealing day 2026-11-23 assigned",
+          "occurredAt": "2026-11-20T17:05:00Z",
+          "businessEffects": [
+            "Investor eFUND: -1.00 eFUND",
+            "Fund escrow eFUND: +1.00 eFUND",
+            "Assigned dealing day: 2026-11-23"
+          ],
+          "journal": [
+            {
+              "entryId": "G01-R-EV-01-JE",
+              "stepId": "G01-R-EV-01",
+              "orderId": "G01-RED-01",
+              "occurredAt": "2026-11-20T17:05:00Z",
+              "eventType": "fund.redemption.requested",
+              "description": "Reserved 1.000000 eFUND units for redemption; dealing day 2026-11-23 assigned",
+              "postings": [
+                {
+                  "account": {
+                    "kind": "fundEscrow",
+                    "accountId": "fund-escrow"
+                  },
+                  "assetId": "eFUND",
+                  "amountBase": "1000000"
+                },
+                {
+                  "account": {
+                    "kind": "investor",
+                    "accountId": "investor-ada"
+                  },
+                  "assetId": "eFUND",
+                  "amountBase": "-1000000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stepId": "G01-R-EV-02",
+          "eventType": "nav.observed",
+          "title": "NAV observation recorded",
+          "description": "Authorized NAV for eFUND on 2026-11-23: 98.00 EUR per unit (revision 1, signer issuer-nav-signer, source 2026-11-23T17:00:00Z)",
+          "occurredAt": "2026-11-23T17:00:00Z",
+          "businessEffects": [
+            "NAV eFUND 2026-11-23: 98.00 EUR per unit",
+            "Revision 1 accepted from issuer-nav-signer"
+          ],
+          "journal": []
+        },
+        {
+          "stepId": "G01-R-EV-03",
+          "eventType": "fund.redemption.settled",
+          "title": "Redemption settled",
+          "description": "Burned 1.000000 eFUND units and paid 98.00 dEUR at 98.00 EUR per unit",
+          "occurredAt": "2026-11-23T17:01:00Z",
+          "businessEffects": [
+            "Investor cash: +98.00 dEUR",
+            "Investor eFUND burned: -1.00 eFUND",
+            "Issuer treasury cash: -98.00 dEUR"
+          ],
+          "journal": [
+            {
+              "entryId": "G01-R-EV-03-JE",
+              "stepId": "G01-R-EV-03",
+              "orderId": "G01-RED-01",
+              "occurredAt": "2026-11-23T17:01:00Z",
+              "eventType": "fund.redemption.settled",
+              "description": "Burned 1.000000 eFUND units and paid 98.00 dEUR at 98.00 EUR per unit",
+              "postings": [
+                {
+                  "account": {
+                    "kind": "fundEscrow",
+                    "accountId": "fund-escrow"
+                  },
+                  "assetId": "eFUND",
+                  "amountBase": "-1000000"
+                },
+                {
+                  "account": {
+                    "kind": "investor",
+                    "accountId": "investor-ada"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "98000000"
+                },
+                {
+                  "account": {
+                    "kind": "issuanceControl",
+                    "accountId": "issuance-control"
+                  },
+                  "assetId": "eFUND",
+                  "amountBase": "1000000"
+                },
+                {
+                  "account": {
+                    "kind": "issuerTreasury",
+                    "accountId": "issuer-treasury"
+                  },
+                  "assetId": "dEUR",
+                  "amountBase": "-98000000"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "receipts": [
+        {
+          "schemaVersion": "1.0",
+          "orderId": "G01-RED-01",
+          "businessState": "REDEEMED",
+          "assetId": "eFUND",
+          "unitsBase": "1000000",
+          "assetDecimals": 6,
+          "cashAssetId": "dEUR",
+          "cashPaidBase": "98000000",
+          "cashDecimals": 6,
+          "navEurPerUnit": "98.00",
+          "investorChargeBase": "0"
+        }
+      ],
+      "checkpoints": [
+        {
+          "label": "After redemption at the next applicable NAV",
+          "investorId": "investor-ada",
+          "at": "2026-11-23T17:01:00Z",
+          "spendableCashBase": "597950000",
+          "reservedCashBase": "0",
+          "holdings": [
+            {
+              "assetId": "tWETH",
+              "balanceBase": "100000000000000000",
+              "reservedBase": "0",
+              "markPriceBase": "2000000000",
+              "markedValueBase": "200000000",
+              "displayDecimals": 6
+            },
+            {
+              "assetId": "eFUND",
+              "balanceBase": "2125000",
+              "reservedBase": "0",
+              "markPriceBase": "98000000",
+              "markedValueBase": "208250000",
+              "displayDecimals": 6
+            }
+          ],
+          "totalMarkedValueBase": "1006200000",
+          "pendingOrders": []
+        }
+      ],
+      "finalPortfolio": {
+        "label": "After redemption at the next applicable NAV",
+        "investorId": "investor-ada",
+        "at": "2026-11-23T17:01:00Z",
+        "spendableCashBase": "597950000",
+        "reservedCashBase": "0",
+        "holdings": [
+          {
+            "assetId": "tWETH",
+            "balanceBase": "100000000000000000",
+            "reservedBase": "0",
+            "markPriceBase": "2000000000",
+            "markedValueBase": "200000000",
+            "displayDecimals": 6
+          },
+          {
+            "assetId": "eFUND",
+            "balanceBase": "2125000",
+            "reservedBase": "0",
+            "markPriceBase": "98000000",
+            "markedValueBase": "208250000",
+            "displayDecimals": 6
+          }
+        ],
+        "totalMarkedValueBase": "1006200000",
+        "pendingOrders": []
+      },
+      "businessDigest": "281a7d3ae08735c6b936869dd67dafcb149c0ad4f8db6b44606c1a1f0f85e04d"
+    }
+  ],
+  "businessDigest": "72b49ec1256c38fe68f1d63f12a73bc299cbeaa2e74108eb09f86f7b4c0d08cf",
+  "checksums": {
+    "inputs": "b173bf488facbea5b669dfdbe38cb6dee78d48120d56241e7c916cf78c07e49e",
+    "steps": "6984ec2b279e60411d3e1f725c2e1260372763a91ee4aa9e865d6eb61fd9d5ed",
+    "journal": "59c0e4a77cd17739948ea3b9485f192ed7325654ae46a073c669d03df66a7cd3",
+    "receipts": "21d8d77d9ac7e3ce55d31a68534d8266dd9483d2ec2c36de3397a69a03478bdb",
+    "checkpoints": "4a8abb57f65700114154330f12c2b63ae10cec53765b16ae9f8d14f6d0eebf41"
+  }
+}
