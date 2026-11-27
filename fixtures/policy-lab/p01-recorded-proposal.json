@@ -1,0 +1,15 @@
+{
+  "proposalId": "P01-RECORDED-CUTOFF",
+  "fixtureVersion": "1.0.0",
+  "label": "Recorded proposal preset",
+  "question": "What if the fund moved its Friday cutoff from 16:00 to 15:00 UTC?",
+  "proposal": {
+    "status": "proposed",
+    "operation": "set_subscription_cutoff",
+    "asset": "eFUND",
+    "weekday": "FRI",
+    "timeUtc": "15:00",
+    "timezone": "UTC",
+    "expectedTimeUtc": "16:00"
+  }
+}

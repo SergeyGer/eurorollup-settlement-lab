@@ -136,6 +136,46 @@ const SCHEMA_STATEMENTS: readonly string[] = [
     stale_seconds INTEGER NOT NULL DEFAULT 0,
     unavailable INTEGER NOT NULL DEFAULT 0
   )`,
+  `CREATE TABLE IF NOT EXISTS scenarios (
+    scenario_id TEXT PRIMARY KEY,
+    session_id TEXT NOT NULL,
+    fixture_id TEXT NOT NULL,
+    mode TEXT NOT NULL,
+    origin TEXT NOT NULL,
+    baseline_policy_json TEXT NOT NULL,
+    baseline_policy_hash TEXT NOT NULL,
+    fixture_hash TEXT NOT NULL,
+    policy_lab_version TEXT NOT NULL,
+    current_revision INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+  )`,
+  `CREATE TABLE IF NOT EXISTS scenario_revisions (
+    scenario_id TEXT NOT NULL,
+    revision INTEGER NOT NULL,
+    draft_json TEXT NOT NULL,
+    draft_digest TEXT NOT NULL,
+    confirmation_digest TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    PRIMARY KEY (scenario_id, revision)
+  )`,
+  `CREATE TABLE IF NOT EXISTS scenario_runs (
+    run_id TEXT PRIMARY KEY,
+    scenario_id TEXT NOT NULL,
+    session_id TEXT NOT NULL,
+    revision INTEGER NOT NULL,
+    confirmation_digest TEXT NOT NULL,
+    idempotency_key TEXT NOT NULL UNIQUE,
+    request_hash TEXT NOT NULL,
+    status TEXT NOT NULL,
+    result_json TEXT,
+    evidence_json TEXT,
+    error_json TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+  )`,
+  `CREATE INDEX IF NOT EXISTS idx_scenario_runs_scenario ON scenario_runs(scenario_id)`,
 ];
 
 export function openDatabase(dbFile: string): Database {
@@ -236,6 +276,9 @@ export function ensureSeed(db: Database, config: ApiConfig): void {
 }
 
 const DATA_TABLES = [
+  "scenario_runs",
+  "scenario_revisions",
+  "scenarios",
   "journal",
   "event_log",
   "outbox",

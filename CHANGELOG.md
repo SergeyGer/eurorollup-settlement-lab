@@ -94,7 +94,43 @@ records current calendar dates.
   and `pnpm verify` reproduce the committed artifacts.
 - `pnpm demo:partner` reproduces the G01 golden portfolio through the API.
 
+## [0.3.0] — AI Policy Lab
+
+### Added
+
+- `packages/policy-lab`: discriminated proposal JSON Schema (proposed / clarify /
+  unsupported, `additionalProperties: false`, documented enums, 500-character
+  text limit), server-owned draft derivation, revisioning with parent links,
+  confirmation digests bound to baseline policy, fixture and revision.
+- Deterministic P01 two-branch replay: identical ordered intents and NAV
+  observations, isolated branch state, per-branch policy hash and event-log hash,
+  per-order results and Friday/Monday portfolio snapshots. Both branches report
+  the specification numbers: 3.125000 vs 3.000000 units, 1 of 2 orders affected,
+  EUR 300.00 extra reserved at Friday close, 72-hour later settlement.
+- Scenario API: `POST /v1/scenarios/drafts`, `PATCH /v1/scenarios/{id}/draft`,
+  `POST /v1/scenarios/{id}/runs`, `GET /v1/scenario-runs/{id}` and
+  `/evidence`, with session ownership, stale-revision and confirmation-mismatch
+  rejections, run idempotency and a durable outbox-driven computation.
+- Browser AI Policy Lab view implementing the five guided states: select inputs,
+  review the typed diff, clarify or reject, confirm and compare, read the impact
+  with per-order rows, snapshots, timeline, boundary checks and comparison
+  download.
+- P01 evidence pack `evidence/policy-lab/p01-comparison.json` plus manifest; the
+  comparison digest is identical in the browser, the service and the CLI.
+- Boundary replay cases: 14:59:59, 15:00:00, 16:00:00 UTC, a closed Monday with a
+  Tuesday NAV, and a missing Monday NAV that keeps the candidate order pending.
+- CLI: `pnpm policy:replay [--fixture P01] [--check]` and `pnpm policy:verify`.
+
+### Evidence
+
+- Comparison digest: `c5405bc564a1a2d44b5485aa14bddf6e29af91dfba2d560177cde58e8d1f5f2f`.
+- Pack digest: `653646b2f9031af28b7b7a95687fd02e3ab368b72456d4605503c65296c1738d`.
+- Boundary replay cases: 6/6 pass in the same pack.
+- 134 tests green; the browser Policy Lab view verifies its locally computed pack
+  digest against the committed CLI evidence at runtime.
+
 ## Unreleased
 
-- S03: Policy Lab simulation (scenario API, typed rule diff, two-branch comparison).
+- S04: live local model adapter (Ollama), typed contract for the model-facing
+  draft, confirmation boundary and the 40-prompt evaluation.
 

@@ -1,0 +1,14 @@
+{
+  "name": "@eurorollup/policy-lab",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic policy-change drafting and two-branch replay for the EuroRollup AI Policy Lab.",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@eurorollup/dealing": "workspace:*"
+  }
+}

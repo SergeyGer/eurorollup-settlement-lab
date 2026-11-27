@@ -25,6 +25,7 @@ import { OrderService } from "./services/orders.js";
 import { PortfolioService } from "./services/portfolio.js";
 import { IssuerService } from "./services/issuer.js";
 import { OrderWorker } from "./worker.js";
+import { ScenarioService } from "./services/scenarios.js";
 import { registerRoutes } from "./routes.js";
 import { problem, toApiProblem } from "./problems.js";
 
@@ -47,6 +48,7 @@ export interface AppContext {
   readonly orders: OrderService;
   readonly portfolio: PortfolioService;
   readonly issuer: IssuerService;
+  readonly scenarios: ScenarioService;
   readonly worker: OrderWorker;
   resetDemo(): void;
   close(): Promise<void>;
@@ -69,11 +71,23 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
   const orders = new OrderService(db, config, engine, quotes, clock, ids);
   const portfolio = new PortfolioService(db, config, engine, clock);
   const issuer = new IssuerService(db, config, engine, clock);
-  const worker = new OrderWorker(db, config, engine, clock);
+  const scenarios = new ScenarioService(db, config, clock, ids);
+  const worker = new OrderWorker(db, config, engine, clock, {
+    scenarioRunner: (runId) => {
+      scenarios.executeRun(runId);
+    },
+  });
 
   const app = Fastify({
     logger: options.logger ?? false,
     bodyLimit: 1_000_000,
+    ajv: {
+      customOptions: {
+        // Spec: unknown fields must be rejected, not silently stripped.
+        removeAdditional: false,
+        allErrors: true,
+      },
+    },
   });
 
   await app.register(cors, { origin: true });
@@ -106,8 +120,11 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
     orders,
     portfolio,
     issuer,
+    scenarios,
     worker,
   };
+
+  scenarios.recoverInterruptedRuns();
 
   const resetDemo = (): void => {
     resetDatabase(db, config);
@@ -144,7 +161,8 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
 
   app.setErrorHandler(async (error: FastifyError, request: FastifyRequest, reply: FastifyReply) => {
     if (error.validation !== undefined) {
-      return reply.code(400).send({
+      const isScenarioRequest = request.url.startsWith("/v1/scenarios");
+      return reply.code(isScenarioRequest ? 422 : 400).send({
         error: {
           code: "INVALID_REQUEST",
           message: "The request does not match the documented schema",

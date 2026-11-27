@@ -53,6 +53,12 @@ jobs:
       - name: Run A02 and A06 API evidence cases
         run: pnpm scenario:api -- --check
 
+      - name: Replay the P01 Policy Lab comparison
+        run: pnpm policy:replay -- --check
+
+      - name: Verify the Policy Lab comparison pack
+        run: pnpm policy:verify
+
       - name: Check the generated OpenAPI document
         run: pnpm api:openapi -- --check
 
@@ -70,5 +76,6 @@ jobs:
             evidence/g01
             evidence/a02
             evidence/a06
+            evidence/policy-lab
           retention-days: 30
           if-no-files-found: error

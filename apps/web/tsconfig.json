@@ -15,6 +15,9 @@
     "paths": {
       "@eurorollup/dealing": [
         "../../packages/dealing/src/index.ts"
+      ],
+      "@eurorollup/policy-lab": [
+        "../../packages/policy-lab/src/index.ts"
       ]
     }
   },

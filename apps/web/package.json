@@ -1,6 +1,6 @@
 {
   "name": "@eurorollup/web",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "description": "Browser replay and portfolio UI for EuroRollup Settlement Lab.",
@@ -14,7 +14,8 @@
     "@eurorollup/dealing": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@eurorollup/sdk": "workspace:*"
+    "@eurorollup/sdk": "workspace:*",
+    "@eurorollup/policy-lab": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.18",

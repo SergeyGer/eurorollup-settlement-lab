@@ -89,6 +89,23 @@ API documentation: [`docs/api/partner-api.md`](docs/api/partner-api.md) and the
 generated [`openapi.json`](docs/api/openapi.json). Settlement-core verification:
 [`docs/verification/s02-settlement-core.md`](docs/verification/s02-settlement-core.md).
 
+## AI Policy Lab
+
+The third view turns an English rule question into a typed proposal, requires
+confirmation, and replays both settlement branches deterministically. The Friday
+cutoff experiment is computed locally from the frozen P01 fixture and checked
+against the committed CLI comparison pack:
+
+![AI Policy Lab: 1 of 2 orders changes dealing date and EUR 300.00 stays reserved over the weekend](docs/media/s03-policy-lab-impact.jpg)
+
+The result card reports 1 of 2 orders changing dealing date, EUR 300.00 more
+reserved at Friday close and 0.125000 fewer units for the 15:30 order. The
+comparison digest is identical in the browser, the service and the CLI; every
+boundary replay case (14:59:59, 15:00:00, 16:00:00, closed Monday, missing NAV)
+passes. Policy Lab documentation:
+[`docs/policy-lab/p01-friday-cutoff.md`](docs/policy-lab/p01-friday-cutoff.md) and
+verification: [`docs/verification/s03-policy-lab.md`](docs/verification/s03-policy-lab.md).
+
 ## Quick start
 
 Requirements: Node.js 22 or newer and pnpm 9 or newer
@@ -100,8 +117,10 @@ pnpm test              # deterministic unit, fixture and API tests
 pnpm typecheck         # TypeScript project checks
 pnpm scenario:golden   # replay G01 and write the evidence pack
 pnpm scenario:api      # regenerate the A02 and A06 API evidence
+pnpm policy:replay     # replay the P01 comparison and write its evidence pack
+pnpm policy:verify     # verify the committed P01 comparison pack
 pnpm verify            # verify the committed G01 evidence pack
-pnpm dev               # browser: recorded replay + Local API lab
+pnpm dev               # browser: recorded replay, Local API lab and AI Policy Lab
 pnpm api               # local partner API on http://127.0.0.1:3000
 pnpm demo:partner      # SDK quickstart: G01 orders over HTTP
 pnpm api:openapi       # regenerate docs/api/openapi.json
@@ -116,10 +135,10 @@ the delivery plan, and the project Wiki for the reader-facing project pages.
 ## Repository layout
 
 ```text
-apps/web             Browser replay and Local API lab ticket
-apps/api             Local partner API, event log, journal and outbox worker
+apps/web             Browser replay, Local API lab and AI Policy Lab views
+apps/api             Local partner API, event log, journal, outbox worker and scenario service
 packages/dealing     Pure deterministic dealing engine shared by browser, CLI and worker
-packages/policy-lab  Typed AI proposal schemas and model adapters (step S03/S04)
+packages/policy-lab  Proposal schema, draft revisions and two-branch replay (shared by browser, API and CLI)
 packages/sdk         Typed partner SDK and HTTP client
 contracts           Foundry contracts (spot router, fund vault, share token)
 circuits            Noir eligibility circuit and vectors
@@ -140,8 +159,10 @@ merged, and larger steps are tagged as GitHub Releases.
 - `v0.2.0` — settlement core: local partner API, durable event log and outbox,
   idempotent orders, cancellation windows, typed SDK, browser Local API lab and
   the A02/A06 evidence.
-- Next: the Policy Lab simulation step (S03) — typed rule diff, two-branch replay
-  and the Friday cutoff comparison.
+- `v0.3.0` — AI Policy Lab: typed proposal schema, revisioned drafts with
+  confirmation binding, deterministic P01 two-branch comparison, scenario API,
+  browser Policy Lab view and the A09 deterministic evidence pack.
+- Next: the live local model adapter and the 40-prompt evaluation (S04).
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:

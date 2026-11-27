@@ -13,6 +13,7 @@ import {
   type ReplayStep,
 } from "./data/replay";
 import { LiveLab } from "./LiveLab";
+import { PolicyLabView } from "./PolicyLabView";
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const MONTHS = [
@@ -337,7 +338,7 @@ export function App(): JSX.Element {
   );
   const [index, setIndex] = useState(() => g01Replay.length - 1);
   const [playing, setPlaying] = useState(false);
-  const [view, setView] = useState<"replay" | "live">("replay");
+  const [view, setView] = useState<"replay" | "live" | "policy">("replay");
 
   const currentStep = steps[index] ?? steps[steps.length - 1];
 
@@ -430,10 +431,19 @@ export function App(): JSX.Element {
         <button type="button" className={view === "live" ? "active" : ""} onClick={() => setView("live")}>
           Local API lab
         </button>
+        <button
+          type="button"
+          className={view === "policy" ? "active" : ""}
+          onClick={() => setView("policy")}
+        >
+          AI Policy Lab
+        </button>
       </nav>
 
       {view === "live" ? (
         <LiveLab />
+      ) : view === "policy" ? (
+        <PolicyLabView />
       ) : (
         <>
       <main className="layout">

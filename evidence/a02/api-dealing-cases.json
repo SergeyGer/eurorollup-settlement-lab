@@ -3,7 +3,7 @@
   "fixtureId": "A02-api-dealing",
   "fixtureVersion": "1.0.0",
   "engineVersion": "0.2.0",
-  "serviceVersion": "0.2.0",
+  "serviceVersion": "0.3.0",
   "generatedBy": "pnpm scenario:api",
   "cases": [
     {

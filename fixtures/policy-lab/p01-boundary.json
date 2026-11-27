@@ -1,0 +1,86 @@
+{
+  "fixtureId": "P01-boundaries",
+  "fixtureVersion": "1.0.0",
+  "description": "Boundary and exception cases for the Friday cutoff experiment: cutoff instants, a closed Monday with a Tuesday NAV, and a missing Monday NAV.",
+  "cases": [
+    {
+      "caseId": "P01-B-145959",
+      "description": "One second before the proposed Friday cutoff",
+      "requestedAt": "2026-11-20T14:59:59Z",
+      "calendarId": "LAB-UTC-1",
+      "publishNavDates": ["2026-11-20", "2026-11-23"],
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-20",
+        "baselineUnitsBase": "3125000",
+        "candidateUnitsBase": "3125000"
+      }
+    },
+    {
+      "caseId": "P01-B-150000",
+      "description": "Exactly at the proposed Friday cutoff",
+      "requestedAt": "2026-11-20T15:00:00Z",
+      "calendarId": "LAB-UTC-1",
+      "publishNavDates": ["2026-11-20", "2026-11-23"],
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-23",
+        "baselineUnitsBase": "3125000",
+        "candidateUnitsBase": "3000000"
+      }
+    },
+    {
+      "caseId": "P01-B-160000",
+      "description": "Exactly at the baseline Friday cutoff",
+      "requestedAt": "2026-11-20T16:00:00Z",
+      "calendarId": "LAB-UTC-1",
+      "publishNavDates": ["2026-11-20", "2026-11-23"],
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineUnitsBase": "3000000",
+        "candidateUnitsBase": "3000000"
+      }
+    },
+    {
+      "caseId": "P01-B-163000",
+      "description": "After both Friday cutoffs",
+      "requestedAt": "2026-11-20T16:30:00Z",
+      "calendarId": "LAB-UTC-1",
+      "publishNavDates": ["2026-11-20", "2026-11-23"],
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineUnitsBase": "3000000",
+        "candidateUnitsBase": "3000000"
+      }
+    },
+    {
+      "caseId": "P01-B-MONDAY-CLOSED",
+      "description": "Monday closed in the alternate calendar with a Tuesday NAV",
+      "requestedAt": "2026-11-20T15:30:00Z",
+      "calendarId": "LAB-UTC-2",
+      "publishNavDates": ["2026-11-20", "2026-11-24"],
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-24",
+        "baselineUnitsBase": "3125000",
+        "candidateUnitsBase": "3030303"
+      }
+    },
+    {
+      "caseId": "P01-B-MISSING-MONDAY-NAV",
+      "description": "Monday is open but its NAV is missing: the candidate order stays pending with cash reserved",
+      "requestedAt": "2026-11-20T15:30:00Z",
+      "calendarId": "LAB-UTC-1",
+      "publishNavDates": ["2026-11-20"],
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-23",
+        "baselineUnitsBase": "3125000",
+        "candidatePending": true,
+        "candidateReservedCashBase": "300000000"
+      }
+    }
+  ]
+}

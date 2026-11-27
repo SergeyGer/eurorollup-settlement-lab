@@ -3,7 +3,7 @@
   "info": {
     "title": "EuroRollup Settlement Lab partner API",
     "description": "Local partner API for the synthetic euro settlement sandbox. Amounts are integer base units serialized as strings; timestamps are strict UTC instants. Business state and chain state are separate fields.",
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "components": {
     "schemas": {}
@@ -314,6 +314,318 @@
             "name": "x-role-identity",
             "required": true,
             "description": "Local role identity. NAV publication requires the issuer signer identity."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/scenarios/drafts": {
+      "post": {
+        "summary": "Create a Policy Lab draft from the recorded preset or manual fields",
+        "tags": [
+          "policy-lab"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "fixtureId",
+                  "mode"
+                ],
+                "properties": {
+                  "fixtureId": {
+                    "type": "string",
+                    "enum": [
+                      "P01"
+                    ]
+                  },
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "recorded",
+                      "live",
+                      "manual"
+                    ],
+                    "description": "recorded loads the bundled recorded proposal, manual takes typed fields, live requires the local model adapter (step S04)."
+                  },
+                  "question": {
+                    "type": "string",
+                    "maxLength": 500
+                  },
+                  "manualFields": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "weekday": {
+                        "type": "string"
+                      },
+                      "timeUtc": {
+                        "type": "string"
+                      },
+                      "timezone": {
+                        "type": "string"
+                      },
+                      "expectedTimeUtc": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "in": "header",
+            "name": "x-session-id",
+            "required": false,
+            "description": "Local scenario session. Defaults to local-session when omitted."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/scenarios/{scenarioId}/draft": {
+      "patch": {
+        "summary": "Edit a draft, producing a new revision and confirmation digest",
+        "tags": [
+          "policy-lab"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "expectedRevision"
+                ],
+                "properties": {
+                  "expectedRevision": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "fields": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "weekday": {
+                        "type": "string"
+                      },
+                      "timeUtc": {
+                        "type": "string"
+                      },
+                      "timezone": {
+                        "type": "string"
+                      },
+                      "expectedTimeUtc": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "clarificationAnswer": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "weekday": {
+                        "type": "string"
+                      },
+                      "timeUtc": {
+                        "type": "string"
+                      },
+                      "timezone": {
+                        "type": "string"
+                      },
+                      "expectedTimeUtc": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "path",
+            "name": "scenarioId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "in": "header",
+            "name": "x-session-id",
+            "required": false,
+            "description": "Local scenario session. Defaults to local-session when omitted."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/scenarios/{scenarioId}/runs": {
+      "post": {
+        "summary": "Confirm a revision and queue the two-branch comparison",
+        "tags": [
+          "policy-lab"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "revision",
+                  "confirmationDigest"
+                ],
+                "properties": {
+                  "revision": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "confirmationDigest": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "path",
+            "name": "scenarioId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "in": "header",
+            "name": "idempotency-key",
+            "required": true,
+            "description": "Client-generated run key. A same-key same-body retry returns the existing run; a changed body returns 409."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "in": "header",
+            "name": "x-session-id",
+            "required": false,
+            "description": "Local scenario session. Defaults to local-session when omitted."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/scenario-runs/{runId}": {
+      "get": {
+        "summary": "Read queued, running, succeeded or failed comparison status",
+        "tags": [
+          "policy-lab"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "path",
+            "name": "runId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "in": "header",
+            "name": "x-session-id",
+            "required": false,
+            "description": "Local scenario session. Defaults to local-session when omitted."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/scenario-runs/{runId}/evidence": {
+      "get": {
+        "summary": "Download the versioned P01 comparison pack for a succeeded run",
+        "tags": [
+          "policy-lab"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "path",
+            "name": "runId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "in": "header",
+            "name": "x-session-id",
+            "required": false,
+            "description": "Local scenario session. Defaults to local-session when omitted."
           }
         ],
         "responses": {

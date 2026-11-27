@@ -5,6 +5,8 @@ export interface IdFactory {
   quote(): string;
   order(): string;
   trace(): string;
+  scenario(): string;
+  run(): string;
 }
 
 export function randomIdFactory(): IdFactory {
@@ -12,6 +14,8 @@ export function randomIdFactory(): IdFactory {
     quote: () => `quote_${randomUUID()}`,
     order: () => `order_${randomUUID()}`,
     trace: () => `trace_${randomUUID()}`,
+    scenario: () => `scenario_${randomUUID()}`,
+    run: () => `run_${randomUUID()}`,
   };
 }
 
@@ -26,5 +30,7 @@ export function sequentialIdFactory(): IdFactory {
     quote: () => next("quote"),
     order: () => next("order"),
     trace: () => next("trace"),
+    scenario: () => next("scenario"),
+    run: () => next("run"),
   };
 }

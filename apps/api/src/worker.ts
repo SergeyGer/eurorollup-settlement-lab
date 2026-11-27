@@ -53,12 +53,19 @@ import {
   type OrderRow,
   type QuoteRow,
 } from "./repository.js";
+import { OUTBOX_RUN_SCENARIO } from "./services/scenarios.js";
+
+export interface OrderWorkerOptions {
+  /** Executes one queued Policy Lab comparison run by id. */
+  readonly scenarioRunner?: (runId: string) => void;
+}
 
 export class OrderWorker {
   private readonly db: Database;
   private readonly config: ApiConfig;
   private readonly engine: EngineService;
   private readonly clock: ClockService;
+  private readonly options: OrderWorkerOptions;
   private timer: NodeJS.Timeout | null = null;
   private processing = false;
 
@@ -67,11 +74,13 @@ export class OrderWorker {
     config: ApiConfig,
     engine: EngineService,
     clock: ClockService,
+    options: OrderWorkerOptions = {},
   ) {
     this.db = db;
     this.config = config;
     this.engine = engine;
     this.clock = clock;
+    this.options = options;
   }
 
   start(intervalMs = 20): void {
@@ -129,6 +138,13 @@ export class OrderWorker {
     }
     if (task.task === OUTBOX_TRY_SETTLE) {
       this.trySettle(task.order_id);
+      return;
+    }
+    if (task.task === OUTBOX_RUN_SCENARIO) {
+      if (this.options.scenarioRunner === undefined) {
+        throw new Error("No scenario runner is configured for the API worker");
+      }
+      this.options.scenarioRunner(task.order_id);
       return;
     }
     throw new Error(`Unknown outbox task ${task.task}`);

@@ -6,12 +6,16 @@ const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
 const dealingSource = fileURLToPath(
   new URL("../../packages/dealing/src/index.ts", import.meta.url),
 );
+const policyLabSource = fileURLToPath(
+  new URL("../../packages/policy-lab/src/index.ts", import.meta.url),
+);
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
       "@eurorollup/dealing": dealingSource,
+      "@eurorollup/policy-lab": policyLabSource,
     },
   },
   server: {

@@ -12,6 +12,7 @@ fixture dates and version numbers are content, not publication dates.
 | [`plan/roadmap.md`](plan/roadmap.md) | Delivery steps, milestone exit evidence, acceptance gates and release train. |
 | [`architecture/overview.md`](architecture/overview.md) | Components, state model, determinism rules and repository layout. |
 | [`api/partner-api.md`](api/partner-api.md) | Partner API surface, roles, idempotency, error contract and local fixture controls. |
+| [`policy-lab/p01-friday-cutoff.md`](policy-lab/p01-friday-cutoff.md) | AI Policy Lab proposal contract, P01 replay, boundary cases and cross-runtime digests. |
 | [`architecture/adr/`](architecture/adr/) | Numbered decision records for the rollup, batch, finality and authority decisions. |
 | [`fixtures/`](fixtures/) | Frozen inputs: G01 portfolio, P01 cutoff experiment, calendar, instruments and boundary cases. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |
