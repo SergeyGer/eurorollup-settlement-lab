@@ -8,6 +8,8 @@
 import type {
   ClockState,
   CreateQuoteInput,
+  CreateScenarioDraftInput,
+  EditScenarioDraftInput,
   DemoResetResult,
   HealthStatus,
   NavPublicationRequest,
@@ -15,9 +17,14 @@ import type {
   Order,
   PlaceOrderInput,
   PlaceOrderResult,
+  ModelStatus,
   Portfolio,
   PortfolioSummary,
   Quote,
+  ScenarioDraft,
+  ScenarioRun,
+  ScenarioRunAccepted,
+  StartScenarioRunInput,
 } from "./types.js";
 
 export interface PartnerApiErrorOptions {
@@ -63,6 +70,8 @@ export interface SettlementApiClientOptions {
   readonly fetchImpl?: FetchLike;
   /** Local issuer/operator identity used for restricted endpoints. */
   readonly roleIdentity?: string;
+  /** Local Policy Lab scenario session identity. */
+  readonly sessionId?: string;
   readonly timeoutMs?: number;
 }
 
@@ -91,6 +100,7 @@ export class SettlementApiClient {
   private readonly baseUrl: string;
   private readonly fetchImpl: FetchLike;
   private readonly roleIdentity?: string;
+  private readonly sessionId?: string;
 
   constructor(options: SettlementApiClientOptions) {
     this.baseUrl = trimTrailingSlashes(options.baseUrl);
@@ -107,6 +117,9 @@ export class SettlementApiClient {
     if (options.roleIdentity !== undefined) {
       this.roleIdentity = options.roleIdentity;
     }
+    if (options.sessionId !== undefined) {
+      this.sessionId = options.sessionId;
+    }
   }
 
   private async request<T>(
@@ -118,6 +131,7 @@ export class SettlementApiClient {
       accept: "application/json",
       ...(options.body === undefined ? {} : { "content-type": "application/json" }),
       ...(this.roleIdentity === undefined ? {} : { "x-role-identity": this.roleIdentity }),
+      ...(this.sessionId === undefined ? {} : { "x-session-id": this.sessionId }),
       ...options.headers,
     };
     const response = await this.fetchImpl(`${this.baseUrl}${path}`, {
@@ -221,5 +235,52 @@ export class SettlementApiClient {
 
   async getClock(): Promise<ClockState> {
     return this.request<ClockState>("GET", "/v1/dev/clock");
+  }
+
+  async getModelStatus(): Promise<ModelStatus> {
+    return this.request<ModelStatus>("GET", "/v1/model/status");
+  }
+
+  async createScenarioDraft(input: CreateScenarioDraftInput): Promise<ScenarioDraft> {
+    return this.request<ScenarioDraft>("POST", "/v1/scenarios/drafts", {
+      body: input,
+    });
+  }
+
+  async editScenarioDraft(
+    scenarioId: string,
+    input: EditScenarioDraftInput,
+  ): Promise<ScenarioDraft> {
+    return this.request<ScenarioDraft>(
+      "PATCH",
+      `/v1/scenarios/${encodeURIComponent(scenarioId)}/draft`,
+      { body: input },
+    );
+  }
+
+  async startScenarioRun(
+    scenarioId: string,
+    input: StartScenarioRunInput,
+    idempotencyKey: string,
+  ): Promise<ScenarioRunAccepted> {
+    return this.request<ScenarioRunAccepted>(
+      "POST",
+      `/v1/scenarios/${encodeURIComponent(scenarioId)}/runs`,
+      { body: input, headers: { "idempotency-key": idempotencyKey } },
+    );
+  }
+
+  async getScenarioRun(runId: string): Promise<ScenarioRun> {
+    return this.request<ScenarioRun>(
+      "GET",
+      `/v1/scenario-runs/${encodeURIComponent(runId)}`,
+    );
+  }
+
+  async getScenarioRunEvidence(runId: string): Promise<unknown> {
+    return this.request<unknown>(
+      "GET",
+      `/v1/scenario-runs/${encodeURIComponent(runId)}/evidence`,
+    );
   }
 }

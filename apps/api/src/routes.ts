@@ -67,6 +67,17 @@ export function registerRoutes(app: FastifyInstance, ctx: AppContext): void {
     }),
   );
 
+  app.get(
+    "/v1/model/status",
+    {
+      schema: {
+        tags: ["system"],
+        summary: "Local model adapter status, pinned model and prompt version",
+      },
+    },
+    async () => ctx.model.status(),
+  );
+
   app.post(
     "/v1/quotes",
     {
@@ -198,7 +209,7 @@ export function registerRoutes(app: FastifyInstance, ctx: AppContext): void {
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
       const sessionId = headerValue(request.headers["x-session-id"]) ?? DEFAULT_SESSION_ID;
-      const draft = ctx.scenarios.createDraft(
+      const draft = await ctx.scenarios.createDraft(
         request.body as CreateScenarioDraftRequest,
         sessionId,
       );

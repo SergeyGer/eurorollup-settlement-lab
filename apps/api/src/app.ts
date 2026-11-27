@@ -26,8 +26,10 @@ import { PortfolioService } from "./services/portfolio.js";
 import { IssuerService } from "./services/issuer.js";
 import { OrderWorker } from "./worker.js";
 import { ScenarioService } from "./services/scenarios.js";
+import { ModelService } from "./services/model-service.js";
 import { registerRoutes } from "./routes.js";
 import { problem, toApiProblem } from "./problems.js";
+import type { ModelPort } from "@eurorollup/policy-lab";
 
 export interface CreateAppOptions {
   readonly config?: ApiConfig;
@@ -35,6 +37,8 @@ export interface CreateAppOptions {
   readonly autoWorker?: boolean;
   readonly ids?: IdFactory;
   readonly logger?: boolean;
+  /** Test hook: inject a model port instead of the local Ollama runtime. */
+  readonly modelPort?: ModelPort;
 }
 
 export interface AppContext {
@@ -48,6 +52,7 @@ export interface AppContext {
   readonly orders: OrderService;
   readonly portfolio: PortfolioService;
   readonly issuer: IssuerService;
+  readonly model: ModelService;
   readonly scenarios: ScenarioService;
   readonly worker: OrderWorker;
   resetDemo(): void;
@@ -71,7 +76,8 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
   const orders = new OrderService(db, config, engine, quotes, clock, ids);
   const portfolio = new PortfolioService(db, config, engine, clock);
   const issuer = new IssuerService(db, config, engine, clock);
-  const scenarios = new ScenarioService(db, config, clock, ids);
+  const model = new ModelService(config, options.modelPort);
+  const scenarios = new ScenarioService(db, config, clock, ids, model);
   const worker = new OrderWorker(db, config, engine, clock, {
     scenarioRunner: (runId) => {
       scenarios.executeRun(runId);
@@ -120,6 +126,7 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
     orders,
     portfolio,
     issuer,
+    model,
     scenarios,
     worker,
   };

@@ -7,6 +7,7 @@
  */
 import type { FastifyInstance, InjectOptions } from "fastify";
 import { createApp, type AppContext } from "../app.js";
+import type { ModelPort } from "@eurorollup/policy-lab";
 import { createApiConfig, type CalendarId } from "../config.js";
 import { sequentialIdFactory, type IdFactory } from "../ids.js";
 import { readClock } from "../db.js";
@@ -21,6 +22,7 @@ export interface HarnessOptions {
   readonly calendarId?: CalendarId;
   readonly dbFile?: string;
   readonly ids?: IdFactory;
+  readonly modelPort?: ModelPort;
 }
 
 export interface Harness {
@@ -77,7 +79,10 @@ export async function createHarness(options: HarnessOptions = {}): Promise<Harne
     ids: options.ids ?? sequentialIdFactory(),
     ...(options.calendarId === undefined ? {} : { calendarId: options.calendarId }),
   });
-  const ctx = await createApp({ config });
+  const ctx = await createApp({
+    config,
+    ...(options.modelPort === undefined ? {} : { modelPort: options.modelPort }),
+  });
   const inject = async (
     method: "GET" | "POST" | "PATCH",
     url: string,

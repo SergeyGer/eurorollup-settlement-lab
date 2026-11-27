@@ -129,8 +129,54 @@ records current calendar dates.
 - 134 tests green; the browser Policy Lab view verifies its locally computed pack
   digest against the committed CLI evidence at runtime.
 
+## [0.4.0] — Live local model adapter
+
+### Added
+
+- Working local inference adapter over the Ollama HTTP API, pinned to
+  `qwen3:4b` (content digest recorded in evidence), prompt version
+  `p01-live-v10`, temperature `0`, seed `42`, context 4096 and a 120-token
+  generation budget.
+- Structured-output contract: the runtime is constrained by a decoding schema
+  (status and field enums, no additional properties) and the adapter re-validates
+  every parsed object against the full proposal schema.
+- Failure policy: one retry with schema feedback after malformed output; a second
+  failure, a configured 15-second deadline per attempt or an unreachable runtime
+  returns a recoverable `MODEL_OUTPUT_INVALID`, `MODEL_TIMEOUT` or
+  `MODEL_UNAVAILABLE` with `Retry-After`. A failed request never falls back to
+  the recorded preset.
+- Confirmation boundary and evidence: the typed proposal plus model metadata
+  (provider, model, digest, prompt version, attempts, elapsed time) is recorded
+  with the draft; computed results and digests never depend on the model. Raw
+  free text stays session-local.
+- Live mode in the AI Policy Lab with three input modes (recorded proposal,
+  manual edit, live local model) and model metadata in the review state.
+- `GET /v1/model/status` reporting the pinned model, digest, prompt version and
+  availability; the scenario API returns recoverable `503` model errors.
+- 40-prompt A09 evaluation: 20 valid paraphrases, 10 ambiguous requests and 10
+  unsupported requests, with thresholds of 18/20 exact valid drafts, 10/10
+  clarifications and 10/10 non-executable unsupported dispositions. The committed
+  report passes all three (20/20, 10/10, 10/10) and records every prompt, model
+  settings, elapsed times and failures.
+- Genuine recorded live capture: `fixtures/policy-lab/p01-recorded-proposal.json`
+  now contains a real adapter proposal with capture metadata, and
+  `evidence/policy-lab/live-model-draft.json` records the captured draft. The
+  deterministic comparison remains a separate file.
+- CLI: `pnpm policy:eval [--adapter ollama|mock] [--verify-only]`,
+  `pnpm policy:record`, `pnpm policy:model:status`.
+
+### Evidence
+
+- `evidence/policy-lab/eval.json` — 20/20 valid, 10/10 clarify, 10/10
+  non-executable unsupported; model `qwen3:4b`, prompt `p01-live-v10`.
+- `evidence/policy-lab/live-model-draft.json` — genuine captured live proposal
+  with draft and confirmation digests.
+- `evidence/policy-lab/p01-comparison.json` — deterministic comparison, unchanged
+  by the model capture.
+- 157 tests green; CI runs the scripted evaluation harness and validates the
+  committed evaluation structure and thresholds.
+
 ## Unreleased
 
-- S04: live local model adapter (Ollama), typed contract for the model-facing
-  draft, confirmation boundary and the 40-prompt evaluation.
+- S05: sponsored account lane, sponsorship policy and the eligibility circuit.
 

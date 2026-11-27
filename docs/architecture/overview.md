@@ -38,8 +38,8 @@ The foundation and settlement-core steps are implemented:
 - `apps/web` has three views: the recorded G01 replay, the live Local API lab and
   the AI Policy Lab.
 
-The live model adapter, subscription worker, eligibility circuit and pinned
-rollup are added by the later steps.
+The subscription worker, eligibility circuit and pinned rollup are added by the
+later steps.
 
 ## Local partner API
 
@@ -82,6 +82,11 @@ question / manual fields
   never writes settlement events.
 - The stable comparison digest and pack digest are reproduced in the browser,
   the service and the CLI.
+- A live local model adapter (Ollama, pinned model and prompt version) can draft
+  the typed proposal from a short question. Output is schema-constrained at the
+  runtime and re-validated by the adapter; malformed output is retried once and
+  then rejected with a recoverable error. The model never contributes numbers,
+  and a failed request never falls back to the recorded preset.
 
 ## Two independent state fields
 

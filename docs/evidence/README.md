@@ -54,6 +54,8 @@ corresponding GitHub Release:
 | `evidence/a02/api-dealing-cases.json` | A02 (API) | `pnpm scenario:api -- --check` |
 | `evidence/a06/invariants.json` | A06 | `pnpm scenario:api -- --check` |
 | `evidence/policy-lab/p01-comparison.json` | A09 (deterministic subset) | `pnpm policy:replay -- --check` |
+| `evidence/policy-lab/eval.json` | A09 (live-model subset) | `pnpm policy:eval -- --verify-only` |
+| `evidence/policy-lab/live-model-draft.json` | A09 recorded live capture | `pnpm policy:record` |
 
 Transient local runs are written under `evidence/tmp/` (ignored) and are never
 referenced by release notes.

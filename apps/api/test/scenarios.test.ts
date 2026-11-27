@@ -5,6 +5,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { createHarness, type Harness } from "../src/evidence/harness.js";
+import { ScriptedModelPort } from "@eurorollup/policy-lab";
 import { repositoryRoot } from "../src/config.js";
 
 interface DraftResponse {
@@ -146,16 +147,32 @@ describe("Policy Lab drafts", () => {
     }
   });
 
-  it("refuses live mode until the model adapter is configured", async () => {
-    const harness = await createHarness();
+  it("returns a recoverable error when the local model runtime is unavailable", async () => {
+    const harness = await createHarness({
+      modelPort: new ScriptedModelPort({
+        responses: [{ kind: "unavailable" }],
+        metadata: {
+          provider: "scripted",
+          model: "scripted-model",
+          digest: "digest",
+          promptVersion: "test-prompt",
+          temperature: 0,
+          seed: 0,
+          timeoutMs: 15_000,
+        },
+      }),
+    });
     try {
       const response = await harness.inject("POST", "/v1/scenarios/drafts", {
         payload: { fixtureId: "P01", mode: "live", question: "What if the Friday cutoff moved to 15:00?" },
         headers: { "x-session-id": "session-a" },
       });
       expect(response.status).toBe(503);
-      expect((response.body as { error: { code: string } }).error.code).toBe("LIVE_MODEL_NOT_CONFIGURED");
+      expect((response.body as { error: { code: string } }).error.code).toBe("MODEL_UNAVAILABLE");
       expect(response.headers["retry-after"]).toBe("30");
+      // Recorded and manual modes remain usable.
+      const recorded = await createRecordedDraft(harness);
+      expect(recorded.status).toBe("proposed");
     } finally {
       await harness.close();
     }

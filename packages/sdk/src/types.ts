@@ -290,3 +290,181 @@ export interface ApiErrorBody {
   };
   readonly traceId?: string;
 }
+
+// ---------------------------------------------------------------------------
+// AI Policy Lab scenario contract
+// ---------------------------------------------------------------------------
+
+export type ProposalStatus = "proposed" | "clarify" | "unsupported";
+
+export type DraftStatus = ProposalStatus | "no_change";
+
+export type DraftOrigin = "recorded" | "live" | "manual";
+
+export interface PolicyProposalProposed {
+  readonly status: "proposed";
+  readonly operation: "set_subscription_cutoff";
+  readonly asset: "eFUND";
+  readonly weekday: "MON" | "TUE" | "WED" | "THU" | "FRI";
+  readonly timeUtc: string;
+  readonly timezone: "UTC";
+  readonly expectedTimeUtc?: string;
+}
+
+export interface PolicyProposalClarify {
+  readonly status: "clarify";
+  readonly question: string;
+  readonly missingFields: readonly string[];
+}
+
+export interface PolicyProposalUnsupported {
+  readonly status: "unsupported";
+  readonly reasonCode: string;
+}
+
+export type PolicyProposal =
+  | PolicyProposalProposed
+  | PolicyProposalClarify
+  | PolicyProposalUnsupported;
+
+export interface ProposalDiff {
+  readonly asset: "eFUND";
+  readonly orderType: "FUND_SUBSCRIPTION";
+  readonly weekday: string;
+  readonly oldTimeUtc: string;
+  readonly newTimeUtc: string;
+  readonly timezone: "UTC";
+}
+
+export interface PolicyBaselineRef {
+  readonly policyId: string;
+  readonly version: number;
+  readonly policyHash: string;
+  readonly weekdayCutoffs: Readonly<Record<string, string>>;
+}
+
+export interface ScenarioFixtureRef {
+  readonly fixtureId: "P01";
+  readonly fixtureVersion: string;
+  readonly fixtureHash: string;
+  readonly calendarId: string;
+  readonly calendarVersion: string;
+  readonly calendarHash: string;
+}
+
+export interface ScenarioModelInfo {
+  readonly provider: string;
+  readonly model: string;
+  readonly digest: string | null;
+  readonly promptVersion: string;
+  readonly attempts: number;
+  readonly elapsedMs: number;
+}
+
+export interface ScenarioDraft {
+  readonly scenarioId: string;
+  readonly revision: number;
+  readonly origin: DraftOrigin;
+  readonly status: DraftStatus;
+  readonly label: string;
+  readonly question: string | null;
+  readonly proposal: PolicyProposal | null;
+  readonly diff: ProposalDiff | null;
+  readonly clarify: { readonly question: string; readonly missingFields: readonly string[] } | null;
+  readonly unsupportedReasonCode: string | null;
+  readonly baseline: PolicyBaselineRef;
+  readonly fixture: ScenarioFixtureRef;
+  readonly draftDigest: string;
+  readonly confirmationDigest: string;
+  readonly parentRevision: number | null;
+  readonly parentDraftDigest: string | null;
+  readonly createdAt: string;
+  readonly model?: ScenarioModelInfo;
+}
+
+export interface CreateScenarioDraftInput {
+  readonly fixtureId: "P01";
+  readonly mode: DraftOrigin;
+  readonly question?: string;
+  readonly manualFields?: {
+    readonly weekday?: string;
+    readonly timeUtc?: string;
+    readonly timezone?: string;
+    readonly expectedTimeUtc?: string;
+  };
+}
+
+export interface EditScenarioDraftInput {
+  readonly expectedRevision: number;
+  readonly fields?: {
+    readonly weekday?: string;
+    readonly timeUtc?: string;
+    readonly timezone?: string;
+    readonly expectedTimeUtc?: string;
+  };
+  readonly clarificationAnswer?: {
+    readonly weekday?: string;
+    readonly timeUtc?: string;
+    readonly timezone?: string;
+    readonly expectedTimeUtc?: string;
+  };
+}
+
+export interface StartScenarioRunInput {
+  readonly revision: number;
+  readonly confirmationDigest: string;
+}
+
+export interface ScenarioRunAccepted {
+  readonly runId: string;
+  readonly scenarioId: string;
+  readonly revision: number;
+  readonly confirmationDigest: string;
+  readonly status: string;
+  readonly traceId: string;
+  readonly acceptedAt: string;
+}
+
+export interface ScenarioRunResult {
+  readonly comparisonDigest: string;
+  readonly packDigest: string;
+  readonly affectedOrders: number;
+  readonly totalOrders: number;
+  readonly extraReservedAtFridayCloseBase: string;
+  readonly orderChanges: ReadonlyArray<{
+    readonly orderId: string;
+    readonly baselineDealingDate: string;
+    readonly candidateDealingDate: string;
+    readonly baselineUnitsBase: string | null;
+    readonly candidateUnitsBase: string | null;
+    readonly reservedAtFridayCloseBase: string;
+    readonly changesDealingDate: boolean;
+    readonly reason: string;
+  }>;
+  readonly boundarySummary: { readonly total: number; readonly passed: number; readonly failed: number };
+  readonly checks: readonly string[];
+}
+
+export interface ScenarioRun {
+  readonly runId: string;
+  readonly scenarioId: string;
+  readonly revision: number;
+  readonly confirmationDigest: string;
+  readonly status: string;
+  readonly comparisonDigest: string | null;
+  readonly packDigest: string | null;
+  readonly evidencePath: string | null;
+  readonly result: ScenarioRunResult | null;
+  readonly error: { readonly code: string; readonly message: string } | null;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+
+export interface ModelStatus {
+  readonly provider: string;
+  readonly model: string;
+  readonly digest: string | null;
+  readonly available: boolean;
+  readonly promptVersion: string;
+  readonly error: string | null;
+}

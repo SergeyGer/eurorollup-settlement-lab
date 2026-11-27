@@ -196,8 +196,12 @@ Creates revision 1. `mode` selects the proposal source:
 - `recorded` — loads the bundled recorded proposal preset;
 - `manual` — takes `manualFields` (`weekday`, `timeUtc`, `timezone`,
   optional `expectedTimeUtc`);
-- `live` — requires the local model adapter; returns `503
-  LIVE_MODEL_NOT_CONFIGURED` with `Retry-After` until step S04.
+- `live` — drafts the proposal with the local model adapter from a required
+  `question` (at most 500 characters). Malformed model output is retried once
+  with schema feedback; a second failure, a 15-second attempt deadline or an
+  unavailable runtime returns `503 MODEL_OUTPUT_INVALID`, `MODEL_TIMEOUT` or
+  `MODEL_UNAVAILABLE` with `Retry-After`. A failed call never falls back to the
+  recorded preset.
 
 ```json
 {
@@ -234,6 +238,13 @@ not `proposed` cannot run (`422 INVALID_SCENARIO_STATE`).
 Returns `queued`, `running`, `succeeded` or `failed`. On success it includes the
 two branches, per-order changes, deltas, policy hashes and the comparison digest.
 A failed run has no published partial result.
+
+### `GET /v1/model/status`
+
+Reports the local model adapter status: provider, pinned model identifier,
+content digest, prompt version and availability. The adapter has one capability
+(drafting a typed scenario) and no access to signing keys, shell tools, chain RPC
+methods or portfolio writes.
 
 ### `GET /v1/scenario-runs/{runId}/evidence`
 
@@ -280,5 +291,6 @@ Registered only when dev endpoints are enabled:
 - No chain reader yet: `chainState` is a business-side placeholder and
   `blockHash` is `null`.
 - Eligibility personas are stored but not enforced until step S05.
-- Live model drafting requires the local adapter, which arrives in step S04; the
-  recorded preset and manual edits work today.
+- The live model adapter requires a local Ollama runtime with the pinned model
+  pulled; when it is unavailable the recorded preset and manual editor remain
+  usable.

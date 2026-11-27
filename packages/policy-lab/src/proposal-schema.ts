@@ -80,6 +80,40 @@ export const PROPOSAL_JSON_SCHEMA = {
   ],
 } as const;
 
+/**
+ * Simplified schema passed to the local runtime for grammar-constrained output.
+ *
+ * It keeps the enums and forbids additional properties; conditional requirements
+ * are enforced by validateProposal after parsing. Keeping the grammar small makes
+ * compact local models emit structurally valid JSON.
+ */
+export const PROPOSAL_DECODING_SCHEMA = {
+  type: "object",
+  properties: {
+    status: { type: "string", enum: ["proposed", "clarify", "unsupported"] },
+    operation: { type: "string", enum: ["set_subscription_cutoff"] },
+    asset: { type: "string", enum: ["eFUND"] },
+    weekday: { type: "string", enum: ["MON", "TUE", "WED", "THU", "FRI"] },
+    timeUtc: { type: "string" },
+    timezone: { type: "string", enum: ["UTC"] },
+    expectedTimeUtc: { type: "string" },
+    question: { type: "string" },
+    missingFields: { type: "array", items: { type: "string" } },
+    reasonCode: {
+      type: "string",
+      enum: [
+        "UNSUPPORTED_OPERATION",
+        "UNSUPPORTED_ASSET",
+        "UNSUPPORTED_WEEKDAY",
+        "OUT_OF_RANGE",
+        "MULTIPLE_CHANGES",
+      ],
+    },
+  },
+  required: ["status"],
+  additionalProperties: false,
+} as const;
+
 export interface ProposalValidation {
   readonly valid: boolean;
   readonly errors: readonly string[];

@@ -17,9 +17,12 @@ import {
 } from "@eurorollup/dealing";
 import {
   POLICY_LAB_VERSION,
+  buildDraft,
+  buildLiveDraftRequest,
   buildP01ComparisonPack,
   createDraft,
   editDraft,
+  policyBaselineRef,
   policyFromFixture,
   runP01BoundaryCases,
   runP01Comparison,
@@ -40,8 +43,9 @@ import type { Database } from "../db.js";
 import { enqueueOutbox, readClock, transaction } from "../db.js";
 import type { ClockService } from "../clock-service.js";
 import type { IdFactory } from "../ids.js";
-import { problem } from "../problems.js";
+import { ApiProblem, problem } from "../problems.js";
 import { PolicyLabError, isPolicyLabError } from "@eurorollup/policy-lab";
+import type { ModelService } from "./model-service.js";
 import {
   getScenarioRevisionRow,
   getScenarioRow,
@@ -82,7 +86,18 @@ export interface StartScenarioRunRequest {
   readonly confirmationDigest: string;
 }
 
-export interface ScenarioDraftResponse extends ReplayDraft {}
+export interface ScenarioModelInfo {
+  readonly provider: string;
+  readonly model: string;
+  readonly digest: string | null;
+  readonly promptVersion: string;
+  readonly attempts: number;
+  readonly elapsedMs: number;
+}
+
+export interface ScenarioDraftResponse extends ReplayDraft {
+  readonly model?: ScenarioModelInfo;
+}
 
 export interface ScenarioRunAccepted {
   readonly runId: string;
@@ -135,12 +150,20 @@ export class ScenarioService {
   private readonly clock: ClockService;
   private readonly ids: IdFactory;
   private readonly baselinePolicy: FundDealingPolicy;
+  private readonly modelService: ModelService | null;
 
-  constructor(db: Database, _config: ApiConfig, clock: ClockService, ids: IdFactory) {
+  constructor(
+    db: Database,
+    _config: ApiConfig,
+    clock: ClockService,
+    ids: IdFactory,
+    modelService?: ModelService,
+  ) {
     this.db = db;
     this.clock = clock;
     this.ids = ids;
     this.baselinePolicy = policyFromFixture(fixture.baselinePolicy);
+    this.modelService = modelService ?? null;
   }
 
   private requireSession(scenarioId: string, sessionId: string): void {
@@ -167,7 +190,13 @@ export class ScenarioService {
     return JSON.parse(revision.draft_json) as ReplayDraft;
   }
 
-  createDraft(body: CreateScenarioDraftRequest, sessionId: string): ScenarioDraftResponse {
+  async createDraft(
+    body: CreateScenarioDraftRequest,
+    sessionId: string,
+  ): Promise<ScenarioDraftResponse> {
+    if (body.mode === "live") {
+      return this.createLiveDraft(body, sessionId);
+    }
     const now = readClock(this.db);
     const draft = createDraft({
       fixture,
@@ -209,6 +238,91 @@ export class ScenarioService {
       });
     });
     return storedDraft;
+  }
+
+  private async createLiveDraft(
+    body: CreateScenarioDraftRequest,
+    sessionId: string,
+  ): Promise<ScenarioDraftResponse> {
+    if (this.modelService === null) {
+      throw problem(503, "MODEL_UNAVAILABLE", "The local model adapter is not configured");
+    }
+    const question = (body.question ?? "").trim();
+    if (question.length === 0) {
+      throw problem(422, "QUESTION_REQUIRED", "Live mode requires a short question");
+    }
+    if (question.length > 500) {
+      throw problem(422, "QUESTION_TOO_LONG", "The question must be at most 500 characters");
+    }
+    const request = buildLiveDraftRequest({
+      question,
+      baseline: policyBaselineRef(this.baselinePolicy),
+    });
+    const outcome = await this.modelService.draftLive(request);
+    const now = readClock(this.db);
+    if (outcome.kind === "error") {
+      throw new ApiProblem(503, outcome.code, outcome.message, {
+        details: {
+          provider: outcome.model.provider,
+          model: outcome.model.model,
+          attempts: outcome.attempts,
+          elapsedMs: outcome.elapsedMs,
+        },
+        retryAfterSeconds: 30,
+      });
+    }
+    const label = `Live model · ${outcome.model.model} · ${outcome.model.promptVersion}`;
+    const draft = buildDraft({
+      fixture,
+      calendarFixture,
+      baselinePolicy: this.baselinePolicy,
+      origin: "live",
+      label,
+      question,
+      proposal: outcome.proposal,
+      revision: 1,
+      parentRevision: null,
+      parentDraftDigest: null,
+      createdAt: now,
+    });
+    const scenarioId = this.ids.scenario();
+    const sanitized: ReplayDraft = { ...draft, scenarioId, question: null };
+    transaction(this.db, () => {
+      insertScenario(this.db, {
+        scenarioId,
+        sessionId,
+        fixtureId: draft.fixture.fixtureId,
+        mode: "live",
+        origin: "live",
+        baselinePolicyJson: JSON.stringify(this.baselinePolicy),
+        baselinePolicyHash: draft.baseline.policyHash,
+        fixtureHash: draft.fixture.fixtureHash,
+        policyLabVersion: POLICY_LAB_VERSION,
+        currentRevision: draft.revision,
+        status: draft.status,
+        createdAt: now,
+      });
+      insertScenarioRevision(this.db, {
+        scenario_id: scenarioId,
+        revision: draft.revision,
+        draft_json: JSON.stringify(sanitized),
+        draft_digest: draft.draftDigest,
+        confirmation_digest: draft.confirmationDigest,
+        created_at: now,
+      });
+    });
+    return {
+      ...draft,
+      scenarioId,
+      model: {
+        provider: outcome.model.provider,
+        model: outcome.model.model,
+        digest: outcome.model.digest,
+        promptVersion: outcome.model.promptVersion,
+        attempts: outcome.attempts,
+        elapsedMs: outcome.elapsedMs,
+      },
+    };
   }
 
   editDraft(
