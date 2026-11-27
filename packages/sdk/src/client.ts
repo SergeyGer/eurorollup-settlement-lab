@@ -66,6 +66,14 @@ export interface SettlementApiClientOptions {
   readonly timeoutMs?: number;
 }
 
+function trimTrailingSlashes(value: string): string {
+  let end = value.length;
+  while (end > 0 && value[end - 1] === "/") {
+    end -= 1;
+  }
+  return value.slice(0, end);
+}
+
 export function createIdempotencyKey(): string {
   const globalCrypto = globalThis.crypto;
   if (globalCrypto === undefined || typeof globalCrypto.randomUUID !== "function") {
@@ -85,7 +93,7 @@ export class SettlementApiClient {
   private readonly roleIdentity?: string;
 
   constructor(options: SettlementApiClientOptions) {
-    this.baseUrl = options.baseUrl.replace(/\/+$/, "");
+    this.baseUrl = trimTrailingSlashes(options.baseUrl);
     const globalFetch =
       typeof globalThis.fetch === "function"
         ? (globalThis.fetch.bind(globalThis) as unknown as FetchLike)
