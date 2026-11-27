@@ -58,6 +58,18 @@ Result card: **1 of 2 orders changes dealing date** and **€300 more reserved a
 Friday close**. F-1530 settles 72 hours later and receives 0.125000 fewer units
 at the supplied Monday NAV.
 
+## Replay preview
+
+The browser replay steps through the recorded G01 settlement with the pure
+dealing engine running locally. While the fund request awaits its authorized
+NAV, EUR 300.00 is displayed once as pending cash and is not counted as a
+holding:
+
+![Recorded replay: spendable EUR 499.95 and EUR 300.00 pending while awaiting NAV](docs/media/s01-portfolio-reserved.jpg)
+
+See [`docs/verification/s01-foundation.md`](docs/verification/s01-foundation.md)
+for the verified checkpoints, receipts and digests of the foundation step.
+
 ## Quick start
 
 Requirements: Node.js 22 or newer and pnpm 9 or newer

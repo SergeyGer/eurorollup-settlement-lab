@@ -18,6 +18,7 @@ import {
   type PortfolioSnapshot,
   type Receipt,
   type SettlementEngine,
+  type SettlementEvent,
 } from "@eurorollup/dealing";
 import g01ScenarioJson from "../../../../fixtures/g01/scenario.json";
 import g01RedemptionJson from "../../../../fixtures/g01/redemption.json";
@@ -49,7 +50,10 @@ export interface ReplayStep {
   readonly receipt?: Receipt;
 }
 
-function receiptForStep(receipts: readonly Receipt[], eventType: string): Receipt | undefined {
+function receiptForEventType(
+  receipts: readonly Receipt[],
+  eventType: string,
+): Receipt | undefined {
   if (eventType === "spot.order.filled") {
     return receipts.find((receipt) => receipt.orderId === "G01-SPOT-01");
   }
@@ -62,102 +66,95 @@ function receiptForStep(receipts: readonly Receipt[], eventType: string): Receip
   return undefined;
 }
 
-function collectSteps(params: {
+function baseStep(step: SettlementEngine["steps"][number], index: number): Omit<ReplayStep, "snapshot"> {
+  return {
+    id: step.stepId,
+    index,
+    title: step.title,
+    description: step.description,
+    occurredAt: step.occurredAt,
+    eventType: step.eventType,
+    effects: step.businessEffects,
+    journal: step.journal.map((entry) => ({
+      entryId: entry.entryId,
+      description: entry.description,
+      postings: entry.postings.map((posting) => ({
+        accountKind: posting.account.kind,
+        accountId: posting.account.accountId,
+        assetId: posting.assetId,
+        amountBase: posting.amountBase,
+      })),
+    })),
+  };
+}
+
+function collectReplaySteps(params: {
   engine: SettlementEngine;
-  events: ReadonlyArray<Parameters<SettlementEngine["apply"]>[0]>;
-  receipts: readonly Receipt[];
+  events: ReadonlyArray<SettlementEvent>;
   startIndex: number;
-  steps: ReplayStep[];
-}): void {
+}): ReplayStep[] {
   const investor = investorAccount(g01Scenario.accounts.investorId);
-  let offset = params.startIndex;
+  const steps: ReplayStep[] = [];
+  let index = params.startIndex;
   for (const event of params.events) {
     params.engine.apply(event);
-    const receipt = receiptForStep(params.receipts, event.type);
+    const lastStep = params.engine.steps[params.engine.steps.length - 1];
+    if (lastStep === undefined) {
+      continue;
+    }
     const snapshot = params.engine.portfolioSnapshot({
       investor,
       label: event.type,
       at: event.occurredAt,
     });
-    const lastStep = params.engine.steps[params.engine.steps.length - 1];
-    if (lastStep === undefined) {
-      continue;
-    }
-    params.steps.push({
-      id: lastStep.stepId,
-      index: offset,
-      title: lastStep.title,
-      description: lastStep.description,
-      occurredAt: lastStep.occurredAt,
-      eventType: lastStep.eventType,
-      effects: lastStep.businessEffects,
-      journal: lastStep.journal.map((entry) => ({
-        entryId: entry.entryId,
-        description: entry.description,
-        postings: entry.postings.map((posting) => ({
-          accountKind: posting.account.kind,
-          accountId: posting.account.accountId,
-          assetId: posting.assetId,
-          amountBase: posting.amountBase,
-        })),
-      })),
-      snapshot,
-      ...(receipt === undefined ? {} : { receipt }),
-    });
-    offset += 1;
+    steps.push({ ...baseStep(lastStep, index), snapshot });
+    index += 1;
   }
+  return steps;
+}
+
+function attachReceipts(
+  steps: readonly ReplayStep[],
+  receipts: readonly Receipt[],
+): ReplayStep[] {
+  return steps.map((step) => {
+    const receipt = receiptForEventType(receipts, step.eventType);
+    return receipt === undefined ? step : { ...step, receipt };
+  });
 }
 
 function buildReplays(): { g01: ReplayStep[]; redemption: ReplayStep[] } {
   const calendar = calendarFromFixture(labUtc1);
   const engine = buildG01Engine(g01Scenario, calendar);
+  const g01Steps = collectReplaySteps({
+    engine,
+    events: g01Events(g01Scenario),
+    startIndex: 0,
+  });
   const g01Receipts = g01ReceiptsForEngine(
     engine,
     g01Scenario.spot.orderId,
     g01Scenario.fund.orderId,
   );
-  const g01: ReplayStep[] = [];
-  collectSteps({ engine, events: g01Events(g01Scenario), receipts: g01Receipts, startIndex: 0, steps: g01 });
+  const g01 = attachReceipts(g01Steps, g01Receipts);
 
-  const redemption = runG01Redemption(
+  const redemptionRun = runG01Redemption(
     g01RedemptionScenario,
     engine,
     g01Scenario.accounts.investorId,
   );
-  const redemptionSteps: ReplayStep[] = [];
-  const redemptionEvents = redemption.engine.steps.slice(engine.steps.length);
+  const redemptionEvents = redemptionRun.engine.steps.slice(engine.steps.length);
   const investor = investorAccount(g01Scenario.accounts.investorId);
-  let offset = g01.length;
-  for (const step of redemptionEvents) {
-    const receipt = receiptForStep([redemption.receipt], step.eventType);
-    redemptionSteps.push({
-      id: step.stepId,
-      index: offset,
-      title: step.title,
-      description: step.description,
-      occurredAt: step.occurredAt,
-      eventType: step.eventType,
-      effects: step.businessEffects,
-      journal: step.journal.map((entry) => ({
-        entryId: entry.entryId,
-        description: entry.description,
-        postings: entry.postings.map((posting) => ({
-          accountKind: posting.account.kind,
-          accountId: posting.account.accountId,
-          assetId: posting.assetId,
-          amountBase: posting.amountBase,
-        })),
-      })),
-      snapshot: redemption.engine.portfolioSnapshot({
-        investor,
-        label: step.title,
-        at: step.occurredAt,
-      }),
-      ...(receipt === undefined ? {} : { receipt }),
-    });
-    offset += 1;
-  }
-  return { g01, redemption: redemptionSteps };
+  const redemptionSteps: ReplayStep[] = redemptionEvents.map((step, offset) => ({
+    ...baseStep(step, g01.length + offset),
+    snapshot: redemptionRun.engine.portfolioSnapshot({
+      investor,
+      label: step.title,
+      at: step.occurredAt,
+    }),
+  }));
+  const redemption = attachReceipts(redemptionSteps, [redemptionRun.receipt]);
+  return { g01, redemption };
 }
 
 const replays = buildReplays();
