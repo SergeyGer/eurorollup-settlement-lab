@@ -555,7 +555,9 @@ function stepAssemble(): void {
   ffmpeg([...audioInputs, "-filter_complex", `${audioFilters.join(";")};${mix}`, "-map", "[a]", "-t", String(DURATION_SECONDS), "-ar", "48000", "-ac", "2", join(buildDir, "narration.wav")]);
 
   // Burn captions, encode H.264 30 fps and mux the AAC narration.
-  const subtitlePath = join(mediaDir, "release-film.ass").replace(/\\/g, "/").replace(/:/g, "\\:");
+  // ffmpeg filter path escaping: backslash, colon and quote are the metacharacters
+  // of the filter argument; escape all of them explicitly.
+  const subtitlePath = join(mediaDir, "release-film.ass").replace(/\\/g, "\\\\").replace(/:/g, "\\:").replace(/'/g, "\\'");
   ffmpeg([
     "-i", join(buildDir, "silent.mp4"),
     "-i", join(buildDir, "narration.wav"),
@@ -649,7 +651,7 @@ async function stepVerify(): Promise<void> {
   // Captions and transcript exist and match the script.
   const vtt = readFileSync(join(mediaDir, "release-film.vtt"), "utf8");
   const transcript = readFileSync(join(mediaDir, "release-film-transcript.md"), "utf8");
-  const cues = (vtt.match(/-->/g) ?? []).length;
+  const cues = (vtt.match(/--!?>/g) ?? []).length;
   const narrationMatches = SEGMENTS.every((segment) => vtt.includes(segment.text) && transcript.includes(segment.text));
   check("captions", "English WebVTT with every script line", cues === SEGMENTS.length && narrationMatches, `${String(cues)} cues`);
   check("transcript", "verbatim English transcript", transcript.includes("Release film transcript") && narrationMatches, "all 131 script words present");

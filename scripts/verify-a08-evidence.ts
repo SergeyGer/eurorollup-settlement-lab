@@ -87,7 +87,7 @@ function main(): void {
     check(evidence.passed === true, "A08 must be complete when the film is complete and every public part passes");
     const vtt = readFileSync(join(repoRoot, metadata["captions"]["file"]), "utf8");
     const transcript = readFileSync(join(repoRoot, metadata["transcript"]["file"]), "utf8");
-    check((vtt.match(/-->/g) ?? []).length >= 7, "the WebVTT must contain every narration cue");
+    check((vtt.match(/--!?>/g) ?? []).length >= 7, "the WebVTT must contain every narration cue");
     check(transcript.includes("Release film transcript"), "the verbatim transcript must be present");
     check(sha256File(metadata["captions"]["file"]) === metadata["captions"]["sha256"], "the caption digest must match");
     check(sha256File(metadata["transcript"]["file"]) === metadata["transcript"]["sha256"], "the transcript digest must match");
