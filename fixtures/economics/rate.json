@@ -1,0 +1,9 @@
+{
+  "pair": "EUR/ETH",
+  "rateEurPerEth": "3200.50",
+  "rateMicrosPerEth": "3200500000",
+  "observedAt": "2024-01-05T12:00:00.000Z",
+  "source": "demo-fixture",
+  "maxAgeSeconds": 60,
+  "note": "Timestamped demo conversion fixture. It is a frozen synthetic input, not a live market rate."
+}

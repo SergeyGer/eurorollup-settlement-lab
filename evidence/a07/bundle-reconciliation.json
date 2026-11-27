@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A07-bundle-reconciliation",
+  "packId": "A07-economics",
+  "generatedBy": "pnpm a07:economics",
+  "generatedAt": "2026-11-27T14:29:10.149Z",
+  "chain": {
+    "chainId": 31337,
+    "rpc": "http://127.0.0.1:8549",
+    "runtime": "anvil (local, ephemeral)"
+  },
+  "contracts": {
+    "entryPoint": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "entryPointArtifact": "@account-abstraction/contracts@0.7.0 EntryPoint",
+    "accountFactory": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "paymaster": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "paymasterArtifact": "@account-abstraction/contracts@0.7.0 VerifyingPaymaster",
+    "beneficiary": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+  },
+  "bundle": {
+    "outerTxHash": "0x9c38a36aa768c1301fbd01419330d9101b114380c34d8e11f80559532ca417f1",
+    "blockNumber": 8,
+    "blockHash": "0x954e889193acf34c85b7de76610c69dc02e90c04fcc70e8ee1ad34df086736cd",
+    "blockTimestamp": "2026-11-27T14:29:10.000Z",
+    "outerStatus": 1,
+    "outerGasUsed": "181431",
+    "effectiveGasPriceWei": "1421752147",
+    "executionFeeWei": "257949913782357",
+    "l1DataFeeWei": null,
+    "operatorFeeWei": null,
+    "networkCostWei": "257949913782357",
+    "sponsorPaidWei": "472351559302104",
+    "bundlerRevenueWei": "472351559302104",
+    "bundleTotalWei": "472351559302104",
+    "operations": [
+      {
+        "opId": "opus-success",
+        "accountAddress": "0xCd922ca05B97119C84Ee56C2F4d68EA6b315E18C",
+        "userOpHash": "0x834d49895de0a6c86dc3563e93bb0dea98662da8d731df408a04a3f822112d1f",
+        "success": true,
+        "actualGasUsed": "170989",
+        "actualGasCostWei": "243103977863383",
+        "userChargeWei": "0"
+      },
+      {
+        "opId": "opus-included-failure",
+        "accountAddress": "0xa581Ae79EC98ACB353D48C82703c6a25cb69BC62",
+        "userOpHash": "0xb075b2156ad18672aa7e6f66e037e3abe6528c9f10c187f0dbc2a3957c589923",
+        "success": false,
+        "actualGasUsed": "161243",
+        "actualGasCostWei": "229247581438721",
+        "userChargeWei": "0"
+      }
+    ]
+  },
+  "reconciliation": {
+    "items": [
+      {
+        "name": "networkCostVsSponsorPaid",
+        "wei": "-214401645519747",
+        "explanation": "Known network cost (execution plus measured fee components) minus the sponsor payment. Unavailable fee components widen this gap instead of being guessed."
+      },
+      {
+        "name": "sponsorPaidVsBundlerRevenue",
+        "wei": "0",
+        "explanation": "What the sponsor paid minus what the bundler beneficiary actually received; a non-zero value is a named reconciliation difference, not a hidden adjustment."
+      }
+    ],
+    "allocations": [
+      {
+        "bucket": "successful-op",
+        "opId": "opus-success",
+        "gasUsed": "170989",
+        "allocWei": "243103977863383"
+      },
+      {
+        "bucket": "failed-or-unattributable",
+        "opId": null,
+        "gasUsed": "161243",
+        "allocWei": "229247581438721"
+      }
+    ],
+    "successfulAllocWei": "243103977863383",
+    "failedAllocWei": "229247581438721",
+    "residualWei": "0",
+    "invariants": {
+      "allocationsPlusResidualEqualsTotal": true,
+      "reconciliationItemsSumToSponsorPaidDifference": true,
+      "investorChargeIsExplicitLeg": true,
+      "noUnattributableOps": false
+    }
+  },
+  "charges": {
+    "investorChargeEurMicros": "50000",
+    "investorChargeSource": "0.05 dEUR spot charge fixture (same charge as the G01 spot fill)",
+    "sponsorCostEurMicros": "1511761",
+    "sponsorContributionEurMicros": "-1461761",
+    "rateObservation": {
+      "pair": "EUR/ETH",
+      "rateEurPerEth": "3200.50",
+      "rateMicrosPerEth": "3200500000",
+      "observedAt": "2026-11-27T14:29:10.000Z",
+      "source": "demo-fixture",
+      "maxAgeSeconds": 60
+    },
+    "rateFreshness": {
+      "usable": true,
+      "ageSeconds": 0,
+      "reason": null
+    }
+  },
+  "unavailable": [
+    "l1DataFeeWei",
+    "operatorFeeWei"
+  ],
+  "dataMode": "measured-bundle-with-demo-rate",
+  "notes": [
+    "The bundle is a real two-operation handleOps transaction on a local Anvil chain.",
+    "L1 data fee and operator fee are unavailable on this chain and are recorded as null, not as zero.",
+    "The EUR/ETH conversion is a timestamped demo fixture stamped at the measurement block time; it is not a live market rate."
+  ]
+}

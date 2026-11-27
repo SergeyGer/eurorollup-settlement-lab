@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/a07-cost-experiment.schema.json",
+  "title": "A07 interactive cost experiment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "reportId", "packId", "generatedBy", "generatedAt", "observedRun", "scenarioInputs", "scenarios", "unavailable", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "A07-cost-experiment" },
+    "packId": { "const": "A07-economics" },
+    "generatedBy": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "observedRun": { "type": "object" },
+    "scenarioInputs": { "type": "object" },
+    "observedDefaults": { "type": "object" },
+    "scenarios": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["scenarioId", "description", "inputs", "result"],
+        "properties": {
+          "scenarioId": { "type": "string" },
+          "description": { "type": "string" },
+          "inputs": { "type": "object" },
+          "result": { "type": "object" }
+        }
+      }
+    },
+    "unavailable": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/a07-bundle-reconciliation.schema.json",
+  "title": "A07 bundle reconciliation in wei",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "reportId", "packId", "generatedBy", "generatedAt", "chain", "contracts", "bundle", "reconciliation", "charges", "unavailable", "dataMode", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "A07-bundle-reconciliation" },
+    "packId": { "const": "A07-economics" },
+    "generatedBy": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "chain": { "type": "object" },
+    "contracts": { "type": "object" },
+    "bundle": {
+      "type": "object",
+      "required": [
+        "outerTxHash", "blockNumber", "blockHash", "blockTimestamp", "outerStatus",
+        "outerGasUsed", "effectiveGasPriceWei", "executionFeeWei", "l1DataFeeWei",
+        "operatorFeeWei", "networkCostWei", "sponsorPaidWei", "bundlerRevenueWei",
+        "bundleTotalWei", "operations"
+      ],
+      "properties": {
+        "outerTxHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "blockNumber": { "type": "integer", "minimum": 1 },
+        "blockHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "blockTimestamp": { "type": "string" },
+        "outerStatus": { "const": 1 },
+        "outerGasUsed": { "type": "string" },
+        "effectiveGasPriceWei": { "type": "string" },
+        "executionFeeWei": { "type": "string" },
+        "l1DataFeeWei": { "type": ["string", "null"] },
+        "operatorFeeWei": { "type": ["string", "null"] },
+        "networkCostWei": { "type": "string" },
+        "sponsorPaidWei": { "type": "string" },
+        "bundlerRevenueWei": { "type": "string" },
+        "bundleTotalWei": { "type": "string" },
+        "operations": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["opId", "userOpHash", "success", "actualGasUsed", "actualGasCostWei", "userChargeWei"],
+            "properties": {
+              "opId": { "type": "string" },
+              "accountAddress": { "type": "string" },
+              "userOpHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+              "success": { "type": "boolean" },
+              "actualGasUsed": { "type": "string" },
+              "actualGasCostWei": { "type": "string" },
+              "userChargeWei": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "reconciliation": { "type": "object" },
+    "charges": { "type": "object" },
+    "unavailable": { "type": "array", "items": { "type": "string" } },
+    "dataMode": { "type": "string" },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

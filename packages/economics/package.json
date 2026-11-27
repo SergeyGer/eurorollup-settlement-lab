@@ -1,0 +1,14 @@
+{
+  "name": "@eurorollup/economics",
+  "version": "0.7.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic A07 economics: bundle reconciliation, cost experiment, funding guard and operator economics.",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@eurorollup/dealing": "workspace:*"
+  }
+}

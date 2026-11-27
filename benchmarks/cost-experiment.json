@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "A07-cost-experiment",
+  "packId": "A07-economics",
+  "generatedBy": "pnpm a07:economics",
+  "generatedAt": "2026-11-27T14:29:10.149Z",
+  "observedRun": {
+    "bundleOuterTxHash": "0x9c38a36aa768c1301fbd01419330d9101b114380c34d8e11f80559532ca417f1",
+    "perOrderActualGas": [
+      {
+        "opId": "opus-success",
+        "actualGasUsed": "170989",
+        "actualGasCostWei": "243103977863383"
+      },
+      {
+        "opId": "opus-included-failure",
+        "actualGasUsed": "161243",
+        "actualGasCostWei": "229247581438721"
+      }
+    ],
+    "outerGasUsed": "181431",
+    "effectiveGasPriceWei": "1421752147",
+    "sponsorPaidWei": "472351559302104",
+    "bundleTotalWei": "472351559302104"
+  },
+  "scenarioInputs": {
+    "dailyOrders": 1200,
+    "eligibleSponsorShareBps": 3500,
+    "daPriceWeiPerByte": 40000000000,
+    "batchUtilizationBps": 7500,
+    "perOrderExecutionGas": 160000,
+    "l1DataBytesPerOrder": 220,
+    "gasPriceWei": 1000000,
+    "investorChargeEurMicros": 50000,
+    "dailyBudgetEurMicros": 2500000,
+    "notes": [
+      "Frozen scenario inputs for the interactive cost experiment.",
+      "The DA price and utilization are explicit synthetic inputs; the execution gas and gas price come from the recorded bundle.",
+      "The EUR/ETH rate is the timestamped demo fixture in fixtures/economics/rate.json."
+    ]
+  },
+  "observedDefaults": {
+    "perOrderExecutionGas": "170989",
+    "gasPriceWei": "1421752147",
+    "source": "measured from the recorded bundle outer transaction and UserOperationEvents",
+    "syntheticInputs": [
+      "dailyOrders",
+      "eligibleSponsorShareBps",
+      "daPriceWeiPerByte",
+      "batchUtilizationBps",
+      "l1DataBytesPerOrder",
+      "investorChargeEurMicros",
+      "dailyBudgetEurMicros"
+    ],
+    "dataMode": "mixed: execution cost measured, DA/order-volume inputs are explicit synthetic scenario inputs"
+  },
+  "scenarios": [
+    {
+      "scenarioId": "observed-default",
+      "description": "Recorded defaults with the demo DA price and utilization.",
+      "inputs": {
+        "dailyOrders": 1200,
+        "eligibleSponsorShareBps": 3500,
+        "rate": {
+          "pair": "EUR/ETH",
+          "rateEurPerEth": "3200.50",
+          "rateMicrosPerEth": "3200500000",
+          "observedAt": "2026-11-27T14:29:10.000Z",
+          "source": "demo-fixture",
+          "maxAgeSeconds": 60
+        },
+        "rateAgeSeconds": 0,
+        "daPriceWeiPerByte": "40000000000",
+        "batchUtilizationBps": 7500,
+        "perOrderExecutionGas": "170989",
+        "l1DataBytesPerOrder": "220",
+        "gasPriceWei": "1421752147",
+        "investorChargeEurMicros": "50000",
+        "dailyBudgetEurMicros": "2500000"
+      },
+      "result": {
+        "perOrderSponsorCostWei": "254837311196716",
+        "perOrderSponsorCostEurMicros": "815606",
+        "sponsorContributionPerOrderEurMicros": "-765606",
+        "eligibleOrdersPerDay": 420,
+        "dailySponsorshipNeedEurMicros": "321554520",
+        "dailyBudgetEurMicros": "2500000",
+        "budgetRemainingEurMicros": "-319054520",
+        "budgetExhausted": true,
+        "firstExhaustingDailyOrders": 12,
+        "firstSustainableChargeEurMicros": "815606",
+        "unavailable": [],
+        "notes": []
+      }
+    },
+    {
+      "scenarioId": "cheap-da",
+      "description": "Half the demo DA price.",
+      "inputs": {
+        "dailyOrders": 1200,
+        "eligibleSponsorShareBps": 3500,
+        "rate": {
+          "pair": "EUR/ETH",
+          "rateEurPerEth": "3200.50",
+          "rateMicrosPerEth": "3200500000",
+          "observedAt": "2026-11-27T14:29:10.000Z",
+          "source": "demo-fixture",
+          "maxAgeSeconds": 60
+        },
+        "rateAgeSeconds": 0,
+        "daPriceWeiPerByte": "20000000000",
+        "batchUtilizationBps": 7500,
+        "perOrderExecutionGas": "170989",
+        "l1DataBytesPerOrder": "220",
+        "gasPriceWei": "1421752147",
+        "investorChargeEurMicros": "50000",
+        "dailyBudgetEurMicros": "2500000"
+      },
+      "result": {
+        "perOrderSponsorCostWei": "248970644530049",
+        "perOrderSponsorCostEurMicros": "796830",
+        "sponsorContributionPerOrderEurMicros": "-746830",
+        "eligibleOrdersPerDay": 420,
+        "dailySponsorshipNeedEurMicros": "313668600",
+        "dailyBudgetEurMicros": "2500000",
+        "budgetRemainingEurMicros": "-311168600",
+        "budgetExhausted": true,
+        "firstExhaustingDailyOrders": 12,
+        "firstSustainableChargeEurMicros": "796830",
+        "unavailable": [],
+        "notes": []
+      }
+    },
+    {
+      "scenarioId": "low-utilization",
+      "description": "Batch utilization drops to 30%.",
+      "inputs": {
+        "dailyOrders": 1200,
+        "eligibleSponsorShareBps": 3500,
+        "rate": {
+          "pair": "EUR/ETH",
+          "rateEurPerEth": "3200.50",
+          "rateMicrosPerEth": "3200500000",
+          "observedAt": "2026-11-27T14:29:10.000Z",
+          "source": "demo-fixture",
+          "maxAgeSeconds": 60
+        },
+        "rateAgeSeconds": 0,
+        "daPriceWeiPerByte": "40000000000",
+        "batchUtilizationBps": 3000,
+        "perOrderExecutionGas": "170989",
+        "l1DataBytesPerOrder": "220",
+        "gasPriceWei": "1421752147",
+        "investorChargeEurMicros": "50000",
+        "dailyBudgetEurMicros": "2500000"
+      },
+      "result": {
+        "perOrderSponsorCostWei": "272437311196716",
+        "perOrderSponsorCostEurMicros": "871935",
+        "sponsorContributionPerOrderEurMicros": "-821935",
+        "eligibleOrdersPerDay": 420,
+        "dailySponsorshipNeedEurMicros": "345212700",
+        "dailyBudgetEurMicros": "2500000",
+        "budgetRemainingEurMicros": "-342712700",
+        "budgetExhausted": true,
+        "firstExhaustingDailyOrders": 12,
+        "firstSustainableChargeEurMicros": "871935",
+        "unavailable": [],
+        "notes": []
+      }
+    },
+    {
+      "scenarioId": "lower-investor-fee",
+      "description": "Investor charge halves to 0.025 EUR.",
+      "inputs": {
+        "dailyOrders": 1200,
+        "eligibleSponsorShareBps": 3500,
+        "rate": {
+          "pair": "EUR/ETH",
+          "rateEurPerEth": "3200.50",
+          "rateMicrosPerEth": "3200500000",
+          "observedAt": "2026-11-27T14:29:10.000Z",
+          "source": "demo-fixture",
+          "maxAgeSeconds": 60
+        },
+        "rateAgeSeconds": 0,
+        "daPriceWeiPerByte": "40000000000",
+        "batchUtilizationBps": 7500,
+        "perOrderExecutionGas": "170989",
+        "l1DataBytesPerOrder": "220",
+        "gasPriceWei": "1421752147",
+        "investorChargeEurMicros": "25000",
+        "dailyBudgetEurMicros": "2500000"
+      },
+      "result": {
+        "perOrderSponsorCostWei": "254837311196716",
+        "perOrderSponsorCostEurMicros": "815606",
+        "sponsorContributionPerOrderEurMicros": "-790606",
+        "eligibleOrdersPerDay": 420,
+        "dailySponsorshipNeedEurMicros": "332054520",
+        "dailyBudgetEurMicros": "2500000",
+        "budgetRemainingEurMicros": "-329554520",
+        "budgetExhausted": true,
+        "firstExhaustingDailyOrders": 12,
+        "firstSustainableChargeEurMicros": "815606",
+        "unavailable": [],
+        "notes": []
+      }
+    },
+    {
+      "scenarioId": "higher-volume",
+      "description": "Daily order count doubles.",
+      "inputs": {
+        "dailyOrders": 2400,
+        "eligibleSponsorShareBps": 3500,
+        "rate": {
+          "pair": "EUR/ETH",
+          "rateEurPerEth": "3200.50",
+          "rateMicrosPerEth": "3200500000",
+          "observedAt": "2026-11-27T14:29:10.000Z",
+          "source": "demo-fixture",
+          "maxAgeSeconds": 60
+        },
+        "rateAgeSeconds": 0,
+        "daPriceWeiPerByte": "40000000000",
+        "batchUtilizationBps": 7500,
+        "perOrderExecutionGas": "170989",
+        "l1DataBytesPerOrder": "220",
+        "gasPriceWei": "1421752147",
+        "investorChargeEurMicros": "50000",
+        "dailyBudgetEurMicros": "2500000"
+      },
+      "result": {
+        "perOrderSponsorCostWei": "254837311196716",
+        "perOrderSponsorCostEurMicros": "815606",
+        "sponsorContributionPerOrderEurMicros": "-765606",
+        "eligibleOrdersPerDay": 840,
+        "dailySponsorshipNeedEurMicros": "643109040",
+        "dailyBudgetEurMicros": "2500000",
+        "budgetRemainingEurMicros": "-640609040",
+        "budgetExhausted": true,
+        "firstExhaustingDailyOrders": 12,
+        "firstSustainableChargeEurMicros": "815606",
+        "unavailable": [],
+        "notes": []
+      }
+    }
+  ],
+  "unavailable": [],
+  "notes": [
+    "The default scenario is the last observed run for execution cost; DA price and batch utilization are explicit synthetic inputs.",
+    "A missing input is displayed as unavailable and never replaced by zero."
+  ]
+}
