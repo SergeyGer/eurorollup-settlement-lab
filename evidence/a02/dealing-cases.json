@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "fixtureId": "A02-boundaries",
   "fixtureVersion": "1.0.0",
-  "engineVersion": "0.1.0",
+  "engineVersion": "0.2.0",
   "calendarIds": [
     "LAB-UTC-1",
     "LAB-UTC-2"

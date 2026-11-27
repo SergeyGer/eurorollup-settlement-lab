@@ -23,6 +23,41 @@ settlement evidence.
 Scenario storage carries no settlement write credentials. The model adapter
 process has one capability: drafting a typed scenario.
 
+## Implementation status
+
+The foundation and settlement-core steps are implemented:
+
+- `packages/dealing` is the shared pure engine (fixtures, calendar, money, spot,
+  fund, journal, receipts, evidence builders).
+- `apps/api` is the local partner API with a durable event log, journal
+  projection, outbox worker, issuer authority and local fixture controls.
+- `packages/sdk` is the typed, dependency-free partner client.
+- `apps/web` has two views: the recorded G01 replay and the live Local API lab.
+
+The Policy Lab, subscription worker, eligibility circuit and pinned rollup are
+added by the later steps.
+
+## Local partner API
+
+```text
+routes -> services -> engine service -> pure dealing engine
+                    -> SQLite event log (source of truth)
+                    -> journal projection
+                    -> outbox worker -> order state + receipts
+```
+
+- The durable `event_log` is replayed into a fresh engine on startup; the
+  journal, order rows and outbox are projections over that log.
+- New events are applied to an engine clone and adopted only after the SQLite
+  transaction that stores events, journal and projection commits.
+- The outbox worker is the only component that appends settlement events, so an
+  accepted order keeps its id through retries and restarts.
+- A fixture clock provides every observation time; dev endpoints move it forward
+  explicitly and no wall-clock value affects a result.
+- Market and fund marks carry provenance (`dealer-fixture-quote`,
+  `authorized-nav`, `indicative-fixture-nav`) and a stale flag; `blockHash` is
+  `null` until a chain reader is attached.
+
 ## Two independent state fields
 
 **Business state.** A spot order progresses through `quoted`, `submitted` and

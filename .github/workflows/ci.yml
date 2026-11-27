@@ -50,8 +50,17 @@ jobs:
       - name: Check A02 boundary dealing cases
         run: pnpm scenario:boundary -- --check
 
+      - name: Run A02 and A06 API evidence cases
+        run: pnpm scenario:api -- --check
+
+      - name: Check the generated OpenAPI document
+        run: pnpm api:openapi -- --check
+
       - name: Verify the committed evidence pack
         run: pnpm verify
+
+      - name: Run the partner SDK quickstart against the local API
+        run: pnpm demo:partner
 
       - name: Upload evidence artifacts
         uses: actions/upload-artifact@v4
@@ -60,5 +69,6 @@ jobs:
           path: |
             evidence/g01
             evidence/a02
+            evidence/a06
           retention-days: 30
           if-no-files-found: error

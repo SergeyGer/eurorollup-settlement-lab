@@ -75,6 +75,7 @@ export interface SpotOrderState {
   readonly priceAsOf: string;
   readonly expiresAt: string;
   readonly chargeBase: bigint;
+  readonly minProceedsBase?: bigint;
   readonly quotedAt: string;
   readonly filledAt?: string;
   readonly assetBase?: bigint;
@@ -95,7 +96,7 @@ export interface FundSubscriptionState {
   readonly kind: "fund-subscription";
   readonly orderId: string;
   readonly account: JournalAccount;
-  readonly status: "AWAITING_NAV" | "ALLOCATED";
+  readonly status: "AWAITING_NAV" | "ALLOCATED" | "CANCELLED";
   readonly cashBase: bigint;
   readonly reservedCashBase: bigint;
   readonly indicativeNavBase: bigint;
@@ -105,6 +106,7 @@ export interface FundSubscriptionState {
   readonly dealingReason: DealingAssignmentReason;
   readonly requestedDate: string;
   readonly allocation?: AllocationRecord;
+  readonly cancelledAt?: string;
 }
 
 export interface RedemptionRecord {
@@ -120,7 +122,7 @@ export interface FundRedemptionState {
   readonly kind: "fund-redemption";
   readonly orderId: string;
   readonly account: JournalAccount;
-  readonly status: "AWAITING_NAV" | "REDEEMED";
+  readonly status: "AWAITING_NAV" | "REDEEMED" | "CANCELLED";
   readonly reservedUnitsBase: bigint;
   readonly requestedAt: string;
   readonly cutoffTimeUtc: string;
@@ -128,6 +130,7 @@ export interface FundRedemptionState {
   readonly dealingReason: DealingAssignmentReason;
   readonly requestedDate: string;
   readonly redemption?: RedemptionRecord;
+  readonly cancelledAt?: string;
 }
 
 export type BusinessOrderState =
@@ -458,6 +461,10 @@ export class SettlementEngine {
         return this.applyRedemptionRequest(event);
       case "fund.redemption.settled":
         return this.applyRedemptionSettlement(event);
+      case "fund.subscription.cancelled":
+        return this.applySubscriptionCancellation(event);
+      case "fund.redemption.cancelled":
+        return this.applyRedemptionCancellation(event);
       default: {
         const exhaustive: never = event;
         throw new DealingError(
@@ -519,6 +526,11 @@ export class SettlementEngine {
     const amount = parseBaseUnits(event.amountBase);
     const price = parseBaseUnits(event.priceBase);
     const charge = parseBaseUnits(event.chargeBase);
+    const minProceedsBase =
+      event.minProceedsBase === undefined ? undefined : parseBaseUnits(event.minProceedsBase);
+    if (minProceedsBase !== undefined && minProceedsBase < 0n) {
+      throw new DealingError("NEGATIVE_AMOUNT", "Minimum proceeds must not be negative");
+    }
     if (amount <= 0n) {
       throw new DealingError("NEGATIVE_AMOUNT", "Quote amount must be positive");
     }
@@ -555,6 +567,7 @@ export class SettlementEngine {
       priceAsOf: event.priceAsOf,
       expiresAt: event.expiresAt,
       chargeBase: charge,
+      ...(minProceedsBase === undefined ? {} : { minProceedsBase }),
       quotedAt: event.occurredAt,
     };
     this.state.orders.set(event.orderId, order);
@@ -631,6 +644,13 @@ export class SettlementEngine {
         throw new DealingError(
           "INSUFFICIENT_INVENTORY",
           "Investor has insufficient tWETH to sell",
+        );
+      }
+      if (order.minProceedsBase !== undefined && cashBase < order.minProceedsBase) {
+        throw new DealingError(
+          "MINIMUM_PROCEEDS_NOT_MET",
+          `Reverse quote proceeds ${cashBase.toString()} are below the stated minimum ${order.minProceedsBase.toString()}`,
+          { orderId: order.orderId },
         );
       }
       if (this.balanceOf(dealer, CASH_ASSET_ID) < cashBase) {
@@ -973,6 +993,88 @@ export class SettlementEngine {
         `Investor cash: ${formatSigned(proceedsBase, CASH_ASSET_ID)}`,
         `Investor eFUND burned: ${formatSigned(-order.reservedUnitsBase, FUND_ASSET_ID)}`,
         `Issuer treasury cash: ${formatSigned(-proceedsBase, CASH_ASSET_ID)}`,
+      ],
+      postings,
+    };
+  }
+  private applySubscriptionCancellation(
+    event: Extract<SettlementEvent, { type: "fund.subscription.cancelled" }>,
+  ): EventApplication {
+    const order = this.state.orders.get(event.orderId);
+    if (order === undefined) {
+      throw new DealingError("ORDER_NOT_FOUND", `Unknown order ${event.orderId}`);
+    }
+    if (order.kind !== "fund-subscription") {
+      throw new DealingError(
+        "INVALID_ORDER_STATE",
+        `Order ${event.orderId} is not a fund subscription`,
+      );
+    }
+    if (order.status !== "AWAITING_NAV") {
+      throw new DealingError(
+        "INVALID_ORDER_STATE",
+        `Order ${event.orderId} cannot be cancelled from state ${order.status}`,
+      );
+    }
+    const escrow = this.config.accounts.fundEscrow;
+    const postings = [
+      this.post(escrow, CASH_ASSET_ID, -order.reservedCashBase),
+      this.post(order.account, CASH_ASSET_ID, order.reservedCashBase),
+    ];
+    const cancelled: FundSubscriptionState = {
+      ...order,
+      status: "CANCELLED",
+      cancelledAt: event.occurredAt,
+    };
+    this.state.orders.set(order.orderId, cancelled);
+    return {
+      title: "Fund subscription cancelled",
+      description: `Cancelled ${order.orderId} and released ${formatAsset(order.reservedCashBase, CASH_ASSET_ID)} from escrow${event.reason === undefined ? "" : ` (${event.reason})`}`,
+      businessEffects: [
+        `Reserved cash released: ${formatAsset(order.reservedCashBase, CASH_ASSET_ID)}`,
+        `Investor spendable cash: ${formatSigned(order.reservedCashBase, CASH_ASSET_ID)}`,
+        "No units were issued",
+      ],
+      postings,
+    };
+  }
+
+  private applyRedemptionCancellation(
+    event: Extract<SettlementEvent, { type: "fund.redemption.cancelled" }>,
+  ): EventApplication {
+    const order = this.state.orders.get(event.orderId);
+    if (order === undefined) {
+      throw new DealingError("ORDER_NOT_FOUND", `Unknown order ${event.orderId}`);
+    }
+    if (order.kind !== "fund-redemption") {
+      throw new DealingError(
+        "INVALID_ORDER_STATE",
+        `Order ${event.orderId} is not a redemption order`,
+      );
+    }
+    if (order.status !== "AWAITING_NAV") {
+      throw new DealingError(
+        "INVALID_ORDER_STATE",
+        `Order ${event.orderId} cannot be cancelled from state ${order.status}`,
+      );
+    }
+    const escrow = this.config.accounts.fundEscrow;
+    const postings = [
+      this.post(escrow, FUND_ASSET_ID, -order.reservedUnitsBase),
+      this.post(order.account, FUND_ASSET_ID, order.reservedUnitsBase),
+    ];
+    const cancelled: FundRedemptionState = {
+      ...order,
+      status: "CANCELLED",
+      cancelledAt: event.occurredAt,
+    };
+    this.state.orders.set(order.orderId, cancelled);
+    return {
+      title: "Redemption cancelled",
+      description: `Cancelled redemption ${order.orderId} and returned ${formatDisplayAmount(order.reservedUnitsBase, ASSETS[FUND_ASSET_ID].decimals, 6)} eFUND units`,
+      businessEffects: [
+        `Reserved units returned: ${formatDisplayAmount(order.reservedUnitsBase, ASSETS[FUND_ASSET_ID].decimals, 6)} eFUND`,
+        "No cash moved",
       ],
       postings,
     };

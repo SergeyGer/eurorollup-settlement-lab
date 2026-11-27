@@ -11,12 +11,13 @@ fixture dates and version numbers are content, not publication dates.
 | [`reference/specification.md`](reference/specification.md) | The project specification (Markdown conversion; the DOCX in the same directory is the normative source). |
 | [`plan/roadmap.md`](plan/roadmap.md) | Delivery steps, milestone exit evidence, acceptance gates and release train. |
 | [`architecture/overview.md`](architecture/overview.md) | Components, state model, determinism rules and repository layout. |
+| [`api/partner-api.md`](api/partner-api.md) | Partner API surface, roles, idempotency, error contract and local fixture controls. |
 | [`architecture/adr/`](architecture/adr/) | Numbered decision records for the rollup, batch, finality and authority decisions. |
 | [`fixtures/`](fixtures/) | Frozen inputs: G01 portfolio, P01 cutoff experiment, calendar, instruments and boundary cases. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |
 | [`glossary.md`](glossary.md) | Shared vocabulary for the domain, the Policy Lab and the rollup. |
 | [`operations/`](operations/) | Runbooks, drills and incident records. |
-| [`verification/`](verification/) | Gate procedures, benchmark conditions and release checks. |
+| [`verification/`](verification/) | Step-by-step verification records, gate evidence and release checks. |
 
 ## Project Wiki
 

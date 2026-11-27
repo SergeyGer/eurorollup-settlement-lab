@@ -1,6 +1,6 @@
 {
   "name": "eurorollup-settlement-lab",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Open-source euro settlement sandbox for crypto trades, tokenized fund orders and AI policy simulation.",
   "license": "Apache-2.0",
@@ -14,10 +14,15 @@
     "preview": "pnpm --filter @eurorollup/web preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc -p packages/dealing/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
+    "typecheck": "tsc -p packages/dealing/tsconfig.json --noEmit && tsc -p packages/sdk/tsconfig.json --noEmit && tsc -p apps/api/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
     "scenario:golden": "tsx packages/dealing/src/cli.ts golden",
     "scenario:boundary": "tsx packages/dealing/src/cli.ts boundary",
-    "verify": "tsx packages/dealing/src/cli.ts verify"
+    "verify": "tsx packages/dealing/src/cli.ts verify",
+    "dev:api": "pnpm --filter @eurorollup/api dev",
+    "api": "pnpm --filter @eurorollup/api dev",
+    "demo:partner": "tsx apps/api/scripts/quickstart.ts",
+    "scenario:api": "tsx apps/api/scripts/run-evidence.ts",
+    "api:openapi": "tsx apps/api/scripts/dump-openapi.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

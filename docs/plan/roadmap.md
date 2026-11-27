@@ -9,6 +9,18 @@ The plan follows the specification build plan (`docs/reference/specification.md`
 section 16, sixteen part-time weeks for one experienced maintainer) without
 recording current calendar dates. Weeks are planning windows, not deadlines.
 
+## Status
+
+| Step | Status |
+| --- | --- |
+| S00 | Complete: repository baseline, protection, Wiki, security settings and issue plan |
+| S01 | Released as `v0.1.0` (foundation) |
+| S02 | Released as `v0.2.0` (settlement core and partner API) |
+| S03–S10 | Planned; tracked as GitHub Issues |
+
+Current next step: S03, the deterministic Policy Lab and the two-branch Friday
+cutoff comparison.
+
 ## Steps
 
 | Step | Issue | Milestone | Focus | Exit evidence |

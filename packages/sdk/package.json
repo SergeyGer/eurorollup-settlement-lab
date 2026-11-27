@@ -1,0 +1,12 @@
+{
+  "name": "@eurorollup/sdk",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Typed TypeScript client for the EuroRollup partner API.",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {}
+}

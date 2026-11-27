@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
   "packId": "G01",
-  "engineVersion": "0.1.0",
+  "engineVersion": "0.2.0",
   "fixtureId": "G01",
   "fixtureVersion": "1.0.0",
-  "businessDigest": "72b49ec1256c38fe68f1d63f12a73bc299cbeaa2e74108eb09f86f7b4c0d08cf",
+  "businessDigest": "e2dc0b07bca023a90d05f8f72a26d849066df694e766499a65b280ea350657df",
   "checklist": [
     "G01 spendable cash 799.95 after the spot fill",
     "G01 reserved cash 300.00 while awaiting NAV",
@@ -38,7 +38,7 @@
   "files": [
     {
       "path": "golden-run.json",
-      "sha256": "9adac504b5c1fb696a33737f77631651bd1fac7f92090b63f9c70cbe03ac7723",
+      "sha256": "72cc93d1128911f2280e95f9d078e3e0c2b400d1f1890d1449bc962ff5dbe8c1",
       "bytes": 25823
     }
   ]

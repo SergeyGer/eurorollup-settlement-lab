@@ -45,5 +45,14 @@ A consumed pack is read-only: verifiers never write to it.
 ## Committed evidence
 
 Released gate evidence lives under `evidence/` and is attached to the
-corresponding GitHub Release. Transient local runs are written under
-`evidence/tmp/` (ignored) and are never referenced by release notes.
+corresponding GitHub Release:
+
+| Path | Gate | Reproduce with |
+| --- | --- | --- |
+| `evidence/g01/golden-run.json` + `manifest.json` | A01 | `pnpm scenario:golden -- --check` |
+| `evidence/a02/dealing-cases.json` | A02 (boundary) | `pnpm scenario:boundary -- --check` |
+| `evidence/a02/api-dealing-cases.json` | A02 (API) | `pnpm scenario:api -- --check` |
+| `evidence/a06/invariants.json` | A06 | `pnpm scenario:api -- --check` |
+
+Transient local runs are written under `evidence/tmp/` (ignored) and are never
+referenced by release notes.

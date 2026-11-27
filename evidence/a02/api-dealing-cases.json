@@ -1,0 +1,1300 @@
+{
+  "schemaVersion": "1.0.0",
+  "fixtureId": "A02-api-dealing",
+  "fixtureVersion": "1.0.0",
+  "engineVersion": "0.2.0",
+  "serviceVersion": "0.2.0",
+  "generatedBy": "pnpm scenario:api",
+  "cases": [
+    {
+      "caseId": "A02-API-QUOTE-VALIDATION",
+      "title": "Quote validation and documented error codes",
+      "steps": [
+        {
+          "action": "unsupported asset/side combination",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 422,
+          "code": "UNSUPPORTED_ORDER"
+        },
+        {
+          "action": "zero amount",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 400,
+          "code": "INVALID_AMOUNT"
+        },
+        {
+          "action": "unknown account",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 404,
+          "code": "ACCOUNT_NOT_FOUND"
+        }
+      ],
+      "checks": [
+        {
+          "label": "unsupported status",
+          "expected": "422",
+          "actual": "422",
+          "pass": true
+        },
+        {
+          "label": "unsupported code",
+          "expected": "UNSUPPORTED_ORDER",
+          "actual": "UNSUPPORTED_ORDER",
+          "pass": true
+        },
+        {
+          "label": "zero amount status",
+          "expected": "400",
+          "actual": "400",
+          "pass": true
+        },
+        {
+          "label": "zero amount code",
+          "expected": "INVALID_AMOUNT",
+          "actual": "INVALID_AMOUNT",
+          "pass": true
+        },
+        {
+          "label": "unknown account status",
+          "expected": "404",
+          "actual": "404",
+          "pass": true
+        },
+        {
+          "label": "unknown account code",
+          "expected": "ACCOUNT_NOT_FOUND",
+          "actual": "ACCOUNT_NOT_FOUND",
+          "pass": true
+        },
+        {
+          "label": "malformed body status",
+          "expected": "400",
+          "actual": "400",
+          "pass": true
+        },
+        {
+          "label": "malformed body code",
+          "expected": "INVALID_REQUEST",
+          "actual": "INVALID_REQUEST",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-CUTOFF-BEFORE",
+      "title": "Request one second before the cutoff stays on the same dealing day",
+      "steps": [
+        {
+          "action": "create subscription quote at 15:59:59",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "read order",
+          "method": "GET",
+          "url": "/v1/orders/order_0002",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "indicative dealing date",
+          "expected": "2026-11-20",
+          "actual": "2026-11-20",
+          "pass": true
+        },
+        {
+          "label": "assignment reason",
+          "expected": "BEFORE_CUTOFF_SAME_DAY",
+          "actual": "BEFORE_CUTOFF_SAME_DAY",
+          "pass": true
+        },
+        {
+          "label": "order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "order state",
+          "expected": "AWAITING_NAV",
+          "actual": "AWAITING_NAV",
+          "pass": true
+        },
+        {
+          "label": "accepted dealing date",
+          "expected": "2026-11-20",
+          "actual": "2026-11-20",
+          "pass": true
+        },
+        {
+          "label": "pending reason",
+          "expected": "NAV_MISSING",
+          "actual": "NAV_MISSING",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-CUTOFF-EXACT",
+      "title": "Request exactly at the cutoff advances to the next dealing day",
+      "steps": [
+        {
+          "action": "create subscription quote at 16:00:00",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "read order",
+          "method": "GET",
+          "url": "/v1/orders/order_0002",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "indicative dealing date",
+          "expected": "2026-11-23",
+          "actual": "2026-11-23",
+          "pass": true
+        },
+        {
+          "label": "assignment reason",
+          "expected": "AT_OR_AFTER_CUTOFF",
+          "actual": "AT_OR_AFTER_CUTOFF",
+          "pass": true
+        },
+        {
+          "label": "order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "accepted dealing date",
+          "expected": "2026-11-23",
+          "actual": "2026-11-23",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-WEEKEND",
+      "title": "Weekend request advances to the next dealing day",
+      "steps": [
+        {
+          "action": "create Saturday subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "dealing date",
+          "expected": "2026-11-23",
+          "actual": "2026-11-23",
+          "pass": true
+        },
+        {
+          "label": "assignment reason",
+          "expected": "NON_DEALING_DAY",
+          "actual": "NON_DEALING_DAY",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-HOLIDAY",
+      "title": "Closed Monday in the alternate calendar advances to Tuesday",
+      "steps": [
+        {
+          "action": "create subscription quote on closed Monday",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "dealing date",
+          "expected": "2026-11-24",
+          "actual": "2026-11-24",
+          "pass": true
+        },
+        {
+          "label": "assignment reason",
+          "expected": "NON_DEALING_DAY",
+          "actual": "NON_DEALING_DAY",
+          "pass": true
+        },
+        {
+          "label": "calendar id",
+          "expected": "LAB-UTC-2",
+          "actual": "LAB-UTC-2",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-QUOTE-EXPIRY",
+      "title": "Expired quote is refused before acceptance",
+      "steps": [
+        {
+          "action": "create spot quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place order after expiry",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 422,
+          "code": "QUOTE_EXPIRED"
+        }
+      ],
+      "checks": [
+        {
+          "label": "status",
+          "expected": "422",
+          "actual": "422",
+          "pass": true
+        },
+        {
+          "label": "code",
+          "expected": "QUOTE_EXPIRED",
+          "actual": "QUOTE_EXPIRED",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-STALE-PRICE",
+      "title": "Dealer price source older than 60 seconds is refused",
+      "steps": [
+        {
+          "action": "simulate stale price source",
+          "method": "POST",
+          "url": "/v1/dev/price-source",
+          "status": 200
+        },
+        {
+          "action": "create quote against stale price",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 422,
+          "code": "STALE_PRICE"
+        }
+      ],
+      "checks": [
+        {
+          "label": "configuration status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "status",
+          "expected": "422",
+          "actual": "422",
+          "pass": true
+        },
+        {
+          "label": "code",
+          "expected": "STALE_PRICE",
+          "actual": "STALE_PRICE",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-PRICE-UNAVAILABLE",
+      "title": "Unavailable price source returns a retry hint",
+      "steps": [
+        {
+          "action": "simulate unavailable price source",
+          "method": "POST",
+          "url": "/v1/dev/price-source",
+          "status": 200
+        },
+        {
+          "action": "create quote without a price source",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 503,
+          "code": "PRICE_SOURCE_UNAVAILABLE"
+        }
+      ],
+      "checks": [
+        {
+          "label": "status",
+          "expected": "503",
+          "actual": "503",
+          "pass": true
+        },
+        {
+          "label": "code",
+          "expected": "PRICE_SOURCE_UNAVAILABLE",
+          "actual": "PRICE_SOURCE_UNAVAILABLE",
+          "pass": true
+        },
+        {
+          "label": "retry-after header",
+          "expected": "5",
+          "actual": "5",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-INSUFFICIENT-CASH",
+      "title": "Orders beyond the spendable cash are refused before acceptance",
+      "steps": [
+        {
+          "action": "create oversized subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place oversized subscription",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 422,
+          "code": "INSUFFICIENT_CASH"
+        }
+      ],
+      "checks": [
+        {
+          "label": "quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "status",
+          "expected": "422",
+          "actual": "422",
+          "pass": true
+        },
+        {
+          "label": "code",
+          "expected": "INSUFFICIENT_CASH",
+          "actual": "INSUFFICIENT_CASH",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-SPOT-FILL",
+      "title": "Spot buy settles with the fixed EUR 0.05 charge",
+      "steps": [
+        {
+          "action": "create spot buy quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place spot order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "read filled order",
+          "method": "GET",
+          "url": "/v1/orders/order_0002",
+          "status": 200
+        },
+        {
+          "action": "read portfolio",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "business state",
+          "expected": "FILLED",
+          "actual": "FILLED",
+          "pass": true
+        },
+        {
+          "label": "chain state",
+          "expected": "NOT_SUBMITTED",
+          "actual": "NOT_SUBMITTED",
+          "pass": true
+        },
+        {
+          "label": "receipt units",
+          "expected": "100000000000000000",
+          "actual": "100000000000000000",
+          "pass": true
+        },
+        {
+          "label": "receipt cash deployed",
+          "expected": "200000000",
+          "actual": "200000000",
+          "pass": true
+        },
+        {
+          "label": "receipt charge",
+          "expected": "50000",
+          "actual": "50000",
+          "pass": true
+        },
+        {
+          "label": "money movements present",
+          "expected": "true",
+          "actual": "true",
+          "pass": true
+        },
+        {
+          "label": "spendable cash",
+          "expected": "799950000",
+          "actual": "799950000",
+          "pass": true
+        },
+        {
+          "label": "reserved cash",
+          "expected": "0",
+          "actual": "0",
+          "pass": true
+        },
+        {
+          "label": "tWETH balance",
+          "expected": "100000000000000000",
+          "actual": "100000000000000000",
+          "pass": true
+        },
+        {
+          "label": "marked value",
+          "expected": "999950000",
+          "actual": "999950000",
+          "pass": true
+        },
+        {
+          "label": "block hash unavailable in fixture mode",
+          "expected": "null",
+          "actual": "null",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-FUND-ALLOCATION",
+      "title": "Fund subscription is reserved then allocated at the authorized NAV",
+      "steps": [
+        {
+          "action": "create subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place subscription",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "read pending order",
+          "method": "GET",
+          "url": "/v1/orders/order_0002",
+          "status": 200
+        },
+        {
+          "action": "read portfolio while pending",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        },
+        {
+          "action": "publish NAV",
+          "method": "POST",
+          "url": "/v1/issuer/nav",
+          "status": 201
+        },
+        {
+          "action": "read allocated order",
+          "method": "GET",
+          "url": "/v1/orders/order_0002",
+          "status": 200
+        },
+        {
+          "action": "read final portfolio",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "pending state",
+          "expected": "AWAITING_NAV",
+          "actual": "AWAITING_NAV",
+          "pass": true
+        },
+        {
+          "label": "reserved cash while pending",
+          "expected": "300000000",
+          "actual": "300000000",
+          "pass": true
+        },
+        {
+          "label": "spendable cash while pending",
+          "expected": "700000000",
+          "actual": "700000000",
+          "pass": true
+        },
+        {
+          "label": "nav status",
+          "expected": "201",
+          "actual": "201",
+          "pass": true
+        },
+        {
+          "label": "nav value",
+          "expected": "96.00",
+          "actual": "96.00",
+          "pass": true
+        },
+        {
+          "label": "queued allocation",
+          "expected": "[\"order_0002\"]",
+          "actual": "[\"order_0002\"]",
+          "pass": true
+        },
+        {
+          "label": "business state",
+          "expected": "ALLOCATED",
+          "actual": "ALLOCATED",
+          "pass": true
+        },
+        {
+          "label": "reason cleared",
+          "expected": "null",
+          "actual": "null",
+          "pass": true
+        },
+        {
+          "label": "receipt units",
+          "expected": "3125000",
+          "actual": "3125000",
+          "pass": true
+        },
+        {
+          "label": "receipt nav",
+          "expected": "96.00",
+          "actual": "96.00",
+          "pass": true
+        },
+        {
+          "label": "receipt investor charge",
+          "expected": "0",
+          "actual": "0",
+          "pass": true
+        },
+        {
+          "label": "spendable cash",
+          "expected": "700000000",
+          "actual": "700000000",
+          "pass": true
+        },
+        {
+          "label": "reserved cash",
+          "expected": "0",
+          "actual": "0",
+          "pass": true
+        },
+        {
+          "label": "eFUND balance",
+          "expected": "3125000",
+          "actual": "3125000",
+          "pass": true
+        },
+        {
+          "label": "marked value",
+          "expected": "1000000000",
+          "actual": "1000000000",
+          "pass": true
+        },
+        {
+          "label": "mark source",
+          "expected": "authorized-nav",
+          "actual": "authorized-nav",
+          "pass": true
+        },
+        {
+          "label": "mark value",
+          "expected": "96000000",
+          "actual": "96000000",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-DUST",
+      "title": "Rounded-down units return the residual cash",
+      "steps": [
+        {
+          "action": "create dust subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place dust subscription",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "read order",
+          "method": "GET",
+          "url": "/v1/orders/order_0002",
+          "status": 200
+        },
+        {
+          "action": "read portfolio",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "business state",
+          "expected": "ALLOCATED",
+          "actual": "ALLOCATED",
+          "pass": true
+        },
+        {
+          "label": "units",
+          "expected": "1041666",
+          "actual": "1041666",
+          "pass": true
+        },
+        {
+          "label": "cash deployed",
+          "expected": "99999936",
+          "actual": "99999936",
+          "pass": true
+        },
+        {
+          "label": "spendable cash with dust returned",
+          "expected": "900000064",
+          "actual": "900000064",
+          "pass": true
+        },
+        {
+          "label": "eFUND balance",
+          "expected": "1041666",
+          "actual": "1041666",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-MISSING-NAV",
+      "title": "Missing NAV keeps the order pending with cash reserved",
+      "steps": [
+        {
+          "action": "create subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place subscription",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "read pending order",
+          "method": "GET",
+          "url": "/v1/orders/order_0002",
+          "status": 200
+        },
+        {
+          "action": "read portfolio",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "business state",
+          "expected": "AWAITING_NAV",
+          "actual": "AWAITING_NAV",
+          "pass": true
+        },
+        {
+          "label": "reason",
+          "expected": "NAV_MISSING",
+          "actual": "NAV_MISSING",
+          "pass": true
+        },
+        {
+          "label": "no receipt yet",
+          "expected": "null",
+          "actual": "null",
+          "pass": true
+        },
+        {
+          "label": "reserved cash",
+          "expected": "300000000",
+          "actual": "300000000",
+          "pass": true
+        },
+        {
+          "label": "no units issued",
+          "expected": "0",
+          "actual": "0",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-CANCEL-BEFORE",
+      "title": "Cancellation before the cutoff releases the reservation",
+      "steps": [
+        {
+          "action": "create subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place subscription",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "cancel before cutoff",
+          "method": "POST",
+          "url": "/v1/orders/order_0002/cancel",
+          "status": 200
+        },
+        {
+          "action": "read portfolio",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "cancel status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "business state",
+          "expected": "CANCELLED",
+          "actual": "CANCELLED",
+          "pass": true
+        },
+        {
+          "label": "spendable cash restored",
+          "expected": "1000000000",
+          "actual": "1000000000",
+          "pass": true
+        },
+        {
+          "label": "reserved cash released",
+          "expected": "0",
+          "actual": "0",
+          "pass": true
+        },
+        {
+          "label": "no units issued",
+          "expected": "0",
+          "actual": "0",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-CANCEL-AFTER",
+      "title": "Cancellation after the cutoff is refused",
+      "steps": [
+        {
+          "action": "create same-day subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place subscription",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "cancel after cutoff",
+          "method": "POST",
+          "url": "/v1/orders/order_0002/cancel",
+          "status": 422,
+          "code": "CANCELLATION_NOT_ALLOWED"
+        },
+        {
+          "action": "read order",
+          "method": "GET",
+          "url": "/v1/orders/order_0002",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "quote dealing date",
+          "expected": "2026-11-20",
+          "actual": "2026-11-20",
+          "pass": true
+        },
+        {
+          "label": "status",
+          "expected": "422",
+          "actual": "422",
+          "pass": true
+        },
+        {
+          "label": "code",
+          "expected": "CANCELLATION_NOT_ALLOWED",
+          "actual": "CANCELLATION_NOT_ALLOWED",
+          "pass": true
+        },
+        {
+          "label": "order still pending",
+          "expected": "AWAITING_NAV",
+          "actual": "AWAITING_NAV",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-ZERO-UNIT-BOUNDARY",
+      "title": "Quotes that would issue zero units are refused",
+      "steps": [
+        {
+          "action": "create one-base-unit subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 422,
+          "code": "ZERO_UNIT_FILL"
+        }
+      ],
+      "checks": [
+        {
+          "label": "status",
+          "expected": "422",
+          "actual": "422",
+          "pass": true
+        },
+        {
+          "label": "code",
+          "expected": "ZERO_UNIT_FILL",
+          "actual": "ZERO_UNIT_FILL",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-REDEMPTION",
+      "title": "Redemption reserves units and settles at the next applicable NAV",
+      "steps": [
+        {
+          "action": "create spot buy quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place spot buy order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "create fund subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place fund subscription order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "advance fixture clock after the valuation",
+          "method": "POST",
+          "url": "/v1/dev/clock",
+          "status": 200
+        },
+        {
+          "action": "publish authorized NAV 96.00",
+          "method": "POST",
+          "url": "/v1/issuer/nav",
+          "status": 201
+        },
+        {
+          "action": "read settled fund order",
+          "method": "GET",
+          "url": "/v1/orders/order_0005",
+          "status": 200
+        },
+        {
+          "action": "create redemption quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place redemption order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "read pending redemption",
+          "method": "GET",
+          "url": "/v1/orders/order_0008",
+          "status": 200
+        },
+        {
+          "action": "read portfolio with reserved units",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        },
+        {
+          "action": "read settled redemption",
+          "method": "GET",
+          "url": "/v1/orders/order_0008",
+          "status": 200
+        },
+        {
+          "action": "read portfolio after redemption",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "spot quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "spot order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "fund quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "fund order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "nav publication status",
+          "expected": "201",
+          "actual": "201",
+          "pass": true
+        },
+        {
+          "label": "fund order allocated",
+          "expected": "ALLOCATED",
+          "actual": "ALLOCATED",
+          "pass": true
+        },
+        {
+          "label": "redemption dealing date",
+          "expected": "2026-11-23",
+          "actual": "2026-11-23",
+          "pass": true
+        },
+        {
+          "label": "pending state",
+          "expected": "AWAITING_NAV",
+          "actual": "AWAITING_NAV",
+          "pass": true
+        },
+        {
+          "label": "reserved units",
+          "expected": "1000000",
+          "actual": "1000000",
+          "pass": true
+        },
+        {
+          "label": "available units",
+          "expected": "2125000",
+          "actual": "2125000",
+          "pass": true
+        },
+        {
+          "label": "business state",
+          "expected": "REDEEMED",
+          "actual": "REDEEMED",
+          "pass": true
+        },
+        {
+          "label": "cash paid",
+          "expected": "98000000",
+          "actual": "98000000",
+          "pass": true
+        },
+        {
+          "label": "nav applied",
+          "expected": "98.00",
+          "actual": "98.00",
+          "pass": true
+        },
+        {
+          "label": "spendable cash",
+          "expected": "597950000",
+          "actual": "597950000",
+          "pass": true
+        },
+        {
+          "label": "eFUND units",
+          "expected": "2125000",
+          "actual": "2125000",
+          "pass": true
+        },
+        {
+          "label": "reserved units released",
+          "expected": "0",
+          "actual": "0",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-SPOT-SELL",
+      "title": "Reverse quote sells tWETH with the fixed charge and checks inventory",
+      "steps": [
+        {
+          "action": "create buy quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "create sell quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place sell order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "read sell order",
+          "method": "GET",
+          "url": "/v1/orders/order_0005",
+          "status": 200
+        },
+        {
+          "action": "read portfolio",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "sell quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "business state",
+          "expected": "FILLED",
+          "actual": "FILLED",
+          "pass": true
+        },
+        {
+          "label": "cash received",
+          "expected": "100000000",
+          "actual": "100000000",
+          "pass": true
+        },
+        {
+          "label": "charge",
+          "expected": "50000",
+          "actual": "50000",
+          "pass": true
+        },
+        {
+          "label": "spendable cash after sale",
+          "expected": "899900000",
+          "actual": "899900000",
+          "pass": true
+        },
+        {
+          "label": "tWETH remainder",
+          "expected": "50000000000000000",
+          "actual": "50000000000000000",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A02-API-G01-MATCH",
+      "title": "G01 reproduced through the API matches the CLI evidence",
+      "steps": [
+        {
+          "action": "create spot quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "create fund quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "read final portfolio",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "spendable cash",
+          "expected": "499950000",
+          "actual": "499950000",
+          "pass": true
+        },
+        {
+          "label": "reserved cash",
+          "expected": "0",
+          "actual": "0",
+          "pass": true
+        },
+        {
+          "label": "tWETH",
+          "expected": "100000000000000000",
+          "actual": "100000000000000000",
+          "pass": true
+        },
+        {
+          "label": "eFUND",
+          "expected": "3125000",
+          "actual": "3125000",
+          "pass": true
+        },
+        {
+          "label": "marked value",
+          "expected": "999950000",
+          "actual": "999950000",
+          "pass": true
+        },
+        {
+          "label": "health status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "event count",
+          "expected": "10",
+          "actual": "10",
+          "pass": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "summary": {
+    "total": 19,
+    "passed": 19,
+    "failed": 0
+  },
+  "businessDigest": "95b542d22198fef92a078c52dd305babfc3229d5f7e12ec70e5028c28bbf5e43"
+}
