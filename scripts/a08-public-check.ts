@@ -25,6 +25,32 @@ const repositoryUrl = "https://github.com/SergeyGer/eurorollup-settlement-lab";
 const wikiUrl = "https://github.com/SergeyGer/eurorollup-settlement-lab/wiki";
 const packageJson = JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf8")) as { version: string };
 const commit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: repoRoot, encoding: "utf8" }).trim();
+const filmMetadataPath = join(repoRoot, "media/film/film-metadata.json");
+
+function filmEvidence(): Record<string, unknown> {
+  const pending = {
+    status: "pending",
+    requiredBy: "S10",
+    requirements: ["about 60 seconds", "English narration", "frame and narration checks"],
+  };
+  if (!existsSync(filmMetadataPath)) return pending;
+  const metadata = JSON.parse(readFileSync(filmMetadataPath, "utf8")) as Record<string, any>;
+  if (metadata["passed"] !== true) return pending;
+  return {
+    status: "complete",
+    requiredBy: "S10",
+    metadataFile: "media/film/film-metadata.json",
+    metadataSha256: createHash("sha256").update(readFileSync(filmMetadataPath)).digest("hex"),
+    filmSha256: metadata["film"]["sha256"],
+    frameCount: metadata["film"]["frameCount"],
+    durationSeconds: metadata["film"]["durationSeconds"],
+    captionsFile: metadata["captions"]["file"],
+    transcriptFile: metadata["transcript"]["file"],
+    checksPassed: metadata["checks"].filter((check: Record<string, unknown>) => check["passed"] === true).length,
+    checksTotal: metadata["checks"].length,
+    checks: metadata["checks"],
+  };
+}
 
 function sha256Bytes(bytes: Uint8Array): string {
   return createHash("sha256").update(bytes).digest("hex");
@@ -235,11 +261,7 @@ async function main(): Promise<void> {
       },
       publicLinks,
       releasePackage,
-      film: {
-        status: "pending",
-        requiredBy: "S10",
-        requirements: ["about 60 seconds", "English narration", "frame and narration checks"],
-      },
+      film: filmEvidence(),
       publicPartsPassed,
       passed: false,
       notes: [
@@ -247,9 +269,11 @@ async function main(): Promise<void> {
         "All public checks were performed without authentication.",
       ],
     };
-    writeFileSync(join(evidenceDir, "public-release.json"), `${JSON.stringify(evidence, null, 2)}\n`);
     console.log(`public replay ${publicUrl} status ${String(contentChecks.httpStatus)}; views ${String(views.length)}; pageErrors ${String(pageErrors.length)}`);
-    console.log(`release package verified=${String((releasePackage["verified"] as Record<string, unknown>)["manifestMatches"])}; publicPartsPassed=${String(publicPartsPassed)}`);
+    const film = evidence.film as Record<string, unknown>;
+    evidence.passed = publicPartsPassed && film["status"] === "complete";
+    writeFileSync(join(evidenceDir, "public-release.json"), `${JSON.stringify(evidence, null, 2)}\n`);
+    console.log(`release package verified=${String((releasePackage["verified"] as Record<string, unknown>)["manifestMatches"])}; publicPartsPassed=${String(publicPartsPassed)}; film=${String(film["status"])}; passed=${String(evidence.passed)}`);
     if (!publicPartsPassed) process.exitCode = 1;
   } finally {
     await browser.close();

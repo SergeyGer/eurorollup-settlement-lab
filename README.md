@@ -307,7 +307,10 @@ merged, and larger steps are tagged as GitHub Releases.
 - `v0.9.0` — public release: GitHub Pages replay, unauthenticated public checks in a
   clean browser, public link checks, downloadable release package with a SHA-256
   manifest and the A08 public-release record.
-- Next: 60-second release film and final v1.0.0 (S10).
+- `v1.0.0` — final release: the required 60-second English-narrated film with WebVTT
+  captions, transcript, frame/audio/link checks and the completed A01–A09 matrix;
+  downloadable package and public replay. Final `A08` gate passes on the tagged
+  commit.
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:

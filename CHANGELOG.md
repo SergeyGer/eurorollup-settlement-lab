@@ -225,6 +225,32 @@ records current calendar dates.
 - 181 tests; CI rebuilds the policy matrix, verifies committed proofs and
   artifact hashes, and verifies the account-abstraction receipts offline.
 
+## [1.0.0] — Release film and final release
+
+### Added
+
+- Required 60-second English-narrated release film: exactly 1800 frames at 1920×1080
+  and constant 30 fps, H.264 video and AAC 48 kHz stereo audio, opening social preview
+  (frames 0–149), body journeys (frames 150–1649) and uninterrupted repository card
+  (frames 1650–1799).
+- `pnpm film:build`: renders the cards, generates the local Piper English narration and
+  WebVTT/transcript, records both journeys with Playwright (G01 portfolio and the
+  Policy Lab P01 comparison with a genuine live `qwen3:4b` proposal), assembles the
+  film and verifies frames, duration, codecs, loudness, captions, end-card readability
+  at 720p, script length and signed-out public links.
+- Media record `media/film/film-metadata.json`; burned captions with a 5% safe margin;
+  verbatim transcript; social preview, intro frame and end card designs.
+- A08 is completed by the film: `pnpm a08:public-check` records the film as complete,
+  `pnpm a08:verify` checks the metadata and frame/audio/caption/link requirements, and
+  the release-check matrix carries A08 as passed.
+
+### Release
+
+- `v1.0.0` is the final release. The A01–A09 matrix is published in
+  `evidence/release-checks.json` (A05 with recorded chain-lane limitations), the public
+  replay is live on GitHub Pages, and the downloadable package plus film are attached
+  to the release with checksums.
+
 ## [0.9.0] — Public replay and release packaging
 
 ### Added

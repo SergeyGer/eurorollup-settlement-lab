@@ -41,6 +41,12 @@ interface CommandSpec {
 
 const a08EvidencePath = "evidence/a08/public-release.json";
 const a08EvidenceExists = existsSync(join(repoRoot, a08EvidencePath));
+const filmMetadataPath = "media/film/film-metadata.json";
+const filmComplete = (() => {
+  if (!existsSync(join(repoRoot, filmMetadataPath))) return false;
+  const metadata = readJson(filmMetadataPath) as Record<string, unknown>;
+  return metadata["passed"] === true;
+})();
 
 const COMMANDS: readonly CommandSpec[] = [
   { id: "typecheck", command: "pnpm typecheck", timeoutMs: 600_000 },
@@ -291,7 +297,13 @@ function main(): void {
     gate.gate === "A08" && a08EvidenceExists
       ? {
           ...gate,
-          evidence: [{ path: a08EvidencePath, schema: "schemas/a08-public-release.schema.json", description: "Public replay, clean-browser, quickstart, public links and downloadable package verification" }],
+          ...(filmComplete ? { pending: undefined } : {}),
+          evidence: [
+            { path: a08EvidencePath, schema: "schemas/a08-public-release.schema.json", description: "Public replay, clean-browser, quickstart, public links, downloadable package and film-completion verification" },
+            ...(filmComplete
+              ? [{ path: filmMetadataPath, schema: "schemas/film-metadata.schema.json", description: "60-second film frame, audio, caption and link-check metadata" }]
+              : []),
+          ],
           commands: ["a08-verify"],
         }
       : gate,
@@ -330,9 +342,10 @@ function main(): void {
       allMissedTargets.push(...details.missedTargets);
     }
     allLimitations.push(...limitations);
-    const pendingChecksPassed = gate.pending !== undefined ? evidenceOk && commandsPass : null;
+    const isPendingGate = gate.pending !== undefined && !(gate.gate === "A08" && filmComplete);
+    const pendingChecksPassed = isPendingGate ? evidenceOk && commandsPass : null;
     const status =
-      gate.pending !== undefined
+      isPendingGate
         ? pendingChecksPassed === true
           ? "pending"
           : "fail"
@@ -354,7 +367,7 @@ function main(): void {
       gate: gate.gate,
       title: gate.title,
       status,
-      ...(gate.pending === undefined ? {} : { pendingReason: gate.pending, requiredArtifacts: ["public replay URL verified signed out", "clean-browser replay check", "downloadable evidence pack", "60-second film with frame and narration checks"] }),
+      ...(gate.pending === undefined || (gate.gate === "A08" && filmComplete) ? {} : { pendingReason: gate.pending, requiredArtifacts: ["public replay URL verified signed out", "clean-browser replay check", "downloadable evidence pack", "60-second film with frame and narration checks"] }),
       commands: commandOutputs,
       evidence: evidenceChecks,
       evidenceValid: evidenceOk,

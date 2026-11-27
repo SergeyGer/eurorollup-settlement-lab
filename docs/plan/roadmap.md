@@ -23,9 +23,9 @@ recording current calendar dates. Weeks are planning windows, not deadlines.
 | S07 | Economics and operations | Released as `v0.7.0` |
 | S08 | Verification and release candidate | Released as `v0.8.0` |
 | S09 | Public release | Released as `v0.9.0` |
-| S10 | Release film | Planned |
+| S10 | Release film | Released as `v1.0.0` |
 
-Current next step: S10, the 60-second release film and the final v1.0.0.
+All planned development steps are released; the project is at `v1.0.0`.
 
 ## Steps
 
@@ -41,7 +41,7 @@ Current next step: S10, the 60-second release film and the final v1.0.0.
 | S07 | [#8](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/8) | M5 Economics and operations | Measured bundle reconciliation, cost experiment, funding guard, RPC/batch/indexer/NAV drills, dashboard, provider evaluation, incident postmortem | `evidence/a07/bundle-reconciliation.json`, `benchmarks/`, `docs/operations/`, release `v0.7.0` |
 | S08 | [#9](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/9) | M6 Verification and release | Gates A01-A09, offline verifier, release candidate | `evidence/release-checks.json`, per-gate artifacts, release `v0.8.0` |
 | S09 | [#10](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/10) | M6 Verification and release | Public replay, release package, documentation, A08 public checks | `evidence/a08/public-release.json`, public replay URL verified signed out, release `v0.9.0` |
-| S10 | [#11](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/11) | M6 Verification and release | Release film, captions and transcript | MP4, WebVTT, transcript, media metadata |
+| S10 | [#11](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/11) | M6 Verification and release | 60-second film, captions, transcript and final release | MP4, WebVTT, transcript, `media/film/film-metadata.json`, release `v1.0.0` |
 
 The umbrella tracking issue is [#12](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/12).
 
