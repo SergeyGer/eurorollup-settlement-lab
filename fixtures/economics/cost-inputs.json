@@ -1,0 +1,16 @@
+{
+  "dailyOrders": 1200,
+  "eligibleSponsorShareBps": 3500,
+  "daPriceWeiPerByte": 40000000000,
+  "batchUtilizationBps": 7500,
+  "perOrderExecutionGas": 160000,
+  "l1DataBytesPerOrder": 220,
+  "gasPriceWei": 1000000,
+  "investorChargeEurMicros": 50000,
+  "dailyBudgetEurMicros": 2500000,
+  "notes": [
+    "Frozen scenario inputs for the interactive cost experiment.",
+    "The DA price and utilization are explicit synthetic inputs; the execution gas and gas price come from the recorded bundle.",
+    "The EUR/ETH rate is the timestamped demo fixture in fixtures/economics/rate.json."
+  ]
+}

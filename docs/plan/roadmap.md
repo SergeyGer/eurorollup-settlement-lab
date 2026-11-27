@@ -20,7 +20,8 @@ recording current calendar dates. Weeks are planning windows, not deadlines.
 | S04 | Released as `v0.4.0` (live local model adapter and 40-prompt evaluation) |
 | S05 | Released as `v0.5.0` (Noir eligibility circuit and sponsored account lane) |
 | S06 | Released as `v0.6.0` (controlled local rollup, protocol run and bridge withdrawal trace; blob DA stays an open gap) |
-| S07–S10 | Planned; tracked as GitHub Issues |
+| S07 | Economics and operations | In progress: measured bundle reconciliation, cost experiment and funding guard merged; operations drills, dashboard, provider evaluation and `v0.7.0` pending |
+| S08–S10 | Planned; tracked as GitHub Issues |
 
 Current next step: S07, economics and operations.
 

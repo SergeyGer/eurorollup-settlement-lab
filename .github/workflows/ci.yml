@@ -77,6 +77,9 @@ jobs:
       - name: Verify the committed A05 protocol-run and bridge-trace evidence
         run: pnpm a05:verify
 
+      - name: Verify the committed A07 economics evidence
+        run: pnpm a07:verify
+
       - name: Check the generated OpenAPI document
         run: pnpm api:openapi -- --check
 
