@@ -35,8 +35,17 @@ const issuerClient = new SettlementApiClient({
 function groupThousands(value: string): string {
   const negative = value.startsWith("-");
   const unsigned = negative ? value.slice(1) : value;
-  const [whole = "0", fraction] = unsigned.split(".");
-  const grouped = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const dotIndex = unsigned.indexOf(".");
+  const whole = dotIndex === -1 ? unsigned : unsigned.slice(0, dotIndex);
+  const fraction = dotIndex === -1 ? undefined : unsigned.slice(dotIndex + 1);
+  let grouped = "";
+  for (let index = 0; index < whole.length; index += 1) {
+    grouped += whole[index];
+    const remaining = whole.length - index - 1;
+    if (remaining > 0 && remaining % 3 === 0) {
+      grouped += ",";
+    }
+  }
   return `${negative ? "-" : ""}${grouped}${fraction === undefined ? "" : `.${fraction}`}`;
 }
 
