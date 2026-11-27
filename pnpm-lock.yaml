@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  ws@>=8.0.0 <8.21.0: 8.21.0
+  '@openzeppelin/contracts@3.4.2-solc-0.7': 3.4.2
+  '@openzeppelin/contracts@>=3.3.0 <3.4.2': 3.4.2
+
 importers:
 
   .:
@@ -11,9 +16,6 @@ importers:
       '@account-abstraction/contracts':
         specifier: 0.7.0
         version: 0.7.0
-      '@openzeppelin/contracts':
-        specifier: 5.0.2
-        version: 5.0.2
       '@types/node':
         specifier: ^22.10.5
         version: 22.20.7
@@ -388,8 +390,8 @@ packages:
   '@noir-lang/types@1.0.0':
     resolution: {integrity: sha512-+yq5igydWbkrprufpxjsdjFjrc7Led0lDshew2HcXW3NFtXmEhggtHNGOMh502iBFE1KOu6l+t91OG9FAMMWqA==}
 
-  '@openzeppelin/contracts@3.4.2-solc-0.7':
-    resolution: {integrity: sha512-W6QmqgkADuFcTLzHL8vVoNBtkwjvQRpYIAom7KiUNoLKghyx3FgH0GBjt8NRvigV1ZmMOBllvE1By1C+bi8WpA==}
+  '@openzeppelin/contracts@3.4.2':
+    resolution: {integrity: sha512-z0zMCjyhhp4y7XKAcDAi3Vgms4T2PstwBdahiO0+9NaGICQKjynK3wduSRplTgk4LXmoO1yfDGO5RbjKYxtuxA==}
 
   '@openzeppelin/contracts@5.0.2':
     resolution: {integrity: sha512-ytPc6eLGcHHnapAZ9S+5qsdomhjo6QBHTDRRBFfTxXIpsicMhVPouPgmUPebZZZGX7vt9USA+Z+0M0dSVtSUEA==}
@@ -1085,8 +1087,8 @@ packages:
     engines: {node: '>=20.11'}
     hasBin: true
 
-  ws@8.17.1:
-    resolution: {integrity: sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==}
+  ws@8.21.0:
+    resolution: {integrity: sha512-Vsp28b7DRcimFQvrqu2Wek3z1iYxDCWqHYB8Qsnk/S4RfaCQzPGPyBNuVjJV3cd6UiKtUtp6sNM77gWvzcCH+g==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -1298,7 +1300,7 @@ snapshots:
 
   '@noir-lang/types@1.0.0': {}
 
-  '@openzeppelin/contracts@3.4.2-solc-0.7': {}
+  '@openzeppelin/contracts@3.4.2': {}
 
   '@openzeppelin/contracts@5.0.2': {}
 
@@ -1394,7 +1396,7 @@ snapshots:
 
   '@uniswap/v3-periphery@1.4.4':
     dependencies:
-      '@openzeppelin/contracts': 3.4.2-solc-0.7
+      '@openzeppelin/contracts': 3.4.2
       '@uniswap/lib': 4.0.1-alpha
       '@uniswap/v2-core': 1.0.1
       '@uniswap/v3-core': 1.0.1
@@ -1503,7 +1505,7 @@ snapshots:
       '@types/node': 22.7.5
       aes-js: 4.0.0-beta.5
       tslib: 2.7.0
-      ws: 8.17.1
+      ws: 8.21.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -1875,6 +1877,6 @@ snapshots:
 
   why-is-node-running@3.2.1: {}
 
-  ws@8.17.1: {}
+  ws@8.21.0: {}
 
   yaml@2.9.1: {}

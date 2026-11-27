@@ -41,12 +41,18 @@
   },
   "devDependencies": {
     "@account-abstraction/contracts": "0.7.0",
-    "@openzeppelin/contracts": "5.0.2",
     "@types/node": "^22.10.5",
     "ajv": "^8.17.1",
     "ethers": "6.13.4",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vitest": "^5.1.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "ws@>=8.0.0 <8.21.0": "8.21.0",
+      "@openzeppelin/contracts@3.4.2-solc-0.7": "3.4.2",
+      "@openzeppelin/contracts@>=3.3.0 <3.4.2": "3.4.2"
+    }
   }
 }
