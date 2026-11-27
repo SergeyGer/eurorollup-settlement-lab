@@ -19,7 +19,7 @@ import labUtc2Json from "../../../fixtures/calendar/LAB-UTC-2.json";
 import type { CalendarFixture } from "@eurorollup/dealing";
 import { randomIdFactory, type IdFactory } from "./ids.js";
 
-export const SERVICE_VERSION = "0.2.0";
+export const SERVICE_VERSION = "0.3.0";
 export const SCHEMA_VERSION = "1.0.0";
 export const DATA_MODE = "local-fixture";
 export const FIXTURE_CLOCK_START = "2026-11-20T15:00:00Z";

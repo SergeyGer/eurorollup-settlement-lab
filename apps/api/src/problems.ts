@@ -6,6 +6,7 @@
  * dealing engine are mapped here; raw engine errors never surface.
  */
 import { DealingError, isDealingError } from "@eurorollup/dealing";
+import { PolicyLabError, isPolicyLabError } from "@eurorollup/policy-lab";
 
 export interface ApiProblemOptions {
   readonly details?: Readonly<Record<string, unknown>>;
@@ -80,12 +81,43 @@ export function problemFromDealingError(error: DealingError): ApiProblem {
   return new ApiProblem(statusCode, error.code, error.message, { details: error.details });
 }
 
+const POLICY_LAB_STATUS: Readonly<Record<string, number>> = {
+  LIVE_MODEL_NOT_CONFIGURED: 503,
+  PRIOR_TIME_MISMATCH: 422,
+  UNSUPPORTED_FIXTURE: 422,
+  RECORDED_PROPOSAL_MISSING: 500,
+  INVALID_RECORDED_PROPOSAL: 422,
+  INVALID_PROPOSAL: 422,
+  INVALID_DRAFT_STATE: 409,
+  STALE_REVISION: 409,
+  CONFIRMATION_MISMATCH: 409,
+  INVALID_SCENARIO_STATE: 422,
+  RECORDED_PROPOSAL_FIXTURE_MISMATCH: 500,
+};
+
+export function problemFromPolicyLabError(error: PolicyLabError): ApiProblem {
+  const statusCode = POLICY_LAB_STATUS[error.code] ?? 422;
+  const apiProblem = new ApiProblem(statusCode, error.code, error.message, {
+    details: error.details,
+  });
+  if (error.code === "LIVE_MODEL_NOT_CONFIGURED") {
+    return new ApiProblem(statusCode, error.code, error.message, {
+      details: error.details,
+      retryAfterSeconds: 30,
+    });
+  }
+  return apiProblem;
+}
+
 export function toApiProblem(error: unknown): ApiProblem {
   if (error instanceof ApiProblem) {
     return error;
   }
   if (isDealingError(error)) {
     return problemFromDealingError(error);
+  }
+  if (isPolicyLabError(error)) {
+    return problemFromPolicyLabError(error);
   }
   if (error instanceof Error) {
     return problem(500, "INTERNAL_ERROR", error.message);

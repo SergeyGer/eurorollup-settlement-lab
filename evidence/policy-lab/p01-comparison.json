@@ -1,0 +1,320 @@
+{
+  "schemaVersion": "1.0.0",
+  "packId": "policy-lab-p01",
+  "fixtureId": "P01",
+  "fixtureVersion": "1.0.0",
+  "engineVersion": "0.2.0",
+  "policyLabVersion": "0.3.0",
+  "generatedBy": "pnpm policy:replay",
+  "fixtureHash": "bf486c0f2f6ae0b592ff6db19436947e4540607540f379f3011707f5b4920692",
+  "calendarHash": "ef7e0c3dfa7c8ab56529a7c87d143cd70046811577c7ffa130fb43905e4f8438",
+  "baselinePolicy": {
+    "policyId": "eFUND-dealing",
+    "assetId": "eFUND",
+    "version": 1,
+    "weekdayCutoffs": {
+      "MON": "16:00",
+      "TUE": "16:00",
+      "WED": "16:00",
+      "THU": "16:00",
+      "FRI": "16:00"
+    }
+  },
+  "candidatePolicy": {
+    "policyId": "eFUND-dealing",
+    "assetId": "eFUND",
+    "version": 2,
+    "weekdayCutoffs": {
+      "MON": "16:00",
+      "TUE": "16:00",
+      "WED": "16:00",
+      "THU": "16:00",
+      "FRI": "15:00"
+    }
+  },
+  "baselinePolicyHash": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
+  "candidatePolicyHash": "00a9557f10e7ef3ac1e809199ef553518968197cecbce8e525c3f9dfffdc89ca",
+  "branches": {
+    "baseline": {
+      "eventLogHash": "e80ee05c055b844e336aae36958765b2e6fffac24e1e7510fe58bd6a2b05a2a6",
+      "orders": [
+        {
+          "orderId": "P01-F-1450",
+          "investorId": "investor-bea",
+          "requestedAt": "2026-11-20T14:50:00Z",
+          "dealingDate": "2026-11-20",
+          "dealingReason": "BEFORE_CUTOFF_SAME_DAY",
+          "unitsBase": "3125000",
+          "navBase": "96000000",
+          "pending": false,
+          "reservedAtFridayCloseBase": "0"
+        },
+        {
+          "orderId": "P01-F-1530",
+          "investorId": "investor-cy",
+          "requestedAt": "2026-11-20T15:30:00Z",
+          "dealingDate": "2026-11-20",
+          "dealingReason": "BEFORE_CUTOFF_SAME_DAY",
+          "unitsBase": "3125000",
+          "navBase": "96000000",
+          "pending": false,
+          "reservedAtFridayCloseBase": "0"
+        }
+      ],
+      "snapshots": {
+        "fridayClose": {
+          "spendableBase": "1400000000",
+          "reservedBase": "0",
+          "unitsBase": "6250000"
+        },
+        "mondayClose": {
+          "spendableBase": "1400000000",
+          "reservedBase": "0",
+          "unitsBase": "6250000"
+        }
+      }
+    },
+    "candidate": {
+      "eventLogHash": "1b64926b5e1f6b551f2ad1d2aa7d87172bd3bb6c29caabe2786fc6e5ced4883b",
+      "orders": [
+        {
+          "orderId": "P01-F-1450",
+          "investorId": "investor-bea",
+          "requestedAt": "2026-11-20T14:50:00Z",
+          "dealingDate": "2026-11-20",
+          "dealingReason": "BEFORE_CUTOFF_SAME_DAY",
+          "unitsBase": "3125000",
+          "navBase": "96000000",
+          "pending": false,
+          "reservedAtFridayCloseBase": "0"
+        },
+        {
+          "orderId": "P01-F-1530",
+          "investorId": "investor-cy",
+          "requestedAt": "2026-11-20T15:30:00Z",
+          "dealingDate": "2026-11-23",
+          "dealingReason": "AT_OR_AFTER_CUTOFF",
+          "unitsBase": "3000000",
+          "navBase": "100000000",
+          "pending": false,
+          "reservedAtFridayCloseBase": "300000000"
+        }
+      ],
+      "snapshots": {
+        "fridayClose": {
+          "spendableBase": "1400000000",
+          "reservedBase": "300000000",
+          "unitsBase": "3125000"
+        },
+        "mondayClose": {
+          "spendableBase": "1400000000",
+          "reservedBase": "0",
+          "unitsBase": "6125000"
+        }
+      }
+    }
+  },
+  "orderChanges": [
+    {
+      "orderId": "P01-F-1450",
+      "requestedAt": "2026-11-20T14:50:00Z",
+      "baselineDealingDate": "2026-11-20",
+      "candidateDealingDate": "2026-11-20",
+      "baselineUnitsBase": "3125000",
+      "candidateUnitsBase": "3125000",
+      "unitsDeltaBase": "0",
+      "reservedAtFridayCloseBase": "0",
+      "changesDealingDate": false,
+      "reason": "Settles on 2026-11-20 under both policies"
+    },
+    {
+      "orderId": "P01-F-1530",
+      "requestedAt": "2026-11-20T15:30:00Z",
+      "baselineDealingDate": "2026-11-20",
+      "candidateDealingDate": "2026-11-23",
+      "baselineUnitsBase": "3125000",
+      "candidateUnitsBase": "3000000",
+      "unitsDeltaBase": "-125000",
+      "reservedAtFridayCloseBase": "300000000",
+      "changesDealingDate": true,
+      "reason": "Misses the proposed 15:00 UTC Friday cutoff; moves to 2026-11-23"
+    }
+  ],
+  "affectedOrders": 1,
+  "totalOrders": 2,
+  "extraReservedAtFridayCloseBase": "300000000",
+  "deltas": {
+    "changedOrderIds": [
+      "P01-F-1530"
+    ],
+    "unitDeltaByOrder": {
+      "P01-F-1450": "0",
+      "P01-F-1530": "-125000"
+    },
+    "extraReservedAtFridayCloseBase": "300000000"
+  },
+  "boundaryCases": [
+    {
+      "caseId": "P01-B-145959",
+      "description": "One second before the proposed Friday cutoff",
+      "requestedAt": "2026-11-20T14:59:59Z",
+      "calendarId": "LAB-UTC-1",
+      "baseline": {
+        "dealingDate": "2026-11-20",
+        "unitsBase": "3125000",
+        "pending": false
+      },
+      "candidate": {
+        "dealingDate": "2026-11-20",
+        "unitsBase": "3125000",
+        "pending": false,
+        "reservedCashBase": "0"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-20",
+        "baselineUnitsBase": "3125000",
+        "candidateUnitsBase": "3125000"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "P01-B-150000",
+      "description": "Exactly at the proposed Friday cutoff",
+      "requestedAt": "2026-11-20T15:00:00Z",
+      "calendarId": "LAB-UTC-1",
+      "baseline": {
+        "dealingDate": "2026-11-20",
+        "unitsBase": "3125000",
+        "pending": false
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "unitsBase": "3000000",
+        "pending": false,
+        "reservedCashBase": "0"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-23",
+        "baselineUnitsBase": "3125000",
+        "candidateUnitsBase": "3000000"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "P01-B-160000",
+      "description": "Exactly at the baseline Friday cutoff",
+      "requestedAt": "2026-11-20T16:00:00Z",
+      "calendarId": "LAB-UTC-1",
+      "baseline": {
+        "dealingDate": "2026-11-23",
+        "unitsBase": "3000000",
+        "pending": false
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "unitsBase": "3000000",
+        "pending": false,
+        "reservedCashBase": "0"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineUnitsBase": "3000000",
+        "candidateUnitsBase": "3000000"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "P01-B-163000",
+      "description": "After both Friday cutoffs",
+      "requestedAt": "2026-11-20T16:30:00Z",
+      "calendarId": "LAB-UTC-1",
+      "baseline": {
+        "dealingDate": "2026-11-23",
+        "unitsBase": "3000000",
+        "pending": false
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "unitsBase": "3000000",
+        "pending": false,
+        "reservedCashBase": "0"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-23",
+        "candidateDealingDate": "2026-11-23",
+        "baselineUnitsBase": "3000000",
+        "candidateUnitsBase": "3000000"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "P01-B-MONDAY-CLOSED",
+      "description": "Monday closed in the alternate calendar with a Tuesday NAV",
+      "requestedAt": "2026-11-20T15:30:00Z",
+      "calendarId": "LAB-UTC-2",
+      "baseline": {
+        "dealingDate": "2026-11-20",
+        "unitsBase": "3125000",
+        "pending": false
+      },
+      "candidate": {
+        "dealingDate": "2026-11-24",
+        "unitsBase": "3030303",
+        "pending": false,
+        "reservedCashBase": "0"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-24",
+        "baselineUnitsBase": "3125000",
+        "candidateUnitsBase": "3030303"
+      },
+      "pass": true
+    },
+    {
+      "caseId": "P01-B-MISSING-MONDAY-NAV",
+      "description": "Monday is open but its NAV is missing: the candidate order stays pending with cash reserved",
+      "requestedAt": "2026-11-20T15:30:00Z",
+      "calendarId": "LAB-UTC-1",
+      "baseline": {
+        "dealingDate": "2026-11-20",
+        "unitsBase": "3125000",
+        "pending": false
+      },
+      "candidate": {
+        "dealingDate": "2026-11-23",
+        "unitsBase": null,
+        "pending": true,
+        "reservedCashBase": "300000000"
+      },
+      "expected": {
+        "baselineDealingDate": "2026-11-20",
+        "candidateDealingDate": "2026-11-23",
+        "baselineUnitsBase": "3125000",
+        "candidatePending": true,
+        "candidateReservedCashBase": "300000000"
+      },
+      "pass": true
+    }
+  ],
+  "boundarySummary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "checks": [
+    "P01-F-1450 settles Friday in both branches with 3.125000 units",
+    "P01-F-1530 settles Friday in the baseline and Monday in the candidate",
+    "Baseline Friday close: 1,400.00 spendable, 0.00 reserved, 6.250000 units",
+    "Candidate Friday close: 1,400.00 spendable, 300.00 reserved, 3.125000 units",
+    "Candidate Monday close: 1,400.00 spendable, 0.00 reserved, 6.125000 units",
+    "1 of 2 orders changes dealing date and 300.00 dEUR stays reserved over the weekend",
+    "Both branches spend 600.00 dEUR; unit deltas are not cash",
+    "Every boundary replay case matches its frozen expectation"
+  ],
+  "comparisonDigest": "c5405bc564a1a2d44b5485aa14bddf6e29af91dfba2d560177cde58e8d1f5f2f",
+  "packDigest": "653646b2f9031af28b7b7a95687fd02e3ab368b72456d4605503c65296c1738d"
+}

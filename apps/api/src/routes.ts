@@ -7,6 +7,12 @@ import type {
   PlaceOrderInput,
 } from "@eurorollup/sdk";
 import type { AppContext } from "./app.js";
+import {
+  DEFAULT_SESSION_ID,
+  type CreateScenarioDraftRequest,
+  type EditScenarioDraftRequest,
+  type StartScenarioRunRequest,
+} from "./services/scenarios.js";
 import { countEvents, pendingOutboxCount, readClock, readPriceSource, writePriceSource } from "./db.js";
 import { problem } from "./problems.js";
 import {
@@ -22,6 +28,13 @@ import {
   placeOrderBodySchema,
   priceSourceBodySchema,
   roleHeaderSchema,
+  runIdParamsSchema,
+  scenarioDraftBodySchema,
+  scenarioEditBodySchema,
+  scenarioIdParamsSchema,
+  scenarioRunHeadersSchema,
+  sessionHeadersSchema,
+  startScenarioRunBodySchema,
 } from "./schemas.js";
 
 function headerValue(value: string | string[] | undefined): string | undefined {
@@ -170,6 +183,111 @@ export function registerRoutes(app: FastifyInstance, ctx: AppContext): void {
       const role = headerValue(request.headers["x-role-identity"]);
       const result = ctx.issuer.publishNav(body, role);
       return reply.code(201).send(result);
+    },
+  );
+
+  app.post(
+    "/v1/scenarios/drafts",
+    {
+      schema: {
+        tags: ["policy-lab"],
+        summary: "Create a Policy Lab draft from the recorded preset or manual fields",
+        headers: sessionHeadersSchema,
+        body: scenarioDraftBodySchema,
+      },
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const sessionId = headerValue(request.headers["x-session-id"]) ?? DEFAULT_SESSION_ID;
+      const draft = ctx.scenarios.createDraft(
+        request.body as CreateScenarioDraftRequest,
+        sessionId,
+      );
+      return reply.code(201).send(draft);
+    },
+  );
+
+  app.patch(
+    "/v1/scenarios/:scenarioId/draft",
+    {
+      schema: {
+        tags: ["policy-lab"],
+        summary: "Edit a draft, producing a new revision and confirmation digest",
+        headers: sessionHeadersSchema,
+        params: scenarioIdParamsSchema,
+        body: scenarioEditBodySchema,
+      },
+    },
+    async (request: FastifyRequest) => {
+      const sessionId = headerValue(request.headers["x-session-id"]) ?? DEFAULT_SESSION_ID;
+      const { scenarioId } = request.params as { scenarioId: string };
+      return ctx.scenarios.editDraft(
+        scenarioId,
+        request.body as EditScenarioDraftRequest,
+        sessionId,
+      );
+    },
+  );
+
+  app.post(
+    "/v1/scenarios/:scenarioId/runs",
+    {
+      schema: {
+        tags: ["policy-lab"],
+        summary: "Confirm a revision and queue the two-branch comparison",
+        headers: scenarioRunHeadersSchema,
+        params: scenarioIdParamsSchema,
+        body: startScenarioRunBodySchema,
+      },
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const sessionId = headerValue(request.headers["x-session-id"]) ?? DEFAULT_SESSION_ID;
+      const { scenarioId } = request.params as { scenarioId: string };
+      const idempotencyKey = headerValue(request.headers["idempotency-key"]);
+      const outcome = ctx.scenarios.startRun(
+        scenarioId,
+        request.body as StartScenarioRunRequest,
+        sessionId,
+        idempotencyKey,
+      );
+      return reply.code(202).send(outcome.accepted);
+    },
+  );
+
+  app.get(
+    "/v1/scenario-runs/:runId",
+    {
+      schema: {
+        tags: ["policy-lab"],
+        summary: "Read queued, running, succeeded or failed comparison status",
+        headers: sessionHeadersSchema,
+        params: runIdParamsSchema,
+      },
+    },
+    async (request: FastifyRequest) => {
+      const sessionId = headerValue(request.headers["x-session-id"]) ?? DEFAULT_SESSION_ID;
+      const { runId } = request.params as { runId: string };
+      return ctx.scenarios.getRun(runId, sessionId);
+    },
+  );
+
+  app.get(
+    "/v1/scenario-runs/:runId/evidence",
+    {
+      schema: {
+        tags: ["policy-lab"],
+        summary: "Download the versioned P01 comparison pack for a succeeded run",
+        headers: sessionHeadersSchema,
+        params: runIdParamsSchema,
+      },
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const sessionId = headerValue(request.headers["x-session-id"]) ?? DEFAULT_SESSION_ID;
+      const { runId } = request.params as { runId: string };
+      const evidence = ctx.scenarios.getRunEvidence(runId, sessionId);
+      return reply
+        .header("content-disposition", `attachment; filename="${evidence.fileName}"`)
+        .type("application/json")
+        .send(evidence.json);
     },
   );
 

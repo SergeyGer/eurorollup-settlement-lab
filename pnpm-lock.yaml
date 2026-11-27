@@ -29,6 +29,9 @@ importers:
       '@eurorollup/dealing':
         specifier: workspace:*
         version: link:../../packages/dealing
+      '@eurorollup/policy-lab':
+        specifier: workspace:*
+        version: link:../../packages/policy-lab
       '@eurorollup/sdk':
         specifier: workspace:*
         version: link:../../packages/sdk
@@ -47,6 +50,9 @@ importers:
       '@eurorollup/dealing':
         specifier: workspace:*
         version: link:../../packages/dealing
+      '@eurorollup/policy-lab':
+        specifier: workspace:*
+        version: link:../../packages/policy-lab
       '@eurorollup/sdk':
         specifier: workspace:*
         version: link:../../packages/sdk
@@ -75,6 +81,12 @@ importers:
       '@noble/hashes':
         specifier: ^1.7.1
         version: 1.8.0
+
+  packages/policy-lab:
+    dependencies:
+      '@eurorollup/dealing':
+        specifier: workspace:*
+        version: link:../dealing
 
   packages/sdk: {}
 

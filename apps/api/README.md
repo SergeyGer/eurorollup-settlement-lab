@@ -46,6 +46,7 @@ routes -> services -> engine service -> pure dealing engine
 | System | `GET /v1/health`, `GET /openapi.json` |
 | Partner | `POST /v1/quotes`, `POST /v1/orders`, `GET /v1/orders`, `GET /v1/orders/{id}`, `POST /v1/orders/{id}/cancel`, `GET /v1/portfolios`, `GET /v1/portfolios/{id}` |
 | Issuer | `POST /v1/issuer/nav` (requires `x-role-identity`) |
+| Policy Lab | `POST /v1/scenarios/drafts`, `PATCH /v1/scenarios/{id}/draft`, `POST /v1/scenarios/{id}/runs`, `GET /v1/scenario-runs/{id}`, `GET /v1/scenario-runs/{id}/evidence` |
 | Dev | `GET/POST /v1/dev/clock`, `POST /v1/dev/price-source`, `POST /v1/dev/tick`, `POST /v1/dev/reset` |
 
 ## Data model
@@ -55,8 +56,11 @@ routes -> services -> engine service -> pure dealing engine
   code, dealing date, receipt, money movements and decline details.
 - `event_log`: ordered domain events, the source of truth.
 - `journal`: per-asset postings derived from events.
-- `outbox`: durable settlement tasks claimed by the worker.
+- `outbox`: durable settlement tasks (orders) and scenario-run tasks claimed by
+  the worker.
 - `navs`: authorized issuer observations by valuation date and revision.
+- `scenarios`, `scenario_revisions`, `scenario_runs`: Policy Lab drafts,
+  confirmation digests and comparison runs.
 - `accounts`, `clock`, `price_source`, `meta`: synthetic fixture state.
 
 ## Tests
@@ -64,8 +68,15 @@ routes -> services -> engine service -> pure dealing engine
 `apps/api/test` contains route, role, OpenAPI, reset and evidence tests.
 `pnpm test` runs them together with the engine and fixture suites.
 
+## Policy Lab runs
+
+`ScenarioService` builds drafts with `@eurorollup/policy-lab`, stores revisions
+and confirmation digests, queues a run through the outbox and executes the
+two-branch replay in the worker. Scenario storage has no settlement write
+credentials: a comparison only replays frozen fixtures through the pure engine.
+
 ## Scope boundaries
 
 - Chain state is `NOT_SUBMITTED` until the pinned rollup integration (S06).
 - Eligibility personas are stored, not enforced, until S05.
-- Scenario/comparison endpoints are added by the Policy Lab step (S03).
+- Live model drafting returns `503` until the local adapter arrives in S04.

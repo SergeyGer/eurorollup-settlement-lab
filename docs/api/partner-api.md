@@ -2,7 +2,9 @@
 
 The local partner API exposes the same settlement journeys as the browser: place
 spot and fund orders against typed quotes, read business and chain state, read
-portfolio buckets with price provenance, and download reproducible evidence.
+portfolio buckets with price provenance, and download reproducible evidence. The
+AI Policy Lab scenario endpoints turn a typed rule change into a confirmed,
+two-branch deterministic comparison.
 
 The API is a local development service on a deterministic fixture clock. It uses
 synthetic balances, prices and identities only.
@@ -55,6 +57,7 @@ pnpm demo:partner
 | --- | --- | --- |
 | Quotes, orders, portfolios | Investor/distributor session | Account must exist in the synthetic account list |
 | `POST /v1/issuer/nav` | Issuer | `x-role-identity: issuer-nav-signer` header |
+| Policy Lab scenario endpoints | Local scenario session | `x-session-id` header (defaults to `local-session`) |
 | `/v1/dev/*` | Local operator | Only registered when dev endpoints are enabled (default for local use) |
 
 ## Endpoints
@@ -179,6 +182,65 @@ A revision must be newer than the stored one (`409 NAV_REVISION_NOT_NEWER`
 otherwise), and the source time cannot be in the future relative to the fixture
 clock.
 
+## AI Policy Lab scenario endpoints
+
+The deterministic Policy Lab flow: create a draft, review and edit it into a new
+revision, confirm the visible diff, queue the two-branch comparison and download
+the evidence pack. Scenario endpoints use the `x-session-id` header (defaults to
+`local-session`) and restrict access to the owning session.
+
+### `POST /v1/scenarios/drafts`
+
+Creates revision 1. `mode` selects the proposal source:
+
+- `recorded` — loads the bundled recorded proposal preset;
+- `manual` — takes `manualFields` (`weekday`, `timeUtc`, `timezone`,
+  optional `expectedTimeUtc`);
+- `live` — requires the local model adapter; returns `503
+  LIVE_MODEL_NOT_CONFIGURED` with `Retry-After` until step S04.
+
+```json
+{
+  "fixtureId": "P01",
+  "mode": "recorded"
+}
+```
+
+Returns `201` with the draft: `scenarioId`, `revision`, `origin`, `status`
+(`proposed`, `clarify`, `unsupported` or `no_change`), the typed `proposal`, the
+structured `diff` (asset, order type, weekday, old/new UTC cutoff), `baseline`
+policy version/hash, `fixture` digest, `draftDigest` and `confirmationDigest`.
+
+A stated prior time that disagrees with the baseline is rejected with `422
+PRIOR_TIME_MISMATCH`. A proposal equal to the current rule returns `no_change`.
+
+### `PATCH /v1/scenarios/{scenarioId}/draft`
+
+Accepts an edit or clarification answer with `expectedRevision`. A new revision
+and confirmation digest are issued; the previous revision is recorded as the
+parent. Stale revisions return `409 STALE_REVISION`, unknown fields `422
+INVALID_REQUEST`, and other sessions `403 SESSION_MISMATCH`.
+
+### `POST /v1/scenarios/{scenarioId}/runs`
+
+Requires `revision`, `confirmationDigest` and an `Idempotency-Key` header.
+Returns `202` with `{ runId, status: "queued" }`. Same-key/same-body retries
+return the existing run; a changed body returns `409 IDEMPOTENCY_KEY_REUSED`. A
+revision or digest that is no longer current returns `409`, and a draft that is
+not `proposed` cannot run (`422 INVALID_SCENARIO_STATE`).
+
+### `GET /v1/scenario-runs/{runId}`
+
+Returns `queued`, `running`, `succeeded` or `failed`. On success it includes the
+two branches, per-order changes, deltas, policy hashes and the comparison digest.
+A failed run has no published partial result.
+
+### `GET /v1/scenario-runs/{runId}/evidence`
+
+Downloads the versioned P01 comparison pack (`application/json` attachment) with
+the branch hashes, boundary replay cases and the pack digest. Available only for
+a succeeded run.
+
 ## Local fixture controls
 
 Registered only when dev endpoints are enabled:
@@ -218,4 +280,5 @@ Registered only when dev endpoints are enabled:
 - No chain reader yet: `chainState` is a business-side placeholder and
   `blockHash` is `null`.
 - Eligibility personas are stored but not enforced until step S05.
-- The scenario/comparison endpoints of the AI Policy Lab arrive in step S03.
+- Live model drafting requires the local adapter, which arrives in step S04; the
+  recorded preset and manual edits work today.

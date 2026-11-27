@@ -120,3 +120,96 @@ export const priceSourceBodySchema = {
 } as const;
 
 export const emptyBodySchema = { type: "object", additionalProperties: false } as const;
+
+const manualFieldsSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    weekday: { type: "string" },
+    timeUtc: { type: "string" },
+    timezone: { type: "string" },
+    expectedTimeUtc: { type: "string" },
+  },
+} as const;
+
+export const sessionHeadersSchema = {
+  type: "object",
+  properties: {
+    "x-session-id": {
+      type: "string",
+      minLength: 1,
+      maxLength: 120,
+      description: "Local scenario session. Defaults to local-session when omitted.",
+    },
+  },
+} as const;
+
+export const scenarioDraftBodySchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["fixtureId", "mode"],
+  properties: {
+    fixtureId: { type: "string", enum: ["P01"] },
+    mode: {
+      type: "string",
+      enum: ["recorded", "live", "manual"],
+      description:
+        "recorded loads the bundled recorded proposal, manual takes typed fields, live requires the local model adapter (step S04).",
+    },
+    question: { type: "string", maxLength: 500 },
+    manualFields: manualFieldsSchema,
+  },
+} as const;
+
+export const scenarioEditBodySchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["expectedRevision"],
+  properties: {
+    expectedRevision: { type: "integer", minimum: 1 },
+    fields: manualFieldsSchema,
+    clarificationAnswer: manualFieldsSchema,
+  },
+} as const;
+
+export const scenarioIdParamsSchema = {
+  type: "object",
+  required: ["scenarioId"],
+  properties: { scenarioId: { type: "string", minLength: 1 } },
+} as const;
+
+export const runIdParamsSchema = {
+  type: "object",
+  required: ["runId"],
+  properties: { runId: { type: "string", minLength: 1 } },
+} as const;
+
+export const startScenarioRunBodySchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["revision", "confirmationDigest"],
+  properties: {
+    revision: { type: "integer", minimum: 1 },
+    confirmationDigest: { type: "string", pattern: "^[0-9a-f]{64}$" },
+  },
+} as const;
+
+export const scenarioRunHeadersSchema = {
+  type: "object",
+  required: ["idempotency-key"],
+  properties: {
+    "idempotency-key": {
+      type: "string",
+      minLength: 1,
+      maxLength: 200,
+      description:
+        "Client-generated run key. A same-key same-body retry returns the existing run; a changed body returns 409.",
+    },
+    "x-session-id": {
+      type: "string",
+      minLength: 1,
+      maxLength: 120,
+      description: "Local scenario session. Defaults to local-session when omitted.",
+    },
+  },
+} as const;

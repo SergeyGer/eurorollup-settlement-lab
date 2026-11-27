@@ -11,5 +11,7 @@ export function createIdFactoryForDemo(): IdFactory {
     quote: () => next("quote"),
     order: () => next("order"),
     trace: () => next("trace"),
+    scenario: () => next("scenario"),
+    run: () => next("run"),
   };
 }

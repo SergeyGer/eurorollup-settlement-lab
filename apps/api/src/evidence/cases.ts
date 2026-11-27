@@ -564,6 +564,8 @@ export async function runInvariantCases(): Promise<CaseResult[]> {
         quote: () => `quote_${(sequence += 1).toString().padStart(4, "0")}`,
         order: () => `order_${(sequence += 1).toString().padStart(4, "0")}`,
         trace: () => `trace_${(sequence += 1).toString().padStart(4, "0")}`,
+        scenario: () => `scenario_${(sequence += 1).toString().padStart(4, "0")}`,
+        run: () => `run_${(sequence += 1).toString().padStart(4, "0")}`,
       };
       try {
         const first = await createHarness({ dbFile, ids });

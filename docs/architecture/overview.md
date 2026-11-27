@@ -32,10 +32,14 @@ The foundation and settlement-core steps are implemented:
 - `apps/api` is the local partner API with a durable event log, journal
   projection, outbox worker, issuer authority and local fixture controls.
 - `packages/sdk` is the typed, dependency-free partner client.
-- `apps/web` has two views: the recorded G01 replay and the live Local API lab.
+- `packages/policy-lab` owns the proposal contract, revisioned drafts and the
+  deterministic P01 two-branch replay. The browser, the scenario service and the
+  CLI all import it, which is what makes their comparison digests identical.
+- `apps/web` has three views: the recorded G01 replay, the live Local API lab and
+  the AI Policy Lab.
 
-The Policy Lab, subscription worker, eligibility circuit and pinned rollup are
-added by the later steps.
+The live model adapter, subscription worker, eligibility circuit and pinned
+rollup are added by the later steps.
 
 ## Local partner API
 
@@ -57,6 +61,27 @@ routes -> services -> engine service -> pure dealing engine
 - Market and fund marks carry provenance (`dealer-fixture-quote`,
   `authorized-nav`, `indicative-fixture-nav`) and a stale flag; `blockHash` is
   `null` until a chain reader is attached.
+
+## AI Policy Lab
+
+```text
+question / manual fields
+  -> draft (typed proposal + server-owned baseline/fixture/revision)
+  -> review + edit (new revision, new confirmation digest)
+  -> confirm (revision + confirmation digest + Idempotency-Key)
+  -> outbox worker -> shared policy-lab replay -> P01 comparison pack
+```
+
+- The model contract is a discriminated schema (`proposed`, `clarify`,
+  `unsupported`). Numerical outcomes are never part of a proposal.
+- Draft digests and confirmation digests bind the visible diff, revision,
+  baseline policy hash, fixture hash and calendar hash.
+- A run replays the same ordered intents and NAV observations through the pure
+  engine twice, in isolated state; the confirmed patch is the only variable.
+- Scenario storage carries no settlement write credentials; a comparison run
+  never writes settlement events.
+- The stable comparison digest and pack digest are reproduced in the browser,
+  the service and the CLI.
 
 ## Two independent state fields
 

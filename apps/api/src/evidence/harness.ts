@@ -27,7 +27,7 @@ export interface Harness {
   readonly ctx: AppContext;
   readonly app: FastifyInstance;
   inject(
-    method: "GET" | "POST",
+    method: "GET" | "POST" | "PATCH",
     url: string,
     options?: { payload?: unknown; headers?: Record<string, string> },
   ): Promise<HttpResult>;
@@ -79,7 +79,7 @@ export async function createHarness(options: HarnessOptions = {}): Promise<Harne
   });
   const ctx = await createApp({ config });
   const inject = async (
-    method: "GET" | "POST",
+    method: "GET" | "POST" | "PATCH",
     url: string,
     injection: { payload?: unknown; headers?: Record<string, string> } = {},
   ): Promise<HttpResult> => {
