@@ -1,0 +1,33 @@
+{
+  "fixtureId": "ELIG-EPOCHS",
+  "fixtureVersion": "1.0.0",
+  "description": "Issuer root epochs. Epoch 2 rotates the first leaf away from persona-verified, which invalidates its epoch-1 approval at execution.",
+  "epochs": [
+    {
+      "epoch": 1,
+      "publishedAt": "2026-11-20T12:00:00Z",
+      "members": ["persona-verified", "persona-basic", "persona-flagged", "investor-dora", "investor-eli", "investor-finn", "investor-gus", "investor-hana"]
+    },
+    {
+      "epoch": 2,
+      "publishedAt": "2026-11-20T16:30:00Z",
+      "members": ["persona-rotated-verified", "persona-basic", "persona-flagged", "investor-dora", "investor-eli", "investor-finn", "investor-gus", "investor-hana"],
+      "replacement": {
+        "replaces": "persona-verified",
+        "with": "persona-rotated-verified",
+        "leafIndex": 0,
+        "persona": {
+          "leafIndex": 0,
+          "personaId": "persona-rotated-verified",
+          "label": "Rotated verified investor",
+          "accountId": "investor-iris",
+          "wallet": "0x1000000000000000000000000000000000000009",
+          "class": "VERIFIED",
+          "epoch": 2,
+          "expiry": 1795996800,
+          "demo": false
+        }
+      }
+    }
+  ]
+}

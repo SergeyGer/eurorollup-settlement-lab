@@ -1,0 +1,24 @@
+{
+  "circuitId": "eligibility",
+  "circuitVersion": "1.0.0",
+  "noirVersion": "nargo version = 1.0.0",
+  "bbVersion": "6.1.0",
+  "treeDepth": 3,
+  "hashFunction": "pedersen_bn254",
+  "publicInputs": [
+    "wallet",
+    "root",
+    "chain_id",
+    "gate",
+    "class",
+    "epoch",
+    "expiry"
+  ],
+  "proofSystem": "ultra_honk",
+  "circuitSha256": "c462f2378c0eb8e96ec08c32106bee1dfb82bd181d4f702d52d0aa4832c3d642",
+  "vkSha256": "d84457ce6f9f12a6b549b811ee119a50f033179a5be04a193a0ffc570766cff1",
+  "vkHash": "08aa20c875117217dedc4f2c11741df52a00b24a689bb5f40e57d4d01b08c126",
+  "circuitBytes": 123484,
+  "vkBytes": 3680,
+  "generatedBy": "pnpm eligibility:build"
+}

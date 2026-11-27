@@ -1,0 +1,2 @@
+[workspace]
+members = ["eligibility", "hash_leaf", "hash_node"]

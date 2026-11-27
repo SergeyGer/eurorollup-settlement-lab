@@ -1,0 +1,101 @@
+{
+  "fixtureId": "ELIG-PERSONAS",
+  "fixtureVersion": "1.1.0",
+  "description": "Synthetic wallet-bound eligibility credentials. Class codes are versioned; no real personal data is present.",
+  "chainId": 31337,
+  "classCodes": {
+    "VERIFIED": 3,
+    "BASIC": 2,
+    "FLAGGED": 1
+  },
+  "leaves": [
+    {
+      "leafIndex": 0,
+      "personaId": "persona-verified",
+      "label": "Verified investor (demo)",
+      "accountId": "investor-ada",
+      "wallet": "0x1000000000000000000000000000000000000001",
+      "class": "VERIFIED",
+      "epoch": 1,
+      "expiry": 1795996800,
+      "demo": true
+    },
+    {
+      "leafIndex": 1,
+      "personaId": "persona-basic",
+      "label": "Basic investor (demo)",
+      "accountId": "investor-cy",
+      "wallet": "0x1000000000000000000000000000000000000002",
+      "class": "BASIC",
+      "epoch": 1,
+      "expiry": 1795996800,
+      "demo": true
+    },
+    {
+      "leafIndex": 2,
+      "personaId": "persona-flagged",
+      "label": "Flagged persona (demo)",
+      "accountId": "investor-dee",
+      "wallet": "0x1000000000000000000000000000000000000003",
+      "class": "FLAGGED",
+      "epoch": 1,
+      "expiry": 1795996800,
+      "demo": true
+    },
+    {
+      "leafIndex": 3,
+      "personaId": "investor-dora",
+      "label": "Verified filler investor",
+      "accountId": "investor-dora",
+      "wallet": "0x1000000000000000000000000000000000000004",
+      "class": "VERIFIED",
+      "epoch": 1,
+      "expiry": 1795996800,
+      "demo": false
+    },
+    {
+      "leafIndex": 4,
+      "personaId": "investor-eli",
+      "label": "Basic filler investor",
+      "accountId": "investor-eli",
+      "wallet": "0x1000000000000000000000000000000000000005",
+      "class": "BASIC",
+      "epoch": 1,
+      "expiry": 1795996800,
+      "demo": false
+    },
+    {
+      "leafIndex": 5,
+      "personaId": "investor-finn",
+      "label": "Verified filler investor",
+      "accountId": "investor-finn",
+      "wallet": "0x1000000000000000000000000000000000000006",
+      "class": "VERIFIED",
+      "epoch": 1,
+      "expiry": 1795996800,
+      "demo": false
+    },
+    {
+      "leafIndex": 6,
+      "personaId": "investor-gus",
+      "label": "Flagged filler investor",
+      "accountId": "investor-gus",
+      "wallet": "0x1000000000000000000000000000000000000007",
+      "class": "FLAGGED",
+      "epoch": 1,
+      "expiry": 1795996800,
+      "demo": false
+    },
+    {
+      "leafIndex": 7,
+      "personaId": "investor-hana",
+      "label": "Verified filler investor",
+      "accountId": "investor-hana",
+      "wallet": "0x1000000000000000000000000000000000000008",
+      "class": "VERIFIED",
+      "epoch": 1,
+      "expiry": 1795996800,
+      "demo": false
+    }
+  ]
+}

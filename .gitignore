@@ -41,3 +41,7 @@ tmp/
 eval-tmp/
 # Local model evaluation output
 .ollama-models/
+
+# Noir build output and generated witnesses
+circuits/target/
+circuits/**/Prover.toml

@@ -14,7 +14,7 @@
     "preview": "pnpm --filter @eurorollup/web preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc -p packages/dealing/tsconfig.json --noEmit && tsc -p packages/policy-lab/tsconfig.json --noEmit && tsc -p packages/sdk/tsconfig.json --noEmit && tsc -p apps/api/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
+    "typecheck": "tsc -p packages/dealing/tsconfig.json --noEmit && tsc -p packages/policy-lab/tsconfig.json --noEmit && tsc -p packages/eligibility/tsconfig.json --noEmit && tsc -p packages/sdk/tsconfig.json --noEmit && tsc -p apps/api/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
     "scenario:golden": "tsx packages/dealing/src/cli.ts golden",
     "scenario:boundary": "tsx packages/dealing/src/cli.ts boundary",
     "verify": "tsx packages/dealing/src/cli.ts verify",
@@ -28,7 +28,14 @@
     "policy:eval": "tsx packages/policy-lab/src/cli.ts eval",
     "policy:eval:mock": "tsx packages/policy-lab/src/cli.ts eval --adapter mock",
     "policy:record": "tsx packages/policy-lab/src/cli.ts record",
-    "policy:model:status": "tsx packages/policy-lab/src/cli.ts model-status"
+    "policy:model:status": "tsx packages/policy-lab/src/cli.ts model-status",
+    "eligibility:fixtures": "tsx scripts/build-eligibility-fixtures.ts",
+    "eligibility:artifacts": "tsx scripts/build-eligibility-artifacts.ts",
+    "eligibility:matrix": "tsx packages/eligibility/src/cli.ts matrix",
+    "eligibility:proofs": "tsx packages/eligibility/src/cli.ts proofs",
+    "eligibility:evidence": "tsx packages/eligibility/src/cli.ts evidence",
+    "eligibility:verify": "tsx packages/eligibility/src/cli.ts verify",
+    "eligibility:all": "pnpm eligibility:fixtures && pnpm eligibility:artifacts && pnpm eligibility:evidence && pnpm eligibility:verify"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
