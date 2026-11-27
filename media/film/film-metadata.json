@@ -2,9 +2,9 @@
   "schemaVersion": "1.0.0",
   "reportId": "S10-release-film",
   "generatedBy": "pnpm film:build",
-  "generatedAt": "2026-11-27T16:15:07.306Z",
+  "generatedAt": "2026-11-27T16:24:53.506Z",
   "version": "1.0.0",
-  "commit": "3f72845fd9891bdf57c6a46946a2d70fcba48ee3",
+  "commit": "cb98283733d9ae381728b722eeba8cc75ad0bcbf",
   "film": {
     "file": "media/film/release-film.mp4",
     "assetName": "eurollup-release-film-1.0.0.mp4",
