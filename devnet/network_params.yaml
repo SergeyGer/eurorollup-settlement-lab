@@ -52,7 +52,7 @@ ethereum_package:
       {"0x4e59b44847b379578588920cA78FbF26c0B4956C": {"balance": "0ETH", "code": "0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe03601600081602082378035828234f58015156039578182fd5b8082525050506014600cf3", "storage": {}, "nonce": "1"}}
   participants:
     - el_type: geth
-      # Prysm is pinned by the ethereum-package defaults and is used here because
-      # the current lighthouse image rejects locally produced blocks on a
-      # single-node devnet with the pinned genesis.
-      cl_type: prysm
+      cl_type: lighthouse
+      # Stable lighthouse build; the current `unstable` image rejects locally
+      # produced blocks on a single-node devnet with the pinned genesis.
+      cl_image: sigp/lighthouse:v8.3.3

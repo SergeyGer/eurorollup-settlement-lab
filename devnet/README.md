@@ -41,22 +41,37 @@ reproducible artifact.
 
 ## Current status
 
-The host-side orchestration is committed and reproducible, but the upstream
-Kurtosis package currently mixes image tags from different release eras, which
-prevents a fully working network in this environment:
+A controlled local lane is now validated end-to-end on this host:
 
-- the pinned optimism-package resolves an ethereum-package whose L1 launcher
-  passes the legacy `--allow-insecure-unlock` flag (removed in geth 1.17), so geth
-  is pinned to 1.16.9 and tagged as the expected `latest`;
-- the generated L1 genesis includes post-Electra forks that older consensus
-  clients cannot parse, while the current lighthouse image rejects locally
-  produced blocks on a single-node devnet with a data-column validation error;
-- mixing newer genesis fields with older client images fails in the opposite
-  direction (`missing entry for fork "osaka" in blobSchedule`).
+- **L1**: anvil execution chain with a synthetic two-second block clock
+  (`anvil_mine` driven from a small loop), chain id 11155111, Cancun hardfork.
+- **L2**: op-reth v2.4.0 + op-node v1.19.3 sequencer, op-batcher v1.16.11
+  posting real calldata batches (Ecotone derivation), op-proposer v1.16.3
+  proposing output roots into a permissioned dispute game.
+- **Deployment**: op-deployer v0.6.0 (`custom` intent) deployed the full L1
+  contract set (OptimismPortal2, SystemConfig, L1StandardBridge, L1CrossDomainMessenger,
+  DisputeGameFactory, AnchorStateRegistry, PermissionedDisputeGame, FaultDisputeGame).
+- **Withdrawal trace**: canonical ETH deposit (L1 portal -> L2 mint), then an L2
+  withdrawal through the L2StandardBridge, an output-root proof submitted to the
+  portal, dispute-game resolution and `finalizeWithdrawalTransaction`. The finalize
+  receipt relays 0.1 ETH through the L1CrossDomainMessenger to the recipient.
+  The portal's real timers (604800s proof maturity, 302400s dispute-game finality,
+  302400s game clock) were satisfied by advancing the private anvil clock; this is
+  a local test-lane acceleration and must never be presented as a production delay.
 
-The next attempt replaces the package orchestration with a directly controlled
-local stack (op-deployer intent with shortened dispute-game timers, op-reth +
-op-node, a local batcher and proposer, and calldata DA as the explicitly
-reported development mode). The deploy configuration and ADRs in this directory
-remain the pinned target; the protocol-run evidence will be regenerated once the
-network is up.
+The earlier Kurtosis-based blob-DA lane is still blocked by an upstream package
+image mismatch (new genesis with older client binaries, and the current lighthouse
+image rejecting locally produced blocks on a single-node devnet with a data-column
+validation error). The local lane therefore posts batches in calldata mode and the
+blob-DA requirement remains tracked as an open gap for the devnet release.
+
+## Next steps
+
+1. Codify the validated lane: anvil launcher, deterministic dev keys, op-deployer
+   intent, L1 contract deployment, op-reth/op-node/batcher/proposer containers and
+   the L1 block clock as committed scripts under `devnet/local/`.
+2. Write the A05 evidence capture (protocol run + bridge trace) against the codified
+   lane and regenerate `evidence/a05/protocol-run.json` and
+   `evidence/a05/bridge-trace.json` from a single clean run.
+3. Update the ADRs and verification docs to the validated client versions, then
+   ship release v0.6.0 with the evidence assets.
