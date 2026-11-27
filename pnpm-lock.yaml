@@ -102,6 +102,12 @@ importers:
         specifier: ^1.7.1
         version: 1.8.0
 
+  packages/economics:
+    dependencies:
+      '@eurorollup/dealing':
+        specifier: workspace:*
+        version: link:../dealing
+
   packages/eligibility:
     dependencies:
       '@aztec-foundation/bb.js':
