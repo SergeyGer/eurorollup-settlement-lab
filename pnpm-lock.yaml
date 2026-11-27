@@ -6,8 +6,8 @@ settings:
 
 overrides:
   ws@>=8.0.0 <8.21.0: 8.21.0
-  '@openzeppelin/contracts@3.4.2-solc-0.7': 3.4.2
-  '@openzeppelin/contracts@>=3.3.0 <3.4.2': 3.4.2
+  '@openzeppelin/contracts@3.4.2-solc-0.7': 4.9.6
+  '@openzeppelin/contracts@>=3.3.0 <3.4.2': 4.9.6
 
 importers:
 
@@ -390,8 +390,8 @@ packages:
   '@noir-lang/types@1.0.0':
     resolution: {integrity: sha512-+yq5igydWbkrprufpxjsdjFjrc7Led0lDshew2HcXW3NFtXmEhggtHNGOMh502iBFE1KOu6l+t91OG9FAMMWqA==}
 
-  '@openzeppelin/contracts@3.4.2':
-    resolution: {integrity: sha512-z0zMCjyhhp4y7XKAcDAi3Vgms4T2PstwBdahiO0+9NaGICQKjynK3wduSRplTgk4LXmoO1yfDGO5RbjKYxtuxA==}
+  '@openzeppelin/contracts@4.9.6':
+    resolution: {integrity: sha512-xSmezSupL+y9VkHZJGDoCBpmnB2ogM13ccaYDWqJTfS3dbuHkgjuwDFUmaFauBCboQMGB/S5UqUl2y54X99BmA==}
 
   '@openzeppelin/contracts@5.0.2':
     resolution: {integrity: sha512-ytPc6eLGcHHnapAZ9S+5qsdomhjo6QBHTDRRBFfTxXIpsicMhVPouPgmUPebZZZGX7vt9USA+Z+0M0dSVtSUEA==}
@@ -1300,7 +1300,7 @@ snapshots:
 
   '@noir-lang/types@1.0.0': {}
 
-  '@openzeppelin/contracts@3.4.2': {}
+  '@openzeppelin/contracts@4.9.6': {}
 
   '@openzeppelin/contracts@5.0.2': {}
 
@@ -1396,7 +1396,7 @@ snapshots:
 
   '@uniswap/v3-periphery@1.4.4':
     dependencies:
-      '@openzeppelin/contracts': 3.4.2
+      '@openzeppelin/contracts': 4.9.6
       '@uniswap/lib': 4.0.1-alpha
       '@uniswap/v2-core': 1.0.1
       '@uniswap/v3-core': 1.0.1
