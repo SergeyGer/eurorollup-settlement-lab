@@ -105,7 +105,13 @@ function main(): void {
 
   check(checks.summary.failed === 0, "no gate may be failed");
   check(checks.summary.releaseCandidate === true, "the release-candidate flag must be true");
-  check(checks.summary.pendingGates.length === 1 && checks.summary.pendingGates[0] === "A08", "only A08 may be pending in the release candidate");
+  const a08Gate = checks.gates.find((gate) => gate.gate === "A08");
+  if (a08Gate?.status === "pass") {
+    check(checks.summary.pendingGates.length === 0, "a completed release must have no pending gate");
+    check(checks.summary.failed === 0, "a completed release must have no failed gate");
+  } else {
+    check(checks.summary.pendingGates.length === 1 && checks.summary.pendingGates[0] === "A08", "only A08 may be pending in the release candidate");
+  }
 
   check(checks.commands.every((command) => command.exitCode === 0), "every recorded command must exit zero");
   check(checks.commands.length >= 15, "at least fifteen verification commands are expected");
