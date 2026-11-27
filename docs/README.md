@@ -20,6 +20,7 @@ fixture dates and version numbers are content, not publication dates.
 | [`operations/`](operations/) | A07 operations: service objectives, drills, dashboard, provider evaluation and incident postmortem. |
 | [`architecture/adr/`](architecture/adr/) | Numbered decision records for the rollup, batch, finality and authority decisions. |
 | [`fixtures/`](fixtures/) | Frozen inputs: G01 portfolio, P01 cutoff experiment, calendar, instruments and boundary cases. |
+| [`release/README.md`](release/README.md) | Public replay URL, downloadable release package and the A08 public checks. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |
 | [`glossary.md`](glossary.md) | Shared vocabulary for the domain, the Policy Lab and the rollup. |
 | [`operations/`](operations/) | Runbooks, drills and incident records. |

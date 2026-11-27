@@ -21,6 +21,9 @@ const eligibilityProverSource = fileURLToPath(
 
 export default defineConfig({
   plugins: [react()],
+  // GitHub Pages serves a project site under /<repository>/. Local dev and the
+  // browser tests keep the root base unless the pages workflow sets the variable.
+  base: process.env.GITHUB_PAGES_BASE ?? "/",
   resolve: {
     alias: {
       "@eurorollup/dealing": dealingSource,

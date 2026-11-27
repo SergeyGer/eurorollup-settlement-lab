@@ -39,6 +39,9 @@ interface CommandSpec {
   readonly timeoutMs: number;
 }
 
+const a08EvidencePath = "evidence/a08/public-release.json";
+const a08EvidenceExists = existsSync(join(repoRoot, a08EvidencePath));
+
 const COMMANDS: readonly CommandSpec[] = [
   { id: "typecheck", command: "pnpm typecheck", timeoutMs: 600_000 },
   { id: "tests", command: "pnpm test", timeoutMs: 600_000 },
@@ -58,6 +61,7 @@ const COMMANDS: readonly CommandSpec[] = [
   { id: "openapi", command: "pnpm api:openapi -- --check", timeoutMs: 300_000 },
   { id: "pack-verify", command: "pnpm verify", timeoutMs: 300_000 },
   { id: "partner-demo", command: "pnpm demo:partner", timeoutMs: 300_000 },
+  ...(a08EvidenceExists ? [{ id: "a08-verify", command: "pnpm a08:verify", timeoutMs: 300_000 }] : []),
 ];
 
 interface CommandResult {
@@ -283,6 +287,15 @@ function a07Details(): Record<string, unknown> {
 
 function main(): void {
   console.log("running release verification commands");
+  const gateSpecs = GATES.map((gate) =>
+    gate.gate === "A08" && a08EvidenceExists
+      ? {
+          ...gate,
+          evidence: [{ path: a08EvidencePath, schema: "schemas/a08-public-release.schema.json", description: "Public replay, clean-browser, quickstart, public links and downloadable package verification" }],
+          commands: ["a08-verify"],
+        }
+      : gate,
+  );
   const commandResults = new Map<string, CommandResult>();
   for (const spec of COMMANDS) {
     const result = runCommand(spec);
@@ -293,7 +306,7 @@ function main(): void {
   const gates: Array<Record<string, unknown>> = [];
   const allLimitations: string[] = [];
   const allMissedTargets: Array<Record<string, unknown>> = [];
-  for (const gate of GATES) {
+  for (const gate of gateSpecs) {
     const evidenceChecks = gate.evidence.map(validateEvidence);
     const commandChecks = gate.commands.map((id) => commandResults.get(id) ?? { id });
     const commandsPass = commandChecks.every((check) => "exitCode" in check && (check as CommandResult).exitCode === 0);
@@ -317,9 +330,12 @@ function main(): void {
       allMissedTargets.push(...details.missedTargets);
     }
     allLimitations.push(...limitations);
+    const pendingChecksPassed = gate.pending !== undefined ? evidenceOk && commandsPass : null;
     const status =
       gate.pending !== undefined
-        ? "pending"
+        ? pendingChecksPassed === true
+          ? "pending"
+          : "fail"
         : commandsPass && evidenceOk
           ? limitations.length > 0
             ? "pass_with_recorded_limitations"
@@ -342,6 +358,7 @@ function main(): void {
       commands: commandOutputs,
       evidence: evidenceChecks,
       evidenceValid: evidenceOk,
+      pendingChecksPassed,
       limitations,
       missedTargets,
     });

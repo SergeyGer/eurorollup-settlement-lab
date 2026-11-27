@@ -59,6 +59,18 @@ Result card: **1 of 2 orders changes dealing date** and **€300 more reserved a
 Friday close**. F-1530 settles 72 hours later and receives 0.125000 fewer units
 at the supplied Monday NAV.
 
+## Public replay
+
+The browser replay is published with GitHub Pages:
+<https://sergeyger.github.io/eurorollup-settlement-lab/>. It needs no wallet, model
+key or network connection: every view runs against frozen fixtures and the local API
+lab is the only view that expects a running local API.
+
+The downloadable evidence package is built with `pnpm release:package` and attached
+to the GitHub Release; it contains the release-commit source, fixtures, schemas,
+evidence, benchmarks and documentation with a SHA-256 MANIFEST. See
+[`docs/release/README.md`](docs/release/README.md).
+
 ## Replay preview
 
 The browser replay steps through the recorded G01 settlement with the pure
@@ -292,7 +304,10 @@ merged, and larger steps are tagged as GitHub Releases.
 - `v0.8.0` — verification and release candidate: the complete A01–A09 gate matrix,
   an offline release-check verifier, recorded limitations for the A05 chain lane and
   a release-candidate decision at `evidence/release-checks.json`.
-- Next: public replay, release packaging and documentation (S09).
+- `v0.9.0` — public release: GitHub Pages replay, unauthenticated public checks in a
+  clean browser, public link checks, downloadable release package with a SHA-256
+  manifest and the A08 public-release record.
+- Next: 60-second release film and final v1.0.0 (S10).
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:
