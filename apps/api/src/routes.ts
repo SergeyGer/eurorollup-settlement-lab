@@ -1,5 +1,6 @@
 /** HTTP routes for the partner API, issuer authority and local dev controls. */
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import type {} from "@fastify/rate-limit";
 import { ENGINE_VERSION, formatUtcInstant, hashJson, parseUtcInstant } from "@eurorollup/dealing";
 import type {
   CreateQuoteInput,
@@ -103,6 +104,9 @@ export function registerRoutes(app: FastifyInstance, ctx: AppContext): void {
   app.post(
     "/v1/eligibility/proofs",
     {
+      config: {
+        rateLimit: { max: 6, timeWindow: "1 minute" },
+      },
       schema: {
         tags: ["eligibility"],
         summary: "Generate a real Noir eligibility membership proof",
@@ -123,6 +127,9 @@ export function registerRoutes(app: FastifyInstance, ctx: AppContext): void {
   app.post(
     "/v1/eligibility/proofs/verify",
     {
+      config: {
+        rateLimit: { max: 30, timeWindow: "1 minute" },
+      },
       schema: {
         tags: ["eligibility"],
         summary: "Verify an eligibility proof against its public inputs",

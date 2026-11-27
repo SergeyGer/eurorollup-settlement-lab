@@ -12,6 +12,7 @@ import Fastify, {
   type FastifyRequest,
 } from "fastify";
 import cors from "@fastify/cors";
+import rateLimit from "@fastify/rate-limit";
 import swagger from "@fastify/swagger";
 import type { IdFactory } from "./ids.js";
 import type { ApiConfig } from "./config.js";
@@ -100,6 +101,10 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
   });
 
   await app.register(cors, { origin: true });
+  // Expensive endpoints (proof generation, live model drafting) opt into a
+  // strict per-route limiter; the default is disabled so replay routes stay
+  // unaffected.
+  await app.register(rateLimit, { global: false });
   await app.register(swagger, {
     openapi: {
       openapi: "3.1.0",
