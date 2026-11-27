@@ -225,6 +225,38 @@ records current calendar dates.
 - 181 tests; CI rebuilds the policy matrix, verifies committed proofs and
   artifact hashes, and verifies the account-abstraction receipts offline.
 
+## [0.8.0] — Verification and release candidate
+
+### Added
+
+- `pnpm release:checks`: runs the complete verification command set, validates every
+  committed evidence pack against its versioned JSON Schema, records SHA-256 digests
+  and assembles the A01–A09 gate matrix into `evidence/release-checks.json`.
+- `pnpm release:verify`: offline verification of the committed matrix (gate
+  completeness, evidence digests, recorded limitations and the release-candidate
+  decision); wired into CI.
+- `schemas/release-checks.schema.json` and the S08 verification record.
+- S07 verification record.
+
+### Evidence
+
+- `evidence/release-checks.json`: 7 pass, 1 pass with recorded limitations (A05),
+  1 pending (A08), 0 failed; release-candidate flag true.
+- A05 records two missed observations with a cause and a follow-up: blob data
+  availability (calldata development mode on the execution-only local L1) and L1
+  consensus finality (no L1 consensus client). These limitations are carried in the
+  matrix instead of being hidden.
+- A08 remains pending because the public replay URL verified signed out, the
+  clean-browser replay check, the downloadable pack and the 60-second film belong to
+  S09/S10.
+
+### Notes
+
+- The matrix records the source commit the checks were generated from; CI re-runs
+  every verification command on the merged commit and the matrix is attached to the
+  release tag.
+- `v0.8.0` is a release candidate. The final `v1.0.0` requires A08 on its commit.
+
 ## [0.7.0] — Economics and operations
 
 ### Added

@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/release-checks.schema.json",
+  "title": "S08 release gate verification matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "reportId", "packId", "generatedBy", "generatedAt",
+    "commit", "branch", "environment", "gates", "summary", "commands",
+    "evidenceDigests", "limitations", "missedTargets", "a07Details", "notes"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "S08-release-checks" },
+    "packId": { "const": "S08-verification" },
+    "generatedBy": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "branch": { "type": "string", "minLength": 1 },
+    "environment": { "type": "object" },
+    "gates": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "type": "object",
+        "required": ["gate", "title", "status", "commands", "evidence", "evidenceValid", "limitations", "missedTargets"],
+        "properties": {
+          "gate": { "type": "string", "pattern": "^A0[1-9]$" },
+          "title": { "type": "string" },
+          "status": { "enum": ["pass", "pass_with_recorded_limitations", "pending", "fail"] },
+          "pendingReason": { "type": "string" },
+          "requiredArtifacts": { "type": "array", "items": { "type": "string" } },
+          "commands": { "type": "array" },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["path", "description", "exists", "sha256", "bytes", "schema", "schemaValid", "schemaErrors"],
+              "properties": {
+                "path": { "type": "string" },
+                "description": { "type": "string" },
+                "exists": { "type": "boolean" },
+                "sha256": { "type": ["string", "null"] },
+                "bytes": { "type": ["integer", "null"] },
+                "schema": { "type": ["string", "null"] },
+                "schemaValid": { "type": "boolean" },
+                "schemaErrors": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          },
+          "evidenceValid": { "type": "boolean" },
+          "limitations": { "type": "array", "items": { "type": "string" } },
+          "missedTargets": { "type": "array", "items": { "type": "object" } }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["totalGates", "pass", "passWithRecordedLimitations", "pending", "failed", "failedGates", "releaseCandidate", "pendingGates"],
+      "properties": {
+        "totalGates": { "type": "integer", "minimum": 9 },
+        "pass": { "type": "integer", "minimum": 0 },
+        "passWithRecordedLimitations": { "type": "integer", "minimum": 0 },
+        "pending": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 },
+        "failedGates": { "type": "array", "items": { "type": "string" } },
+        "releaseCandidate": { "type": "boolean" },
+        "pendingGates": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "commands": {
+      "type": "array",
+      "minItems": 15,
+      "items": {
+        "type": "object",
+        "required": ["id", "command", "exitCode", "durationMs", "outputTail"],
+        "properties": {
+          "id": { "type": "string" },
+          "command": { "type": "string" },
+          "exitCode": { "type": "integer" },
+          "durationMs": { "type": "integer", "minimum": 0 },
+          "outputTail": { "type": "string" }
+        }
+      }
+    },
+    "evidenceDigests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gate", "path", "sha256", "bytes"],
+        "properties": {
+          "gate": { "type": "string" },
+          "path": { "type": "string" },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "bytes": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "missedTargets": { "type": "array", "items": { "type": "object" } },
+    "a07Details": { "type": "object" },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

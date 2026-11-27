@@ -289,7 +289,10 @@ merged, and larger steps are tagged as GitHub Releases.
   browser cost experiment, funding guard, RPC failover, batch publication, indexer
   restore and delayed-NAV drills, operating dashboard, provider evaluation and
   performance publication.
-- Next: verification gates A01-A09 and the offline evidence verifier (S08).
+- `v0.8.0` — verification and release candidate: the complete A01–A09 gate matrix,
+  an offline release-check verifier, recorded limitations for the A05 chain lane and
+  a release-candidate decision at `evidence/release-checks.json`.
+- Next: public replay, release packaging and documentation (S09).
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:
