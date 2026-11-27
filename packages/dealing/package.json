@@ -9,6 +9,6 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@noble/hashes": "^1.7.1"
+    "@noble/hashes": "^2.4.0"
   }
 }
