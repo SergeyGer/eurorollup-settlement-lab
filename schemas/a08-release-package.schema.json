@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/a08-release-package.schema.json",
+  "title": "A08 downloadable release package",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "reportId", "packId", "generatedBy", "generatedAt", "version", "commit", "fileName", "filePath", "bytes", "sha256", "manifestDigest", "manifestFileCount", "verified", "publicReplayUrl", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "A08-release-package" },
+    "packId": { "const": "A08-release" },
+    "generatedBy": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "fileName": { "type": "string" },
+    "filePath": { "type": "string" },
+    "bytes": { "type": "integer", "minimum": 1 },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "manifestDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "manifestFileCount": { "type": "integer", "minimum": 1 },
+    "verified": {
+      "type": "object",
+      "required": ["extracted", "manifestMatches", "missingFiles", "extraFiles", "mismatchedFiles"],
+      "properties": {
+        "extracted": { "type": "boolean" },
+        "manifestMatches": { "type": "boolean" },
+        "missingFiles": { "type": "array", "items": { "type": "string" } },
+        "extraFiles": { "type": "array", "items": { "type": "string" } },
+        "mismatchedFiles": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "publicReplayUrl": { "type": "string" },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

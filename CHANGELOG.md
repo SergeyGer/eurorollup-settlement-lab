@@ -225,6 +225,35 @@ records current calendar dates.
 - 181 tests; CI rebuilds the policy matrix, verifies committed proofs and
   artifact hashes, and verifies the account-abstraction receipts offline.
 
+## [0.9.0] — Public replay and release packaging
+
+### Added
+
+- GitHub Pages workflow building the browser replay with the project-site base path
+  and deploying `apps/web/dist` on every push to `main`.
+- `pnpm release:package`: deterministic source archive of the release commit with a
+  SHA-256 `MANIFEST.json`, re-extracted and verified by the builder before it records
+  `evidence/a08/release-package.json`.
+- `pnpm a08:public-check`: unauthenticated public-release checks — replay URL and
+  content, all browser views in a clean Playwright context with console/page error
+  capture and screenshots, representative quickstart commands, public links and the
+  downloadable package verification. Result recorded in
+  `evidence/a08/public-release.json`, with the film explicitly pending for S10.
+- `pnpm a08:verify`: offline verification of the A08 public evidence, integrated into
+  the release-check matrix (A08 becomes pending with completed public parts instead of
+  an empty placeholder).
+- Release documentation, versions `0.9.0` and A08 evidence schemas.
+
+### Evidence
+
+- Public replay URL verified signed out, five browser views rendered, screenshots
+  committed under `docs/media/`, public links checked and the release package
+  downloaded, extracted and matched against its manifest.
+- A08 remains pending because the 60-second film belongs to S10; the public checks
+  are recorded as passed and carried into the release-check matrix.
+- Final `v1.0.0` requires A08 on its commit, including the film frame and narration
+  checks.
+
 ## [0.8.0] — Verification and release candidate
 
 ### Added

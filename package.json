@@ -1,6 +1,6 @@
 {
   "name": "eurorollup-settlement-lab",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "description": "Open-source euro settlement sandbox for crypto trades, tokenized fund orders and AI policy simulation.",
   "license": "Apache-2.0",
@@ -14,6 +14,8 @@
     "a07:economics": "tsx scripts/a07-bundle.ts",
     "a07:operations": "tsx scripts/a07-operations.ts",
     "a07:verify": "tsx scripts/verify-a07-economics.ts",
+    "a08:public-check": "tsx scripts/a08-public-check.ts",
+    "a08:verify": "tsx scripts/verify-a08-evidence.ts",
     "aa:scenario": "tsx scripts/aa-scenario.ts",
     "aa:verify": "tsx scripts/verify-aa-evidence.ts",
     "api": "pnpm --filter @eurorollup/api dev",
@@ -40,6 +42,7 @@
     "policy:verify": "tsx packages/policy-lab/src/cli.ts verify",
     "preview": "pnpm --filter @eurorollup/web preview",
     "release:checks": "tsx scripts/build-release-checks.ts",
+    "release:package": "tsx scripts/build-release-package.ts",
     "release:verify": "tsx scripts/verify-release-checks.ts",
     "scenario:api": "tsx apps/api/scripts/run-evidence.ts",
     "scenario:boundary": "tsx packages/dealing/src/cli.ts boundary",
@@ -56,7 +59,8 @@
     "ethers": "6.13.4",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
-    "vitest": "^5.1.2"
+    "vitest": "^5.1.2",
+    "playwright": "1.49.1"
   },
   "pnpm": {
     "overrides": {

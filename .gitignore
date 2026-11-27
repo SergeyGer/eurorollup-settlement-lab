@@ -48,3 +48,6 @@ circuits/**/Prover.toml
 
 # controlled local devnet runtime state
 .devnet-local/
+
+# release packaging output
+release/
