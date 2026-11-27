@@ -1,0 +1,829 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S08-release-checks",
+  "packId": "S08-verification",
+  "generatedBy": "pnpm release:checks",
+  "generatedAt": "2026-11-27T15:21:55.846Z",
+  "commit": "cd136b1cc8df332379c78df3115412a2b84d41b9",
+  "branch": "step/S08-verification",
+  "environment": {
+    "hostname": "ubuntu-16gb-fsn1-2",
+    "platform": "linux",
+    "nodeVersion": "v22.23.3",
+    "cpuModel": "Intel Xeon Processor (Skylake, IBRS, no TSX)",
+    "cpuCount": 8
+  },
+  "gates": [
+    {
+      "gate": "A01",
+      "title": "Portfolio replay",
+      "status": "pass",
+      "commands": [
+        {
+          "id": "golden",
+          "command": "pnpm scenario:golden -- --check",
+          "exitCode": 0,
+          "durationMs": 1003
+        },
+        {
+          "id": "pack-verify",
+          "command": "pnpm verify",
+          "exitCode": 0,
+          "durationMs": 996
+        }
+      ],
+      "evidence": [
+        {
+          "path": "evidence/g01/golden-run.json",
+          "description": "G01 and G01-R golden run",
+          "exists": true,
+          "sha256": "72cc93d1128911f2280e95f9d078e3e0c2b400d1f1890d1449bc962ff5dbe8c1",
+          "bytes": 25823,
+          "schema": "schemas/golden-run.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "evidence/g01/manifest.json",
+          "description": "G01 evidence manifest",
+          "exists": true,
+          "sha256": "01c8eefd46094602a1556a6e258e140286379adfe52b488132e73b6b30ea9cd2",
+          "bytes": 1406,
+          "schema": "schemas/evidence-manifest.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        }
+      ],
+      "evidenceValid": true,
+      "limitations": [],
+      "missedTargets": []
+    },
+    {
+      "gate": "A02",
+      "title": "NAV and dealing boundaries",
+      "status": "pass",
+      "commands": [
+        {
+          "id": "boundary",
+          "command": "pnpm scenario:boundary -- --check",
+          "exitCode": 0,
+          "durationMs": 983
+        },
+        {
+          "id": "api-evidence",
+          "command": "pnpm scenario:api -- --check",
+          "exitCode": 0,
+          "durationMs": 4011
+        }
+      ],
+      "evidence": [
+        {
+          "path": "evidence/a02/dealing-cases.json",
+          "description": "Boundary dealing cases",
+          "exists": true,
+          "sha256": "87d4130ff6079ce60ed1e948f4b78af253de29785f5939ee2290aeafc2e64f40",
+          "bytes": 5478,
+          "schema": "schemas/dealing-cases.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "evidence/a02/api-dealing-cases.json",
+          "description": "API dealing cases",
+          "exists": true,
+          "sha256": "a087359fb1f624409d7e4ede0439cfd81c536aaa9336eba847d435ff962312b7",
+          "bytes": 32100,
+          "schema": "schemas/api-dealing-cases.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        }
+      ],
+      "evidenceValid": true,
+      "limitations": [],
+      "missedTargets": []
+    },
+    {
+      "gate": "A03",
+      "title": "Eligibility and policy matrix",
+      "status": "pass",
+      "commands": [
+        {
+          "id": "eligibility-matrix",
+          "command": "pnpm eligibility:matrix -- --check",
+          "exitCode": 0,
+          "durationMs": 1323
+        },
+        {
+          "id": "eligibility-verify",
+          "command": "pnpm eligibility:verify",
+          "exitCode": 0,
+          "durationMs": 1960
+        }
+      ],
+      "evidence": [
+        {
+          "path": "evidence/a03/policy-matrix.json",
+          "description": "Three-persona policy matrix",
+          "exists": true,
+          "sha256": "7c639da9eeb8c082b4854e5e4243a628429834a061d864a4e959a19d2594a3c8",
+          "bytes": 15012,
+          "schema": "schemas/eligibility-policy-matrix.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "evidence/a03/proof-vectors.json",
+          "description": "Positive and negative proof vectors",
+          "exists": true,
+          "sha256": "0b02475951a0ef57d18ced11e3b133d9e506fc67587724580ebbb6342622a1d0",
+          "bytes": 94431,
+          "schema": "schemas/eligibility-proof-vectors.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "evidence/a03/browser-proving.json",
+          "description": "Browser proving measurement",
+          "exists": true,
+          "sha256": "d808054a872e90c6aa116c093cc3746233487e1540a5140fa6d4c51cec22748a",
+          "bytes": 1448,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        }
+      ],
+      "evidenceValid": true,
+      "limitations": [],
+      "missedTargets": []
+    },
+    {
+      "gate": "A04",
+      "title": "Account abstraction receipts",
+      "status": "pass",
+      "commands": [
+        {
+          "id": "aa-verify",
+          "command": "pnpm aa:verify",
+          "exitCode": 0,
+          "durationMs": 1208
+        }
+      ],
+      "evidence": [
+        {
+          "path": "evidence/a04/aa-receipts.json",
+          "description": "Sponsored, included-failure and exhausted-sponsor receipts",
+          "exists": true,
+          "sha256": "ce83ec10f3b2e80a2c72939adb03f6e25de63ad22148d0186a54acdc37d2dc4b",
+          "bytes": 4564,
+          "schema": "schemas/aa-receipts.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        }
+      ],
+      "evidenceValid": true,
+      "limitations": [],
+      "missedTargets": []
+    },
+    {
+      "gate": "A05",
+      "title": "Chain batch publication and withdrawal",
+      "status": "pass_with_recorded_limitations",
+      "commands": [
+        {
+          "id": "a05-verify",
+          "command": "pnpm a05:verify",
+          "exitCode": 0,
+          "durationMs": 1189
+        }
+      ],
+      "evidence": [
+        {
+          "path": "evidence/a05/protocol-run.json",
+          "description": "Protocol run with batch publication",
+          "exists": true,
+          "sha256": "b4849189b617f47708344a7c9cb61d6406015115f8b3937c8cb7a5300fc3286c",
+          "bytes": 14559,
+          "schema": "schemas/a05-protocol-run.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "evidence/a05/bridge-trace.json",
+          "description": "Canonical withdrawal prove/resolve/finalize",
+          "exists": true,
+          "sha256": "8d4c88b7883d941e85a4c24e58d4033bd4ae5f0b6a538c5edb6a660fc10b5410",
+          "bytes": 6014,
+          "schema": "schemas/a05-bridge-trace.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        }
+      ],
+      "evidenceValid": true,
+      "limitations": [
+        "Blob data availability is not demonstrated: the execution-only local L1 posts calldata batches (documented development mode).",
+        "L1 consensus finality is not modelled: the local L1 is execution-only and exposes only head advancement."
+      ],
+      "missedTargets": [
+        {
+          "target": "blob batch publication (EIP-4844)",
+          "actual": "calldata batch publication demonstrated",
+          "cause": "the controlled local lane has no L1 consensus client or beacon API, and the pinned consensus-backed Kurtosis lane is blocked by an upstream image/genesis mismatch",
+          "followUp": "resolve the consensus-backed lane and re-capture A05 with blob batches"
+        },
+        {
+          "target": "L1 safe/finalized head observations",
+          "actual": "L2 safe/finalized heads recorded from op-node; L1 head recorded",
+          "cause": "no L1 consensus client on the controlled local lane",
+          "followUp": "record L1 safe/finalized heads on the consensus-backed lane"
+        }
+      ]
+    },
+    {
+      "gate": "A06",
+      "title": "Accounting invariants",
+      "status": "pass",
+      "commands": [
+        {
+          "id": "api-evidence",
+          "command": "pnpm scenario:api -- --check",
+          "exitCode": 0,
+          "durationMs": 4011
+        }
+      ],
+      "evidence": [
+        {
+          "path": "evidence/a06/invariants.json",
+          "description": "Duplicate, concurrent, restart and replaced-event invariants",
+          "exists": true,
+          "sha256": "e5997d837230de360f33191ec8c3a64b24d420fa8ec1c5fe634cbbf7b6413f22",
+          "bytes": 14460,
+          "schema": "schemas/invariants.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        }
+      ],
+      "evidenceValid": true,
+      "limitations": [],
+      "missedTargets": []
+    },
+    {
+      "gate": "A07",
+      "title": "Economics and operations",
+      "status": "pass",
+      "commands": [
+        {
+          "id": "a07-verify",
+          "command": "pnpm a07:verify",
+          "exitCode": 0,
+          "durationMs": 1108
+        }
+      ],
+      "evidence": [
+        {
+          "path": "evidence/a07/bundle-reconciliation.json",
+          "description": "Measured bundle reconciliation in wei",
+          "exists": true,
+          "sha256": "80131b24a5aeebd6b00d8d704f878ec57b094e40579dcdd1e77c2ed3797288c7",
+          "bytes": 4375,
+          "schema": "schemas/a07-bundle-reconciliation.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "benchmarks/cost-experiment.json",
+          "description": "Cost experiment scenarios",
+          "exists": true,
+          "sha256": "79eac637e0db1e25b95c3fb72b387a2ae5130401db5bdea7967957924fca0dc6",
+          "bytes": 8837,
+          "schema": "schemas/a07-cost-experiment.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "benchmarks/rpc-failover.json",
+          "description": "RPC failover drill",
+          "exists": true,
+          "sha256": "49713a042260d97d6279f31580d291323a5db3605bbc9ad402bb84228fca4c79",
+          "bytes": 1500,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "benchmarks/batch-publication-drill.json",
+          "description": "Batch publication pause/restore drill",
+          "exists": true,
+          "sha256": "12dc7b2d87cc405ddc6e68f4c624db6d7ce1b42e415dabc6864203751e9238db",
+          "bytes": 5668,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "benchmarks/indexer-restore.json",
+          "description": "Indexer restore drill",
+          "exists": true,
+          "sha256": "8435d2fcad7d52ee1e15d0a08b2cdde0e9076b6968a2b210e0c3b815709379d3",
+          "bytes": 1637,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "benchmarks/nav-source-drill.json",
+          "description": "Delayed NAV drill",
+          "exists": true,
+          "sha256": "69269b5e293dc7f1a9c6e153071bbc23ca817790c13790698f8b74ad2e5d068f",
+          "bytes": 881,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "benchmarks/performance.json",
+          "description": "Performance publication",
+          "exists": true,
+          "sha256": "3d9bb458433ad3a11b3ae9571e3541554fe52f2a932e82aa5e3107fdf193bc51",
+          "bytes": 3854,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "benchmarks/operations-dashboard.json",
+          "description": "Operating dashboard snapshot",
+          "exists": true,
+          "sha256": "467bb0dda175201ac9325898d6a7cb1618b7f63149bd8ca8028f55675dd674a3",
+          "bytes": 1796,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "benchmarks/provider-evaluation.json",
+          "description": "Provider evaluation",
+          "exists": true,
+          "sha256": "62c50db67376460a67b633a5401a9ba019f0ae393653e9e80ef07382395f067c",
+          "bytes": 3394,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "benchmarks/incident-report.json",
+          "description": "Incident postmortem",
+          "exists": true,
+          "sha256": "ff5a1b2edd35dc2e164e9df44ef8cdca8ebc9f877c9e37387daa733e19054b2f",
+          "bytes": 1763,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        }
+      ],
+      "evidenceValid": true,
+      "limitations": [],
+      "missedTargets": []
+    },
+    {
+      "gate": "A08",
+      "title": "Public release",
+      "status": "pending",
+      "pendingReason": "Awaiting S09 (public replay URL, clean-browser replay and downloadable pack) and S10 (60-second film).",
+      "requiredArtifacts": [
+        "public replay URL verified signed out",
+        "clean-browser replay check",
+        "downloadable evidence pack",
+        "60-second film with frame and narration checks"
+      ],
+      "commands": [],
+      "evidence": [],
+      "evidenceValid": true,
+      "limitations": [],
+      "missedTargets": []
+    },
+    {
+      "gate": "A09",
+      "title": "AI Policy Lab",
+      "status": "pass",
+      "commands": [
+        {
+          "id": "policy-replay",
+          "command": "pnpm policy:replay -- --check",
+          "exitCode": 0,
+          "durationMs": 992
+        },
+        {
+          "id": "policy-verify",
+          "command": "pnpm policy:verify",
+          "exitCode": 0,
+          "durationMs": 1002
+        },
+        {
+          "id": "policy-eval-mock",
+          "command": "pnpm policy:eval -- --adapter mock",
+          "exitCode": 0,
+          "durationMs": 1065
+        },
+        {
+          "id": "policy-eval-committed",
+          "command": "pnpm policy:eval -- --verify-only",
+          "exitCode": 0,
+          "durationMs": 1080
+        }
+      ],
+      "evidence": [
+        {
+          "path": "evidence/policy-lab/p01-comparison.json",
+          "description": "P01 two-branch comparison",
+          "exists": true,
+          "sha256": "f15985a9a8088358c10d715aea2649f49b1b754a09e94bfd5d728ecc06c68756",
+          "bytes": 9820,
+          "schema": "schemas/p01-comparison.schema.json",
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "evidence/policy-lab/eval.json",
+          "description": "40-prompt evaluation",
+          "exists": true,
+          "sha256": "93d823696e57385eaa8e56d9be297d492a8c7abf8336a66a3988f3fcd0778f1a",
+          "bytes": 27412,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "evidence/policy-lab/live-model-draft.json",
+          "description": "Recorded live model draft",
+          "exists": true,
+          "sha256": "ac529a76791923c90459bc26124e0234fe9c1c7c9f88cf73bbc2fba9b161aec3",
+          "bytes": 1203,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        },
+        {
+          "path": "evidence/policy-lab/manifest.json",
+          "description": "Policy Lab manifest",
+          "exists": true,
+          "sha256": "03aa6ff3783bdef73569bad35fae747a6a046adf1aefd6b327001af678bfb3d9",
+          "bytes": 555,
+          "schema": null,
+          "schemaValid": true,
+          "schemaErrors": []
+        }
+      ],
+      "evidenceValid": true,
+      "limitations": [],
+      "missedTargets": []
+    }
+  ],
+  "summary": {
+    "totalGates": 9,
+    "pass": 7,
+    "passWithRecordedLimitations": 1,
+    "pending": 1,
+    "failed": 0,
+    "failedGates": [],
+    "releaseCandidate": true,
+    "pendingGates": [
+      "A08"
+    ]
+  },
+  "commands": [
+    {
+      "id": "typecheck",
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "durationMs": 19869,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 typecheck /root/projects/eurorollup-settlement-lab\n> tsc -p packages/dealing/tsconfig.json --noEmit && tsc -p packages/policy-lab/tsconfig.json --noEmit && tsc -p packages/economics/tsconfig.json --noEmit && tsc -p packages/eligibility/tsconfig.json --noEmit && tsc -p packages/sdk/tsconfig.json --noEmit && tsc -p apps/api/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit\n\n\n"
+    },
+    {
+      "id": "tests",
+      "command": "pnpm test",
+      "exitCode": 0,
+      "durationMs": 7527,
+      "outputTail": "/test/eligibility.test.ts (10 tests) 4404ms\n   ✓ eligibility policy endpoints (4)\n     ✓ exposes the policy version, roots, gates and circuit metadata 403ms\n   ✓ eligibility proof endpoints (3)\n     ✓ generates a real proof that verifies against its public inputs 2403ms\n     ✓ rejects a proof against a different root 976ms\n ✓ apps/api/test/evidence.test.ts (5 tests) 5270ms\n   ✓ committed API evidence (5)\n     ✓ passes every A02 API dealing case 2486ms\n     ✓ passes every A06 invariant case 930ms\n     ✓ reproduces the committed A02 evidence byte for byte 1010ms\n     ✓ reproduces the committed A06 evidence byte for byte 787ms\n\n Test Files  21 passed (21)\n      Tests  202 passed (202)\n   Start at  15:22:16\n   Duration  6.24s (tests 72%, import 21%, transform 6%, worker 1%)\n\n    Isolate  21 workers spawned · ~242ms startup each (spawn + environment, per file)\n             at least ~484ms faster with isolate: false — reuses workers across files instead of one per file\n\n\n(node:266961) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:266970) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:266987) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:266963) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:266980) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:266981) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "id": "build",
+      "command": "pnpm build",
+      "exitCode": 0,
+      "durationMs": 2715,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 build /root/projects/eurorollup-settlement-lab\n> pnpm --filter @eurorollup/web build\n\n\n> @eurorollup/web@0.8.0 build /root/projects/eurorollup-settlement-lab/apps/web\n> vite build\n\nvite v8.4.0 building client environment for production...\ntransforming...\n✓ 144 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                   0.62 kB │ gzip:     0.38 kB\ndist/assets/thread.worker-gFEUd6pQ.js             6.23 kB\ndist/assets/main.worker-UxB3YQtS.js              10.16 kB\ndist/assets/noirc_abi_wasm_bg-AoAoe0Lz.wasm     789.60 kB │ gzip:   308.93 kB\ndist/assets/acvm_js_bg-D_Jg3KxI.wasm          3,050.25 kB │ gzip:   862.55 kB\ndist/assets/index-BSIc5O8T.css                   16.68 kB │ gzip:     3.47 kB\ndist/assets/index-DzLgYgBO.js                   318.74 kB │ gzip:    91.17 kB │ map:   819.61 kB\ndist/assets/prover-DrRl-4fe.js                  325.70 kB │ gzip:    81.47 kB │ map: 1,266.96 kB\ndist/assets/barretenberg-nKFMAszq.js          5,411.74 kB │ gzip: 4,040.41 kB │ map: 5,412.04 kB\ndist/assets/barretenberg-threads-CaKDmM8U.js  5,414.10 kB │ gzip: 4,041.14 kB │ map: 5,414.41 kB\n\n✓ built in 1.03s\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    {
+      "id": "golden",
+      "command": "pnpm scenario:golden -- --check",
+      "exitCode": 0,
+      "durationMs": 1003,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 scenario:golden /root/projects/eurorollup-settlement-lab\n> tsx packages/dealing/src/cli.ts golden \"--\" \"--check\"\n\nEuroRollup Settlement Lab — G01 golden replay (engine 0.2.0)\n  Seed                                                 spendable 1000.00 | reserved 0.00 | tWETH 0.000000 | eFUND 0.000000 | value 1000.00\n  Buy 200.00 dEUR at 2,000.00 EUR per tWETH            spendable 799.95 | reserved 0.00 | tWETH 0.100000 | eFUND 0.000000 | value 999.95\n  Request 300.00 dEUR at indicative NAV 100.00 EUR     spendable 499.95 | reserved 300.00 | tWETH 0.100000 | eFUND 0.000000 | value 999.95\n  Strike and settle at NAV 96.00 EUR                   spendable 499.95 | reserved 0.00 | tWETH 0.100000 | eFUND 3.125000 | value 999.95\n  Checkpoints:\n  After redemption at the next applicable NAV          spendable 597.95 | reserved 0.00 | tWETH 0.100000 | eFUND 2.125000 | value 1006.20\n  Receipts:\n    G01-SPOT-01: {\"schemaVersion\":\"1.0\",\"orderId\":\"G01-SPOT-01\",\"businessState\":\"FILLED\",\"assetId\":\"tWETH\",\"unitsBase\":\"100000000000000000\",\"assetDecimals\":18,\"cashAssetId\":\"dEUR\",\"cashDeployedBase\":\"200000000\",\"cashDecimals\":6,\"priceEurPerUnit\":\"2000.00\",\"investorChargeBase\":\"50000\"}\n    G01-FUND-01: {\"schemaVersion\":\"1.0\",\"orderId\":\"G01-FUND-01\",\"businessState\":\"ALLOCATED\",\"assetId\":\"eFUND\",\"unitsBase\":\"3125000\",\"assetDecimals\":6,\"cashAssetId\":\"dEUR\",\"cashDeployedBase\":\"300000000\",\"cashDecimals\":6,\"navEurPerUnit\":\"96.00\",\"investorChargeBase\":\"0\"}\n    G01-RED-01: {\"schemaVersion\":\"1.0\",\"orderId\":\"G01-RED-01\",\"businessState\":\"REDEEMED\",\"assetId\":\"eFUND\",\"unitsBase\":\"1000000\",\"assetDecimals\":6,\"cashAssetId\":\"dEUR\",\"cashPaidBase\":\"98000000\",\"cashDecimals\":6,\"navEurPerUnit\":\"98.00\",\"investorChargeBase\":\"0\"}\n  Business digest: e2dc0b07bca023a90d05f8f72a26d849066df694e766499a65b280ea350657df\nOK   evidence/g01/golden-run.json matches a fresh replay\nOK   evidence/g01/manifest.json matches a fresh replay\n\n"
+    },
+    {
+      "id": "boundary",
+      "command": "pnpm scenario:boundary -- --check",
+      "exitCode": 0,
+      "durationMs": 983,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 scenario:boundary /root/projects/eurorollup-settlement-lab\n> tsx packages/dealing/src/cli.ts boundary \"--\" \"--check\"\n\nEuroRollup Settlement Lab — A02 boundary dealing cases (engine 0.2.0)\n  PASS B-1459-59          requested 2026-11-20T14:59:59Z calendar LAB-UTC-1: baseline 2026-11-20 (expected 2026-11-20), candidate 2026-11-20 (expected 2026-11-20)\n  PASS B-1500-00          requested 2026-11-20T15:00:00Z calendar LAB-UTC-1: baseline 2026-11-20 (expected 2026-11-20), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-1600-00          requested 2026-11-20T16:00:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-1630-00          requested 2026-11-20T16:30:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-SATURDAY         requested 2026-11-21T14:00:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-SUNDAY           requested 2026-11-22T12:00:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-MONDAY-BEFORE    requested 2026-11-23T10:00:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-HOLIDAY-MONDAY   requested 2026-11-23T10:00:00Z calendar LAB-UTC-2: baseline 2026-11-24 (expected 2026-11-24), candidate 2026-11-24 (expected 2026-11-24)\n  Summary: 8/8 cases passed; business digest 0340e01bac5e8edb72f40c0a33beb017d328c9c75d73c50b6beeecaaaa0273f2\nOK   evidence/a02/dealing-cases.json matches a fresh replay\n\n"
+    },
+    {
+      "id": "api-evidence",
+      "command": "pnpm scenario:api -- --check",
+      "exitCode": 0,
+      "durationMs": 4011,
+      "outputTail": "S A02-API-PRICE-UNAVAILABLE — Unavailable price source returns a retry hint\n  PASS A02-API-INSUFFICIENT-CASH — Orders beyond the spendable cash are refused before acceptance\n  PASS A02-API-SPOT-FILL — Spot buy settles with the fixed EUR 0.05 charge\n  PASS A02-API-FUND-ALLOCATION — Fund subscription is reserved then allocated at the authorized NAV\n  PASS A02-API-DUST — Rounded-down units return the residual cash\n  PASS A02-API-MISSING-NAV — Missing NAV keeps the order pending with cash reserved\n  PASS A02-API-CANCEL-BEFORE — Cancellation before the cutoff releases the reservation\n  PASS A02-API-CANCEL-AFTER — Cancellation after the cutoff is refused\n  PASS A02-API-ZERO-UNIT-BOUNDARY — Quotes that would issue zero units are refused\n  PASS A02-API-REDEMPTION — Redemption reserves units and settles at the next applicable NAV\n  PASS A02-API-SPOT-SELL — Reverse quote sells tWETH with the fixed charge and checks inventory\n  PASS A02-API-G01-MATCH — G01 reproduced through the API matches the CLI evidence\n  OK   evidence/a02/api-dealing-cases.json matches a fresh evidence run\n\nA06-invariants: 6/6 cases passed\n  business digest 14620af3535c0f4fbb9a6783cd7eac97589b34e97a5c321b371e7a55ae864104\n  PASS A06-IDEMPOTENT-ORDERS — Same-key retries reuse the order and changed bodies conflict\n  PASS A06-CONCURRENT-CASH — Competing reservations cannot overspend the same cash\n  PASS A06-CONSERVATION — Journal balances to zero per asset across the full lifecycle\n  PASS A06-RESTART-RECOVERY — Projections rebuild from the event log after a restart and pending work resumes\n  PASS A06-REPLAY-EQUALITY — Identical action sequences produce identical state and canonical digests\n  PASS A06-DUPLICATE-EVENT — A duplicate event id cannot create a second business effect\n  OK   evidence/a06/invariants.json matches a fresh evidence run\n\n(node:267351) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "id": "policy-replay",
+      "command": "pnpm policy:replay -- --check",
+      "exitCode": 0,
+      "durationMs": 992,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 policy:replay /root/projects/eurorollup-settlement-lab\n> tsx packages/policy-lab/src/cli.ts replay \"--\" \"--check\"\n\nEuroRollup Policy Lab — P01 Friday cutoff comparison\n  P01 branches: baseline Friday close spendable 1400000000, reserved 0, units 6250000\n  P01 branches: candidate Friday close spendable 1400000000, reserved 300000000, units 3125000\n  orders: 2, changed dealing date: 1, extra reserved at Friday close: 300000000\n  boundary cases: 6/6 pass\n  comparison digest: c5405bc564a1a2d44b5485aa14bddf6e29af91dfba2d560177cde58e8d1f5f2f\n  pack digest:       653646b2f9031af28b7b7a95687fd02e3ab368b72456d4605503c65296c1738d\n  OK   evidence/policy-lab/p01-comparison.json matches a fresh replay\n  OK   evidence/policy-lab/manifest.json matches a fresh replay\n\n"
+    },
+    {
+      "id": "policy-verify",
+      "command": "pnpm policy:verify",
+      "exitCode": 0,
+      "durationMs": 1002,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 policy:verify /root/projects/eurorollup-settlement-lab\n> tsx packages/policy-lab/src/cli.ts verify\n\nEuroRollup Policy Lab — verify evidence/policy-lab (pack policy-lab-p01)\nOK   evidence/policy-lab verified: file digests, comparison digest and replay match\n\n"
+    },
+    {
+      "id": "policy-eval-mock",
+      "command": "pnpm policy:eval -- --adapter mock",
+      "exitCode": 0,
+      "durationMs": 1065,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 policy:eval /root/projects/eurorollup-settlement-lab\n> tsx packages/policy-lab/src/cli.ts eval \"--\" \"--adapter\" \"mock\"\n\nEuroRollup Policy Lab — A09 live-model evaluation (mock)\n  model: scripted-model digest n/a\n  valid 20/20 · clarify 10/10 · unsupported 10/10 · model errors 0\n  thresholds met: true\n  wrote eval-tmp/mock-eval.json (26954 bytes)\n\n"
+    },
+    {
+      "id": "policy-eval-committed",
+      "command": "pnpm policy:eval -- --verify-only",
+      "exitCode": 0,
+      "durationMs": 1080,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 policy:eval /root/projects/eurorollup-settlement-lab\n> tsx packages/policy-lab/src/cli.ts eval \"--\" \"--verify-only\"\n\nEuroRollup Policy Lab — A09 live-model evaluation (committed report)\n  valid 20/20 · clarify 10/10 · unsupported 10/10\n  model qwen3:4b · digest 359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7 · prompt p01-live-v10 · settings temp 0 seed 42 timeout 15000ms attempts 2\nOK   the committed evaluation meets the A09 thresholds and structure\n\n"
+    },
+    {
+      "id": "eligibility-matrix",
+      "command": "pnpm eligibility:matrix -- --check",
+      "exitCode": 0,
+      "durationMs": 1323,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 eligibility:matrix /root/projects/eurorollup-settlement-lab\n> tsx packages/eligibility/src/cli.ts matrix \"--\" \"--check\"\n\nOK   evidence/a03/policy-matrix.json matches the policy engine\n\n"
+    },
+    {
+      "id": "eligibility-verify",
+      "command": "pnpm eligibility:verify",
+      "exitCode": 0,
+      "durationMs": 1960,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 eligibility:verify /root/projects/eurorollup-settlement-lab\n> tsx packages/eligibility/src/cli.ts verify\n\nOK   policy matrix: 19 rows, 9 assertions\nOK   proof vectors: 3/3 positive, 5/5 negative\n\n"
+    },
+    {
+      "id": "aa-verify",
+      "command": "pnpm aa:verify",
+      "exitCode": 0,
+      "durationMs": 1208,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 aa:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-aa-evidence.ts\n\nOK   A04 account-abstraction receipts verified\n  A04-C01 sponsored-success: tx 0x84234e6f95… · event success=true cost=253265142014420 · deposit delta -253265142014420\n  A04-C02 included-failure: tx 0xd98293bb8a… · event success=false cost=218920589947334 · deposit delta -218920589947334\n  A04-C03 exhausted-sponsor: tx 0x68a6cfa566… · event absent · deposit delta 0\n\n"
+    },
+    {
+      "id": "a05-verify",
+      "command": "pnpm a05:verify",
+      "exitCode": 0,
+      "durationMs": 1189,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 a05:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-a05-evidence.ts\n\nA05 evidence verified: 10 calldata batch transaction(s), withdrawal 0xfbdf46187f8f6d34e864473ee7b1c56d1c05d6c4a1aa32cd4f2acc4125ef79bc proven and finalized with 100000000000000000 wei\n\n"
+    },
+    {
+      "id": "a07-verify",
+      "command": "pnpm a07:verify",
+      "exitCode": 0,
+      "durationMs": 1108,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 a07:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-a07-economics.ts\n\nA07 economics verified: bundle 0x9c38a36aa768c1301fbd01419330d9101b114380c34d8e11f80559532ca417f1 paid 472351559302104 wei in total, 2 allocations including a failed bucket; 5 cost scenarios\n\n"
+    },
+    {
+      "id": "openapi",
+      "command": "pnpm api:openapi -- --check",
+      "exitCode": 0,
+      "durationMs": 1989,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 api:openapi /root/projects/eurorollup-settlement-lab\n> tsx apps/api/scripts/dump-openapi.ts \"--\" \"--check\"\n\nOK   docs/api/openapi.json matches the generated document\n\n(node:267753) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "id": "pack-verify",
+      "command": "pnpm verify",
+      "exitCode": 0,
+      "durationMs": 996,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 verify /root/projects/eurorollup-settlement-lab\n> tsx packages/dealing/src/cli.ts verify\n\nEuroRollup Settlement Lab — verify evidence/g01 (pack G01)\nOK   evidence/g01 verified: inputs, file digests, business digest and replay match\n\n"
+    },
+    {
+      "id": "partner-demo",
+      "command": "pnpm demo:partner",
+      "exitCode": 0,
+      "durationMs": 2103,
+      "outputTail": "\n> eurorollup-settlement-lab@0.8.0 demo:partner /root/projects/eurorollup-settlement-lab\n> tsx apps/api/scripts/quickstart.ts\n\nEuroRollup partner quickstart\n  API                        http://127.0.0.1:43129\n  Fixture clock              2026-11-20T15:00:00Z\n  Calendar                   LAB-UTC-1\n  Event count                5\n\n1. Spot quote\n  quote id                   quote_demo_001\n  price                      2000000000 base units per tWETH\n  charge ceiling             50000 base units\n2. Spot order\n  order id                   order_demo_002\n  business state             FILLED\n  receipt units              100000000000000000\n  receipt charge             50000\n3. Fund quote\n  quote id                   quote_demo_004\n  indicative NAV             100000000 base units\n  dealing date               2026-11-20\n  cutoff                     16:00 UTC\n4. Fund order accepted\n  order id                   order_demo_005\n  business state             AWAITING_NAV\n  pending reserved cash      300000000\n  spendable cash             499950000\n5. Authorized NAV published\n  valuation date             2026-11-20\n  NAV                        96.00 EUR per unit\n  allocations queued         order_demo_005\n6. Allocation and portfolio\n  order state                ALLOCATED\n  units issued               3125000\n  spendable cash             499950000\n  reserved cash              0\n  tWETH                      100000000000000000\n  eFUND                      3125000\n  marked value               999950000\n\n  OK   spendable cash 499.95\n  OK   reserved cash cleared\n  OK   0.100000 tWETH\n  OK   3.125000 eFUND\n  OK   marked value 999.95\n\nQuickstart finished: the API reproduced the G01 golden portfolio.\n\n(node:267834) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    }
+  ],
+  "evidenceDigests": [
+    {
+      "gate": "A01",
+      "path": "evidence/g01/golden-run.json",
+      "sha256": "72cc93d1128911f2280e95f9d078e3e0c2b400d1f1890d1449bc962ff5dbe8c1",
+      "bytes": 25823
+    },
+    {
+      "gate": "A01",
+      "path": "evidence/g01/manifest.json",
+      "sha256": "01c8eefd46094602a1556a6e258e140286379adfe52b488132e73b6b30ea9cd2",
+      "bytes": 1406
+    },
+    {
+      "gate": "A02",
+      "path": "evidence/a02/dealing-cases.json",
+      "sha256": "87d4130ff6079ce60ed1e948f4b78af253de29785f5939ee2290aeafc2e64f40",
+      "bytes": 5478
+    },
+    {
+      "gate": "A02",
+      "path": "evidence/a02/api-dealing-cases.json",
+      "sha256": "a087359fb1f624409d7e4ede0439cfd81c536aaa9336eba847d435ff962312b7",
+      "bytes": 32100
+    },
+    {
+      "gate": "A03",
+      "path": "evidence/a03/policy-matrix.json",
+      "sha256": "7c639da9eeb8c082b4854e5e4243a628429834a061d864a4e959a19d2594a3c8",
+      "bytes": 15012
+    },
+    {
+      "gate": "A03",
+      "path": "evidence/a03/proof-vectors.json",
+      "sha256": "0b02475951a0ef57d18ced11e3b133d9e506fc67587724580ebbb6342622a1d0",
+      "bytes": 94431
+    },
+    {
+      "gate": "A03",
+      "path": "evidence/a03/browser-proving.json",
+      "sha256": "d808054a872e90c6aa116c093cc3746233487e1540a5140fa6d4c51cec22748a",
+      "bytes": 1448
+    },
+    {
+      "gate": "A04",
+      "path": "evidence/a04/aa-receipts.json",
+      "sha256": "ce83ec10f3b2e80a2c72939adb03f6e25de63ad22148d0186a54acdc37d2dc4b",
+      "bytes": 4564
+    },
+    {
+      "gate": "A05",
+      "path": "evidence/a05/protocol-run.json",
+      "sha256": "b4849189b617f47708344a7c9cb61d6406015115f8b3937c8cb7a5300fc3286c",
+      "bytes": 14559
+    },
+    {
+      "gate": "A05",
+      "path": "evidence/a05/bridge-trace.json",
+      "sha256": "8d4c88b7883d941e85a4c24e58d4033bd4ae5f0b6a538c5edb6a660fc10b5410",
+      "bytes": 6014
+    },
+    {
+      "gate": "A06",
+      "path": "evidence/a06/invariants.json",
+      "sha256": "e5997d837230de360f33191ec8c3a64b24d420fa8ec1c5fe634cbbf7b6413f22",
+      "bytes": 14460
+    },
+    {
+      "gate": "A07",
+      "path": "evidence/a07/bundle-reconciliation.json",
+      "sha256": "80131b24a5aeebd6b00d8d704f878ec57b094e40579dcdd1e77c2ed3797288c7",
+      "bytes": 4375
+    },
+    {
+      "gate": "A07",
+      "path": "benchmarks/cost-experiment.json",
+      "sha256": "79eac637e0db1e25b95c3fb72b387a2ae5130401db5bdea7967957924fca0dc6",
+      "bytes": 8837
+    },
+    {
+      "gate": "A07",
+      "path": "benchmarks/rpc-failover.json",
+      "sha256": "49713a042260d97d6279f31580d291323a5db3605bbc9ad402bb84228fca4c79",
+      "bytes": 1500
+    },
+    {
+      "gate": "A07",
+      "path": "benchmarks/batch-publication-drill.json",
+      "sha256": "12dc7b2d87cc405ddc6e68f4c624db6d7ce1b42e415dabc6864203751e9238db",
+      "bytes": 5668
+    },
+    {
+      "gate": "A07",
+      "path": "benchmarks/indexer-restore.json",
+      "sha256": "8435d2fcad7d52ee1e15d0a08b2cdde0e9076b6968a2b210e0c3b815709379d3",
+      "bytes": 1637
+    },
+    {
+      "gate": "A07",
+      "path": "benchmarks/nav-source-drill.json",
+      "sha256": "69269b5e293dc7f1a9c6e153071bbc23ca817790c13790698f8b74ad2e5d068f",
+      "bytes": 881
+    },
+    {
+      "gate": "A07",
+      "path": "benchmarks/performance.json",
+      "sha256": "3d9bb458433ad3a11b3ae9571e3541554fe52f2a932e82aa5e3107fdf193bc51",
+      "bytes": 3854
+    },
+    {
+      "gate": "A07",
+      "path": "benchmarks/operations-dashboard.json",
+      "sha256": "467bb0dda175201ac9325898d6a7cb1618b7f63149bd8ca8028f55675dd674a3",
+      "bytes": 1796
+    },
+    {
+      "gate": "A07",
+      "path": "benchmarks/provider-evaluation.json",
+      "sha256": "62c50db67376460a67b633a5401a9ba019f0ae393653e9e80ef07382395f067c",
+      "bytes": 3394
+    },
+    {
+      "gate": "A07",
+      "path": "benchmarks/incident-report.json",
+      "sha256": "ff5a1b2edd35dc2e164e9df44ef8cdca8ebc9f877c9e37387daa733e19054b2f",
+      "bytes": 1763
+    },
+    {
+      "gate": "A09",
+      "path": "evidence/policy-lab/p01-comparison.json",
+      "sha256": "f15985a9a8088358c10d715aea2649f49b1b754a09e94bfd5d728ecc06c68756",
+      "bytes": 9820
+    },
+    {
+      "gate": "A09",
+      "path": "evidence/policy-lab/eval.json",
+      "sha256": "93d823696e57385eaa8e56d9be297d492a8c7abf8336a66a3988f3fcd0778f1a",
+      "bytes": 27412
+    },
+    {
+      "gate": "A09",
+      "path": "evidence/policy-lab/live-model-draft.json",
+      "sha256": "ac529a76791923c90459bc26124e0234fe9c1c7c9f88cf73bbc2fba9b161aec3",
+      "bytes": 1203
+    },
+    {
+      "gate": "A09",
+      "path": "evidence/policy-lab/manifest.json",
+      "sha256": "03aa6ff3783bdef73569bad35fae747a6a046adf1aefd6b327001af678bfb3d9",
+      "bytes": 555
+    }
+  ],
+  "limitations": [
+    "Blob data availability is not demonstrated: the execution-only local L1 posts calldata batches (documented development mode).",
+    "L1 consensus finality is not modelled: the local L1 is execution-only and exposes only head advancement."
+  ],
+  "missedTargets": [
+    {
+      "target": "blob batch publication (EIP-4844)",
+      "actual": "calldata batch publication demonstrated",
+      "cause": "the controlled local lane has no L1 consensus client or beacon API, and the pinned consensus-backed Kurtosis lane is blocked by an upstream image/genesis mismatch",
+      "followUp": "resolve the consensus-backed lane and re-capture A05 with blob batches"
+    },
+    {
+      "target": "L1 safe/finalized head observations",
+      "actual": "L2 safe/finalized heads recorded from op-node; L1 head recorded",
+      "cause": "no L1 consensus client on the controlled local lane",
+      "followUp": "record L1 safe/finalized heads on the consensus-backed lane"
+    }
+  ],
+  "a07Details": {
+    "bundle": {
+      "outerTxHash": "0x9c38a36aa768c1301fbd01419330d9101b114380c34d8e11f80559532ca417f1",
+      "sponsorPaidWei": "472351559302104",
+      "allocationsReproduceTotal": true,
+      "unavailable": [
+        "l1DataFeeWei",
+        "operatorFeeWei"
+      ]
+    },
+    "batchPublication": {
+      "finalityDelayed": true,
+      "pausedHeadPreserved": true,
+      "backlogClearanceMs": 11290,
+      "missedTargets": []
+    },
+    "performance": {
+      "apiReadsP95Ms": 0.709,
+      "proofP95Ms": 490,
+      "passed": true
+    },
+    "providerEvaluation": {
+      "profiles": [
+        "primary-local-fixture-rpc",
+        "secondary-verifier-rpc",
+        "event-log-indexer-alternative"
+      ],
+      "unknowns": [
+        "No production provider contract, SLA or billing data is available in this sandbox."
+      ]
+    }
+  },
+  "notes": [
+    "A gate passes only when its commands exit zero and every evidence pack validates against its versioned JSON Schema.",
+    "A gate may pass with recorded limitations when the evidence honestly reports an unmet observation; the limitation and a follow-up are kept in this file.",
+    "A08 stays pending until the public replay, downloadable pack and film exist in S09/S10.",
+    "The recorded commit is the source commit the checks were generated from; CI re-runs every verification command on the merged commit, and this file is attached to the release tag."
+  ]
+}
