@@ -1,0 +1,474 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EuroRollup Settlement Lab partner API",
+    "description": "Local partner API for the synthetic euro settlement sandbox. Amounts are integer base units serialized as strings; timestamps are strict UTC instants. Business state and chain state are separate fields.",
+    "version": "0.2.0"
+  },
+  "components": {
+    "schemas": {}
+  },
+  "paths": {
+    "/v1/health": {
+      "get": {
+        "summary": "Health and fixture metadata",
+        "tags": [
+          "system"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/quotes": {
+      "post": {
+        "summary": "Create a spot or fund quote with indicative dealing terms",
+        "tags": [
+          "partner"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "accountId",
+                  "assetId",
+                  "side",
+                  "amountBase"
+                ],
+                "properties": {
+                  "accountId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "assetId": {
+                    "type": "string",
+                    "enum": [
+                      "tWETH",
+                      "eFUND"
+                    ]
+                  },
+                  "side": {
+                    "type": "string",
+                    "enum": [
+                      "BUY",
+                      "SELL",
+                      "SUBSCRIBE",
+                      "REDEEM"
+                    ]
+                  },
+                  "amountBase": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$",
+                    "description": "Positive integer base units. For BUY/SUBSCRIBE this is the cash amount; for SELL/REDEEM it is the asset quantity."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/orders": {
+      "post": {
+        "summary": "Accept an order against a quote",
+        "tags": [
+          "partner"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "quoteId",
+                  "accountId"
+                ],
+                "properties": {
+                  "quoteId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "accountId": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "in": "header",
+            "name": "idempotency-key",
+            "required": true,
+            "description": "Client-generated unique key. A same-key, same-body retry returns the existing order; a different body returns 409."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "get": {
+        "summary": "List orders for one account",
+        "tags": [
+          "partner"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "query",
+            "name": "accountId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/orders/{orderId}": {
+      "get": {
+        "summary": "Read business state, receipts and money movements for an order",
+        "tags": [
+          "partner"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "path",
+            "name": "orderId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/orders/{orderId}/cancel": {
+      "post": {
+        "summary": "Cancel an eligible pending fund order before its cutoff",
+        "tags": [
+          "partner"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "accountId"
+                ],
+                "properties": {
+                  "accountId": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "path",
+            "name": "orderId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/portfolios": {
+      "get": {
+        "summary": "List synthetic accounts with their cash",
+        "tags": [
+          "partner"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/portfolios/{accountId}": {
+      "get": {
+        "summary": "Read spendable, reserved and marked balances with price provenance",
+        "tags": [
+          "partner"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "path",
+            "name": "accountId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/issuer/nav": {
+      "post": {
+        "summary": "Publish an authorized synthetic eFUND NAV observation",
+        "tags": [
+          "issuer"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "assetId",
+                  "valuationDate",
+                  "navBase",
+                  "sourceTime",
+                  "revision"
+                ],
+                "properties": {
+                  "assetId": {
+                    "type": "string",
+                    "enum": [
+                      "eFUND"
+                    ]
+                  },
+                  "valuationDate": {
+                    "type": "string",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                  },
+                  "navBase": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$"
+                  },
+                  "sourceTime": {
+                    "type": "string",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+                  },
+                  "revision": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "x-role-identity",
+            "required": true,
+            "description": "Local role identity. NAV publication requires the issuer signer identity."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/dev/clock": {
+      "get": {
+        "summary": "Read the fixture clock",
+        "tags": [
+          "dev"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "post": {
+        "summary": "Advance the fixture clock forward",
+        "tags": [
+          "dev"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "to"
+                ],
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "description": "Target UTC instant. The fixture clock only moves forward."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/dev/price-source": {
+      "post": {
+        "summary": "Simulate a stale or unavailable dealer price source",
+        "tags": [
+          "dev"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "staleSeconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 86400
+                  },
+                  "unavailable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/dev/tick": {
+      "post": {
+        "summary": "Process pending outbox tasks synchronously",
+        "tags": [
+          "dev"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/dev/reset": {
+      "post": {
+        "summary": "Reset the demo to deterministic genesis",
+        "tags": [
+          "dev"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "summary": "OpenAPI 3.1 document",
+        "tags": [
+          "system"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "partner",
+      "description": "Investor and distributor endpoints"
+    },
+    {
+      "name": "issuer",
+      "description": "Issuer authority endpoints (role identity required)"
+    },
+    {
+      "name": "dev",
+      "description": "Local fixture controls; disabled when dev endpoints are off"
+    },
+    {
+      "name": "system",
+      "description": "Health and metadata"
+    }
+  ]
+}

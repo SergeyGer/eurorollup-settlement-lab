@@ -12,6 +12,7 @@ import {
   redemptionReplay,
   type ReplayStep,
 } from "./data/replay";
+import { LiveLab } from "./LiveLab";
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const MONTHS = [
@@ -34,8 +35,17 @@ const REPOSITORY_URL = "https://github.com/SergeyGer/eurorollup-settlement-lab";
 function groupThousands(value: string): string {
   const negative = value.startsWith("-");
   const unsigned = negative ? value.slice(1) : value;
-  const [whole = "0", fraction] = unsigned.split(".");
-  const grouped = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const dotIndex = unsigned.indexOf(".");
+  const whole = dotIndex === -1 ? unsigned : unsigned.slice(0, dotIndex);
+  const fraction = dotIndex === -1 ? undefined : unsigned.slice(dotIndex + 1);
+  let grouped = "";
+  for (let index = 0; index < whole.length; index += 1) {
+    grouped += whole[index];
+    const remaining = whole.length - index - 1;
+    if (remaining > 0 && remaining % 3 === 0) {
+      grouped += ",";
+    }
+  }
   return `${negative ? "-" : ""}${grouped}${fraction === undefined ? "" : `.${fraction}`}`;
 }
 
@@ -219,7 +229,7 @@ function StepDetail({ step }: { step: ReplayStep }): JSX.Element {
           </thead>
           <tbody>
             {step.journal.flatMap((entry) =>
-              entry.postings.map((posting) => {
+              entry.postings.map((posting, postingIndex) => {
                 const amount = parseBaseUnits(posting.amountBase);
                 const isNegative = amount < 0n;
                 const decimals =
@@ -232,7 +242,7 @@ function StepDetail({ step }: { step: ReplayStep }): JSX.Element {
                   ),
                 );
                 return (
-                  <tr key={`${entry.entryId}-${posting.accountKind}-${posting.accountId}-${posting.assetId}`}>
+                  <tr key={`${entry.entryId}-${postingIndex}`}>
                     <td>{accountLabel(posting.accountKind, posting.accountId)}</td>
                     <td>{assetLabel(posting.assetId)}</td>
                     <td className={`numeric mono ${isNegative ? "debit" : "credit"}`}>
@@ -327,6 +337,7 @@ export function App(): JSX.Element {
   );
   const [index, setIndex] = useState(() => g01Replay.length - 1);
   const [playing, setPlaying] = useState(false);
+  const [view, setView] = useState<"replay" | "live">("replay");
 
   const currentStep = steps[index] ?? steps[steps.length - 1];
 
@@ -412,6 +423,19 @@ export function App(): JSX.Element {
         </div>
       </header>
 
+      <nav className="view-switch" aria-label="View">
+        <button type="button" className={view === "replay" ? "active" : ""} onClick={() => setView("replay")}>
+          Recorded replay
+        </button>
+        <button type="button" className={view === "live" ? "active" : ""} onClick={() => setView("live")}>
+          Local API lab
+        </button>
+      </nav>
+
+      {view === "live" ? (
+        <LiveLab />
+      ) : (
+        <>
       <main className="layout">
         <section className="column">
           <PortfolioPanel snapshot={currentStep.snapshot} mode={mode} />
@@ -506,6 +530,8 @@ export function App(): JSX.Element {
           .
         </p>
       </footer>
+        </>
+      )}
     </div>
   );
 }

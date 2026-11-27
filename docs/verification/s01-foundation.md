@@ -42,10 +42,13 @@ Receipts:
 | G01-FUND-01 | ALLOCATED | 3.125000 eFUND | 300.00 dEUR at NAV 96.00 | 0.00 dEUR |
 | G01-RED-01 | REDEEMED | 1.000000 eFUND burned | 98.00 dEUR paid at NAV 98.00 | 0.00 dEUR |
 
-Deterministic identifiers:
+Deterministic identifiers (engine `0.1.0`, as released in `v0.1.0`):
 
 - G01 business digest:
   `72b49ec1256c38fe68f1d63f12a73bc299cbeaa2e74108eb09f86f7b4c0d08cf`
+- Engine version `0.2.0` (settlement core) regenerated the G01 evidence with a new
+  digest; see [`s02-settlement-core.md`](s02-settlement-core.md) for the current
+  artifact.
 - G01-R case digest is recorded inside the same pack.
 - The journal balances to zero per asset; the issuer, escrow, fee recipient and
   issuance control accounts are reconciled by the engine.

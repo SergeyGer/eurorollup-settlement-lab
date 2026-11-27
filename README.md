@@ -13,7 +13,8 @@ into a confirmed, replayable comparison.
 A crypto purchase has filled while a fund subscription waits for its net asset
 value (NAV). The sandbox explains exactly when cash becomes an asset, reserves
 pending cash explicitly, and links every state change to a reproducible
-receipt.
+receipt. The same journeys run through a typed partner API, a browser ticket and
+a command-line evidence verifier.
 
 | Journey | What a visitor can do |
 | --- | --- |
@@ -70,6 +71,24 @@ holding:
 See [`docs/verification/s01-foundation.md`](docs/verification/s01-foundation.md)
 for the verified checkpoints, receipts and digests of the foundation step.
 
+## Local API lab
+
+The second view drives the local partner API through the typed SDK: create a
+quote, accept an order, advance the fixture clock, publish the issuer NAV and
+watch the outbox worker settle the order. While the EUR 300.00 fund request
+awaits its NAV, the portfolio shows the reservation in its own bucket:
+
+![Local API lab: EUR 300.00 pending while the fund request awaits its NAV](docs/media/s02-live-pending.jpg)
+
+After the authorized NAV of 96.00 EUR is published, the pending cash becomes
+3.125000 eFUND and the marked portfolio value stays at EUR 999.95:
+
+![Local API lab after allocation: 3.125000 eFUND at NAV 96.00](docs/media/s02-live-allocated.jpg)
+
+API documentation: [`docs/api/partner-api.md`](docs/api/partner-api.md) and the
+generated [`openapi.json`](docs/api/openapi.json). Settlement-core verification:
+[`docs/verification/s02-settlement-core.md`](docs/verification/s02-settlement-core.md).
+
 ## Quick start
 
 Requirements: Node.js 22 or newer and pnpm 9 or newer
@@ -77,11 +96,19 @@ Requirements: Node.js 22 or newer and pnpm 9 or newer
 
 ```bash
 pnpm install
-pnpm test          # deterministic unit and fixture tests
-pnpm typecheck     # TypeScript project checks
+pnpm test              # deterministic unit, fixture and API tests
+pnpm typecheck         # TypeScript project checks
 pnpm scenario:golden   # replay G01 and write the evidence pack
-pnpm dev           # portfolio replay in the browser
+pnpm scenario:api      # regenerate the A02 and A06 API evidence
+pnpm verify            # verify the committed G01 evidence pack
+pnpm dev               # browser: recorded replay + Local API lab
+pnpm api               # local partner API on http://127.0.0.1:3000
+pnpm demo:partner      # SDK quickstart: G01 orders over HTTP
+pnpm api:openapi       # regenerate docs/api/openapi.json
 ```
+
+The browser "Local API lab" view needs the API running (`pnpm api`); the
+recorded replay works without a wallet, a model key or a network connection.
 
 See [`docs/`](docs/README.md) for architecture, fixtures, evidence formats and
 the delivery plan, and the project Wiki for the reader-facing project pages.
@@ -89,11 +116,11 @@ the delivery plan, and the project Wiki for the reader-facing project pages.
 ## Repository layout
 
 ```text
-apps/web            Browser replay and portfolio UI
-apps/api            HTTP API and workers (scenario and settlement services)
-packages/dealing    Pure deterministic dealing engine shared by browser, CLI and worker
-packages/policy-lab Typed AI proposal schemas and model adapters
-packages/sdk        Typed partner SDK
+apps/web             Browser replay and Local API lab ticket
+apps/api             Local partner API, event log, journal and outbox worker
+packages/dealing     Pure deterministic dealing engine shared by browser, CLI and worker
+packages/policy-lab  Typed AI proposal schemas and model adapters (step S03/S04)
+packages/sdk         Typed partner SDK and HTTP client
 contracts           Foundry contracts (spot router, fund vault, share token)
 circuits            Noir eligibility circuit and vectors
 fixtures            Frozen synthetic inputs (G01, P01, calendars, instruments)
@@ -108,16 +135,17 @@ The project is delivered in documented steps tracked as GitHub Issues and
 Milestones. Each step closes only when its fixtures, tests and evidence are
 merged, and larger steps are tagged as GitHub Releases.
 
-- Current stage: foundation released as `v0.1.0` — frozen fixtures, integer
-  money arithmetic, versioned UTC calendar, the G01 portfolio replay with a
-  reproducible evidence pack, and a basic browser replay.
-- Next: settlement core and partner API (step S02), then policy-lab simulation,
-  live model adapter, account abstraction and eligibility, pinned local rollup,
-  economics and operations, verification gates A01–A09, public release and the
-  release film.
+- `v0.1.0` — foundation: frozen fixtures, integer money arithmetic, versioned UTC
+  calendar, the G01 portfolio replay with a reproducible evidence pack.
+- `v0.2.0` — settlement core: local partner API, durable event log and outbox,
+  idempotent orders, cancellation windows, typed SDK, browser Local API lab and
+  the A02/A06 evidence.
+- Next: the Policy Lab simulation step (S03) — typed rule diff, two-branch replay
+  and the Friday cutoff comparison.
 
 See the development roadmap in the GitHub Issues and
-[`docs/plan/roadmap.md`](docs/plan/roadmap.md).
+[`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:
+[`docs/api/partner-api.md`](docs/api/partner-api.md).
 
 ## Security
 

@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "fixtureId": "G01",
   "fixtureVersion": "1.0.0",
-  "engineVersion": "0.1.0",
+  "engineVersion": "0.2.0",
   "calendar": {
     "calendarId": "LAB-UTC-1",
     "version": "1.0.0"
@@ -732,7 +732,7 @@
       "businessDigest": "281a7d3ae08735c6b936869dd67dafcb149c0ad4f8db6b44606c1a1f0f85e04d"
     }
   ],
-  "businessDigest": "72b49ec1256c38fe68f1d63f12a73bc299cbeaa2e74108eb09f86f7b4c0d08cf",
+  "businessDigest": "e2dc0b07bca023a90d05f8f72a26d849066df694e766499a65b280ea350657df",
   "checksums": {
     "inputs": "b173bf488facbea5b669dfdbe38cb6dee78d48120d56241e7c916cf78c07e49e",
     "steps": "6984ec2b279e60411d3e1f725c2e1260372763a91ee4aa9e865d6eb61fd9d5ed",

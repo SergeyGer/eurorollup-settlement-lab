@@ -1,0 +1,580 @@
+{
+  "schemaVersion": "1.0.0",
+  "fixtureId": "A06-invariants",
+  "fixtureVersion": "1.0.0",
+  "engineVersion": "0.2.0",
+  "serviceVersion": "0.2.0",
+  "generatedBy": "pnpm scenario:api",
+  "cases": [
+    {
+      "caseId": "A06-IDEMPOTENT-ORDERS",
+      "title": "Same-key retries reuse the order and changed bodies conflict",
+      "steps": [
+        {
+          "action": "create quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "first submission",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "same key and body retry",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "create second quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "same key with different body",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 409,
+          "code": "IDEMPOTENCY_KEY_REUSED"
+        },
+        {
+          "action": "read order",
+          "method": "GET",
+          "url": "/v1/orders/order_0002",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "first status",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "retry status",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "retry returns same order",
+          "expected": "order_0002",
+          "actual": "order_0002",
+          "pass": true
+        },
+        {
+          "label": "only one order persisted",
+          "expected": "1",
+          "actual": "1",
+          "pass": true
+        },
+        {
+          "label": "conflict status",
+          "expected": "409",
+          "actual": "409",
+          "pass": true
+        },
+        {
+          "label": "conflict code",
+          "expected": "IDEMPOTENCY_KEY_REUSED",
+          "actual": "IDEMPOTENCY_KEY_REUSED",
+          "pass": true
+        },
+        {
+          "label": "still one order after settlement",
+          "expected": "1",
+          "actual": "1",
+          "pass": true
+        },
+        {
+          "label": "settled state",
+          "expected": "FILLED",
+          "actual": "FILLED",
+          "pass": true
+        },
+        {
+          "label": "event count",
+          "expected": "7",
+          "actual": "7",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A06-CONCURRENT-CASH",
+      "title": "Competing reservations cannot overspend the same cash",
+      "steps": [
+        {
+          "action": "create first 600 EUR quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "create second 600 EUR quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "accept first reservation",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "accept second reservation",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "read first order",
+          "method": "GET",
+          "url": "/v1/orders/order_0003",
+          "status": 200
+        },
+        {
+          "action": "read second order",
+          "method": "GET",
+          "url": "/v1/orders/order_0005",
+          "status": 200
+        },
+        {
+          "action": "read portfolio",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "both accepted for asynchronous settlement",
+          "expected": "[202,202]",
+          "actual": "[202,202]",
+          "pass": true
+        },
+        {
+          "label": "first order reserved",
+          "expected": "AWAITING_NAV",
+          "actual": "AWAITING_NAV",
+          "pass": true
+        },
+        {
+          "label": "second order declined",
+          "expected": "DECLINED",
+          "actual": "DECLINED",
+          "pass": true
+        },
+        {
+          "label": "second decline reason",
+          "expected": "INSUFFICIENT_CASH",
+          "actual": "INSUFFICIENT_CASH",
+          "pass": true
+        },
+        {
+          "label": "reserved cash limited to one order",
+          "expected": "600000000",
+          "actual": "600000000",
+          "pass": true
+        },
+        {
+          "label": "spendable cash not negative",
+          "expected": "400000000",
+          "actual": "400000000",
+          "pass": true
+        },
+        {
+          "label": "event count",
+          "expected": "6",
+          "actual": "6",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A06-CONSERVATION",
+      "title": "Journal balances to zero per asset across the full lifecycle",
+      "steps": [
+        {
+          "action": "create spot buy quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place spot buy order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "create fund subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place fund subscription order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "advance fixture clock after the valuation",
+          "method": "POST",
+          "url": "/v1/dev/clock",
+          "status": 200
+        },
+        {
+          "action": "publish authorized NAV 96.00",
+          "method": "POST",
+          "url": "/v1/issuer/nav",
+          "status": 201
+        },
+        {
+          "action": "read settled fund order",
+          "method": "GET",
+          "url": "/v1/orders/order_0005",
+          "status": 200
+        },
+        {
+          "action": "create redemption quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "read portfolio",
+          "method": "GET",
+          "url": "/v1/portfolios/investor-ada",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "spot quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "spot order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "fund quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "fund order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "nav publication status",
+          "expected": "201",
+          "actual": "201",
+          "pass": true
+        },
+        {
+          "label": "journal imbalances",
+          "expected": "[]",
+          "actual": "[]",
+          "pass": true
+        },
+        {
+          "label": "spendable cash",
+          "expected": "597950000",
+          "actual": "597950000",
+          "pass": true
+        },
+        {
+          "label": "tWETH balance",
+          "expected": "100000000000000000",
+          "actual": "100000000000000000",
+          "pass": true
+        },
+        {
+          "label": "eFUND balance",
+          "expected": "2125000",
+          "actual": "2125000",
+          "pass": true
+        },
+        {
+          "label": "marked value",
+          "expected": "1006200000",
+          "actual": "1006200000",
+          "pass": true
+        },
+        {
+          "label": "event count",
+          "expected": "13",
+          "actual": "13",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A06-RESTART-RECOVERY",
+      "title": "Projections rebuild from the event log after a restart and pending work resumes",
+      "steps": [
+        {
+          "action": "create spot buy quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place spot buy order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "create fund subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place fund subscription order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "advance fixture clock after the valuation",
+          "method": "POST",
+          "url": "/v1/dev/clock",
+          "status": 200
+        },
+        {
+          "action": "publish authorized NAV 96.00",
+          "method": "POST",
+          "url": "/v1/issuer/nav",
+          "status": 201
+        },
+        {
+          "action": "read settled fund order",
+          "method": "GET",
+          "url": "/v1/orders/order_0005",
+          "status": 200
+        },
+        {
+          "action": "read resumed order",
+          "method": "GET",
+          "url": "/v1/orders/order_0008",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "spot quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "spot order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "fund quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "fund order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "nav publication status",
+          "expected": "201",
+          "actual": "201",
+          "pass": true
+        },
+        {
+          "label": "event log survived",
+          "expected": "10",
+          "actual": "10",
+          "pass": true
+        },
+        {
+          "label": "journal rebuilt",
+          "expected": "8",
+          "actual": "8",
+          "pass": true
+        },
+        {
+          "label": "orders equal after restart",
+          "expected": "true",
+          "actual": "true",
+          "pass": true
+        },
+        {
+          "label": "portfolio equal after restart",
+          "expected": "true",
+          "actual": "true",
+          "pass": true
+        },
+        {
+          "label": "order accepted after restart",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "pending order resumed after restart",
+          "expected": "AWAITING_NAV",
+          "actual": "AWAITING_NAV",
+          "pass": true
+        },
+        {
+          "label": "no duplicate events",
+          "expected": "11",
+          "actual": "11",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A06-REPLAY-EQUALITY",
+      "title": "Identical action sequences produce identical state and canonical digests",
+      "steps": [],
+      "checks": [
+        {
+          "label": "identical canonical state",
+          "expected": "true",
+          "actual": "true",
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "caseId": "A06-DUPLICATE-EVENT",
+      "title": "A duplicate event id cannot create a second business effect",
+      "steps": [
+        {
+          "action": "create spot buy quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place spot buy order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "create fund subscription quote",
+          "method": "POST",
+          "url": "/v1/quotes",
+          "status": 200
+        },
+        {
+          "action": "place fund subscription order",
+          "method": "POST",
+          "url": "/v1/orders",
+          "status": 202
+        },
+        {
+          "action": "advance fixture clock after the valuation",
+          "method": "POST",
+          "url": "/v1/dev/clock",
+          "status": 200
+        },
+        {
+          "action": "publish authorized NAV 96.00",
+          "method": "POST",
+          "url": "/v1/issuer/nav",
+          "status": 201
+        },
+        {
+          "action": "read settled fund order",
+          "method": "GET",
+          "url": "/v1/orders/order_0005",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "label": "spot quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "spot order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "fund quote status",
+          "expected": "200",
+          "actual": "200",
+          "pass": true
+        },
+        {
+          "label": "fund order accepted",
+          "expected": "202",
+          "actual": "202",
+          "pass": true
+        },
+        {
+          "label": "nav publication status",
+          "expected": "201",
+          "actual": "201",
+          "pass": true
+        },
+        {
+          "label": "duplicate rejected",
+          "expected": "DUPLICATE_EVENT",
+          "actual": "DUPLICATE_EVENT",
+          "pass": true
+        },
+        {
+          "label": "event count unchanged",
+          "expected": "10",
+          "actual": "10",
+          "pass": true
+        },
+        {
+          "label": "journal still balanced",
+          "expected": "[]",
+          "actual": "[]",
+          "pass": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "businessDigest": "14620af3535c0f4fbb9a6783cd7eac97589b34e97a5c321b371e7a55ae864104"
+}

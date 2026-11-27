@@ -32,6 +32,8 @@ export type SettlementEvent =
       readonly priceAsOf: string;
       readonly expiresAt: string;
       readonly chargeBase: string;
+      /** Minimum cash proceeds for a reverse quote; the fill is refused below it. */
+      readonly minProceedsBase?: string;
     })
   | (EventBase & {
       readonly type: "spot.order.filled";
@@ -68,6 +70,16 @@ export type SettlementEvent =
   | (EventBase & {
       readonly type: "fund.redemption.settled";
       readonly orderId: string;
+    })
+  | (EventBase & {
+      readonly type: "fund.subscription.cancelled";
+      readonly orderId: string;
+      readonly reason?: string;
+    })
+  | (EventBase & {
+      readonly type: "fund.redemption.cancelled";
+      readonly orderId: string;
+      readonly reason?: string;
     });
 
 export type SettlementEventType = SettlementEvent["type"];

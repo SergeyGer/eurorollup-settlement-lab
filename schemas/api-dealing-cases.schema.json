@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SergeyGer/eurorollup-settlement-lab/schemas/api-dealing-cases.schema.json",
+  "title": "A02 API dealing cases evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "fixtureId",
+    "fixtureVersion",
+    "engineVersion",
+    "serviceVersion",
+    "generatedBy",
+    "cases",
+    "summary",
+    "businessDigest"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "fixtureId": { "type": "string", "const": "A02-api-dealing" },
+    "fixtureVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "engineVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "serviceVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "generatedBy": { "type": "string", "minLength": 1 },
+    "cases": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/case" } },
+    "summary": { "$ref": "#/$defs/summary" },
+    "businessDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "$defs": {
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "method", "url", "status"],
+      "properties": {
+        "action": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "enum": ["GET", "POST"] },
+        "url": { "type": "string", "minLength": 1 },
+        "status": { "type": "integer", "minimum": 100, "maximum": 599 },
+        "code": { "type": "string", "minLength": 1 }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "expected", "actual", "pass"],
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "expected": { "type": "string" },
+        "actual": { "type": "string" },
+        "pass": { "type": "boolean" }
+      }
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caseId", "title", "steps", "checks", "pass"],
+      "properties": {
+        "caseId": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "steps": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/step" } },
+        "checks": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/check" } },
+        "pass": { "type": "boolean" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "passed", "failed"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 1 },
+        "passed": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}
