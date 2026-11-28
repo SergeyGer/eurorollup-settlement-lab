@@ -32,6 +32,7 @@ fixture dates and version numbers are content, not publication dates.
 | [`verification/s16-onchain-eligibility.md`](verification/s16-onchain-eligibility.md) | S16 onchain eligibility: real UltraHonk proofs, cached approvals, root rotation recovery. |
 | [`verification/s17-sponsored-order.md`](verification/s17-sponsored-order.md) | S17 sponsored order: ERC-4337 v0.7 bundles, scoped expiring permits, lost-response recovery. |
 | [`verification/s18-settlement-pack.md`](verification/s18-settlement-pack.md) | S18 settlement pack: run evidence export, joined chain witness, tamper detection. |
+| [`verification/s19-net01-attempt.md`](verification/s19-net01-attempt.md) | S19 NET-01 attempt: consensus lane, blob batching and the recorded upstream blocker. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |
 | [`glossary.md`](glossary.md) | Shared vocabulary for the domain, the Policy Lab and the rollup. |
 | [`operations/`](operations/) | Runbooks, drills and incident records. |

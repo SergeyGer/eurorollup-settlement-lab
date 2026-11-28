@@ -35,6 +35,18 @@ execution-only anvil L1 and therefore cannot fetch blob sidecars.
 - Calldata batches are larger than blob batches; the cost comparison belongs to
   the economics step (S07).
 
+## Update: NET-01 lane attempt
+
+The consensus-backed lane was attempted four times with pinned client images; the lane
+launches and op-batcher publishes blob transactions, but the consensus client rejects
+every blob block with `InvalidCellProofLength { expected: 128, actual: 1 }` (image/genesis
+mismatch between the pinned upstream package revision and the client releases), and the
+older lighthouse release that would accept the pre-Fulu block cannot start against the
+generated genesis. The exact attempts are recorded in
+`evidence/s19/upstream-blocker.json` and `docs/verification/s19-net01-attempt.md`.
+The calldata lane remains the working local evidence path until the upstream mismatch is
+resolved; NET-01 stays open.
+
 ## Verification
 
 `evidence/a05/protocol-run.json` contains the batch transactions observed on the
