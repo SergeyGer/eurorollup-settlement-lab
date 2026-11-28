@@ -35,11 +35,13 @@ function main(): void {
   const relationship = attestation["tagRelationship"];
   check(relationship["kind"] === "evidence-and-metadata-only", "the tag/build relationship is evidence-and-metadata-only");
   const diffFiles = (relationship["diffFiles"] as Array<{ status: string; path: string }>).map((entry) => entry.path).sort();
-  check(
-    JSON.stringify(diffFiles) ===
-      JSON.stringify(["evidence/a08/public-release.json", "evidence/a08/release-package.json", "evidence/release-checks.json", "media/film/film-metadata.json"].sort()),
-    "the recorded diff contains exactly the four evidence/metadata files",
-  );
+  const expectedV1 = ["evidence/a08/public-release.json", "evidence/a08/release-package.json", "evidence/release-checks.json", "media/film/film-metadata.json"].sort();
+  if (attestation["tag"] === "v1.0.0") {
+    check(JSON.stringify(diffFiles) === JSON.stringify(expectedV1), "the v1.0.0 recorded diff contains exactly the four evidence/metadata files");
+  } else {
+    check(diffFiles.length > 0, "the recorded diff must contain at least one evidence/metadata file");
+    check(diffFiles.every((path) => path.startsWith("evidence/") || path.startsWith("media/")), "the tag diff may only contain evidence/metadata files");
+  }
   const artifacts = attestation["artifacts"];
   check(artifacts["package"]["exactTaggedTree"] === false, "the archive is not claimed as the exact tagged tree");
   check(artifacts["package"]["builtFromCommit"] === attestation["builtFromCommit"], "the archive records the build commit");
