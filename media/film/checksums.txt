@@ -1,13 +1,12 @@
 # Release film checksums
 
-SHA-256 for every published media asset. The MP4 is attached to the GitHub Release as
-`eurollup-release-film-1.0.0.mp4`; the other files are committed under `media/film/`.
+SHA-256 for every published media asset of the v1.1.0 re-cut. The MP4 is attached to the GitHub Release as
+`eurollup-release-film-1.1.0.mp4`; the other files are committed under `media/film/`.
 
-0af81effc863c16797eaa0e09c6d01cc180642d036c87d2fed6cef4580837b93  release-film.mp4
+e0674bf476e4535c23f741ef18054d877446a4918da3df2f98b96bf0b762cde4  eurollup-release-film-1.1.0.mp4
 04d24f32b54fb663e8bab35a3633d627667a449e03476bd12728d63d82d91182  release-film.vtt
-7cd051c17643a81a6dbc5f4809dd5e50a677301b3cbe86c29806538d6369af0c  release-film.ass
-bab63a2b6c080cdecaa5d177bdbf0da31532c307f10eb0826c62b14805e0749f  release-film-transcript.md
-8d49a49dff5dd0ad7ebbec9219d0698e25a3932b163062ca7ba7f283d68e76d1  social-preview-1280x640.png
-59079936bcc9f6f4e3849ccae7b2ae298c34b8722c2d39e740db272bec5d38aa  intro-frame-1920x1080.png
-57f7d9170aa76a8032378b8f9ff7c27e5f5784b4632f7761986f7fba1823f63b  end-card-1920x1080.png
-7ef4884e0bd6c2e7b970db1bbccd4943611418c820372c457749b461cb98dc6b  film-metadata.json
+24e9bf2621c701d71fa117cae1740e8bb8eff398fa08f79468ba17283bfd7936  release-film-transcript.md
+1b56f8f964dfea2363a8376ba6a668bc0c888880b15595defcc5e89a5bf4164e  social-preview-1280x640.png
+7e56936c32dddb74f4d4bc707c13fc67786435bfd0f988c86f7173df8eadf75f  intro-frame-1920x1080.png
+1126c3aefa65857e2109a4e7a5292d708bd86b3bc0bc4b5dd5233947b6b8ede7  end-card-1920x1080.png
+19aa110b2d9793bc0debd067d7c674f130212f4a90120ed8698704c6b46ef808  film-metadata.json

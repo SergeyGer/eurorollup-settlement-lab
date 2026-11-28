@@ -18,8 +18,8 @@ project-site base path and deploys `apps/web/dist` on every push to `main`.
 
 ## Release film
 
-The required 60-second English-narrated film is attached to the GitHub Release:
-`eurollup-release-film-1.0.0.mp4`. Captions (`media/film/release-film.vtt`),
+The required 60-second English-narrated film is available in the replay **Release film**
+view and attached to the GitHub Release as `eurollup-release-film-1.1.0.mp4`. Captions (`media/film/release-film.vtt`, a separate track that starts off),
 the verbatim transcript (`media/film/release-film-transcript.md`) and the frame/audio
 check record (`media/film/film-metadata.json`) are published with checksums.
 

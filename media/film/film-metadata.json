@@ -1,15 +1,15 @@
 {
   "schemaVersion": "1.0.0",
-  "reportId": "S10-release-film",
+  "reportId": "S14-release-film",
   "generatedBy": "pnpm film:build",
-  "generatedAt": "2026-11-27T16:24:53.506Z",
-  "version": "1.0.0",
-  "commit": "cb98283733d9ae381728b722eeba8cc75ad0bcbf",
+  "generatedAt": "2026-11-28T10:23:38.532Z",
+  "version": "1.1.0",
+  "commit": "289f81a4e54af682a5efa2b6abf75cc9469adfb6",
   "film": {
     "file": "media/film/release-film.mp4",
-    "assetName": "eurollup-release-film-1.0.0.mp4",
-    "bytes": 8723175,
-    "sha256": "0af81effc863c16797eaa0e09c6d01cc180642d036c87d2fed6cef4580837b93",
+    "assetName": "eurollup-release-film-1.1.0.mp4",
+    "bytes": 8376057,
+    "sha256": "e0674bf476e4535c23f741ef18054d877446a4918da3df2f98b96bf0b762cde4",
     "frameCount": 1800,
     "width": 1920,
     "height": 1080,
@@ -44,73 +44,80 @@
       {
         "id": "s0",
         "start": 0,
-        "end": 4.904,
+        "end": 4.9,
         "text": "EuroRollup shows how crypto trades and fund investments settle in euros."
       },
       {
         "id": "s1",
         "start": 5,
-        "end": 13.481,
+        "end": 13.446,
         "text": "Starting with a thousand demo euros, I buy two hundred euros of test ether. The receipt shows the five-cent charge."
       },
       {
         "id": "s2",
         "start": 14,
-        "end": 21.846,
+        "end": 21.845,
         "text": "My fund order waits for its valuation. At ninety-six euros per unit, three hundred euros buys three and one eighth units."
       },
       {
         "id": "s3",
         "start": 22,
-        "end": 30.84,
+        "end": 31.003,
         "text": "Now I ask what happens if Friday's fund cutoff moves from four to three. The model turns my question into one proposed rule."
       },
       {
         "id": "s4",
         "start": 33,
-        "end": 42.389,
+        "end": 42.366,
         "text": "I confirm the change and replay two orders. The earlier one still settles Friday. The three-thirty order now waits until Monday."
       },
       {
         "id": "s5",
         "start": 44,
-        "end": 54.787,
+        "end": 54.78,
         "text": "That leaves three hundred extra euros reserved over the weekend. On Monday the later order receives three units. Both outcomes come with a reproducible record."
       },
       {
         "id": "s6",
         "start": 55,
-        "end": 59.751,
+        "end": 59.705,
         "text": "Open the project on GitHub and replay the experiment yourself."
       }
     ],
-    "closingLineEndsAtSeconds": 59.751,
-    "loudnessIntegratedLufs": -15.9,
-    "truePeakDbtp": -2.2
+    "closingLineEndsAtSeconds": 59.705,
+    "loudnessIntegratedLufs": -15.8,
+    "truePeakDbtp": -2.1
   },
   "captions": {
     "file": "media/film/release-film.vtt",
     "sha256": "04d24f32b54fb663e8bab35a3633d627667a449e03476bd12728d63d82d91182",
     "cueCount": 7,
-    "safeMarginPercent": 5,
-    "burnedIn": true
+    "burnedIn": false,
+    "separateTrack": true,
+    "playerDefault": "off",
+    "presentation": "English WebVTT track delivered beside the film; the video frames contain no narration text."
   },
   "transcript": {
     "file": "media/film/release-film-transcript.md",
-    "sha256": "bab63a2b6c080cdecaa5d177bdbf0da31532c307f10eb0826c62b14805e0749f"
+    "sha256": "24e9bf2621c701d71fa117cae1740e8bb8eff398fa08f79468ba17283bfd7936"
   },
   "socialPreview": {
-    "designFile": "media/film/social-preview-1280x640.png",
-    "sha256": "8d49a49dff5dd0ad7ebbec9219d0698e25a3932b163062ca7ba7f283d68e76d1",
+    "designFile": "media/social-preview/approved-1280x640.png",
+    "approved": true,
+    "sha256": "1b56f8f964dfea2363a8376ba6a668bc0c888880b15595defcc5e89a5bf4164e",
     "size": "1280x640",
-    "introFrame": "media/film/intro-frame-1920x1080.png"
+    "introFrame": "media/film/intro-frame-1920x1080.png",
+    "introComposition": "owner-approved 2:1 artwork fitted at 1728x864 inside 16:9 with its own blurred background extended to the frame edges"
   },
   "endCard": {
     "designFile": "media/film/end-card-1920x1080.png",
-    "sha256": "57f7d9170aa76a8032378b8f9ff7c27e5f5784b4632f7761986f7fba1823f63b",
+    "sha256": "1126c3aefa65857e2109a4e7a5292d708bd86b3bc0bc4b5dd5233947b6b8ede7",
     "url": "github.com/SergeyGer/eurorollup-settlement-lab",
     "urlSingleLineAt720p": true,
-    "urlWidthAt720p": 1038,
+    "urlWidthAt720p": 1001,
+    "urlSingleLineAtPhoneWidth": true,
+    "urlWidthAtPhoneWidth": 305,
+    "composition": "full-frame 1920x1080 artwork to every edge; title upper third; URL on the optical centre; settlement artwork visible through the lower third",
     "durationSeconds": 5,
     "frames": "1650-1799"
   },
@@ -121,6 +128,13 @@
     "modelTimeoutMs": 45000,
     "modelTimeoutNote": "capture-only attempt deadline; the product default remains 15 s and is covered by A09 evidence",
     "tts": "Piper en_GB-alan-medium local voice"
+  },
+  "publication": {
+    "player": "browser replay film view with captions off by default and a captions toggle",
+    "assetName": "eurollup-release-film-1.1.0.mp4",
+    "captionsFile": "release-film.vtt",
+    "transcriptFile": "release-film-transcript.md",
+    "releaseTag": "v1.1.0"
   },
   "publicLinks": [
     {
@@ -167,31 +181,49 @@
       "id": "intro-range",
       "label": "frames 0-149 show the static social preview",
       "passed": true,
-      "detail": "SSIM 0.9998 (body 0.591)"
+      "detail": "SSIM 0.9993 (body 0.144)"
     },
     {
       "id": "end-range",
       "label": "frames 1650-1799 show the uninterrupted repository card",
       "passed": true,
-      "detail": "SSIM 0.9998 / 1.0000, 5 s"
+      "detail": "SSIM 0.9994 / 0.9999, 5 s"
     },
     {
       "id": "loudness-integrated",
       "label": "about -16 LUFS integrated",
       "passed": true,
-      "detail": "-15.9 LUFS"
+      "detail": "-15.8 LUFS"
     },
     {
       "id": "loudness-true-peak",
       "label": "at most -1 dBTP",
       "passed": true,
-      "detail": "-2.2 dBTP"
+      "detail": "-2.1 dBTP"
     },
     {
       "id": "end-card-url",
       "label": "repository URL readable on one line at 720p",
       "passed": true,
-      "detail": "1038px wide, singleLine=true"
+      "detail": "1001px wide, singleLine=true"
+    },
+    {
+      "id": "end-card-phone",
+      "label": "repository URL readable in a phone-width still",
+      "passed": true,
+      "detail": "305px wide at phone scale"
+    },
+    {
+      "id": "opening-artwork",
+      "label": "frames 0-149 use the owner-approved artwork",
+      "passed": true,
+      "detail": "SSIM 0.9708, approved sha 1b56f8f964df…"
+    },
+    {
+      "id": "captions-separate",
+      "label": "no narration text is burned into the export",
+      "passed": true,
+      "detail": "burned-in caption source absent: /root/projects/eurorollup-settlement-lab/media/film/release-film.ass"
     },
     {
       "id": "public-links",

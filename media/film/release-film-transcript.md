@@ -10,4 +10,4 @@ English narration, verbatim. 131 words, approximately 60 seconds.
 **00:44** — That leaves three hundred extra euros reserved over the weekend. On Monday the later order receives three units. Both outcomes come with a reproducible record.
 **00:55** — Open the project on GitHub and replay the experiment yourself.
 
-Captions: `release-film.vtt`. Film: `release-film.mp4` (attached to the GitHub Release).
+Captions: `release-film.vtt` (separate track). Film: `release-film.mp4` (attached to the GitHub Release).

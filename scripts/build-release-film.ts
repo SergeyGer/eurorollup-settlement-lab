@@ -106,76 +106,105 @@ function probeNumber(path: string, entries: string): number {
 
 /* ------------------------------------------------------------------ cards --- */
 
-const SOCIAL_PREVIEW_HTML = `<!doctype html><html><head><style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DejaVu Sans',system-ui,sans-serif;background:#0b1220;color:#e8eefc;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
-.card{width:1280px;height:640px;background:radial-gradient(1200px 600px at 15% 0%,#12305a 0%,#0b1220 55%,#0a0f19 100%);padding:56px 64px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid #1e3a63}
-.brand{display:flex;align-items:center;gap:22px}.logo{width:76px;height:76px;border-radius:20px;background:linear-gradient(135deg,#38e1c4,#2f7cf6);display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:800;color:#04121e}
-h1{font-size:52px;letter-spacing:-.5px;font-weight:800} .sub{margin-top:6px;font-size:22px;color:#a9bce0}
-.rows{display:flex;gap:28px;margin-top:8px}.asset{flex:1;background:#111e34;border:1px solid #24405f;border-radius:16px;padding:22px 26px}
-.asset .sym{font-size:26px;font-weight:700;color:#7fe9d2}.asset .name{font-size:17px;color:#9fb3d9;margin-top:2px}.asset .val{font-size:34px;font-weight:800;margin-top:10px}
-.foot{display:flex;justify-content:space-between;color:#8aa0c8;font-size:18px}.tag{color:#7fe9d2}
-</style></head><body><div class="card"><div class="brand"><div class="logo">€</div><div><h1>EuroRollup Settlement Lab</h1><div class="sub">Euro settlement sandbox for crypto trades and tokenized fund orders</div></div></div>
-<div class="rows"><div class="asset"><div class="sym">tWETH</div><div class="name">test wrapped ETH</div><div class="val">€2,000.00</div></div><div class="asset"><div class="sym">eFUND</div><div class="name">fictional bond fund unit</div><div class="val">€96.00</div></div></div>
-<div class="foot"><span>Synthetic data · recorded fixtures · public replay</span><span class="tag">Settlement · Policy Lab · Economics</span></div></div></body></html>`;
+const approvedArtworkPath = join(repoRoot, "media", "social-preview", "approved-1280x640.png");
 
-function introHtml(previewBase64: string): string {
+function introHtml(artBase64: string): string {
+  // The owner-approved 2:1 artwork is fitted inside 16:9 by extending its own
+  // background: a blurred cover layer fills the frame and the sharp artwork sits at
+  // 1728x864, which keeps its title and key elements inside the 5% safe area.
   return `<!doctype html><html><head><style>
-*{box-sizing:border-box;margin:0;padding:0}body{background:#05080e;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
-.frame{width:1920px;height:1080px;display:flex;align-items:center;justify-content:center;background:radial-gradient(1400px 800px at 50% 40%,#0d1b31 0%,#05080e 70%)}
-.preview{width:1728px;height:864px;border:1px solid #24405f;border-radius:8px;overflow:hidden}
-</style></head><body><div class="frame"><div class="preview"><img src="data:image/png;base64,${previewBase64}" style="width:100%;height:100%;display:block"></div></div></body></html>`;
+*{box-sizing:border-box;margin:0;padding:0}html,body{width:1920px;height:1080px;overflow:hidden;position:relative}
+body{background:#05080e;font-family:'DejaVu Sans',system-ui,sans-serif}
+.bg{position:absolute;inset:-40px;background-image:url(data:image/png;base64,${artBase64});background-size:cover;background-position:center;filter:blur(46px) brightness(.45) saturate(1.1)}
+.vignette{position:absolute;inset:0;background:radial-gradient(1200px 800px at 50% 45%,rgba(5,8,14,.10) 0%,rgba(5,8,14,.72) 100%)}
+.preview{position:absolute;left:96px;top:108px;width:1728px;height:864px;border:1px solid rgba(120,180,255,.35);border-radius:10px;overflow:hidden;box-shadow:0 50px 120px rgba(0,0,0,.55)}
+.preview img{width:100%;height:100%;display:block}
+</style></head><body><div class="bg"></div><div class="vignette"></div><div class="preview"><img src="data:image/png;base64,${artBase64}"></div></body></html>`;
 }
 
-function endCardHtml(): string {
+function endCardHtml(artBase64: string): string {
+  // Full-frame close (FILM-02): the approved artwork extends to every edge as a soft
+  // background, the settlement layers stay recognisable through the lower third, the
+  // title sits around the upper third and the repository address is centred optically
+  // on a high-contrast panel. No narration caption is part of this card.
   return `<!doctype html><html><head><style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DejaVu Sans',system-ui,sans-serif;background:#070c15;color:#e8eefc;width:100%;height:100%}
-.card{width:100%;height:100%;background:radial-gradient(1400px 700px at 50% 30%,#0f2747 0%,#070c15 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;text-align:center;padding:0 96px}
-h1{font-size:84px;font-weight:800;letter-spacing:-1px}.line{font-size:40px;color:#c8d6f2;max-width:1400px}
-.url{font-size:56px;font-weight:700;color:#7fe9d2;white-space:nowrap;letter-spacing:.2px}
-.note{font-size:26px;color:#8aa0c8;margin-top:8px}.rule{width:220px;height:4px;background:linear-gradient(90deg,#38e1c4,#2f7cf6);border-radius:2px}
-</style></head><body><div class="card"><div class="rule"></div><h1>EuroRollup Settlement Lab</h1><div class="line">Open the project on GitHub and replay the experiment yourself.</div><div class="url" id="repo-url">github.com/SergeyGer/eurorollup-settlement-lab</div><div class="note">Synthetic data only · recorded from the release build</div></div></body></html>`;
+*{box-sizing:border-box;margin:0;padding:0}html,body{width:1920px;height:1080px;overflow:hidden;position:relative}
+body{font-family:'DejaVu Sans',system-ui,sans-serif;color:#eaf2ff}
+.bg{position:absolute;inset:-90px;background-image:url(data:image/png;base64,${artBase64});background-size:cover;background-position:center;filter:blur(16px) brightness(.38) saturate(1.05)}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,9,16,.80) 0%,rgba(5,9,16,.35) 34%,rgba(5,9,16,.18) 55%,rgba(5,9,16,.30) 78%,rgba(5,9,16,.66) 100%)}
+.art{position:absolute;left:0;right:0;bottom:0;height:50%;background-image:url(data:image/png;base64,${artBase64});background-size:cover;background-position:center 18%;opacity:.26;filter:blur(9px) brightness(.9);mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.8) 100%)}
+.content{position:absolute;inset:0;padding:54px 96px}
+.title{position:absolute;left:96px;right:96px;top:226px;text-align:center}
+.title .rule{width:200px;height:4px;margin:0 auto 26px;background:linear-gradient(90deg,#38e1c4,#2f7cf6);border-radius:2px}
+.title h1{font-size:76px;font-weight:800;letter-spacing:-1px;line-height:1.05;text-shadow:0 6px 30px rgba(0,0,0,.65)}
+.title p{margin-top:14px;font-size:32px;color:#d5e1f5;text-shadow:0 4px 20px rgba(0,0,0,.7)}
+.address{position:absolute;left:96px;right:96px;top:512px;display:flex;justify-content:center}
+.panel{background:rgba(4,10,19,.90);border:1px solid rgba(127,233,210,.55);border-radius:18px;padding:30px 46px;box-shadow:0 30px 90px rgba(0,0,0,.65)}
+.panel .label{font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#8fb6e6;text-align:center;margin-bottom:12px}
+.url{font-size:54px;font-weight:700;color:#8ff3e2;white-space:nowrap;letter-spacing:.2px;text-align:center}
+.foot{position:absolute;left:96px;right:96px;bottom:54px;display:flex;justify-content:space-between;font-size:21px;color:#c3d2e8;text-shadow:0 2px 14px rgba(0,0,0,.85)}
+</style></head><body><div class="bg"></div><div class="shade"></div><div class="art"></div><div class="content">
+<div class="title"><div class="rule"></div><h1>EuroRollup Settlement Lab</h1><p>Open the project on GitHub and replay the experiment yourself.</p></div>
+<div class="address"><div class="panel"><div class="label">Repository</div><div class="url" id="repo-url">github.com/SergeyGer/eurorollup-settlement-lab</div></div></div>
+<div class="foot"><span>Synthetic data · recorded from the release build</span><span>Euro settlement · OP Stack L2 evidence</span></div>
+</div></body></html>`;
 }
 
 async function stepCards(): Promise<void> {
-  console.log("[cards] rendering the social preview, intro frame and end card");
+  console.log("[cards] adapting the owner-approved artwork to the opening frame and end card");
+  if (!existsSync(approvedArtworkPath)) {
+    throw new Error(`Owner-approved artwork is missing: ${approvedArtworkPath}`);
+  }
   const browser = await chromium.launch({ headless: true });
   try {
-    const socialPage = await browser.newPage({ viewport: { width: 1280, height: 640 } });
-    await socialPage.setContent(SOCIAL_PREVIEW_HTML, { waitUntil: "load" });
-    await socialPage.screenshot({ path: join(cardsDir, "social-preview-1280x640.png") });
-    await socialPage.close();
-    const previewBase64 = readFileSync(join(cardsDir, "social-preview-1280x640.png")).toString("base64");
+    const artBase64 = readFileSync(approvedArtworkPath).toString("base64");
+    writeFileSync(join(cardsDir, "social-preview-1280x640.png"), readFileSync(approvedArtworkPath));
     const introPage = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
-    await introPage.setContent(introHtml(previewBase64), { waitUntil: "load" });
+    await introPage.setContent(introHtml(artBase64), { waitUntil: "load" });
+    await introPage.waitForTimeout(300);
     await introPage.screenshot({ path: join(cardsDir, "intro-1920x1080.png") });
     await introPage.close();
+
     const endPage = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
-    await endPage.setContent(endCardHtml(), { waitUntil: "load" });
+    await endPage.setContent(endCardHtml(artBase64), { waitUntil: "load" });
+    await endPage.waitForTimeout(300);
     await endPage.screenshot({ path: join(cardsDir, "end-card-1920x1080.png") });
-    // Readability at 720p: same design rendered at 1280x720 and measured in the DOM.
-    const endPage720 = await browser.newPage({ viewport: { width: 1280, height: 720 } });
-    await endPage720.setContent(endCardHtml(), { waitUntil: "load" });
-    const measure = await endPage720.evaluate(() => {
-      const element = document.getElementById("repo-url")!;
-      const rect = element.getBoundingClientRect();
-      const style = getComputedStyle(element);
-      const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.2;
-      // The film is a 1080p design; at 720p playback it is scaled by 720/1080.
-      const scale720 = 720 / 1080;
-      const widthAt720p = Math.round(rect.width * scale720);
-      return {
-        text: element.textContent ?? "",
-        widthPx: widthAt720p,
-        heightPx: Math.round(rect.height * scale720),
-        fontSizePx: Math.round(parseFloat(style.fontSize) * scale720),
-        singleLine: rect.height <= lineHeight * 1.5,
-        withinViewport: widthAt720p + 2 * Math.round(1280 * 0.05) <= 1280,
-      };
-    });
-    await endPage720.screenshot({ path: join(cardsDir, "end-card-720p.png") });
-    await endPage720.close();
-    writeFileSync(join(cardsDir, "card-checks.json"), `${JSON.stringify({ endCardUrlAt720p: measure }, null, 2)}\n`);
-    console.log(`[cards] end-card URL at 720p: ${String(measure.widthPx)}px singleLine=${String(measure.singleLine)}`);
+
+    // 720p and phone-width stills: scale the 1080p design as a player would.
+    const scaleTo = async (width: number, height: number, name: string): Promise<Record<string, unknown>> => {
+      const page = await browser.newPage({ viewport: { width, height } });
+      const scale = Math.min(width / 1920, height / 1080);
+      const html = endCardHtml(artBase64).replace(
+        "</head>",
+        `<style>.bg,.shade,.content{transform:scale(${String(scale)});transform-origin:top left}</style></head>`,
+      );
+      await page.setContent(html, { waitUntil: "load" });
+      await page.waitForTimeout(250);
+      const measure = await page.evaluate(() => {
+        const element = document.getElementById("repo-url")!;
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.2;
+        return {
+          widthPx: Math.round(rect.width),
+          heightPx: Math.round(rect.height),
+          fontSizePx: Math.round(parseFloat(style.fontSize)),
+          rect: { left: Math.round(rect.left), top: Math.round(rect.top), right: Math.round(rect.right), bottom: Math.round(rect.bottom) },
+          viewport: { width: window.innerWidth, height: window.innerHeight },
+          singleLine: rect.height <= lineHeight * 1.6,
+          withinViewport: rect.left >= 0 && rect.right <= window.innerWidth && rect.top >= 0 && rect.bottom <= window.innerHeight,
+        };
+      });
+      await page.screenshot({ path: join(cardsDir, name) });
+      await page.close();
+      return measure;
+    };
+    const endCard720 = await scaleTo(1280, 720, "end-card-720p.png");
+    const endCardPhone = await scaleTo(390, 844, "end-card-phone-still.png");
+    const cardChecks = { endCardUrlAt720p: endCard720, endCardUrlAtPhoneWidth: endCardPhone };
+    writeFileSync(join(cardsDir, "card-checks.json"), `${JSON.stringify(cardChecks, null, 2)}\n`);
+    console.log(`[cards] URL at 720p ${String(endCard720.widthPx)}px singleLine=${String(endCard720.singleLine)}; phone ${String(endCardPhone.widthPx)}px singleLine=${String(endCardPhone.singleLine)}`);
+    await endPage.close();
   } finally {
     await browser.close();
   }
@@ -215,29 +244,8 @@ function stepTts(): void {
     vtt.push(`${formatTimestamp(timing.start)} --> ${formatTimestamp(end)}`, timing.text, "");
   }
   writeFileSync(join(mediaDir, "release-film.vtt"), vtt.join("\n"));
-  // Burn-in captions use an explicit ASS canvas so the font size is real pixels at
-  // 1080p, with a 5% safe margin (96 px horizontal, 60 px vertical).
-  const ass = [
-    "[Script Info]",
-    "ScriptType: v4.00+",
-    "PlayResX: 1920",
-    "PlayResY: 1080",
-    "WrapStyle: 0",
-    "ScaledBorderAndShadow: yes",
-    "",
-    "[V4+ Styles]",
-    "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-    "Style: Film,DejaVu Sans,36,&H00FFFFFF,&H000000FF,&HAA04121E,&H661E1204,0,0,0,0,100,100,0,0,3,1,0,2,96,96,60,1",
-    "",
-    "[Events]",
-    "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-    ...timings.map((timing) => {
-      const end = Math.min(DURATION_SECONDS, timing.start + SEGMENT_SLOT[timing.id]!);
-      return `Dialogue: 0,${assTimestamp(timing.start)},${assTimestamp(end)},Film,,0,0,0,,${timing.text}`;
-    }),
-    "",
-  ].join("\n");
-  writeFileSync(join(mediaDir, "release-film.ass"), ass);
+  // Captions are delivered as a separate WebVTT file and are never burned into the
+  // export: no narration text appears in any of the 1800 frames (FILM-01).
   const transcript = [
     "# Release film transcript",
     "",
@@ -245,21 +253,11 @@ function stepTts(): void {
     "",
     ...timings.map((timing) => `**${formatTimestamp(timing.start).slice(3, 8)}** — ${timing.text}`),
     "",
-    "Captions: `release-film.vtt`. Film: `release-film.mp4` (attached to the GitHub Release).",
+    "Captions: `release-film.vtt` (separate track). Film: `release-film.mp4` (attached to the GitHub Release).",
     "",
   ];
   writeFileSync(join(mediaDir, "release-film-transcript.md"), transcript.join("\n"));
   console.log(`[tts] ${String(timings.length)} segments, closing line ends at ${timings[timings.length - 1]!.end.toFixed(2)}s`);
-}
-
-function assTimestamp(seconds: number): string {
-  const centi = Math.round(seconds * 100);
-  const total = Math.floor(centi / 100);
-  const cs = centi % 100;
-  const hh = String(Math.floor(total / 3600)).padStart(1, "0");
-  const mm = String(Math.floor((total % 3600) / 60)).padStart(2, "0");
-  const ss = String(total % 60).padStart(2, "0");
-  return `${hh}:${mm}:${ss}.${String(cs).padStart(2, "0")}`;
 }
 
 function formatTimestamp(seconds: number): string {
@@ -365,12 +363,14 @@ async function recordBrowserVideo(
 }
 
 async function stepRecord(): Promise<void> {
-  console.log(`[record] recording from ${webUrl}`);
-  // Portfolio journey (used as the first 17 s of the body).
-  await recordBrowserVideo("portfolio", 20_000, async (page, cursor, timeline) => {
+  console.log(`[record] recording from ${webUrl} (clean captures, seed start)`);
+  // Portfolio journey: start at the seed (EUR 1,000), cut on the spot fill, hold the
+  // receipt and EUR 799.95, then follow the EUR 300 reservation and the 3.125000 units.
+  await recordBrowserVideo("portfolio", 24_000, async (page, cursor, timeline) => {
     const spendable = page.locator(".cash-card").first();
+    timeline.marks["seedVisible"] = Date.now();
+    await page.waitForTimeout(2500);
     const fillStep = page.getByRole("button", { name: /Spot order filled/ });
-    await page.waitForTimeout(400);
     await moveCursor(cursor, fillStep);
     await setFocus(page, fillStep, null);
     await moveCursor(cursor, fillStep, true);
@@ -380,20 +380,26 @@ async function stepRecord(): Promise<void> {
     if ((await receipt.count()) > 0) {
       await setFocus(page, receipt, fillStep);
       await moveCursor(cursor, receipt);
-      await page.waitForTimeout(2200);
+      await page.waitForTimeout(2000);
     }
     await setFocus(page, spendable, receipt);
     await moveCursor(cursor, spendable);
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1800);
     const reserveStep = page.getByRole("button", { name: /Fund subscription reserved/ });
     await moveCursor(cursor, reserveStep);
     await setFocus(page, reserveStep, spendable);
     await moveCursor(cursor, reserveStep, true);
     timeline.marks["fundReserved"] = Date.now();
-    await page.waitForTimeout(1400);
+    await page.waitForTimeout(1600);
+    const pending = page.getByText(/reserved €300\.00/i).first();
+    if ((await pending.count()) > 0) {
+      await setFocus(page, pending, reserveStep);
+      await moveCursor(cursor, pending);
+      await page.waitForTimeout(1600);
+    }
     const allocateStep = page.getByRole("button", { name: /Fund units allocated/ });
     await moveCursor(cursor, allocateStep);
-    await setFocus(page, allocateStep, reserveStep);
+    await setFocus(page, allocateStep, pending);
     await moveCursor(cursor, allocateStep, true);
     timeline.marks["fundAllocated"] = Date.now();
     await page.waitForTimeout(900);
@@ -403,17 +409,13 @@ async function stepRecord(): Promise<void> {
       await moveCursor(cursor, units);
       await page.waitForTimeout(2400);
     }
-    const fundReceipt = page.locator(".receipt").last();
-    if ((await fundReceipt.count()) > 0) {
-      await setFocus(page, fundReceipt, units);
-      await moveCursor(cursor, fundReceipt);
-      await page.waitForTimeout(2600);
-    }
-    await page.waitForTimeout(800);
+    await page.waitForTimeout(700);
   });
 
-  // Policy Lab journey: live model question, genuine proposal, confirmation and impact.
-  await recordBrowserVideo("policy", 75_000, async (page, cursor, timeline) => {
+  // Policy Lab journey: the question enters, the live model proposes the typed change,
+  // then confirmation reveals F-1450/F-1530, EUR 300 extra reserved and the two unit
+  // quantities; the comparison evidence is opened at the end.
+  await recordBrowserVideo("policy", 80_000, async (page, cursor, timeline) => {
     await page.getByRole("button", { name: "AI Policy Lab" }).click();
     await page.waitForTimeout(500);
     const liveTab = page.getByRole("tab", { name: "Live local model" });
@@ -426,7 +428,12 @@ async function stepRecord(): Promise<void> {
     await setFocus(page, textarea, liveTab);
     await moveCursor(cursor, textarea);
     await page.waitForTimeout(300);
-    await textarea.fill("What if the fund moved its Friday cutoff from 16:00 to 15:00 UTC?");
+    const question = "What if the fund moved its Friday cutoff from 16:00 to 15:00 UTC?";
+    const words = question.split(" ");
+    for (let index = 1; index <= words.length; index += 1) {
+      await textarea.fill(words.slice(0, index).join(" "));
+      await page.waitForTimeout(180);
+    }
     timeline.marks["questionTyped"] = Date.now();
     const ask = page.getByRole("button", { name: /Ask local model/ });
     await moveCursor(cursor, ask);
@@ -436,21 +443,27 @@ async function stepRecord(): Promise<void> {
     timeline.marks["askClicked"] = Date.now();
     await page.getByText("2 · Review proposal").waitFor({ timeout: 180_000 });
     timeline.marks["draftVisible"] = Date.now();
-    await page.waitForTimeout(900);
+    await page.waitForTimeout(800);
     const proposal = page.getByText(/proposed cutoff/i).first();
     if ((await proposal.count()) > 0) {
       await setFocus(page, proposal, ask);
       await moveCursor(cursor, proposal);
       await page.waitForTimeout(1400);
     }
+    const digest = page.getByText(/draft digest/i).first();
+    if ((await digest.count()) > 0) {
+      await setFocus(page, digest, proposal);
+      await moveCursor(cursor, digest);
+      await page.waitForTimeout(1200);
+    }
     const confirm = page.getByRole("button", { name: /Confirm and compare/ });
     await moveCursor(cursor, confirm);
-    await setFocus(page, confirm, proposal);
+    await setFocus(page, confirm, digest);
     await moveCursor(cursor, confirm, true);
     timeline.marks["confirmClicked"] = Date.now();
     await page.getByText("3 · Impact").waitFor({ timeout: 120_000 });
     timeline.marks["impactVisible"] = Date.now();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(500);
     const extraReserved = page.getByText(/extra cash reserved/i).first();
     if ((await extraReserved.count()) > 0) {
       await setFocus(page, extraReserved, confirm);
@@ -463,27 +476,27 @@ async function stepRecord(): Promise<void> {
     if ((await secondRow.count()) > 0) {
       await moveCursor(cursor, firstRow);
       await setFocus(page, firstRow, extraReserved);
-      await page.waitForTimeout(1800);
+      await page.waitForTimeout(1500);
       await moveCursor(cursor, secondRow);
       await setFocus(page, secondRow, firstRow);
-      await page.waitForTimeout(2600);
+      await page.waitForTimeout(2400);
     }
     const mondayCard = page.getByText(/monday 17:01 utc close/i).first();
     if ((await mondayCard.count()) > 0) {
       await mondayCard.scrollIntoViewIfNeeded();
       await moveCursor(cursor, mondayCard);
       await setFocus(page, mondayCard, secondRow);
-      await page.waitForTimeout(2600);
+      await page.waitForTimeout(2000);
     }
     const download = page.getByRole("button", { name: /Download comparison pack/ });
     if ((await download.count()) > 0) {
       await download.scrollIntoViewIfNeeded();
       await moveCursor(cursor, download);
       await setFocus(page, download, mondayCard);
-      await page.waitForTimeout(1600);
+      await page.waitForTimeout(1500);
       await moveCursor(cursor, download, true);
       timeline.marks["evidenceOpened"] = Date.now();
-      await page.waitForTimeout(1800);
+      await page.waitForTimeout(1200);
     }
   });
 }
@@ -507,16 +520,25 @@ function stepAssemble(): void {
   // Recording-relative offsets (video starts approximately when the recording page
   // is created; the first interaction happens ~0.4 s in).
   const videoStart = (timeline: RecordingTimeline, mark: string): number => Math.max(0, (timeline.marks[mark]! - timeline.start) / 1000 - 0.4);
-  const portfolioStart = videoStart(portfolio, "spotFill") - 0.3;
-  const policyAsk = videoStart(policy, "askClicked");
-  const draftVisible = videoStart(policy, "draftVisible");
-  const confirmClicked = videoStart(policy, "confirmClicked");
-  // Body composition: 17 s portfolio + 5 s question + 3 s draft + 25 s impact.
+  // Clean-capture body composition (no burned captions):
+  //   05-14 s  portfolio seed -> spot fill -> receipt -> EUR 799.95   (270 frames)
+  //   14-22 s  EUR 300 reserved -> 3.125000 units at EUR 96          (240 frames)
+  //   22-33 s  question entering + live proposal diff                (330 frames, one cut)
+  //   33-44 s  confirmation -> F-1450 / F-1530 impact                (330 frames)
+  //   44-55 s  EUR 300 extra, Monday quantities, comparison evidence (330 frames)
+  const portfolioFill = 0;
+  const portfolioFund = Math.max(0, videoStart(portfolio, "fundReserved") - 1.6);
+  const policyQuestion = Math.max(0, videoStart(policy, "questionReady") - 5.6);
+  const policyDraft = Math.max(0, videoStart(policy, "draftVisible") - 0.8);
+  const policyConfirm = Math.max(0, videoStart(policy, "confirmClicked") - 0.8);
+  const policyImpact = Math.max(0, videoStart(policy, "impactVisible") + 0.3);
   const bodyParts: Array<{ file: string; start: number; frames: number }> = [
-    { file: portfolio.file, start: portfolioStart, frames: 510 },
-    { file: policy.file, start: Math.max(0, policyAsk - 3.4), frames: 150 },
-    { file: policy.file, start: Math.max(0, draftVisible - 1.2), frames: 90 },
-    { file: policy.file, start: Math.max(0, confirmClicked - 1.6), frames: 750 },
+    { file: portfolio.file, start: portfolioFill, frames: 270 },
+    { file: portfolio.file, start: portfolioFund, frames: 240 },
+    { file: policy.file, start: policyQuestion, frames: 180 },
+    { file: policy.file, start: policyDraft, frames: 150 },
+    { file: policy.file, start: policyConfirm, frames: 330 },
+    { file: policy.file, start: policyImpact, frames: 330 },
   ];
   const inputs = bodyParts.flatMap((part) => ["-i", part.file]);
   const filters = bodyParts.map((part, index) => {
@@ -557,12 +579,11 @@ function stepAssemble(): void {
   // Burn captions, encode H.264 30 fps and mux the AAC narration.
   // ffmpeg filter path escaping: backslash, colon and quote are the metacharacters
   // of the filter argument; escape all of them explicitly.
-  const subtitlePath = join(mediaDir, "release-film.ass").replace(/\\/g, "\\\\").replace(/:/g, "\\:").replace(/'/g, "\\'");
+  // No subtitle filter: captions are delivered only as a separate WebVTT track.
   ffmpeg([
     "-i", join(buildDir, "silent.mp4"),
     "-i", join(buildDir, "narration.wav"),
-    "-filter_complex", `[0:v]subtitles='${subtitlePath}'[v]`,
-    "-map", "[v]", "-map", "1:a",
+    "-map", "0:v", "-map", "1:a",
     "-r", String(FPS), "-frames:v", String(TOTAL_FRAMES),
     "-c:v", "libx264", "-preset", "medium", "-crf", "19", "-pix_fmt", "yuv420p",
     "-c:a", "aac", "-ar", "48000", "-ac", "2", "-b:a", "192k",
@@ -637,9 +658,20 @@ async function stepVerify(): Promise<void> {
   check("loudness-true-peak", "at most -1 dBTP", truePeak <= -1, `${truePeak.toFixed(1)} dBTP`);
 
   // End-card URL single-line readability at 720p.
-  const cardChecks = JSON.parse(readFileSync(join(cardsDir, "card-checks.json"), "utf8")) as { endCardUrlAt720p: { widthPx: number; singleLine: boolean; withinViewport: boolean } };
+  const cardChecks = JSON.parse(readFileSync(join(cardsDir, "card-checks.json"), "utf8")) as {
+    endCardUrlAt720p: { widthPx: number; singleLine: boolean; withinViewport: boolean };
+    endCardUrlAtPhoneWidth: { widthPx: number; singleLine: boolean; withinViewport: boolean };
+  };
   const card = cardChecks.endCardUrlAt720p;
+  const phoneCard = cardChecks.endCardUrlAtPhoneWidth;
   check("end-card-url", "repository URL readable on one line at 720p", card.singleLine && card.withinViewport, `${String(card.widthPx)}px wide, singleLine=${String(card.singleLine)}`);
+  check("end-card-phone", "repository URL readable in a phone-width still", phoneCard.singleLine && phoneCard.withinViewport, `${String(phoneCard.widthPx)}px wide at phone scale`);
+  const introImage = join(cardsDir, "intro-1920x1080.png");
+  const introImageSsim = ssim(frame0!, introImage);
+  const approvedSha = sha256File(approvedArtworkPath);
+  check("opening-artwork", "frames 0-149 use the owner-approved artwork", introImageSsim > 0.95 && approvedSha === sha256File(join(cardsDir, "social-preview-1280x640.png")), `SSIM ${introImageSsim.toFixed(4)}, approved sha ${approvedSha.slice(0, 12)}…`);
+  const assPath = join(mediaDir, "release-film.ass");
+  check("captions-separate", "no narration text is burned into the export", !existsSync(assPath), `burned-in caption source absent: ${assPath}`);
 
   // Signed-out public link checks.
   const links = await Promise.all([publicReplayUrl, repoUrl].map(async (url) => {
@@ -668,7 +700,7 @@ async function stepVerify(): Promise<void> {
   };
   const metadata = {
     schemaVersion: "1.0.0",
-    reportId: "S10-release-film",
+    reportId: "S14-release-film",
     generatedBy: "pnpm film:build",
     generatedAt: new Date().toISOString(),
     version: packageJson.version,
@@ -704,15 +736,19 @@ async function stepVerify(): Promise<void> {
       file: "media/film/release-film.vtt",
       sha256: checksums.captions,
       cueCount: cues,
-      safeMarginPercent: 5,
-      burnedIn: true,
+      burnedIn: false,
+      separateTrack: true,
+      playerDefault: "off",
+      presentation: "English WebVTT track delivered beside the film; the video frames contain no narration text.",
     },
     transcript: { file: "media/film/release-film-transcript.md", sha256: checksums.transcript },
     socialPreview: {
-      designFile: "media/film/social-preview-1280x640.png",
+      designFile: "media/social-preview/approved-1280x640.png",
+      approved: true,
       sha256: checksums.socialPreview,
       size: "1280x640",
       introFrame: "media/film/intro-frame-1920x1080.png",
+      introComposition: "owner-approved 2:1 artwork fitted at 1728x864 inside 16:9 with its own blurred background extended to the frame edges",
     },
     endCard: {
       designFile: "media/film/end-card-1920x1080.png",
@@ -720,6 +756,9 @@ async function stepVerify(): Promise<void> {
       url: "github.com/SergeyGer/eurorollup-settlement-lab",
       urlSingleLineAt720p: card.singleLine,
       urlWidthAt720p: card.widthPx,
+      urlSingleLineAtPhoneWidth: phoneCard.singleLine,
+      urlWidthAtPhoneWidth: phoneCard.widthPx,
+      composition: "full-frame 1920x1080 artwork to every edge; title upper third; URL on the optical centre; settlement artwork visible through the lower third",
       durationSeconds: 5,
       frames: "1650-1799",
     },
@@ -730,6 +769,13 @@ async function stepVerify(): Promise<void> {
       modelTimeoutMs: 45000,
       modelTimeoutNote: "capture-only attempt deadline; the product default remains 15 s and is covered by A09 evidence",
       tts: "Piper en_GB-alan-medium local voice",
+    },
+    publication: {
+      player: "browser replay film view with captions off by default and a captions toggle",
+      assetName: `eurollup-release-film-${packageJson.version}.mp4`,
+      captionsFile: "release-film.vtt",
+      transcriptFile: "release-film-transcript.md",
+      releaseTag: `v${packageJson.version}`,
     },
     publicLinks: links,
     checks,
