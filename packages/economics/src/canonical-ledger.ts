@@ -99,13 +99,16 @@ function add(balances: Map<string, Map<string, bigint>>, account: string, assetI
   balances.set(account, current);
 }
 function serializeBalances(balances: Map<string, Map<string, bigint>>): Record<string, Record<string, string>> {
-  const out: Record<string, Record<string, string>> = {};
-  for (const [account, assets] of [...balances.entries()].sort(([a], [b]) => a.localeCompare(b))) {
-    const record: Record<string, string> = {};
-    for (const [assetId, amount] of [...assets.entries()].sort(([a], [b]) => a.localeCompare(b))) record[assetId] = amount.toString();
-    out[account] = record;
-  }
-  return out;
+  // Object.fromEntries creates own data properties (no prototype mutation), so even a
+  // hostile account or asset id such as "__proto__" cannot pollute Object.prototype.
+  return Object.fromEntries(
+    [...balances.entries()]
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([account, assets]) => [
+        account,
+        Object.fromEntries([...assets.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([assetId, amount]) => [assetId, amount.toString()])),
+      ]),
+  );
 }
 
 /**
@@ -126,11 +129,13 @@ export class CanonicalReconciliationLedger {
   }
 
   static initialCheckpoint(blockNumber: number, blockHash: string, initialBalances: readonly BalanceObservation[]): LedgerCheckpoint {
-    const balances: Record<string, Record<string, string>> = {};
+    const grouped = new Map<string, Map<string, string>>();
     for (const entry of initialBalances) {
-      balances[entry.account] ??= {};
-      balances[entry.account]![entry.assetId] = entry.amountBase;
+      const assets = grouped.get(entry.account) ?? new Map<string, string>();
+      assets.set(entry.assetId, entry.amountBase);
+      grouped.set(entry.account, assets);
     }
+    const balances = Object.fromEntries([...grouped.entries()].map(([account, assets]) => [account, Object.fromEntries([...assets.entries()])]));
     return { schemaVersion: "1.0.0", blockNumber, blockHash, balances, reservations: {}, releasedReservations: {}, processedEventIds: [], auditTrail: [] };
   }
 
@@ -309,12 +314,13 @@ export class CanonicalReconciliationLedger {
         if (difference !== 0n) differences.push({ account, assetId, projected: projected.toString(), observed: observed.amountBase, difference: difference.toString() });
       }
     }
-    const perAsset: Record<string, { projectedTotal: string; observedTotal: string; difference: string }> = {};
-    for (const assetId of [...assets].sort()) {
-      const projectedTotal = [...this.balances.values()].reduce((sum, holdings) => sum + (holdings.get(assetId) ?? 0n), 0n);
-      const observedTotal = observations.filter((entry) => entry.assetId === assetId).reduce((sum, entry) => sum + BigInt(entry.amountBase), 0n);
-      perAsset[assetId] = { projectedTotal: projectedTotal.toString(), observedTotal: observedTotal.toString(), difference: (projectedTotal - observedTotal).toString() };
-    }
+    const perAsset = Object.fromEntries(
+      [...assets].sort().map((assetId) => {
+        const projectedTotal = [...this.balances.values()].reduce((sum, holdings) => sum + (holdings.get(assetId) ?? 0n), 0n);
+        const observedTotal = observations.filter((entry) => entry.assetId === assetId).reduce((sum, entry) => sum + BigInt(entry.amountBase), 0n);
+        return [assetId, { projectedTotal: projectedTotal.toString(), observedTotal: observedTotal.toString(), difference: (projectedTotal - observedTotal).toString() }];
+      }),
+    ) as Record<string, { projectedTotal: string; observedTotal: string; difference: string }>;
     return { differences, perAsset, conserved: differences.length === 0 && Object.values(perAsset).every((entry) => entry.difference === "0") };
   }
 
