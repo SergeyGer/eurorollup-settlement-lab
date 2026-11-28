@@ -31,8 +31,9 @@ tracker issue.
 - S11: three candidate social preview revisions are awaiting the project owner's explicit
   approval in #46; integration into README, Wiki and film is blocked until then.
 - S12: UX-01/02/03 implemented and covered by `pnpm ui:checks` (18/18 checks); the
-  five-participant usability pilot is blocked on participant sessions (script published,
-  automated legibility checks passing).
+  five-participant usability pilot is recorded as blocked/deferred by the project owner's
+  decision, with the published script plus automated legibility/accessibility checks as
+  the accepted milestone fallback.
 - S13–S22: not started.
 
 ## Gates and external inputs

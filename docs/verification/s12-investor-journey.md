@@ -78,6 +78,8 @@ Screenshots: `docs/media/s12-seed-desktop.png`, `s12-fill-desktop.png`,
 ## Usability pilot
 
 The five-participant usability pilot is specified in
-[`s12-usability-pilot.md`](s12-usability-pilot.md). It is **blocked on real participant
-sessions**; the script, questions, scoring and target are published and the automated
-accessibility/legibility checks above stand in until outcomes can be recorded.
+[`s12-usability-pilot.md`](s12-usability-pilot.md). Per the project owner's decision the
+pilot is **deferred/blocked for this milestone**; the published script plus the automated
+legibility checks above and the
+[`accessibility checklist`](s12-accessibility-checklist.md) are accepted as the
+fallback. Participant outcomes will be appended if sessions become available.
