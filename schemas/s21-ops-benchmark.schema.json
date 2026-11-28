@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/s21-ops-benchmark.schema.json",
+  "title": "OPS-01 batch-setting benchmark evidence",
+  "type": "object",
+  "required": ["schemaVersion", "reportId", "packId", "generatedBy", "generatedAt", "commit", "lane", "controls", "runs", "aggregate", "selection", "passed", "limitations", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "S21-OPS-01-batch-setting-benchmark" },
+    "packId": { "const": "S21" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "lane": { "type": "object", "required": ["mode", "chainId", "daMode", "batcherImage"], "properties": { "chainId": { "const": 16584 }, "daMode": { "enum": ["blobs", "calldata"] } } },
+    "controls": { "type": "object", "required": ["orderCount", "runsPerSetting", "settingsBlocks", "latencyTargetMs", "percentileMethod"], "properties": { "orderCount": { "const": 200 }, "runsPerSetting": { "const": 3 }, "settingsBlocks": { "type": "array", "minItems": 2 }, "latencyTargetMs": { "const": 240000 }, "percentileMethod": { "const": "nearest-rank" } } },
+    "runs": {
+      "type": "array", "minItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["runId", "settingBlocks", "seed", "completed", "failed", "batch", "l1ExpenditureWei", "perSuccessCostWei", "latency", "orders"],
+        "properties": {
+          "completed": { "const": 200 }, "failed": { "const": 0 },
+          "batch": { "type": "object", "required": ["txCount", "blobCount", "bytes", "fillRatio", "txs"] },
+          "latency": { "type": "object", "required": ["percentileMethod", "samplesMs", "p50Ms", "p95Ms"], "properties": { "samplesMs": { "type": "array", "minItems": 200 } } },
+          "orders": { "type": "array", "minItems": 200 }
+        }
+      }
+    },
+    "aggregate": { "type": "array", "minItems": 2 },
+    "selection": { "type": "object", "required": ["qualifyingSettings", "selectedSettingBlocks", "miss", "chosenTradeoffSettingBlocks", "chosenTradeoffReason"] },
+    "passed": { "const": true },
+    "limitations": { "type": "array", "minItems": 3 },
+    "notes": { "type": "array", "minItems": 2 }
+  }
+}
