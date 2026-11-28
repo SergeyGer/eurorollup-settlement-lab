@@ -8,7 +8,10 @@ export interface AssetDefinition {
   readonly assetId: AssetId;
   readonly symbol: string;
   readonly displayName: string;
+  /** Canonical base-unit decimals. */
   readonly decimals: number;
+  /** Investor-facing display decimals by asset identity, independent of base units. */
+  readonly displayDecimals: number;
   readonly kind: AssetKind;
 }
 
@@ -18,6 +21,7 @@ export const ASSETS: Readonly<Record<AssetId, AssetDefinition>> = Object.freeze(
     symbol: "dEUR",
     displayName: "Demo euro cash",
     decimals: 6,
+    displayDecimals: 2,
     kind: "cash",
   },
   tWETH: {
@@ -25,6 +29,7 @@ export const ASSETS: Readonly<Record<AssetId, AssetDefinition>> = Object.freeze(
     symbol: "tWETH",
     displayName: "Test wrapped ETH",
     decimals: 18,
+    displayDecimals: 6,
     kind: "spot",
   },
   eFUND: {
@@ -32,6 +37,7 @@ export const ASSETS: Readonly<Record<AssetId, AssetDefinition>> = Object.freeze(
     symbol: "eFUND",
     displayName: "Fictional euro short-duration bond fund unit",
     decimals: 6,
+    displayDecimals: 6,
     kind: "fund",
   },
 });
@@ -50,4 +56,9 @@ export function assetDefinition(assetId: AssetId): AssetDefinition {
 
 export function decimalsOf(assetId: AssetId): number {
   return assetDefinition(assetId).decimals;
+}
+
+/** Investor-facing display decimals: cash two, spot and fund holdings six. */
+export function displayDecimalsOf(assetId: AssetId): number {
+  return assetDefinition(assetId).displayDecimals;
 }

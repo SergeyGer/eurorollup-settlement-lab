@@ -1,11 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
+  displayDecimalsOf,
   formatDisplayAmount,
   parseBaseUnits,
   parseUtcInstant,
   type PortfolioSnapshot,
   type Receipt,
 } from "@eurorollup/dealing";
+import {
+  buildReplayHash,
+  clampReplayIndex,
+  isReplayMode,
+  parseReplayHash,
+  type ReplayMode,
+} from "./replay-state.js";
 import {
   fixtureInfo,
   g01Replay,
@@ -34,6 +42,7 @@ const MONTHS = [
 ];
 
 const REPOSITORY_URL = "https://github.com/SergeyGer/eurorollup-settlement-lab";
+const EVIDENCE_PACK_URL = `${REPOSITORY_URL}/blob/main/evidence/g01/golden-run.json`;
 
 function groupThousands(value: string): string {
   const negative = value.startsWith("-");
@@ -56,9 +65,19 @@ function eur(baseUnits: string): string {
   return groupThousands(formatDisplayAmount(parseBaseUnits(baseUnits), 6, 2));
 }
 
+function unitDecimals(assetId: "dEUR" | "tWETH" | "eFUND"): number {
+  return assetId === "tWETH" ? 18 : 6;
+}
+
+/** Investor-facing amount: cash two decimals, spot and fund units six. */
+function displayAmount(baseUnits: string, assetId: "dEUR" | "tWETH" | "eFUND"): string {
+  return groupThousands(
+    formatDisplayAmount(parseBaseUnits(baseUnits), unitDecimals(assetId), displayDecimalsOf(assetId)),
+  );
+}
+
 function tokenAmount(baseUnits: string, assetId: "tWETH" | "eFUND"): string {
-  const decimals = assetId === "tWETH" ? 18 : 6;
-  return groupThousands(formatDisplayAmount(parseBaseUnits(baseUnits), decimals, 6));
+  return displayAmount(baseUnits, assetId);
 }
 
 function clockLabel(iso: string): string {
@@ -89,31 +108,126 @@ function pendingReason(status: string): string {
   return status.toLowerCase();
 }
 
-function ReceiptCard({ receipt }: { receipt: Receipt }): JSX.Element {
-  const rows: Array<[string, string]> = Object.entries(receipt).map(([key, value]) => [
-    key,
-    String(value),
-  ]);
+function receiptChange(receipt: Receipt): { change: string; reason: string } {
+  switch (receipt.businessState) {
+    case "FILLED":
+      return {
+        change: `${displayAmount(receipt.unitsBase, "tWETH")} tWETH received for €${displayAmount(receipt.cashDeployedBase, "dEUR")} · charge €${displayAmount(receipt.investorChargeBase, "dEUR")}`,
+        reason: "Spot order filled at the quoted price before expiry.",
+      };
+    case "ALLOCATED":
+      return {
+        change: `${displayAmount(receipt.unitsBase, "eFUND")} eFUND issued for €${displayAmount(receipt.cashDeployedBase, "dEUR")} at €${receipt.navEurPerUnit} per unit`,
+        reason: "Reserved cash converted at the authorized NAV.",
+      };
+    case "REDEEMED":
+      return {
+        change: `${displayAmount(receipt.unitsBase, "eFUND")} eFUND redeemed for €${displayAmount(receipt.cashPaidBase, "dEUR")} at €${receipt.navEurPerUnit} per unit`,
+        reason: "Redemption settled at the next applicable NAV.",
+      };
+  }
+}
+
+function receiptRows(receipt: Receipt): Array<[string, string]> {
+  const assetId = receipt.assetId;
+  const cash = (baseUnits: string): string => `€${displayAmount(baseUnits, "dEUR")}`;
+  switch (receipt.businessState) {
+    case "FILLED":
+      return [
+        ["Units received", `${displayAmount(receipt.unitsBase, assetId)} ${assetId}`],
+        ["Cash deployed", cash(receipt.cashDeployedBase)],
+        ["Price", `€${receipt.priceEurPerUnit} per ${assetId}`],
+        ["Investor charge", cash(receipt.investorChargeBase)],
+      ];
+    case "ALLOCATED":
+      return [
+        ["Units issued", `${displayAmount(receipt.unitsBase, assetId)} ${assetId}`],
+        ["Cash deployed", cash(receipt.cashDeployedBase)],
+        ["Authorized NAV", `€${receipt.navEurPerUnit} per unit`],
+        ["Investor charge", cash(receipt.investorChargeBase)],
+      ];
+    case "REDEEMED":
+      return [
+        ["Units redeemed", `${displayAmount(receipt.unitsBase, assetId)} ${assetId}`],
+        ["Cash paid", cash(receipt.cashPaidBase)],
+        ["Authorized NAV", `€${receipt.navEurPerUnit} per unit`],
+        ["Investor charge", cash(receipt.investorChargeBase)],
+      ];
+  }
+}
+
+function ReceiptCard({
+  receipt,
+  nextStep,
+}: {
+  receipt: Receipt;
+  nextStep?: ReplayStep;
+}): JSX.Element {
+  const { change, reason } = receiptChange(receipt);
+  const [evidenceOpen, setEvidenceOpen] = useState(false);
   return (
     <div className="panel receipt">
       <div className="panel-head">
         <h2>Receipt</h2>
-        <span className={`badge ${receipt.businessState === "FILLED" ? "badge-spot" : "badge-fund"}`}>
-          {receipt.businessState}
-        </span>
+        <div className="receipt-badges">
+          <span className="badge badge-source">Fixture replay</span>
+          <span className={`badge ${receipt.businessState === "FILLED" ? "badge-spot" : "badge-fund"}`}>
+            {receipt.businessState}
+          </span>
+        </div>
+      </div>
+      <p className="receipt-order">
+        Order <strong>{receipt.orderId}</strong>
+        <a
+          className="receipt-evidence-link"
+          href="#receipt-evidence"
+          onClick={() => setEvidenceOpen(true)}
+        >
+          Evidence
+        </a>
+      </p>
+      <div className="receipt-change">
+        <span className="receipt-change-label">What changed</span>
+        <strong>{change}</strong>
+        <span className="receipt-change-reason">{reason}</span>
       </div>
       <dl className="receipt-grid">
-        {rows.map(([key, value]) => (
+        {receiptRows(receipt).map(([key, value]) => (
           <div key={key} className="receipt-row">
             <dt>{key}</dt>
             <dd>{value}</dd>
           </div>
         ))}
       </dl>
-      <p className="receipt-note">
-        Every state links to a receipt; the amount fields are integer base units and the
-        economic outcome is shown first.
+      <p className="receipt-next">
+        {nextStep === undefined ? (
+          <>Final state: no further event in this replay.</>
+        ) : (
+          <>
+            Next event: <strong>{nextStep.title}</strong> · {clockLabel(nextStep.occurredAt)}
+          </>
+        )}
       </p>
+      <details
+        className="receipt-base-units"
+        id="receipt-evidence"
+        open={evidenceOpen}
+        onToggle={(event) => setEvidenceOpen((event.target as HTMLDetailsElement).open)}
+      >
+        <summary>Canonical base units and evidence</summary>
+        <dl className="receipt-grid">
+          {Object.entries(receipt).map(([key, value]) => (
+            <div key={key} className="receipt-row">
+              <dt>{key}</dt>
+              <dd className="mono">{String(value)}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="receipt-note">
+          Integer base units are the reconciliation values; the canonical replay pack is{" "}
+          <a href={EVIDENCE_PACK_URL}>evidence/g01/golden-run.json</a>.
+        </p>
+      </details>
     </div>
   );
 }
@@ -199,6 +313,20 @@ function PortfolioPanel({
               {order.dealingDate === undefined ? null : (
                 <span className="pending-date">dealing day {order.dealingDate}</span>
               )}
+              {order.reservedCashBase === undefined ? null : (
+                <span className="pending-detail">
+                  reserved €{displayAmount(order.reservedCashBase, "dEUR")} · blocking rule:
+                  authorized NAV required · next action: allocation at the authorized NAV
+                  (fixture Fri 20 Nov 2026 · 17:00 UTC)
+                </span>
+              )}
+              {order.reservedUnitsBase === undefined ? null : (
+                <span className="pending-detail">
+                  reserved {displayAmount(order.reservedUnitsBase, "eFUND")} eFUND · blocking
+                  rule: next applicable NAV required · next action: burn and settle at the
+                  next authorized NAV
+                </span>
+              )}
             </li>
           ))}
         </ul>
@@ -235,14 +363,9 @@ function StepDetail({ step }: { step: ReplayStep }): JSX.Element {
               entry.postings.map((posting, postingIndex) => {
                 const amount = parseBaseUnits(posting.amountBase);
                 const isNegative = amount < 0n;
-                const decimals =
-                  posting.assetId === "tWETH" ? 18 : 6;
-                const formatted = groupThousands(
-                  formatDisplayAmount(
-                    isNegative ? -amount : amount,
-                    decimals,
-                    decimals === 18 ? 6 : 2,
-                  ),
+                const formatted = displayAmount(
+                  (isNegative ? -amount : amount).toString(),
+                  posting.assetId as "dEUR" | "tWETH" | "eFUND",
                 );
                 return (
                   <tr key={`${entry.entryId}-${postingIndex}`}>
@@ -333,26 +456,68 @@ function Timeline({
 }
 
 export function App(): JSX.Element {
-  const [mode, setMode] = useState<"g01" | "redemption">("g01");
+  const initialLocation = typeof window === "undefined" ? null : parseReplayHash(window.location.hash);
+  const [mode, setMode] = useState<ReplayMode>(
+    initialLocation !== null && isReplayMode(initialLocation.mode) ? initialLocation.mode : "g01",
+  );
   const steps = useMemo(
     () => (mode === "g01" ? g01Replay : [...g01Replay, ...redemptionReplay]),
     [mode],
   );
-  const [index, setIndex] = useState(() => g01Replay.length - 1);
+  const [index, setIndex] = useState(() =>
+    clampReplayIndex(
+      initialLocation?.index ?? 0,
+      initialLocation?.mode === "redemption" ? g01Replay.length + redemptionReplay.length : g01Replay.length,
+    ),
+  );
   const [playing, setPlaying] = useState(false);
   const [view, setView] = useState<"replay" | "live" | "policy" | "eligibility" | "economics">("replay");
 
   const currentStep = steps[index] ?? steps[steps.length - 1];
 
+  // Addressable replay state: every control writes the same hash, and the browser
+  // Back/Forward buttons and shared links restore the same mode and event.
+  useEffect(() => {
+    const hash = buildReplayHash(mode, clampReplayIndex(index, steps.length));
+    if (window.location.hash !== hash) {
+      window.history.replaceState(null, "", hash);
+    }
+  }, [mode, index, steps.length]);
+
+  useEffect(() => {
+    const onHashChange = (): void => {
+      const location = parseReplayHash(window.location.hash);
+      if (location === null) {
+        return;
+      }
+      setPlaying(false);
+      setMode(location.mode);
+      const nextSteps = location.mode === "g01" ? g01Replay : [...g01Replay, ...redemptionReplay];
+      setIndex(clampReplayIndex(location.index, nextSteps.length));
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
   const selectMode = useCallback(
-    (nextMode: "g01" | "redemption") => {
+    (nextMode: ReplayMode) => {
       setMode(nextMode);
       setPlaying(false);
-      const nextSteps = nextMode === "g01" ? g01Replay : [...g01Replay, ...redemptionReplay];
-      setIndex(nextSteps.length - 1);
+      // Switching lifecycle starts the story at the seed; the outcome stays one link away.
+      setIndex(0);
     },
     [],
   );
+
+  const startReplay = useCallback(() => {
+    setPlaying(false);
+    setIndex(0);
+  }, []);
+
+  const viewOutcome = useCallback(() => {
+    setPlaying(false);
+    setIndex(steps.length - 1);
+  }, [steps.length]);
 
   const next = useCallback(() => {
     setIndex((current) => Math.min(current + 1, steps.length - 1));
@@ -397,10 +562,18 @@ export function App(): JSX.Element {
         event.preventDefault();
         setPlaying((current) => !current);
       }
+      if (event.key === "Home") {
+        event.preventDefault();
+        startReplay();
+      }
+      if (event.key === "End") {
+        event.preventDefault();
+        viewOutcome();
+      }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [next, previous]);
+  }, [next, previous, startReplay, viewOutcome]);
 
   if (currentStep === undefined) {
     return <main className="app">No replay steps available.</main>;
@@ -470,16 +643,21 @@ export function App(): JSX.Element {
         <section className="column">
           <PortfolioPanel snapshot={currentStep.snapshot} mode={mode} />
           <StepDetail step={currentStep} />
-          {currentStep.receipt === undefined ? null : <ReceiptCard receipt={currentStep.receipt} />}
+          {currentStep.receipt === undefined ? null : (
+            <ReceiptCard receipt={currentStep.receipt} nextStep={steps[index + 1]} />
+          )}
         </section>
 
         <aside className="column">
           <div className="panel replay">
             <div className="panel-head">
               <h2>Recorded settlement replay</h2>
-              <span className="fixture-tag">
-                {fixtureInfo.fixtureId} · {fixtureInfo.calendarId}
-              </span>
+              <div className="replay-head-meta">
+                <span className="badge badge-source">Fixture replay</span>
+                <span className="fixture-tag">
+                  {fixtureInfo.fixtureId} · {fixtureInfo.calendarId}
+                </span>
+              </div>
             </div>
             <div className="mode-switch" role="tablist" aria-label="Lifecycle">
               <button
@@ -500,6 +678,27 @@ export function App(): JSX.Element {
               >
                 G01 + redemption
               </button>
+            </div>
+            <div className="replay-jumps">
+              <button
+                type="button"
+                className="jump-button"
+                onClick={startReplay}
+                aria-label="Start replay at the synthetic account seed"
+              >
+                Start replay
+              </button>
+              <button
+                type="button"
+                className="jump-button"
+                onClick={viewOutcome}
+                aria-label="View the final outcome of this replay"
+              >
+                View outcome
+              </button>
+              <a className="jump-link" href={buildReplayHash(mode, 0)} aria-label="Direct link to the replay seed">
+                Link to seed
+              </a>
             </div>
             <Controls
               index={index}

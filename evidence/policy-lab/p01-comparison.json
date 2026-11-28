@@ -3,7 +3,7 @@
   "packId": "policy-lab-p01",
   "fixtureId": "P01",
   "fixtureVersion": "1.0.0",
-  "engineVersion": "0.2.0",
+  "engineVersion": "0.2.1",
   "policyLabVersion": "0.3.0",
   "generatedBy": "pnpm policy:replay",
   "fixtureHash": "bf486c0f2f6ae0b592ff6db19436947e4540607540f379f3011707f5b4920692",
@@ -315,6 +315,6 @@
     "Both branches spend 600.00 dEUR; unit deltas are not cash",
     "Every boundary replay case matches its frozen expectation"
   ],
-  "comparisonDigest": "c5405bc564a1a2d44b5485aa14bddf6e29af91dfba2d560177cde58e8d1f5f2f",
-  "packDigest": "653646b2f9031af28b7b7a95687fd02e3ab368b72456d4605503c65296c1738d"
+  "comparisonDigest": "e983c7c3a4b0bb19da3e3fa81d83cce69d98f5a84e9253d8b61da3df9a01681a",
+  "packDigest": "af9c00a8537134757479b5c69d78e6108b00858a924776320c2681454ead8d33"
 }

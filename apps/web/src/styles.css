@@ -1252,3 +1252,187 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* --- Investor journey legibility (S12: UX-01/02/03) --- */
+
+.badge-source {
+  background: rgba(47, 159, 224, 0.16);
+  color: #8fd9ff;
+  border: 1px solid rgba(47, 159, 224, 0.35);
+}
+
+.receipt-badges,
+.replay-head-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.receipt-order {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.receipt-order strong {
+  font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+  color: var(--text);
+}
+
+.receipt-evidence-link {
+  margin-left: 10px;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(56, 208, 176, 0.5);
+}
+
+.receipt-change {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(56, 208, 176, 0.3);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.receipt-change-label {
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.receipt-change strong {
+  font-size: 15px;
+  word-break: break-word;
+}
+
+.receipt-change-reason {
+  color: var(--muted);
+}
+
+.receipt-next {
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.receipt-base-units {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.receipt-base-units summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.receipt-base-units[open] summary {
+  margin-bottom: 10px;
+}
+
+.replay-jumps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.jump-button {
+  border: 1px solid rgba(56, 208, 176, 0.45);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.jump-button:hover {
+  border-color: var(--accent);
+}
+
+.jump-link {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--line);
+}
+
+.pending-detail {
+  flex-basis: 100%;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+/* 390 px phone width: no horizontal scrolling for the active event and values. */
+
+@media (max-width: 640px) {
+  .app {
+    padding: 14px 10px 26px;
+  }
+
+  .view-switch {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .view-switch button {
+    flex: 1 1 auto;
+  }
+
+  .panel {
+    padding: 14px 12px;
+  }
+
+  .holdings,
+  .postings {
+    width: 100%;
+    table-layout: fixed;
+    font-size: 12px;
+  }
+
+  .holdings th,
+  .holdings td,
+  .postings th,
+  .postings td {
+    padding: 7px 4px;
+    overflow-wrap: anywhere;
+  }
+
+  .holdings td:first-child {
+    width: 38%;
+  }
+
+  .receipt-row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .receipt-row dd {
+    text-align: left;
+  }
+
+  .replay-jumps .jump-link {
+    margin-left: 0;
+  }
+
+  .timeline {
+    max-height: none;
+  }
+}

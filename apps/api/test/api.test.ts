@@ -26,7 +26,7 @@ describe("partner API routes", () => {
       expect(body.calendarId).toBe("LAB-UTC-1");
       expect(body.policyId).toBe("eFUND-dealing");
       expect(body.clock).toBe("2026-11-20T15:00:00Z");
-      expect(body.engineVersion).toBe("0.2.0");
+      expect(body.engineVersion).toBe("0.2.1");
       expect(body.eventCount).toBe(5);
     } finally {
       await harness.close();
