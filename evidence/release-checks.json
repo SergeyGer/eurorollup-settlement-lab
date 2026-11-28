@@ -3,8 +3,8 @@
   "reportId": "S08-release-checks",
   "packId": "S08-verification",
   "generatedBy": "pnpm release:checks",
-  "generatedAt": "2026-11-28T12:04:20.568Z",
-  "commit": "c13d229baff58c46d28fe2273d53b5b72aa11f7f",
+  "generatedAt": "2026-11-28T12:27:02.760Z",
+  "commit": "2a1c93bf5f35826eed0c3710ad97cc9697914b6d",
   "branch": "step/S15-settlement-slice",
   "environment": {
     "hostname": "ubuntu-16gb-fsn1-2",
@@ -23,13 +23,13 @@
           "id": "golden",
           "command": "pnpm scenario:golden -- --check",
           "exitCode": 0,
-          "durationMs": 996
+          "durationMs": 1001
         },
         {
           "id": "pack-verify",
           "command": "pnpm verify",
           "exitCode": 0,
-          "durationMs": 946
+          "durationMs": 1004
         }
       ],
       "evidence": [
@@ -68,13 +68,13 @@
           "id": "boundary",
           "command": "pnpm scenario:boundary -- --check",
           "exitCode": 0,
-          "durationMs": 974
+          "durationMs": 1119
         },
         {
           "id": "api-evidence",
           "command": "pnpm scenario:api -- --check",
           "exitCode": 0,
-          "durationMs": 3751
+          "durationMs": 3883
         }
       ],
       "evidence": [
@@ -113,13 +113,13 @@
           "id": "eligibility-matrix",
           "command": "pnpm eligibility:matrix -- --check",
           "exitCode": 0,
-          "durationMs": 1456
+          "durationMs": 1196
         },
         {
           "id": "eligibility-verify",
           "command": "pnpm eligibility:verify",
           "exitCode": 0,
-          "durationMs": 2141
+          "durationMs": 1989
         }
       ],
       "evidence": [
@@ -168,7 +168,7 @@
           "id": "aa-verify",
           "command": "pnpm aa:verify",
           "exitCode": 0,
-          "durationMs": 1327
+          "durationMs": 1232
         }
       ],
       "evidence": [
@@ -197,7 +197,7 @@
           "id": "a05-verify",
           "command": "pnpm a05:verify",
           "exitCode": 0,
-          "durationMs": 1162
+          "durationMs": 1159
         }
       ],
       "evidence": [
@@ -252,7 +252,7 @@
           "id": "api-evidence",
           "command": "pnpm scenario:api -- --check",
           "exitCode": 0,
-          "durationMs": 3751
+          "durationMs": 3883
         }
       ],
       "evidence": [
@@ -281,7 +281,7 @@
           "id": "a07-verify",
           "command": "pnpm a07:verify",
           "exitCode": 0,
-          "durationMs": 1122
+          "durationMs": 1177
         }
       ],
       "evidence": [
@@ -400,7 +400,7 @@
           "id": "a08-verify",
           "command": "pnpm a08:verify",
           "exitCode": 0,
-          "durationMs": 1076
+          "durationMs": 1224
         }
       ],
       "evidence": [
@@ -439,25 +439,25 @@
           "id": "policy-replay",
           "command": "pnpm policy:replay -- --check",
           "exitCode": 0,
-          "durationMs": 979
+          "durationMs": 1060
         },
         {
           "id": "policy-verify",
           "command": "pnpm policy:verify",
           "exitCode": 0,
-          "durationMs": 1019
+          "durationMs": 1047
         },
         {
           "id": "policy-eval-mock",
           "command": "pnpm policy:eval -- --adapter mock",
           "exitCode": 0,
-          "durationMs": 1057
+          "durationMs": 999
         },
         {
           "id": "policy-eval-committed",
           "command": "pnpm policy:eval -- --verify-only",
           "exitCode": 0,
-          "durationMs": 1037
+          "durationMs": 973
         }
       ],
       "evidence": [
@@ -523,161 +523,168 @@
       "id": "typecheck",
       "command": "pnpm typecheck",
       "exitCode": 0,
-      "durationMs": 19876,
+      "durationMs": 20890,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 typecheck /root/projects/eurorollup-settlement-lab\n> tsc -p packages/dealing/tsconfig.json --noEmit && tsc -p packages/policy-lab/tsconfig.json --noEmit && tsc -p packages/economics/tsconfig.json --noEmit && tsc -p packages/eligibility/tsconfig.json --noEmit && tsc -p packages/sdk/tsconfig.json --noEmit && tsc -p apps/api/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit\n\n\n"
     },
     {
       "id": "tests",
       "command": "pnpm test",
       "exitCode": 0,
-      "durationMs": 7908,
-      "outputTail": "test/eligibility.test.ts (10 tests) 4648ms\n   ✓ eligibility policy endpoints (4)\n     ✓ exposes the policy version, roots, gates and circuit metadata 588ms\n   ✓ eligibility proof endpoints (3)\n     ✓ generates a real proof that verifies against its public inputs 2428ms\n     ✓ rejects a proof against a different root 1012ms\n ✓ apps/api/test/evidence.test.ts (5 tests) 5357ms\n   ✓ committed API evidence (5)\n     ✓ passes every A02 API dealing case 2523ms\n     ✓ passes every A06 invariant case 980ms\n     ✓ reproduces the committed A02 evidence byte for byte 1043ms\n     ✓ reproduces the committed A06 evidence byte for byte 760ms\n\n Test Files  22 passed (22)\n      Tests  205 passed (205)\n   Start at  12:04:41\n   Duration  6.52s (tests 70%, import 21%, transform 8%, worker 1%)\n\n    Isolate  22 workers spawned · ~275ms startup each (spawn + environment, per file)\n             at least ~589ms faster with isolate: false — reuses workers across files instead of one per file\n\n\n(node:442763) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:442771) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:442770) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:442788) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:442791) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:442777) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+      "durationMs": 7940,
+      "outputTail": "est/eligibility.test.ts (10 tests) 4727ms\n   ✓ eligibility policy endpoints (4)\n     ✓ exposes the policy version, roots, gates and circuit metadata 593ms\n   ✓ eligibility proof endpoints (3)\n     ✓ generates a real proof that verifies against its public inputs 2534ms\n     ✓ rejects a proof against a different root 1004ms\n ✓ apps/api/test/evidence.test.ts (5 tests) 5341ms\n   ✓ committed API evidence (5)\n     ✓ passes every A02 API dealing case 2504ms\n     ✓ passes every A06 invariant case 1039ms\n     ✓ reproduces the committed A02 evidence byte for byte 1012ms\n     ✓ reproduces the committed A06 evidence byte for byte 732ms\n\n Test Files  22 passed (22)\n      Tests  205 passed (205)\n   Start at  12:27:24\n   Duration  6.67s (tests 69%, import 23%, transform 7%, worker 1%)\n\n    Isolate  22 workers spawned · ~300ms startup each (spawn + environment, per file)\n             at least ~644ms faster with isolate: false — reuses workers across files instead of one per file\n\n\n(node:450963) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:450984) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:450982) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:450970) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:450971) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:450983) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "id": "build",
       "command": "pnpm build",
       "exitCode": 0,
-      "durationMs": 2706,
-      "outputTail": "\n> eurorollup-settlement-lab@1.1.0 build /root/projects/eurorollup-settlement-lab\n> pnpm --filter @eurorollup/web build\n\n\n> @eurorollup/web@1.1.0 build /root/projects/eurorollup-settlement-lab/apps/web\n> vite build\n\nvite v8.4.0 building client environment for production...\ntransforming...\n✓ 146 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                   1.23 kB │ gzip:     0.53 kB\ndist/assets/thread.worker-gFEUd6pQ.js             6.23 kB\ndist/assets/main.worker-UxB3YQtS.js              10.16 kB\ndist/assets/noirc_abi_wasm_bg-AoAoe0Lz.wasm     789.60 kB │ gzip:   308.93 kB\ndist/assets/acvm_js_bg-D_Jg3KxI.wasm          3,050.25 kB │ gzip:   862.55 kB\ndist/assets/index-BlmSI1wN.css                   19.69 kB │ gzip:     4.04 kB\ndist/assets/prover-C46leUy8.js                  325.70 kB │ gzip:    81.46 kB │ map: 1,266.96 kB\ndist/assets/index-Cs08m5XQ.js                   326.56 kB │ gzip:    93.24 kB │ map:   842.02 kB\ndist/assets/barretenberg-nKFMAszq.js          5,411.74 kB │ gzip: 4,040.41 kB │ map: 5,412.04 kB\ndist/assets/barretenberg-threads-CaKDmM8U.js  5,414.10 kB │ gzip: 4,041.14 kB │ map: 5,414.41 kB\n\n✓ built in 1.03s\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+      "durationMs": 2651,
+      "outputTail": "\n> eurorollup-settlement-lab@1.1.0 build /root/projects/eurorollup-settlement-lab\n> pnpm --filter @eurorollup/web build\n\n\n> @eurorollup/web@1.1.0 build /root/projects/eurorollup-settlement-lab/apps/web\n> vite build\n\nvite v8.4.0 building client environment for production...\ntransforming...\n✓ 146 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                   1.23 kB │ gzip:     0.53 kB\ndist/assets/thread.worker-gFEUd6pQ.js             6.23 kB\ndist/assets/main.worker-UxB3YQtS.js              10.16 kB\ndist/assets/noirc_abi_wasm_bg-AoAoe0Lz.wasm     789.60 kB │ gzip:   308.93 kB\ndist/assets/acvm_js_bg-D_Jg3KxI.wasm          3,050.25 kB │ gzip:   862.55 kB\ndist/assets/index-BlmSI1wN.css                   19.69 kB │ gzip:     4.04 kB\ndist/assets/prover-C46leUy8.js                  325.70 kB │ gzip:    81.46 kB │ map: 1,266.96 kB\ndist/assets/index-Cs08m5XQ.js                   326.56 kB │ gzip:    93.24 kB │ map:   842.02 kB\ndist/assets/barretenberg-nKFMAszq.js          5,411.74 kB │ gzip: 4,040.41 kB │ map: 5,412.04 kB\ndist/assets/barretenberg-threads-CaKDmM8U.js  5,414.10 kB │ gzip: 4,041.14 kB │ map: 5,414.41 kB\n\n✓ built in 947ms\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
     },
     {
       "id": "golden",
       "command": "pnpm scenario:golden -- --check",
       "exitCode": 0,
-      "durationMs": 996,
+      "durationMs": 1001,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 scenario:golden /root/projects/eurorollup-settlement-lab\n> tsx packages/dealing/src/cli.ts golden \"--\" \"--check\"\n\nEuroRollup Settlement Lab — G01 golden replay (engine 0.2.1)\n  Seed                                                 spendable 1000.00 | reserved 0.00 | tWETH 0.000000 | eFUND 0.000000 | value 1000.00\n  Buy 200.00 dEUR at 2,000.00 EUR per tWETH            spendable 799.95 | reserved 0.00 | tWETH 0.100000 | eFUND 0.000000 | value 999.95\n  Request 300.00 dEUR at indicative NAV 100.00 EUR     spendable 499.95 | reserved 300.00 | tWETH 0.100000 | eFUND 0.000000 | value 999.95\n  Strike and settle at NAV 96.00 EUR                   spendable 499.95 | reserved 0.00 | tWETH 0.100000 | eFUND 3.125000 | value 999.95\n  Checkpoints:\n  After redemption at the next applicable NAV          spendable 597.95 | reserved 0.00 | tWETH 0.100000 | eFUND 2.125000 | value 1006.20\n  Receipts:\n    G01-SPOT-01: {\"schemaVersion\":\"1.0\",\"orderId\":\"G01-SPOT-01\",\"businessState\":\"FILLED\",\"assetId\":\"tWETH\",\"unitsBase\":\"100000000000000000\",\"assetDecimals\":18,\"cashAssetId\":\"dEUR\",\"cashDeployedBase\":\"200000000\",\"cashDecimals\":6,\"priceEurPerUnit\":\"2000.00\",\"investorChargeBase\":\"50000\"}\n    G01-FUND-01: {\"schemaVersion\":\"1.0\",\"orderId\":\"G01-FUND-01\",\"businessState\":\"ALLOCATED\",\"assetId\":\"eFUND\",\"unitsBase\":\"3125000\",\"assetDecimals\":6,\"cashAssetId\":\"dEUR\",\"cashDeployedBase\":\"300000000\",\"cashDecimals\":6,\"navEurPerUnit\":\"96.00\",\"investorChargeBase\":\"0\"}\n    G01-RED-01: {\"schemaVersion\":\"1.0\",\"orderId\":\"G01-RED-01\",\"businessState\":\"REDEEMED\",\"assetId\":\"eFUND\",\"unitsBase\":\"1000000\",\"assetDecimals\":6,\"cashAssetId\":\"dEUR\",\"cashPaidBase\":\"98000000\",\"cashDecimals\":6,\"navEurPerUnit\":\"98.00\",\"investorChargeBase\":\"0\"}\n  Business digest: 90d71143b4174ae6be6948c61edaf5770cf5c10200129402bbc9c79417a70179\nOK   evidence/g01/golden-run.json matches a fresh replay\nOK   evidence/g01/manifest.json matches a fresh replay\n\n"
     },
     {
       "id": "boundary",
       "command": "pnpm scenario:boundary -- --check",
       "exitCode": 0,
-      "durationMs": 974,
+      "durationMs": 1119,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 scenario:boundary /root/projects/eurorollup-settlement-lab\n> tsx packages/dealing/src/cli.ts boundary \"--\" \"--check\"\n\nEuroRollup Settlement Lab — A02 boundary dealing cases (engine 0.2.1)\n  PASS B-1459-59          requested 2026-11-20T14:59:59Z calendar LAB-UTC-1: baseline 2026-11-20 (expected 2026-11-20), candidate 2026-11-20 (expected 2026-11-20)\n  PASS B-1500-00          requested 2026-11-20T15:00:00Z calendar LAB-UTC-1: baseline 2026-11-20 (expected 2026-11-20), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-1600-00          requested 2026-11-20T16:00:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-1630-00          requested 2026-11-20T16:30:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-SATURDAY         requested 2026-11-21T14:00:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-SUNDAY           requested 2026-11-22T12:00:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-MONDAY-BEFORE    requested 2026-11-23T10:00:00Z calendar LAB-UTC-1: baseline 2026-11-23 (expected 2026-11-23), candidate 2026-11-23 (expected 2026-11-23)\n  PASS B-HOLIDAY-MONDAY   requested 2026-11-23T10:00:00Z calendar LAB-UTC-2: baseline 2026-11-24 (expected 2026-11-24), candidate 2026-11-24 (expected 2026-11-24)\n  Summary: 8/8 cases passed; business digest 0340e01bac5e8edb72f40c0a33beb017d328c9c75d73c50b6beeecaaaa0273f2\nOK   evidence/a02/dealing-cases.json matches a fresh replay\n\n"
     },
     {
       "id": "api-evidence",
       "command": "pnpm scenario:api -- --check",
       "exitCode": 0,
-      "durationMs": 3751,
-      "outputTail": "S A02-API-PRICE-UNAVAILABLE — Unavailable price source returns a retry hint\n  PASS A02-API-INSUFFICIENT-CASH — Orders beyond the spendable cash are refused before acceptance\n  PASS A02-API-SPOT-FILL — Spot buy settles with the fixed EUR 0.05 charge\n  PASS A02-API-FUND-ALLOCATION — Fund subscription is reserved then allocated at the authorized NAV\n  PASS A02-API-DUST — Rounded-down units return the residual cash\n  PASS A02-API-MISSING-NAV — Missing NAV keeps the order pending with cash reserved\n  PASS A02-API-CANCEL-BEFORE — Cancellation before the cutoff releases the reservation\n  PASS A02-API-CANCEL-AFTER — Cancellation after the cutoff is refused\n  PASS A02-API-ZERO-UNIT-BOUNDARY — Quotes that would issue zero units are refused\n  PASS A02-API-REDEMPTION — Redemption reserves units and settles at the next applicable NAV\n  PASS A02-API-SPOT-SELL — Reverse quote sells tWETH with the fixed charge and checks inventory\n  PASS A02-API-G01-MATCH — G01 reproduced through the API matches the CLI evidence\n  OK   evidence/a02/api-dealing-cases.json matches a fresh evidence run\n\nA06-invariants: 6/6 cases passed\n  business digest 14620af3535c0f4fbb9a6783cd7eac97589b34e97a5c321b371e7a55ae864104\n  PASS A06-IDEMPOTENT-ORDERS — Same-key retries reuse the order and changed bodies conflict\n  PASS A06-CONCURRENT-CASH — Competing reservations cannot overspend the same cash\n  PASS A06-CONSERVATION — Journal balances to zero per asset across the full lifecycle\n  PASS A06-RESTART-RECOVERY — Projections rebuild from the event log after a restart and pending work resumes\n  PASS A06-REPLAY-EQUALITY — Identical action sequences produce identical state and canonical digests\n  PASS A06-DUPLICATE-EVENT — A duplicate event id cannot create a second business effect\n  OK   evidence/a06/invariants.json matches a fresh evidence run\n\n(node:443178) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+      "durationMs": 3883,
+      "outputTail": "S A02-API-PRICE-UNAVAILABLE — Unavailable price source returns a retry hint\n  PASS A02-API-INSUFFICIENT-CASH — Orders beyond the spendable cash are refused before acceptance\n  PASS A02-API-SPOT-FILL — Spot buy settles with the fixed EUR 0.05 charge\n  PASS A02-API-FUND-ALLOCATION — Fund subscription is reserved then allocated at the authorized NAV\n  PASS A02-API-DUST — Rounded-down units return the residual cash\n  PASS A02-API-MISSING-NAV — Missing NAV keeps the order pending with cash reserved\n  PASS A02-API-CANCEL-BEFORE — Cancellation before the cutoff releases the reservation\n  PASS A02-API-CANCEL-AFTER — Cancellation after the cutoff is refused\n  PASS A02-API-ZERO-UNIT-BOUNDARY — Quotes that would issue zero units are refused\n  PASS A02-API-REDEMPTION — Redemption reserves units and settles at the next applicable NAV\n  PASS A02-API-SPOT-SELL — Reverse quote sells tWETH with the fixed charge and checks inventory\n  PASS A02-API-G01-MATCH — G01 reproduced through the API matches the CLI evidence\n  OK   evidence/a02/api-dealing-cases.json matches a fresh evidence run\n\nA06-invariants: 6/6 cases passed\n  business digest 14620af3535c0f4fbb9a6783cd7eac97589b34e97a5c321b371e7a55ae864104\n  PASS A06-IDEMPOTENT-ORDERS — Same-key retries reuse the order and changed bodies conflict\n  PASS A06-CONCURRENT-CASH — Competing reservations cannot overspend the same cash\n  PASS A06-CONSERVATION — Journal balances to zero per asset across the full lifecycle\n  PASS A06-RESTART-RECOVERY — Projections rebuild from the event log after a restart and pending work resumes\n  PASS A06-REPLAY-EQUALITY — Identical action sequences produce identical state and canonical digests\n  PASS A06-DUPLICATE-EVENT — A duplicate event id cannot create a second business effect\n  OK   evidence/a06/invariants.json matches a fresh evidence run\n\n(node:451373) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "id": "policy-replay",
       "command": "pnpm policy:replay -- --check",
       "exitCode": 0,
-      "durationMs": 979,
+      "durationMs": 1060,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 policy:replay /root/projects/eurorollup-settlement-lab\n> tsx packages/policy-lab/src/cli.ts replay \"--\" \"--check\"\n\nEuroRollup Policy Lab — P01 Friday cutoff comparison\n  P01 branches: baseline Friday close spendable 1400000000, reserved 0, units 6250000\n  P01 branches: candidate Friday close spendable 1400000000, reserved 300000000, units 3125000\n  orders: 2, changed dealing date: 1, extra reserved at Friday close: 300000000\n  boundary cases: 6/6 pass\n  comparison digest: e983c7c3a4b0bb19da3e3fa81d83cce69d98f5a84e9253d8b61da3df9a01681a\n  pack digest:       af9c00a8537134757479b5c69d78e6108b00858a924776320c2681454ead8d33\n  OK   evidence/policy-lab/p01-comparison.json matches a fresh replay\n  OK   evidence/policy-lab/manifest.json matches a fresh replay\n\n"
     },
     {
       "id": "policy-verify",
       "command": "pnpm policy:verify",
       "exitCode": 0,
-      "durationMs": 1019,
+      "durationMs": 1047,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 policy:verify /root/projects/eurorollup-settlement-lab\n> tsx packages/policy-lab/src/cli.ts verify\n\nEuroRollup Policy Lab — verify evidence/policy-lab (pack policy-lab-p01)\nOK   evidence/policy-lab verified: file digests, comparison digest and replay match\n\n"
     },
     {
       "id": "policy-eval-mock",
       "command": "pnpm policy:eval -- --adapter mock",
       "exitCode": 0,
-      "durationMs": 1057,
+      "durationMs": 999,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 policy:eval /root/projects/eurorollup-settlement-lab\n> tsx packages/policy-lab/src/cli.ts eval \"--\" \"--adapter\" \"mock\"\n\nEuroRollup Policy Lab — A09 live-model evaluation (mock)\n  model: scripted-model digest n/a\n  valid 20/20 · clarify 10/10 · unsupported 10/10 · model errors 0\n  thresholds met: true\n  wrote eval-tmp/mock-eval.json (26954 bytes)\n\n"
     },
     {
       "id": "policy-eval-committed",
       "command": "pnpm policy:eval -- --verify-only",
       "exitCode": 0,
-      "durationMs": 1037,
+      "durationMs": 973,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 policy:eval /root/projects/eurorollup-settlement-lab\n> tsx packages/policy-lab/src/cli.ts eval \"--\" \"--verify-only\"\n\nEuroRollup Policy Lab — A09 live-model evaluation (committed report)\n  valid 20/20 · clarify 10/10 · unsupported 10/10\n  model qwen3:4b · digest 359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7 · prompt p01-live-v10 · settings temp 0 seed 42 timeout 15000ms attempts 2\nOK   the committed evaluation meets the A09 thresholds and structure\n\n"
     },
     {
       "id": "eligibility-matrix",
       "command": "pnpm eligibility:matrix -- --check",
       "exitCode": 0,
-      "durationMs": 1456,
+      "durationMs": 1196,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 eligibility:matrix /root/projects/eurorollup-settlement-lab\n> tsx packages/eligibility/src/cli.ts matrix \"--\" \"--check\"\n\nOK   evidence/a03/policy-matrix.json matches the policy engine\n\n"
     },
     {
       "id": "eligibility-verify",
       "command": "pnpm eligibility:verify",
       "exitCode": 0,
-      "durationMs": 2141,
+      "durationMs": 1989,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 eligibility:verify /root/projects/eurorollup-settlement-lab\n> tsx packages/eligibility/src/cli.ts verify\n\nOK   policy matrix: 19 rows, 9 assertions\nOK   proof vectors: 3/3 positive, 5/5 negative\n\n"
     },
     {
       "id": "aa-verify",
       "command": "pnpm aa:verify",
       "exitCode": 0,
-      "durationMs": 1327,
+      "durationMs": 1232,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 aa:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-aa-evidence.ts\n\nOK   A04 account-abstraction receipts verified\n  A04-C01 sponsored-success: tx 0x84234e6f95… · event success=true cost=253265142014420 · deposit delta -253265142014420\n  A04-C02 included-failure: tx 0xd98293bb8a… · event success=false cost=218920589947334 · deposit delta -218920589947334\n  A04-C03 exhausted-sponsor: tx 0x68a6cfa566… · event absent · deposit delta 0\n\n"
     },
     {
       "id": "a05-verify",
       "command": "pnpm a05:verify",
       "exitCode": 0,
-      "durationMs": 1162,
+      "durationMs": 1159,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 a05:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-a05-evidence.ts\n\nA05 evidence verified: 10 calldata batch transaction(s), withdrawal 0xfbdf46187f8f6d34e864473ee7b1c56d1c05d6c4a1aa32cd4f2acc4125ef79bc proven and finalized with 100000000000000000 wei\n\n"
     },
     {
       "id": "a07-verify",
       "command": "pnpm a07:verify",
       "exitCode": 0,
-      "durationMs": 1122,
+      "durationMs": 1177,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 a07:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-a07-economics.ts\n\nA07 economics verified: bundle 0x9c38a36aa768c1301fbd01419330d9101b114380c34d8e11f80559532ca417f1 paid 472351559302104 wei in total, 2 allocations including a failed bucket; 5 cost scenarios\n\n"
     },
     {
       "id": "s15-verify",
       "command": "pnpm s15:verify",
       "exitCode": 0,
-      "durationMs": 1128,
+      "durationMs": 1097,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 s15:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-s15-evidence.ts\n\nS15 settlement slice verified: 5 contracts, 17 transactions, stages seed → spot → reserved → allocated → redeemed, canonical block 1214, final investor cash 597950000 base units, 2.125 eFUND\n\n"
     },
     {
       "id": "s16-verify",
       "command": "pnpm s16:verify",
       "exitCode": 0,
-      "durationMs": 1175,
+      "durationMs": 1153,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 s16:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-s16-evidence.ts\n\nS16 onchain eligibility verified: 7 real proofs (ultra_honk_evm), Solidity verifier accepted them, root rotation blocked 29 transactions' worth of flow, recovery settled the reservation once, canonical block 1130\n\n"
+    },
+    {
+      "id": "s17-verify",
+      "command": "pnpm s17:verify",
+      "exitCode": 0,
+      "durationMs": 1399,
+      "outputTail": "\n> eurorollup-settlement-lab@1.1.0 s17:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-s17-evidence.ts\n\nS17 sponsored order verified: ERC-4337 v0.7, 6 user operations (4 submitted), user charge zero, sponsor paid every bundle, included revert recorded, recovery matched the mined receipt, canonical block 481\n\n"
     },
     {
       "id": "openapi",
       "command": "pnpm api:openapi -- --check",
       "exitCode": 0,
-      "durationMs": 1896,
-      "outputTail": "\n> eurorollup-settlement-lab@1.1.0 api:openapi /root/projects/eurorollup-settlement-lab\n> tsx apps/api/scripts/dump-openapi.ts \"--\" \"--check\"\n\nOK   docs/api/openapi.json matches the generated document\n\n(node:443672) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+      "durationMs": 1971,
+      "outputTail": "\n> eurorollup-settlement-lab@1.1.0 api:openapi /root/projects/eurorollup-settlement-lab\n> tsx apps/api/scripts/dump-openapi.ts \"--\" \"--check\"\n\nOK   docs/api/openapi.json matches the generated document\n\n(node:451906) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "id": "pack-verify",
       "command": "pnpm verify",
       "exitCode": 0,
-      "durationMs": 946,
+      "durationMs": 1004,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 verify /root/projects/eurorollup-settlement-lab\n> tsx packages/dealing/src/cli.ts verify\n\nEuroRollup Settlement Lab — verify evidence/g01 (pack G01)\nOK   evidence/g01 verified: inputs, file digests, business digest and replay match\n\n"
     },
     {
       "id": "partner-demo",
       "command": "pnpm demo:partner",
       "exitCode": 0,
-      "durationMs": 2106,
-      "outputTail": "\n> eurorollup-settlement-lab@1.1.0 demo:partner /root/projects/eurorollup-settlement-lab\n> tsx apps/api/scripts/quickstart.ts\n\nEuroRollup partner quickstart\n  API                        http://127.0.0.1:39803\n  Fixture clock              2026-11-20T15:00:00Z\n  Calendar                   LAB-UTC-1\n  Event count                5\n\n1. Spot quote\n  quote id                   quote_demo_001\n  price                      2000000000 base units per tWETH\n  charge ceiling             50000 base units\n2. Spot order\n  order id                   order_demo_002\n  business state             FILLED\n  receipt units              100000000000000000\n  receipt charge             50000\n3. Fund quote\n  quote id                   quote_demo_004\n  indicative NAV             100000000 base units\n  dealing date               2026-11-20\n  cutoff                     16:00 UTC\n4. Fund order accepted\n  order id                   order_demo_005\n  business state             AWAITING_NAV\n  pending reserved cash      300000000\n  spendable cash             499950000\n5. Authorized NAV published\n  valuation date             2026-11-20\n  NAV                        96.00 EUR per unit\n  allocations queued         order_demo_005\n6. Allocation and portfolio\n  order state                ALLOCATED\n  units issued               3125000\n  spendable cash             499950000\n  reserved cash              0\n  tWETH                      100000000000000000\n  eFUND                      3125000\n  marked value               999950000\n\n  OK   spendable cash 499.95\n  OK   reserved cash cleared\n  OK   0.100000 tWETH\n  OK   3.125000 eFUND\n  OK   marked value 999.95\n\nQuickstart finished: the API reproduced the G01 golden portfolio.\n\n(node:443757) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+      "durationMs": 2183,
+      "outputTail": "\n> eurorollup-settlement-lab@1.1.0 demo:partner /root/projects/eurorollup-settlement-lab\n> tsx apps/api/scripts/quickstart.ts\n\nEuroRollup partner quickstart\n  API                        http://127.0.0.1:42919\n  Fixture clock              2026-11-20T15:00:00Z\n  Calendar                   LAB-UTC-1\n  Event count                5\n\n1. Spot quote\n  quote id                   quote_demo_001\n  price                      2000000000 base units per tWETH\n  charge ceiling             50000 base units\n2. Spot order\n  order id                   order_demo_002\n  business state             FILLED\n  receipt units              100000000000000000\n  receipt charge             50000\n3. Fund quote\n  quote id                   quote_demo_004\n  indicative NAV             100000000 base units\n  dealing date               2026-11-20\n  cutoff                     16:00 UTC\n4. Fund order accepted\n  order id                   order_demo_005\n  business state             AWAITING_NAV\n  pending reserved cash      300000000\n  spendable cash             499950000\n5. Authorized NAV published\n  valuation date             2026-11-20\n  NAV                        96.00 EUR per unit\n  allocations queued         order_demo_005\n6. Allocation and portfolio\n  order state                ALLOCATED\n  units issued               3125000\n  spendable cash             499950000\n  reserved cash              0\n  tWETH                      100000000000000000\n  eFUND                      3125000\n  marked value               999950000\n\n  OK   spendable cash 499.95\n  OK   reserved cash cleared\n  OK   0.100000 tWETH\n  OK   3.125000 eFUND\n  OK   marked value 999.95\n\nQuickstart finished: the API reproduced the G01 golden portfolio.\n\n(node:451989) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "id": "line-endings",
       "command": "pnpm check:line-endings",
       "exitCode": 0,
-      "durationMs": 1450,
-      "outputTail": "\n> eurorollup-settlement-lab@1.1.0 check:line-endings /root/projects/eurorollup-settlement-lab\n> tsx scripts/check-line-endings.ts\n\nline endings: 396 tracked files, offenders 0, passed=true\n\nPreparing worktree (detached HEAD c13d229)\n"
+      "durationMs": 1512,
+      "outputTail": "\n> eurorollup-settlement-lab@1.1.0 check:line-endings /root/projects/eurorollup-settlement-lab\n> tsx scripts/check-line-endings.ts\n\nline endings: 406 tracked files, offenders 0, passed=true\n\nPreparing worktree (detached HEAD 2a1c93b)\n"
     },
     {
       "id": "release-attestation",
       "command": "pnpm release:attest:verify",
       "exitCode": 0,
-      "durationMs": 1177,
+      "durationMs": 1185,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 release:attest:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-release-attestation.ts\n\nnote: local film is version 1.1.0 and does not belong to v1.0.0; digest comparison skipped\nREL-01 release attestation verified: evidence/release-attestation.json tag v1.0.0 (9dbe565ee522) over build cb98283733d9, four evidence/metadata files, archive not claimed as the tagged tree\n\n"
     },
     {
       "id": "a08-verify",
       "command": "pnpm a08:verify",
       "exitCode": 0,
-      "durationMs": 1076,
+      "durationMs": 1224,
       "outputTail": "\n> eurorollup-settlement-lab@1.1.0 a08:verify /root/projects/eurorollup-settlement-lab\n> tsx scripts/verify-a08-evidence.ts\n\nA08 public-release evidence verified: https://sergeyger.github.io/eurorollup-settlement-lab/ HTTP 200, 5 browser views, 3 public links, package eurollup-settlement-lab-1.1.0.tar.gz sha256 a59681497b26…; film complete\n\n"
     }
   ],
