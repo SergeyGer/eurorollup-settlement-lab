@@ -143,7 +143,14 @@ docker run -d --name "$OP_PROPOSER_CONTAINER" --network host \
 
 log "waiting for derivation (safe L2 head)"
 for _ in $(seq 1 120); do
-  SAFE="$(jsonrpc "$NODE_RPC" optimism_syncStatus '[]' | python3 -c 'import json,sys; d=json.load(sys.stdin).get("result") or {}; print(int(d.get("safe_l2",{}).get("number",0),16))' 2>/dev/null || echo 0)"
+  SAFE="$(jsonrpc "$NODE_RPC" optimism_syncStatus '[]' | python3 -c '
+import json, sys
+d = json.load(sys.stdin).get("result") or {}
+raw = d.get("safe_l2", {}).get("number", 0)
+if isinstance(raw, str):
+    raw = int(raw, 16) if raw.startswith("0x") else int(raw)
+print(int(raw))
+' 2>/dev/null || echo 0)"
   if [ "${SAFE:-0}" -ge 10 ]; then break; fi
   sleep 2
 done

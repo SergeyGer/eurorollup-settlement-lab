@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/s15-settlement-slice.schema.json",
+  "title": "S15 contract-backed settlement vertical slice evidence",
+  "type": "object",
+  "required": ["schemaVersion", "reportId", "packId", "generatedBy", "generatedAt", "commit", "chains", "accounts", "assets", "deployments", "abis", "transactions", "stages", "canonicalBlock", "balancesAtCanonicalBlock", "passed", "limitations", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "S15-settlement-slice" },
+    "packId": { "const": "S15" },
+    "generatedBy": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "chains": {
+      "type": "object",
+      "required": ["l1ChainId", "l2ChainId", "lane"],
+      "properties": {
+        "l1ChainId": { "const": 11155111 },
+        "l2ChainId": { "const": 16584 },
+        "lane": { "type": "string" }
+      }
+    },
+    "accounts": { "type": "object", "required": ["operator", "investor", "dealer", "feeRecipient", "issuerTreasury"] },
+    "assets": { "type": "object", "required": ["cash", "spot", "fund"] },
+    "deployments": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["name", "contract", "address", "txHash", "blockNumber", "codeHash", "abiSha256"],
+        "properties": {
+          "name": { "type": "string" },
+          "contract": { "type": "string" },
+          "address": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" },
+          "txHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+          "blockNumber": { "type": "integer", "minimum": 0 },
+          "codeHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+          "abiSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "abis": { "type": "array", "minItems": 4 },
+    "transactions": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["stage", "label", "txHash", "blockNumber", "gasUsed", "status"],
+        "properties": {
+          "stage": { "type": "string" },
+          "label": { "type": "string" },
+          "txHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+          "blockNumber": { "type": "integer", "minimum": 0 },
+          "gasUsed": { "type": "string", "pattern": "^[0-9]+$" },
+          "status": { "type": "integer", "enum": [0, 1] }
+        }
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["stage", "blockNumber", "expected", "observed", "mismatches", "passed"],
+        "properties": {
+          "stage": { "enum": ["seed", "spot", "reserved", "allocated", "redeemed"] },
+          "blockNumber": { "type": "integer", "minimum": 0 },
+          "expected": { "type": "object" },
+          "observed": { "type": "object" },
+          "mismatches": { "type": "array", "items": { "type": "string" } },
+          "passed": { "type": "boolean" }
+        }
+      }
+    },
+    "canonicalBlock": { "type": "object", "required": ["number", "hash"] },
+    "balancesAtCanonicalBlock": { "type": "object" },
+    "passed": { "type": "boolean" },
+    "limitations": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

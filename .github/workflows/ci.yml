@@ -85,6 +85,9 @@ jobs:
       - name: Verify the committed A08 public-release evidence
         run: pnpm a08:verify
 
+      - name: Verify the committed S15 settlement slice evidence
+        run: pnpm s15:verify
+
       - name: Verify the committed release-check matrix
         run: pnpm release:verify
 
@@ -113,3 +116,22 @@ jobs:
             evidence/policy-lab
           retention-days: 30
           if-no-files-found: error
+
+  contracts:
+    name: contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Build contracts
+        run: forge build --root contracts
+
+      - name: Test contracts
+        run: forge test --root contracts -vv
