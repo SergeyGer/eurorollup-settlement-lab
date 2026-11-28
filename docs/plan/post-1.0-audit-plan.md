@@ -26,6 +26,15 @@ tracker issue.
 | S21 | [#56](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/56) | OPS-01/OPS-02 benchmark and authority reconciliation |
 | S22 | [#57](https://github.com/SergeyGer/eurorollup-settlement-lab/issues/57) | Independent acceptance and `v1.2.0` |
 
+## Status
+
+- S11: three candidate social preview revisions are awaiting the project owner's explicit
+  approval in #46; integration into README, Wiki and film is blocked until then.
+- S12: UX-01/02/03 implemented and covered by `pnpm ui:checks` (18/18 checks); the
+  five-participant usability pilot is blocked on participant sessions (script published,
+  automated legibility checks passing).
+- S13–S22: not started.
+
 ## Gates and external inputs
 
 - The new artwork enters the README, Wiki and film only after the project owner approves

@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S12-investor-journey-ui-checks",
+  "generatedBy": "pnpm ui:checks",
+  "generatedAt": "2026-11-28T09:31:38.903Z",
+  "commit": "9dbe565ee5226a4b8969de9e55036d645ed36784",
+  "baseUrl": "http://127.0.0.1:8123/",
+  "browser": "chromium 140.0.7339.186",
+  "viewports": [
+    "1440x1000",
+    "390x844"
+  ],
+  "checks": [
+    {
+      "id": "seed-initial-state",
+      "description": "recorded replay opens at the seed",
+      "passed": true,
+      "detail": "url http://127.0.0.1:8123/#replay/g01/0 spendable=€1,000.00"
+    },
+    {
+      "id": "seed-empty-holdings",
+      "description": "seed shows no funded holdings",
+      "passed": true,
+      "detail": "holdings zero at the seed"
+    },
+    {
+      "id": "direct-link-fill",
+      "description": "direct link restores the spot fill event",
+      "passed": true,
+      "detail": "hash replay/g01/2 loads the fill"
+    },
+    {
+      "id": "fill-spendable",
+      "description": "spendable cash after the fill is EUR 799.95",
+      "passed": true,
+      "detail": "€799.95"
+    },
+    {
+      "id": "fill-quantity-six-decimals",
+      "description": "tWETH quantity uses six display decimals",
+      "passed": true,
+      "detail": "0.100000 tWETH"
+    },
+    {
+      "id": "fill-charge",
+      "description": "five-cent charge is visible in the event and receipt",
+      "passed": true,
+      "detail": "€0.05"
+    },
+    {
+      "id": "fill-what-changed",
+      "description": "receipt shows the what-changed strip and source label",
+      "passed": true,
+      "detail": "what changed + source + next event"
+    },
+    {
+      "id": "reserved-values",
+      "description": "reservation shows EUR 499.95 spendable and EUR 300.00 pending",
+      "passed": true,
+      "detail": "€499.95 / €300.00"
+    },
+    {
+      "id": "held-order-detail",
+      "description": "held fund order shows reserved cash, blocking rule and next action",
+      "passed": true,
+      "detail": "reserved + blocking rule + next action"
+    },
+    {
+      "id": "allocated-values",
+      "description": "allocation shows EUR 499.95, zero pending and 3.125000 eFUND",
+      "passed": true,
+      "detail": "€499.95 / 3.125000 / €0.00"
+    },
+    {
+      "id": "allocated-receipt-units",
+      "description": "allocation receipt shows 3.125000 eFUND (not +3.12)",
+      "passed": true,
+      "detail": "six-decimal receipt and movement"
+    },
+    {
+      "id": "receipt-evidence",
+      "description": "evidence link opens canonical base units",
+      "passed": true,
+      "detail": "base units 3125000 visible"
+    },
+    {
+      "id": "keyboard-home",
+      "description": "Home returns to the seed",
+      "passed": true,
+      "detail": "http://127.0.0.1:8123/#replay/g01/0"
+    },
+    {
+      "id": "keyboard-end",
+      "description": "End opens the outcome",
+      "passed": true,
+      "detail": "http://127.0.0.1:8123/#replay/g01/5"
+    },
+    {
+      "id": "start-button",
+      "description": "Start replay returns to the seed",
+      "passed": true,
+      "detail": "http://127.0.0.1:8123/#replay/g01/0"
+    },
+    {
+      "id": "outcome-button",
+      "description": "View outcome opens the final event",
+      "passed": true,
+      "detail": "http://127.0.0.1:8123/#replay/g01/5"
+    },
+    {
+      "id": "mobile-no-horizontal-scroll",
+      "description": "390 px viewport has no horizontal scrolling",
+      "passed": true,
+      "detail": "scrollWidth 390 / innerWidth 390"
+    },
+    {
+      "id": "mobile-values",
+      "description": "390 px keeps values and reason readable",
+      "passed": true,
+      "detail": "amounts + reason visible"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs/media/s12-seed-desktop.png",
+      "sha256": "28c620eb573ab0f70122aece7b959997d6dee59bef7737822e4189d17892da78"
+    },
+    {
+      "file": "docs/media/s12-fill-desktop.png",
+      "sha256": "55f489801664fcbd423da6c0157d43ec08077bb3875da22622a8bd3c386d2038"
+    },
+    {
+      "file": "docs/media/s12-reserved-desktop.png",
+      "sha256": "62fb3ca629855aa8641ca1b76bef97f42798e1ca9114cb9859b0135a61f06503"
+    },
+    {
+      "file": "docs/media/s12-allocated-desktop.png",
+      "sha256": "b3de32e80650cb4dba253fcb0bed73c7b50db06c642d7732e4ea1760af959e8a"
+    },
+    {
+      "file": "docs/media/s12-receipt-evidence.png",
+      "sha256": "938f94ef178d097355c6522f7ed255ac7c7932891846fef7d7c6c381411720a8"
+    },
+    {
+      "file": "docs/media/s12-mobile-allocated.png",
+      "sha256": "c2d00ba132e012ff5196c8f0220b81944798d14d678551e954cc62b41f4a36cb"
+    }
+  ],
+  "passed": true,
+  "notes": [
+    "The app is served from the built browser replay; the API is not required for the recorded replay.",
+    "These checks cover presentation and navigation only; amounts remain integer base units in the evidence inspector."
+  ]
+}

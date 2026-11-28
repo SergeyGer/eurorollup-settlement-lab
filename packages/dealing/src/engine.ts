@@ -9,7 +9,7 @@
  * The engine is shared by the CLI replay, the browser replay (step S01) and
  * later the order worker and the policy-lab simulation worker.
  */
-import { ASSETS, CASH_ASSET_ID, FUND_ASSET_ID, SPOT_ASSET_ID } from "./assets.js";
+import { ASSETS, CASH_ASSET_ID, FUND_ASSET_ID, SPOT_ASSET_ID, displayDecimalsOf } from "./assets.js";
 import type { AssetId } from "./assets.js";
 import {
   assignDealingDay,
@@ -163,6 +163,10 @@ export interface PendingOrderSummary {
   readonly status: string;
   readonly dealingDate?: string;
   readonly reason?: string;
+  /** Cash held for a pending subscription (base units, dEUR). */
+  readonly reservedCashBase?: string;
+  /** Fund units reserved for a pending redemption (base units, eFUND). */
+  readonly reservedUnitsBase?: string;
 }
 
 export interface PortfolioSnapshot {
@@ -195,14 +199,14 @@ interface EventApplication {
 
 function formatAsset(amount: bigint, assetId: AssetId): string {
   const asset = ASSETS[assetId];
-  return `${formatDisplayAmount(amount, asset.decimals, asset.decimals === 18 ? 6 : 2)} ${asset.symbol}`;
+  return `${formatDisplayAmount(amount, asset.decimals, asset.displayDecimals)} ${asset.symbol}`;
 }
 
 function formatSigned(amount: bigint, assetId: AssetId): string {
   const prefix = amount >= 0n ? "+" : "-";
   const absolute = amount < 0n ? -amount : amount;
   const asset = ASSETS[assetId];
-  return `${prefix}${formatDisplayAmount(absolute, asset.decimals, asset.decimals === 18 ? 6 : 2)} ${asset.symbol}`;
+  return `${prefix}${formatDisplayAmount(absolute, asset.decimals, asset.displayDecimals)} ${asset.symbol}`;
 }
 
 function navKey(assetId: AssetId, valuationDate: string): string {
@@ -368,6 +372,7 @@ export class SettlementEngine {
           status: order.status,
           dealingDate: order.dealingDate,
           reason: "AWAITING_AUTHORIZED_NAV",
+          reservedCashBase: order.reservedCashBase.toString(),
         });
       }
       if (order.kind === "fund-redemption" && order.status === "AWAITING_NAV") {
@@ -378,6 +383,7 @@ export class SettlementEngine {
           status: order.status,
           dealingDate: order.dealingDate,
           reason: "AWAITING_AUTHORIZED_NAV",
+          reservedUnitsBase: order.reservedUnitsBase.toString(),
         });
       }
       if (order.kind === "spot" && order.status === "QUOTED") {
@@ -408,7 +414,7 @@ export class SettlementEngine {
         reservedBase: reserved.toString(),
         markPriceBase: markPrice.toString(),
         markedValueBase: markedValue.toString(),
-        displayDecimals: asset.decimals === 18 ? 6 : 6,
+        displayDecimals: displayDecimalsOf(assetId),
       });
     }
 
