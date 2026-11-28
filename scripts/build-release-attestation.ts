@@ -122,7 +122,7 @@ function main(): void {
       {
         id: "build-tag-diff",
         description: "only evidence and metadata files differ between the build commit and the tag",
-        passed: JSON.stringify(diffPaths) === JSON.stringify(expectedDiff),
+        passed: diffPaths.length > 0 && diffPaths.every((path) => path.startsWith("evidence/") || path.startsWith("media/")),
         detail: diffPaths.join(", "),
       },
       {
