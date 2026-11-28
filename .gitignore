@@ -49,8 +49,8 @@ circuits/**/Prover.toml
 # controlled local devnet runtime state
 .devnet-local/
 
-# release packaging output
-release/
+# release packaging output (top-level only; docs/release is tracked)
+/release/
 
 # local film production workspace
 /tmp-film/

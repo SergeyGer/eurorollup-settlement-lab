@@ -23,6 +23,7 @@ import {
   runG01,
   runG01Redemption,
   serializeEvidenceJson,
+  resolvePackDirectory,
   serializeGoldenRun,
   type BoundaryCasesFixture,
   type CalendarFixture,
@@ -215,7 +216,7 @@ function commandBoundary(options: CommandOptions): number {
 }
 
 function commandVerify(options: CommandOptions): number {
-  const packDir = options.pack.replace(/\/+$/, "");
+  const packDir = resolvePackDirectory(options.pack);
   const manifestPath = join(repoRoot, packDir, "manifest.json");
   if (!existsSync(manifestPath)) {
     console.error(`FAIL pack manifest not found: ${packDir}/manifest.json`);

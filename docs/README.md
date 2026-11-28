@@ -19,7 +19,7 @@ fixture dates and version numbers are content, not publication dates.
 | [`../devnet/README.md`](../devnet/README.md) | Controlled local OP Stack devnet: pinned components, launcher commands and recorded limitations. |
 | [`economics/README.md`](economics/README.md) | A07 economics: measured bundle reconciliation, interactive cost experiment and funding guard. |
 | [`operations/`](operations/) | A07 operations: service objectives, drills, dashboard, provider evaluation and incident postmortem. |
-| [`architecture/adr/`](architecture/adr/) | Numbered decision records for the rollup, batch, finality and authority decisions. |
+| [`architecture/`](architecture/overview.md) | Architecture overview and numbered ADRs (execution, batch/DA, finality/withdrawals, authority). |
 | [`fixtures/`](fixtures/) | Frozen inputs: G01 portfolio, P01 cutoff experiment, calendar, instruments and boundary cases. |
 | [`release/README.md`](release/README.md) | Public replay URL, release film, downloadable package and the A08 public checks. |
 | [`verification/s10-release-film.md`](verification/s10-release-film.md) | S10 film verification: frames, narration, loudness, captions and link checks. |

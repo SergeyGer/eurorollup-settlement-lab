@@ -1,0 +1,47 @@
+# Line-ending policy: hashed text and every published evidence file are LF on all hosts.
+* text=auto eol=lf
+
+# Hashed, byte-verified text assets (violations would change evidence digests).
+evidence/** text eol=lf
+schemas/** text eol=lf
+fixtures/** text eol=lf
+benchmarks/** text eol=lf
+media/**/*.vtt text eol=lf
+media/**/*.ass text eol=lf
+media/**/*.md text eol=lf
+docs/**/*.md text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sh text eol=lf
+*.toml text eol=lf
+*.lock text eol=lf
+*.sol text eol=lf
+*.nr text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+pnpm-lock.yaml text eol=lf
+LICENSE text eol=lf
+NOTICE text eol=lf
+
+# Binary assets are never normalised.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.mp4 binary
+*.webm binary
+*.wav binary
+*.mp3 binary
+*.onnx binary
+*.docx binary
+*.pdf binary

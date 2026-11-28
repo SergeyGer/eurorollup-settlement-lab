@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "REL-02-line-endings",
+  "generatedBy": "pnpm check:line-endings",
+  "generatedAt": "2026-11-28T09:49:47.240Z",
+  "commit": "14e86bd4ca18ff9b420c822c36dc3811b67e9e15",
+  "attributes": {
+    "path": ".gitattributes",
+    "sha256": "df918e7fe3c65875aa0818bdbd87f338d0a8a7e58b53bbf1eaa5e94ffbd3ab11"
+  },
+  "counts": {
+    "trackedFiles": 334,
+    "textLf": 301,
+    "binary": 33,
+    "indexOffenders": 0,
+    "worktreeOffenders": 0
+  },
+  "offenders": [],
+  "worktreeOffenders": [],
+  "hashedAttributeChecks": [
+    {
+      "path": "evidence/g01/golden-run.json",
+      "attributes": "evidence/g01/golden-run.json: text: set; evidence/g01/golden-run.json: eol: lf"
+    },
+    {
+      "path": "evidence/a05/protocol-run.json",
+      "attributes": "evidence/a05/protocol-run.json: text: set; evidence/a05/protocol-run.json: eol: lf"
+    },
+    {
+      "path": "schemas/golden-run.schema.json",
+      "attributes": "schemas/golden-run.schema.json: text: set; schemas/golden-run.schema.json: eol: lf"
+    },
+    {
+      "path": "media/film/release-film.vtt",
+      "attributes": "media/film/release-film.vtt: text: set; media/film/release-film.vtt: eol: lf"
+    }
+  ],
+  "simulatedWindowsCheckout": {
+    "method": "git worktree with core.autocrlf=true and core.eol=crlf",
+    "nativeWindows": false,
+    "note": "A real Windows checkout is not available on this host; the simulation records the attribute policy.",
+    "file": "evidence/g01/golden-run.json",
+    "crlfPresent": true,
+    "sha256": "daff158b2cc1d254b6eb91d67df07ce703cec97057377994ac8d6e0bbac29d85",
+    "shaMatchesRepository": false,
+    "bytes": 26630
+  },
+  "passed": false,
+  "notes": [
+    "Every published evidence, schema and fixture path is pinned to LF; binary assets are marked binary.",
+    "The repository was renormalised after adding .gitattributes; no tracked file content changed.",
+    "Hashed file byte digests remain strict; only the checkout line-ending policy changed."
+  ]
+}

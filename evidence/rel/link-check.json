@@ -1,0 +1,517 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "REL-02-link-check",
+  "generatedBy": "pnpm check:links",
+  "generatedAt": "2026-11-28T09:49:48.996Z",
+  "tag": "v1.0.0",
+  "checks": [
+    {
+      "id": "relative:README.md:docs/release/README.md",
+      "target": "docs/release/README.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/media/s01-portfolio-reserved.jpg",
+      "target": "docs/media/s01-portfolio-reserved.jpg",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/verification/s01-foundation.md",
+      "target": "docs/verification/s01-foundation.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/media/s02-live-pending.jpg",
+      "target": "docs/media/s02-live-pending.jpg",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/media/s02-live-allocated.jpg",
+      "target": "docs/media/s02-live-allocated.jpg",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/api/partner-api.md",
+      "target": "docs/api/partner-api.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/api/openapi.json",
+      "target": "docs/api/openapi.json",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/verification/s02-settlement-core.md",
+      "target": "docs/verification/s02-settlement-core.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/media/s03-policy-lab-impact.jpg",
+      "target": "docs/media/s03-policy-lab-impact.jpg",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/policy-lab/p01-friday-cutoff.md",
+      "target": "docs/policy-lab/p01-friday-cutoff.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/verification/s03-policy-lab.md",
+      "target": "docs/verification/s03-policy-lab.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/media/s04-policy-lab-live.jpg",
+      "target": "docs/media/s04-policy-lab-live.jpg",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/policy-lab/live-model-adapter.md",
+      "target": "docs/policy-lab/live-model-adapter.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/verification/s04-live-model.md",
+      "target": "docs/verification/s04-live-model.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/media/s05-eligibility.jpg",
+      "target": "docs/media/s05-eligibility.jpg",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/policy-lab/eligibility.md",
+      "target": "docs/policy-lab/eligibility.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/aa/account-abstraction.md",
+      "target": "docs/aa/account-abstraction.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/verification/s05-eligibility-aa.md",
+      "target": "docs/verification/s05-eligibility-aa.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:devnet/README.md",
+      "target": "devnet/README.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/architecture/adr-01-execution.md",
+      "target": "docs/architecture/adr-01-execution.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/verification/s06-protocol-run.md",
+      "target": "docs/verification/s06-protocol-run.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/economics/README.md",
+      "target": "docs/economics/README.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/operations/",
+      "target": "docs/operations/",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/README.md",
+      "target": "docs/README.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/plan/roadmap.md",
+      "target": "docs/plan/roadmap.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:docs/api/partner-api.md",
+      "target": "docs/api/partner-api.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:SECURITY.md",
+      "target": "SECURITY.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:LICENSE",
+      "target": "LICENSE",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:NOTICE",
+      "target": "NOTICE",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:reference/specification.md",
+      "target": "reference/specification.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:plan/roadmap.md",
+      "target": "plan/roadmap.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:plan/post-1.0-audit-plan.md",
+      "target": "plan/post-1.0-audit-plan.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:architecture/overview.md",
+      "target": "architecture/overview.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:api/partner-api.md",
+      "target": "api/partner-api.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:policy-lab/p01-friday-cutoff.md",
+      "target": "policy-lab/p01-friday-cutoff.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:policy-lab/eligibility.md",
+      "target": "policy-lab/eligibility.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:aa/account-abstraction.md",
+      "target": "aa/account-abstraction.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:../devnet/README.md",
+      "target": "../devnet/README.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:economics/README.md",
+      "target": "economics/README.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:operations/",
+      "target": "operations/",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:architecture/adr/",
+      "target": "architecture/adr/",
+      "kind": "relative-file",
+      "status": null,
+      "passed": false,
+      "detail": "missing file referenced from docs/README.md"
+    },
+    {
+      "id": "relative:docs/README.md:fixtures/",
+      "target": "fixtures/",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:release/README.md",
+      "target": "release/README.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:verification/s10-release-film.md",
+      "target": "verification/s10-release-film.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:verification/s12-investor-journey.md",
+      "target": "verification/s12-investor-journey.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:verification/s12-usability-pilot.md",
+      "target": "verification/s12-usability-pilot.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:verification/s12-accessibility-checklist.md",
+      "target": "verification/s12-accessibility-checklist.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:evidence/README.md",
+      "target": "evidence/README.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:glossary.md",
+      "target": "glossary.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:operations/",
+      "target": "operations/",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/README.md:verification/",
+      "target": "verification/",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:docs/release/README.md:social-preview-1280x640.png",
+      "target": "social-preview-1280x640.png",
+      "kind": "relative-file",
+      "status": null,
+      "passed": false,
+      "detail": "missing file referenced from docs/release/README.md"
+    },
+    {
+      "id": "relative:docs/release/README.md:../verification/s10-release-film.md",
+      "target": "../verification/s10-release-film.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "url:https://sergeyger.github.io/eurorollup-settlement-lab/",
+      "target": "https://sergeyger.github.io/eurorollup-settlement-lab/",
+      "kind": "public-url",
+      "status": 200,
+      "passed": true,
+      "detail": "HTTP 200 signed out"
+    },
+    {
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab",
+      "kind": "public-url",
+      "status": 200,
+      "passed": true,
+      "detail": "HTTP 200 signed out"
+    },
+    {
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.0.0",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.0.0",
+      "kind": "public-url",
+      "status": 200,
+      "passed": true,
+      "detail": "HTTP 200 signed out"
+    },
+    {
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4",
+      "kind": "public-url",
+      "status": 200,
+      "passed": true,
+      "detail": "HTTP 200 signed out"
+    },
+    {
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-settlement-lab-1.0.0.tar.gz",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-settlement-lab-1.0.0.tar.gz",
+      "kind": "public-url",
+      "status": 200,
+      "passed": true,
+      "detail": "HTTP 200 signed out"
+    },
+    {
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film.vtt",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film.vtt",
+      "kind": "public-url",
+      "status": 200,
+      "passed": true,
+      "detail": "HTTP 200 signed out"
+    },
+    {
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-checks.json",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-checks.json",
+      "kind": "public-url",
+      "status": 200,
+      "passed": true,
+      "detail": "HTTP 200 signed out"
+    },
+    {
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/wiki",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/wiki",
+      "kind": "public-url",
+      "status": 200,
+      "passed": true,
+      "detail": "HTTP 200 signed out"
+    },
+    {
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/wiki/Release-Film",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/wiki/Release-Film",
+      "kind": "public-url",
+      "status": 200,
+      "passed": true,
+      "detail": "HTTP 200 signed out"
+    }
+  ],
+  "summary": {
+    "total": 62,
+    "relativeFiles": 53,
+    "publicUrls": 9,
+    "relativeFailures": 2,
+    "urlFailures": 0
+  },
+  "passed": false,
+  "notes": [
+    "Public URLs are fetched without cookies or tokens; the replay and release assets must answer signed out.",
+    "Relative links are resolved inside the checkout; evidence packs referenced by URL are checked as release assets."
+  ]
+}

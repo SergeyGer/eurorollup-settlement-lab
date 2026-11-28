@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "REL-01-release-attestation",
+  "generatedBy": "pnpm release:attest",
+  "generatedAt": "2026-11-28T09:49:32.759Z",
+  "tag": "v1.0.0",
+  "tagCommit": "9dbe565ee5226a4b8969de9e55036d645ed36784",
+  "tagUrl": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.0.0",
+  "builtFromCommit": "cb98283733d9ae381728b722eeba8cc75ad0bcbf",
+  "builtFromCommitRole": "The film, public-check record and downloadable archive were produced from this release-code commit.",
+  "tagRelationship": {
+    "kind": "evidence-and-metadata-only",
+    "diffFiles": [
+      {
+        "status": "M",
+        "path": "evidence/a08/public-release.json"
+      },
+      {
+        "status": "M",
+        "path": "evidence/a08/release-package.json"
+      },
+      {
+        "status": "M",
+        "path": "evidence/release-checks.json"
+      },
+      {
+        "status": "M",
+        "path": "media/film/film-metadata.json"
+      }
+    ],
+    "note": "The tag adds four evidence/metadata files on top of the build commit; the downloadable archive contains the build-commit source and is not described as the exact tagged tree."
+  },
+  "artifacts": {
+    "package": {
+      "fileName": "eurollup-settlement-lab-1.0.0.tar.gz",
+      "sha256": "ee79d38389af6e6efbbd6fc0186221ab5e1f0a8679f09403b339dff6bf78f6d6",
+      "bytes": 5503425,
+      "manifestDigest": "a5514a4fe1ccd151c8c40a5b4a9a8044c4c61c0182264763a45645fabd38658a",
+      "manifestFileCount": 311,
+      "builtFromCommit": "cb98283733d9ae381728b722eeba8cc75ad0bcbf",
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-settlement-lab-1.0.0.tar.gz",
+      "exactTaggedTree": false
+    },
+    "film": {
+      "fileName": "eurollup-release-film-1.0.0.mp4",
+      "sha256": "0af81effc863c16797eaa0e09c6d01cc180642d036c87d2fed6cef4580837b93",
+      "bytes": 8723175,
+      "frameCount": 1800,
+      "durationSeconds": 60,
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4",
+      "builtFromCommit": "cb98283733d9ae381728b722eeba8cc75ad0bcbf"
+    },
+    "captions": {
+      "fileName": "release-film.vtt",
+      "sha256": "04d24f32b54fb663e8bab35a3633d627667a449e03476bd12728d63d82d91182",
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film.vtt"
+    },
+    "transcript": {
+      "fileName": "release-film-transcript.md",
+      "sha256": "bab63a2b6c080cdecaa5d177bdbf0da31532c307f10eb0826c62b14805e0749f",
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film-transcript.md"
+    }
+  },
+  "source": {
+    "commit": "14e86bd4ca18ff9b420c822c36dc3811b67e9e15",
+    "repository": "https://github.com/SergeyGer/eurorollup-settlement-lab",
+    "publicReplay": "https://sergeyger.github.io/eurorollup-settlement-lab/"
+  },
+  "localArtifacts": {
+    "filmPresent": true,
+    "filmSha256": "0af81effc863c16797eaa0e09c6d01cc180642d036c87d2fed6cef4580837b93",
+    "filmShaMatchesMetadata": true
+  },
+  "checks": [
+    {
+      "id": "tag-commit",
+      "description": "publication tag resolves to a commit",
+      "passed": true,
+      "detail": "9dbe565ee5226a4b8969de9e55036d645ed36784"
+    },
+    {
+      "id": "build-tag-diff",
+      "description": "only evidence and metadata files differ between the build commit and the tag",
+      "passed": true,
+      "detail": "evidence/a08/public-release.json, evidence/a08/release-package.json, evidence/release-checks.json, media/film/film-metadata.json"
+    },
+    {
+      "id": "archive-source",
+      "description": "archive records the build commit and is not claimed as the tagged tree",
+      "passed": true,
+      "detail": "archive commit cb98283733d9ae381728b722eeba8cc75ad0bcbf, manifest 311 files"
+    },
+    {
+      "id": "media-source",
+      "description": "film metadata records the same build commit and digest",
+      "passed": true,
+      "detail": "film 0af81effc863…"
+    }
+  ],
+  "passed": true,
+  "notes": [
+    "The earlier-source archive is recorded with exactTaggedTree=false instead of being described as the tagged tree.",
+    "SHA-256 values are copied from the committed film metadata and package verification record.",
+    "The release page and asset URLs are verified signed out by pnpm check:links."
+  ]
+}
