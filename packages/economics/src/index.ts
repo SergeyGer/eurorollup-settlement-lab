@@ -9,3 +9,5 @@ export * from "./reconciliation.js";
 export * from "./experiment.js";
 export * from "./funding.js";
 export * from "./operator.js";
+
+export * from "./canonical-ledger.js";

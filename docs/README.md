@@ -34,6 +34,7 @@ fixture dates and version numbers are content, not publication dates.
 | [`verification/s18-settlement-pack.md`](verification/s18-settlement-pack.md) | S18 settlement pack: run evidence export, joined chain witness, tamper detection. |
 | [`verification/s19-net01-attempt.md`](verification/s19-net01-attempt.md) | S19 NET-01 attempt: failed client image configurations and the recorded upstream blocker. |
 | [`verification/s19-net01-consensus-lane.md`](verification/s19-net01-consensus-lane.md) | S19 NET-01 result: blob DA, sidecar commitment, L1 finality, deriving verifier and head samples. |
+| [`verification/s20-canonical-reconciliation.md`](verification/s20-canonical-reconciliation.md) | S20 LED-01: exact-hash anchors, noncanonical rejection, reorg recovery and conservation. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |
 | [`glossary.md`](glossary.md) | Shared vocabulary for the domain, the Policy Lab and the rollup. |
 | [`operations/`](operations/) | Runbooks, drills and incident records. |

@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/s20-reconciliation-reorg.schema.json",
+  "title": "LED-01 canonical reconciliation and reorg recovery evidence",
+  "type": "object",
+  "required": ["schemaVersion", "reportId", "packId", "generatedBy", "generatedAt", "commit", "chain", "contracts", "initialCheckpoint", "branches", "reorg", "anchors", "projection", "duplicate", "restart", "reconciliation", "auditTrail", "passed", "limitations", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "S20-reconciliation-reorg" },
+    "packId": { "const": "S20" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "chain": { "type": "object", "required": ["mode", "chainId", "exactBlockHashMethod", "reorgRpc"], "properties": { "chainId": { "const": 16584 }, "exactBlockHashMethod": { "const": "EIP-1898 eth_call blockHash parameter" }, "reorgRpc": { "const": "anvil_reorg" } } },
+    "contracts": { "type": "object" },
+    "initialCheckpoint": { "type": "object" },
+    "branches": {
+      "type": "object",
+      "required": ["commonAncestor", "previous", "replacement"],
+      "properties": {
+        "previous": { "type": "object", "required": ["blocks", "orphanedBlockHashes"], "properties": { "blocks": { "type": "array", "minItems": 2 }, "orphanedBlockHashes": { "type": "array", "minItems": 2 } } },
+        "replacement": { "type": "object", "required": ["blocks", "activityBlocks"], "properties": { "blocks": { "type": "array", "minItems": 4 } } }
+      }
+    },
+    "reorg": { "type": "object", "required": ["depth", "orphanedEvents", "replayedEvents", "duplicatesSkipped", "releasedReservations", "commonAncestorBlockHash"], "properties": { "orphanedEvents": { "type": "array", "minItems": 3 }, "replayedEvents": { "type": "array", "minItems": 3 }, "duplicatesSkipped": { "type": "integer", "minimum": 1 } } },
+    "anchors": { "type": "object", "required": ["accepted", "rejected"], "properties": { "accepted": { "type": "object" }, "rejected": { "type": "object", "required": ["orphanBlockHash", "canonicalReason", "exactHashBalanceRejected"], "properties": { "exactHashBalanceRejected": { "const": true } } } } },
+    "projection": { "type": "object" },
+    "duplicate": { "type": "object", "required": ["duplicatesSkipped", "idempotent"], "properties": { "idempotent": { "const": true } } },
+    "restart": { "type": "object", "required": ["checkpointSha256", "projectionSha256", "restoredProjectionSha256", "equal"], "properties": { "equal": { "const": true } } },
+    "reconciliation": { "type": "object", "required": ["balanceResult", "conservation"] },
+    "auditTrail": { "type": "array", "minItems": 4 },
+    "passed": { "const": true },
+    "limitations": { "type": "array", "minItems": 3 },
+    "notes": { "type": "array", "minItems": 2 }
+  }
+}

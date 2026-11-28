@@ -69,6 +69,8 @@
     "s18:verify": "tsx scripts/verify-s18-evidence.ts",
     "s19:run": "tsx scripts/s19-consensus-lane.ts",
     "s19:verify": "tsx scripts/verify-s19-evidence.ts",
+    "s20:run": "tsx scripts/s20-reconciliation-reorg.ts",
+    "s20:verify": "tsx scripts/verify-s20-evidence.ts",
     "scenario:api": "tsx apps/api/scripts/run-evidence.ts",
     "scenario:boundary": "tsx packages/dealing/src/cli.ts boundary",
     "scenario:golden": "tsx packages/dealing/src/cli.ts golden",
