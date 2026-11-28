@@ -75,11 +75,29 @@ canonical artwork at `media/social-preview/approved-1280x640.png` (SHA-256
 `apps/web/public/social-preview.png` social image and the Wiki film page; the film
 opening shot uses the same artwork in the S14 re-cut.
 
+## Signed-out publication sessions
+
+`pnpm check:sessions` opens the public surfaces without cookies or tokens and writes
+`evidence/rel/publication-sessions.json` plus the screenshots:
+
+| Session | Result |
+| --- | --- |
+| README desktop 1440x1000 signed out | film, replay, cutoff experiment, receipt and Wiki actions above the fixture content; approved poster visible (1280 px natural width) |
+| README phone 390x844 signed out | same one-click actions and approved poster readable |
+| Wiki home desktop signed out | release 1.0.0 status current; film page reachable |
+
+Screenshots: `docs/media/s13-readme-desktop.png`, `s13-readme-phone.png`,
+`s13-wiki-home.png`.
+
+## Remaining manual step
+
+The GitHub **repository Social Preview** setting has no public API. The approved 1280x640
+PNG (`media/social-preview/approved-1280x640.png`, SHA-256 `1b56f8f9…`) is ready for the
+repository owner to upload in Settings; every repository-controlled surface already uses
+it. This is tracked in #46.
+
 ## Remaining S13 work
 
-- README first screen with the owner-approved Social Preview and the two above-the-fold
-  actions.
-- Wiki map restructure and stale-page repairs.
-- Signed-out desktop/phone screenshots of the restructured surfaces.
-
-These are completed after the Social Preview revision is approved (issue #46).
+None: the README first screen, the Wiki map, the command/link fixes, the portability and
+attestation checks and the signed-out sessions are complete. The Wiki page map itself is
+maintained in the Wiki repository.

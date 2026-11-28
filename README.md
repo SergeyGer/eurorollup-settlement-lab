@@ -13,7 +13,7 @@ An open-source euro settlement sandbox for crypto trades and tokenized fund orde
 - Watch the [60-second release film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4) ([captions](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film.vtt), [transcript](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film-transcript.md)) or open the [live replay](https://sergeyger.github.io/eurorollup-settlement-lab/).
 - Read the [Wiki](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki) for fixtures, architecture, setup, the partner API, evidence and release history.
 - Quick start: Node.js 22+, `corepack enable`, `pnpm install`, `pnpm test`, `pnpm dev`. Commands are documented in the [Wiki Development-Setup](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki/Development-Setup) page and `package.json`.
-- Verify the evidence with `pnpm verify --pack evidence/g01` and the release matrix with `pnpm release:checks` / `pnpm release:verify`.
+- Verify the evidence with `pnpm verify --pack evidence/g01`, the release matrix with `pnpm release:checks` / `pnpm release:verify`, and the public surfaces with `pnpm check:sessions`.
 - Licence: [Apache-2.0](LICENSE) and [NOTICE](NOTICE); published versions and evidence are in [Releases](https://github.com/SergeyGer/eurorollup-settlement-lab/releases) and [CHANGELOG](CHANGELOG.md).
 
 ## What the project demonstrates

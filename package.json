@@ -23,6 +23,7 @@
     "build": "pnpm --filter @eurorollup/web build",
     "check:line-endings": "tsx scripts/check-line-endings.ts",
     "check:links": "tsx scripts/check-public-links.ts",
+    "check:sessions": "tsx scripts/check-publication-sessions.ts",
     "demo": "tsx apps/api/scripts/quickstart.ts",
     "demo:partner": "tsx apps/api/scripts/quickstart.ts",
     "dev": "pnpm --filter @eurorollup/web dev",
