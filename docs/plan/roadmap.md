@@ -25,7 +25,7 @@ recording current calendar dates. Weeks are planning windows, not deadlines.
 | S09 | Public release | Released as `v0.9.0` |
 | S10 | Release film | Released as `v1.0.0` |
 
-All planned development steps are released; the project is at `v1.0.0`.
+All original development steps are released at `v1.0.0`. The post-1.0 audit programme is tracked in [`post-1.0-audit-plan.md`](post-1.0-audit-plan.md) (M7 presentation update `v1.1.0`, M8 settlement and protocol infrastructure `v1.2.0`).
 
 ## Steps
 
