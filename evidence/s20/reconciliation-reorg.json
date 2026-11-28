@@ -1,0 +1,602 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S20-reconciliation-reorg",
+  "packId": "S20",
+  "generatedBy": "pnpm s20:run",
+  "generatedAt": "2026-11-28T14:47:43.509Z",
+  "commit": "357f49822aeca40a9d04164845443ce4e240de52",
+  "chain": {
+    "mode": "controlled-anvil",
+    "chainId": 16584,
+    "rpc": "http://127.0.0.1:8610",
+    "exactBlockHashMethod": "EIP-1898 eth_call blockHash parameter",
+    "reorgRpc": "anvil_reorg"
+  },
+  "contracts": {
+    "settlement": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+    "escrow": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+    "dEUR": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+    "tWETH": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+    "eFUND": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+  },
+  "initialCheckpoint": {
+    "schemaVersion": "1.0.0",
+    "blockNumber": 17,
+    "blockHash": "0x27bc6fbffc0292ab77d50a4bf976acddc1b86460ea1a9d62abd174e507c958e9",
+    "balances": {
+      "investor": {
+        "dEUR": "1000000000",
+        "tWETH": "0",
+        "eFUND": "0"
+      },
+      "issuer": {
+        "dEUR": "500000000",
+        "tWETH": "0",
+        "eFUND": "0"
+      },
+      "dealer": {
+        "dEUR": "0",
+        "tWETH": "1000000000000000000",
+        "eFUND": "0"
+      },
+      "fee": {
+        "dEUR": "0",
+        "tWETH": "0",
+        "eFUND": "0"
+      },
+      "escrow": {
+        "dEUR": "0",
+        "tWETH": "0",
+        "eFUND": "0"
+      }
+    },
+    "reservations": {},
+    "releasedReservations": {},
+    "processedEventIds": [],
+    "auditTrail": []
+  },
+  "branches": {
+    "commonAncestor": {
+      "blockNumber": 17,
+      "blockHash": "0x27bc6fbffc0292ab77d50a4bf976acddc1b86460ea1a9d62abd174e507c958e9"
+    },
+    "previous": {
+      "blocks": [
+        {
+          "blockNumber": 18,
+          "blockHash": "0x99e5347ff15cdd4e92c14ce553143195441bc44bc017db8998dff16e1cb1f8a8",
+          "parentHash": "0x27bc6fbffc0292ab77d50a4bf976acddc1b86460ea1a9d62abd174e507c958e9",
+          "events": [
+            {
+              "eventId": "0x69f5f38cda0b80c50a99d3751c6166f2cef063ab490b6cfc2d48869950d33839:1",
+              "kind": "RESERVE",
+              "orderId": "0xbf8ce7efa35ed653850e5838f2795534df5526337fb3e9732bb85c22ce859a45",
+              "blockHash": "0x99e5347ff15cdd4e92c14ce553143195441bc44bc017db8998dff16e1cb1f8a8",
+              "blockNumber": 18,
+              "txHash": "0x69f5f38cda0b80c50a99d3751c6166f2cef063ab490b6cfc2d48869950d33839",
+              "logIndex": 1,
+              "account": "investor",
+              "counterparty": "escrow",
+              "assetId": "dEUR",
+              "amountBase": "300000000",
+              "feeBase": "0",
+              "unitsBase": "0",
+              "unitsAssetId": "eFUND"
+            }
+          ]
+        },
+        {
+          "blockNumber": 19,
+          "blockHash": "0xdafa511897a41b3ee5756d76b44fd1b8005682bc5ff3bbaf2186156fc1fc7cc1",
+          "parentHash": "0x99e5347ff15cdd4e92c14ce553143195441bc44bc017db8998dff16e1cb1f8a8",
+          "events": [
+            {
+              "eventId": "0x7e6a21b865ce5adec00d689ea07c72584dfdfc6aec789007dcbc1c930b095b01:1",
+              "kind": "RELEASE",
+              "orderId": "0xbf8ce7efa35ed653850e5838f2795534df5526337fb3e9732bb85c22ce859a45",
+              "blockHash": "0xdafa511897a41b3ee5756d76b44fd1b8005682bc5ff3bbaf2186156fc1fc7cc1",
+              "blockNumber": 19,
+              "txHash": "0x7e6a21b865ce5adec00d689ea07c72584dfdfc6aec789007dcbc1c930b095b01",
+              "logIndex": 1,
+              "account": "escrow",
+              "counterparty": "issuer",
+              "assetId": "dEUR",
+              "amountBase": "300000000",
+              "feeBase": "0",
+              "unitsBase": "0",
+              "unitsAssetId": "eFUND"
+            },
+            {
+              "eventId": "0x7e6a21b865ce5adec00d689ea07c72584dfdfc6aec789007dcbc1c930b095b01:3",
+              "kind": "ALLOCATE",
+              "orderId": "0xbf8ce7efa35ed653850e5838f2795534df5526337fb3e9732bb85c22ce859a45",
+              "blockHash": "0xdafa511897a41b3ee5756d76b44fd1b8005682bc5ff3bbaf2186156fc1fc7cc1",
+              "blockNumber": 19,
+              "txHash": "0x7e6a21b865ce5adec00d689ea07c72584dfdfc6aec789007dcbc1c930b095b01",
+              "logIndex": 3,
+              "account": "investor",
+              "counterparty": null,
+              "assetId": "eFUND",
+              "amountBase": "0",
+              "feeBase": "0",
+              "unitsBase": "3125000",
+              "unitsAssetId": "eFUND"
+            }
+          ]
+        }
+      ],
+      "orphanedBlockHashes": [
+        "0x99e5347ff15cdd4e92c14ce553143195441bc44bc017db8998dff16e1cb1f8a8",
+        "0xdafa511897a41b3ee5756d76b44fd1b8005682bc5ff3bbaf2186156fc1fc7cc1"
+      ]
+    },
+    "replacement": {
+      "blocks": [
+        {
+          "blockNumber": 18,
+          "blockHash": "0x23bbb8a36ea14b00cc3ba21446588e1167188723476d8dd05550df437238469e",
+          "parentHash": "0x27bc6fbffc0292ab77d50a4bf976acddc1b86460ea1a9d62abd174e507c958e9",
+          "events": []
+        },
+        {
+          "blockNumber": 19,
+          "blockHash": "0x1925cd4d9bd589087007a96a3bc6a5c55051b62b40952531d75ca73b299ca26d",
+          "parentHash": "0x23bbb8a36ea14b00cc3ba21446588e1167188723476d8dd05550df437238469e",
+          "events": []
+        },
+        {
+          "blockNumber": 20,
+          "blockHash": "0xba6b38974bf9542f263b58982d2501997c5d23b7c2f2e0d9ae7f972f49b375e5",
+          "parentHash": "0x1925cd4d9bd589087007a96a3bc6a5c55051b62b40952531d75ca73b299ca26d",
+          "events": [
+            {
+              "eventId": "0xf9374d6935fe2176a4d49ae258f0db521b1fdf50e8a7dc7725139e0e78bc51d9:1",
+              "kind": "RESERVE",
+              "orderId": "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77",
+              "blockHash": "0xba6b38974bf9542f263b58982d2501997c5d23b7c2f2e0d9ae7f972f49b375e5",
+              "blockNumber": 20,
+              "txHash": "0xf9374d6935fe2176a4d49ae258f0db521b1fdf50e8a7dc7725139e0e78bc51d9",
+              "logIndex": 1,
+              "account": "investor",
+              "counterparty": "escrow",
+              "assetId": "dEUR",
+              "amountBase": "200000000",
+              "feeBase": "0",
+              "unitsBase": "0",
+              "unitsAssetId": "eFUND"
+            }
+          ]
+        },
+        {
+          "blockNumber": 21,
+          "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+          "parentHash": "0xba6b38974bf9542f263b58982d2501997c5d23b7c2f2e0d9ae7f972f49b375e5",
+          "events": [
+            {
+              "eventId": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f:1",
+              "kind": "RELEASE",
+              "orderId": "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77",
+              "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+              "blockNumber": 21,
+              "txHash": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f",
+              "logIndex": 1,
+              "account": "escrow",
+              "counterparty": "issuer",
+              "assetId": "dEUR",
+              "amountBase": "200000000",
+              "feeBase": "0",
+              "unitsBase": "0",
+              "unitsAssetId": "eFUND"
+            },
+            {
+              "eventId": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f:3",
+              "kind": "ALLOCATE",
+              "orderId": "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77",
+              "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+              "blockNumber": 21,
+              "txHash": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f",
+              "logIndex": 3,
+              "account": "investor",
+              "counterparty": null,
+              "assetId": "eFUND",
+              "amountBase": "0",
+              "feeBase": "0",
+              "unitsBase": "2000000",
+              "unitsAssetId": "eFUND"
+            }
+          ]
+        }
+      ],
+      "activityBlocks": [
+        {
+          "blockNumber": 20,
+          "blockHash": "0xba6b38974bf9542f263b58982d2501997c5d23b7c2f2e0d9ae7f972f49b375e5",
+          "parentHash": "0x1925cd4d9bd589087007a96a3bc6a5c55051b62b40952531d75ca73b299ca26d",
+          "events": [
+            {
+              "eventId": "0xf9374d6935fe2176a4d49ae258f0db521b1fdf50e8a7dc7725139e0e78bc51d9:1",
+              "kind": "RESERVE",
+              "orderId": "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77",
+              "blockHash": "0xba6b38974bf9542f263b58982d2501997c5d23b7c2f2e0d9ae7f972f49b375e5",
+              "blockNumber": 20,
+              "txHash": "0xf9374d6935fe2176a4d49ae258f0db521b1fdf50e8a7dc7725139e0e78bc51d9",
+              "logIndex": 1,
+              "account": "investor",
+              "counterparty": "escrow",
+              "assetId": "dEUR",
+              "amountBase": "200000000",
+              "feeBase": "0",
+              "unitsBase": "0",
+              "unitsAssetId": "eFUND"
+            }
+          ]
+        },
+        {
+          "blockNumber": 21,
+          "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+          "parentHash": "0xba6b38974bf9542f263b58982d2501997c5d23b7c2f2e0d9ae7f972f49b375e5",
+          "events": [
+            {
+              "eventId": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f:1",
+              "kind": "RELEASE",
+              "orderId": "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77",
+              "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+              "blockNumber": 21,
+              "txHash": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f",
+              "logIndex": 1,
+              "account": "escrow",
+              "counterparty": "issuer",
+              "assetId": "dEUR",
+              "amountBase": "200000000",
+              "feeBase": "0",
+              "unitsBase": "0",
+              "unitsAssetId": "eFUND"
+            },
+            {
+              "eventId": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f:3",
+              "kind": "ALLOCATE",
+              "orderId": "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77",
+              "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+              "blockNumber": 21,
+              "txHash": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f",
+              "logIndex": 3,
+              "account": "investor",
+              "counterparty": null,
+              "assetId": "eFUND",
+              "amountBase": "0",
+              "feeBase": "0",
+              "unitsBase": "2000000",
+              "unitsAssetId": "eFUND"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reorg": {
+    "depth": 2,
+    "orphanedEvents": [
+      {
+        "eventId": "0x69f5f38cda0b80c50a99d3751c6166f2cef063ab490b6cfc2d48869950d33839:1",
+        "kind": "RESERVE",
+        "orderId": "0xbf8ce7efa35ed653850e5838f2795534df5526337fb3e9732bb85c22ce859a45",
+        "blockHash": "0x99e5347ff15cdd4e92c14ce553143195441bc44bc017db8998dff16e1cb1f8a8",
+        "blockNumber": 18,
+        "txHash": "0x69f5f38cda0b80c50a99d3751c6166f2cef063ab490b6cfc2d48869950d33839",
+        "logIndex": 1,
+        "account": "investor",
+        "counterparty": "escrow",
+        "assetId": "dEUR",
+        "amountBase": "300000000",
+        "feeBase": "0",
+        "unitsBase": "0",
+        "unitsAssetId": "eFUND"
+      },
+      {
+        "eventId": "0x7e6a21b865ce5adec00d689ea07c72584dfdfc6aec789007dcbc1c930b095b01:1",
+        "kind": "RELEASE",
+        "orderId": "0xbf8ce7efa35ed653850e5838f2795534df5526337fb3e9732bb85c22ce859a45",
+        "blockHash": "0xdafa511897a41b3ee5756d76b44fd1b8005682bc5ff3bbaf2186156fc1fc7cc1",
+        "blockNumber": 19,
+        "txHash": "0x7e6a21b865ce5adec00d689ea07c72584dfdfc6aec789007dcbc1c930b095b01",
+        "logIndex": 1,
+        "account": "escrow",
+        "counterparty": "issuer",
+        "assetId": "dEUR",
+        "amountBase": "300000000",
+        "feeBase": "0",
+        "unitsBase": "0",
+        "unitsAssetId": "eFUND"
+      },
+      {
+        "eventId": "0x7e6a21b865ce5adec00d689ea07c72584dfdfc6aec789007dcbc1c930b095b01:3",
+        "kind": "ALLOCATE",
+        "orderId": "0xbf8ce7efa35ed653850e5838f2795534df5526337fb3e9732bb85c22ce859a45",
+        "blockHash": "0xdafa511897a41b3ee5756d76b44fd1b8005682bc5ff3bbaf2186156fc1fc7cc1",
+        "blockNumber": 19,
+        "txHash": "0x7e6a21b865ce5adec00d689ea07c72584dfdfc6aec789007dcbc1c930b095b01",
+        "logIndex": 3,
+        "account": "investor",
+        "counterparty": null,
+        "assetId": "eFUND",
+        "amountBase": "0",
+        "feeBase": "0",
+        "unitsBase": "3125000",
+        "unitsAssetId": "eFUND"
+      }
+    ],
+    "replayedEvents": [
+      {
+        "eventId": "0xf9374d6935fe2176a4d49ae258f0db521b1fdf50e8a7dc7725139e0e78bc51d9:1",
+        "kind": "RESERVE",
+        "orderId": "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77",
+        "blockHash": "0xba6b38974bf9542f263b58982d2501997c5d23b7c2f2e0d9ae7f972f49b375e5",
+        "blockNumber": 20,
+        "txHash": "0xf9374d6935fe2176a4d49ae258f0db521b1fdf50e8a7dc7725139e0e78bc51d9",
+        "logIndex": 1,
+        "account": "investor",
+        "counterparty": "escrow",
+        "assetId": "dEUR",
+        "amountBase": "200000000",
+        "feeBase": "0",
+        "unitsBase": "0",
+        "unitsAssetId": "eFUND"
+      },
+      {
+        "eventId": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f:1",
+        "kind": "RELEASE",
+        "orderId": "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77",
+        "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+        "blockNumber": 21,
+        "txHash": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f",
+        "logIndex": 1,
+        "account": "escrow",
+        "counterparty": "issuer",
+        "assetId": "dEUR",
+        "amountBase": "200000000",
+        "feeBase": "0",
+        "unitsBase": "0",
+        "unitsAssetId": "eFUND"
+      },
+      {
+        "eventId": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f:3",
+        "kind": "ALLOCATE",
+        "orderId": "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77",
+        "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+        "blockNumber": 21,
+        "txHash": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f",
+        "logIndex": 3,
+        "account": "investor",
+        "counterparty": null,
+        "assetId": "eFUND",
+        "amountBase": "0",
+        "feeBase": "0",
+        "unitsBase": "2000000",
+        "unitsAssetId": "eFUND"
+      }
+    ],
+    "duplicatesSkipped": 3,
+    "releasedReservations": {
+      "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77": 1
+    },
+    "commonAncestorBlockHash": "0x27bc6fbffc0292ab77d50a4bf976acddc1b86460ea1a9d62abd174e507c958e9"
+  },
+  "anchors": {
+    "accepted": {
+      "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+      "blockNumber": 21,
+      "observedBalances": 15
+    },
+    "rejected": {
+      "orphanBlockHash": "0x99e5347ff15cdd4e92c14ce553143195441bc44bc017db8998dff16e1cb1f8a8",
+      "canonicalReason": "NONCANONICAL_ANCHOR: block 18 0x99e5347ff15cdd4e92c14ce553143195441bc44bc017db8998dff16e1cb1f8a8 is not canonical (canonical 0x23bbb8a36ea14b00cc3ba21446588e1167188723476d8dd05550df437238469e)",
+      "exactHashBalanceError": "eth_call: {\"code\":-32001,\"message\":\"Resource not found\"}",
+      "exactHashBalanceRejected": true
+    }
+  },
+  "projection": {
+    "previousProjection": {
+      "balances": {
+        "dealer": {
+          "dEUR": "0",
+          "eFUND": "0",
+          "tWETH": "1000000000000000000"
+        },
+        "escrow": {
+          "dEUR": "0",
+          "eFUND": "0",
+          "tWETH": "0"
+        },
+        "fee": {
+          "dEUR": "0",
+          "eFUND": "0",
+          "tWETH": "0"
+        },
+        "investor": {
+          "dEUR": "700000000",
+          "eFUND": "3125000",
+          "tWETH": "0"
+        },
+        "issuer": {
+          "dEUR": "800000000",
+          "eFUND": "0",
+          "tWETH": "0"
+        }
+      },
+      "reservations": {
+        "0xbf8ce7efa35ed653850e5838f2795534df5526337fb3e9732bb85c22ce859a45": "0"
+      },
+      "blockNumber": 19,
+      "blockHash": "0xdafa511897a41b3ee5756d76b44fd1b8005682bc5ff3bbaf2186156fc1fc7cc1"
+    },
+    "finalProjection": {
+      "balances": {
+        "dealer": {
+          "dEUR": "0",
+          "eFUND": "0",
+          "tWETH": "1000000000000000000"
+        },
+        "escrow": {
+          "dEUR": "0",
+          "eFUND": "0",
+          "tWETH": "0"
+        },
+        "fee": {
+          "dEUR": "0",
+          "eFUND": "0",
+          "tWETH": "0"
+        },
+        "investor": {
+          "dEUR": "800000000",
+          "eFUND": "2000000",
+          "tWETH": "0"
+        },
+        "issuer": {
+          "dEUR": "700000000",
+          "eFUND": "0",
+          "tWETH": "0"
+        }
+      },
+      "reservations": {
+        "0x64f2c5474fb4cdc632a73d9233aa76e2f8d231f21cc51792f1d84556bac9ec77": "0"
+      },
+      "blockNumber": 21,
+      "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e"
+    }
+  },
+  "duplicate": {
+    "duplicatesSkipped": 3,
+    "idempotent": true
+  },
+  "restart": {
+    "checkpointSha256": "c0e1421eacd7c0c3b3aa40acb777c710be01eedb25539356e727b7500e73e13b",
+    "projectionSha256": "4b34b827dc676694616dd7f4020154ccebe0994939594f85f183eb17ad98aac7",
+    "restoredProjectionSha256": "4b34b827dc676694616dd7f4020154ccebe0994939594f85f183eb17ad98aac7",
+    "equal": true
+  },
+  "reconciliation": {
+    "balanceResult": {
+      "differences": [],
+      "perAsset": {
+        "dEUR": {
+          "projectedTotal": "1500000000",
+          "observedTotal": "1500000000",
+          "difference": "0"
+        },
+        "eFUND": {
+          "projectedTotal": "2000000",
+          "observedTotal": "2000000",
+          "difference": "0"
+        },
+        "tWETH": {
+          "projectedTotal": "1000000000000000000",
+          "observedTotal": "1000000000000000000",
+          "difference": "0"
+        }
+      },
+      "conserved": true
+    },
+    "conservation": {
+      "dEUR": {
+        "observedAccountsTotal": "1500000000",
+        "totalSupply": "1500000000",
+        "conserved": true
+      },
+      "tWETH": {
+        "observedAccountsTotal": "1000000000000000000",
+        "totalSupply": "1000000000000000000",
+        "conserved": true
+      },
+      "eFUND": {
+        "observedAccountsTotal": "2000000",
+        "totalSupply": "2000000",
+        "conserved": true
+      }
+    }
+  },
+  "auditTrail": [
+    {
+      "action": "orphan",
+      "eventId": null,
+      "blockHash": "0x99e5347ff15cdd4e92c14ce553143195441bc44bc017db8998dff16e1cb1f8a8",
+      "blockNumber": 18,
+      "branch": "previous",
+      "reason": "replaced by a reorg"
+    },
+    {
+      "action": "orphan",
+      "eventId": null,
+      "blockHash": "0xdafa511897a41b3ee5756d76b44fd1b8005682bc5ff3bbaf2186156fc1fc7cc1",
+      "blockNumber": 19,
+      "branch": "previous",
+      "reason": "replaced by a reorg"
+    },
+    {
+      "action": "replay",
+      "eventId": null,
+      "blockHash": "0x23bbb8a36ea14b00cc3ba21446588e1167188723476d8dd05550df437238469e",
+      "blockNumber": 18,
+      "branch": "replacement",
+      "reason": null
+    },
+    {
+      "action": "replay",
+      "eventId": null,
+      "blockHash": "0x1925cd4d9bd589087007a96a3bc6a5c55051b62b40952531d75ca73b299ca26d",
+      "blockNumber": 19,
+      "branch": "replacement",
+      "reason": null
+    },
+    {
+      "action": "apply",
+      "eventId": "0xf9374d6935fe2176a4d49ae258f0db521b1fdf50e8a7dc7725139e0e78bc51d9:1",
+      "blockHash": "0xba6b38974bf9542f263b58982d2501997c5d23b7c2f2e0d9ae7f972f49b375e5",
+      "blockNumber": 20,
+      "branch": "replacement",
+      "reason": null
+    },
+    {
+      "action": "replay",
+      "eventId": null,
+      "blockHash": "0xba6b38974bf9542f263b58982d2501997c5d23b7c2f2e0d9ae7f972f49b375e5",
+      "blockNumber": 20,
+      "branch": "replacement",
+      "reason": null
+    },
+    {
+      "action": "apply",
+      "eventId": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f:1",
+      "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+      "blockNumber": 21,
+      "branch": "replacement",
+      "reason": null
+    },
+    {
+      "action": "apply",
+      "eventId": "0xbf2e39472d92316c4d2582bc75369e1b548c212c3d09f33144416ab7c2f54b4f:3",
+      "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+      "blockNumber": 21,
+      "branch": "replacement",
+      "reason": null
+    },
+    {
+      "action": "replay",
+      "eventId": null,
+      "blockHash": "0x9388fc95749c16a738a1c010ccd49179ebc218bccc22d9ae95cef3a439730c2e",
+      "blockNumber": 21,
+      "branch": "replacement",
+      "reason": null
+    }
+  ],
+  "passed": true,
+  "limitations": [
+    "The drill runs on a controlled anvil execution chain with automined blocks; it exercises the reconciliation and reorg-recovery logic, not a production consensus reorg.",
+    "Exact-block-hash reads use EIP-1898; chains without that RPC extension need a block-number read plus a canonical hash check.",
+    "The ledger tracks the settlement contracts used by this drill; the business API projection is reconciled by the same rules but not replayed here."
+  ],
+  "notes": [
+    "Reservations are released exactly once; a second release event for the same order is counted as a duplicate and does not move money.",
+    "The audit trail keeps both branches: the orphaned previous events and the replayed replacement events.",
+    "Duplicate delivery and an interrupted restart both leave the projection unchanged."
+  ]
+}
