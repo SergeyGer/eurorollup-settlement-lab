@@ -51,6 +51,25 @@
   },
   {
     "type": "function",
+    "name": "allowlisted",
+    "inputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "approve",
     "inputs": [
       {
@@ -112,6 +131,34 @@
   },
   {
     "type": "function",
+    "name": "configureEligibility",
+    "inputs": [
+      {
+        "name": "registry",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "transferGateId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "subscriptionGateId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "redemptionGateId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "decimals",
     "inputs": [],
     "outputs": [
@@ -125,19 +172,13 @@
   },
   {
     "type": "function",
-    "name": "eligible",
-    "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
+    "name": "eligibilityRegistry",
+    "inputs": [],
     "outputs": [
       {
         "name": "",
-        "type": "bool",
-        "internalType": "bool"
+        "type": "address",
+        "internalType": "contract IEligibilityRegistry"
       }
     ],
     "stateMutability": "view"
@@ -220,7 +261,20 @@
   },
   {
     "type": "function",
-    "name": "setEligible",
+    "name": "redemptionGate",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "setAllowlisted",
     "inputs": [
       {
         "name": "account",
@@ -253,6 +307,19 @@
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "subscriptionGate",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -334,6 +401,38 @@
     "stateMutability": "nonpayable"
   },
   {
+    "type": "function",
+    "name": "transferGate",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "AllowlistChanged",
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "allowed",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      }
+    ],
+    "anonymous": false
+  },
+  {
     "type": "event",
     "name": "Approval",
     "inputs": [
@@ -360,19 +459,31 @@
   },
   {
     "type": "event",
-    "name": "EligibilityChanged",
+    "name": "EligibilityRegistryChanged",
     "inputs": [
       {
-        "name": "account",
+        "name": "registry",
         "type": "address",
         "indexed": true,
         "internalType": "address"
       },
       {
-        "name": "allowed",
-        "type": "bool",
+        "name": "transferGateId",
+        "type": "uint256",
         "indexed": false,
-        "internalType": "bool"
+        "internalType": "uint256"
+      },
+      {
+        "name": "subscriptionGateId",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "redemptionGateId",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
       }
     ],
     "anonymous": false
