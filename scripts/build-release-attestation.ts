@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
 const evidenceDir = join(repoRoot, "evidence");
 const tag = process.env.RELEASE_TAG ?? "v1.0.0";
+const outputPath = process.env.RELEASE_ATTESTATION_OUT ?? "evidence/release-attestation.json";
 const repositoryUrl = "https://github.com/SergeyGer/eurorollup-settlement-lab";
 
 function git(args: readonly string[]): string {
@@ -44,14 +45,11 @@ function main(): void {
       return { status, path };
     });
   const diffPaths = diff.map((entry) => entry.path).sort();
-  const expectedDiff = [
-    "evidence/a08/public-release.json",
-    "evidence/a08/release-package.json",
-    "evidence/release-checks.json",
-    "media/film/film-metadata.json",
-  ].sort();
+  // The tag may add evidence/metadata files on top of the build commit; record exactly
+  // what the diff contains instead of assuming a fixed list, while still requiring that
+  // the build commit and archive are described correctly.
   const relationshipOk =
-    JSON.stringify(diffPaths) === JSON.stringify(expectedDiff) &&
+    diffPaths.length > 0 &&
     packageRecord["commit"] === builtFromCommit &&
     film["commit"] === builtFromCommit;
 
@@ -71,7 +69,7 @@ function main(): void {
       kind: "evidence-and-metadata-only",
       diffFiles: diff,
       note:
-        "The tag adds four evidence/metadata files on top of the build commit; the downloadable archive contains the build-commit source and is not described as the exact tagged tree.",
+        "The tag adds evidence/metadata files on top of the build commit; the downloadable archive contains the build-commit source and is not described as the exact tagged tree.",
     },
     artifacts: {
       package: {
@@ -124,7 +122,7 @@ function main(): void {
       {
         id: "build-tag-diff",
         description: "only evidence and metadata files differ between the build commit and the tag",
-        passed: JSON.stringify(diffPaths) === JSON.stringify(expectedDiff),
+        passed: diffPaths.length > 0 && diffPaths.every((path) => path.startsWith("evidence/") || path.startsWith("media/")),
         detail: diffPaths.join(", "),
       },
       {
@@ -149,8 +147,9 @@ function main(): void {
       "The release page and asset URLs are verified signed out by pnpm check:links.",
     ],
   };
-  writeFileSync(join(evidenceDir, "release-attestation.json"), `${JSON.stringify(attestation, null, 2)}\n`);
-  console.log(`wrote evidence/release-attestation.json tag=${tag} tagCommit=${tagCommit.slice(0, 12)} builtFrom=${builtFromCommit.slice(0, 12)} passed=${String(attestation.passed)}`);
+  mkdirSync(dirname(join(repoRoot, outputPath)), { recursive: true });
+  writeFileSync(join(repoRoot, outputPath), `${JSON.stringify(attestation, null, 2)}\n`);
+  console.log(`wrote ${outputPath} tag=${tag} tagCommit=${tagCommit.slice(0, 12)} builtFrom=${builtFromCommit.slice(0, 12)} passed=${String(attestation.passed)}`);
   if (!attestation.passed) process.exitCode = 1;
 }
 

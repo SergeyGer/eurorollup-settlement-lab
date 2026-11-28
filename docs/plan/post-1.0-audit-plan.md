@@ -37,7 +37,10 @@ tracker issue.
 - S13: publication commands/aliases, LF line-ending policy, REL-01 release attestation
   and the signed-out link check are implemented and verified; README first-screen and the
   Wiki map remain open pending the owner-approved Social Preview.
-- S14–S22: not started.
+- S14: film re-cut with the owner-approved artwork, separate WebVTT captions and the
+  accessible player is implemented and verified; the `v1.1.0` presentation release is
+  in progress.
+- S15–S22: not started.
 
 ## Gates and external inputs
 

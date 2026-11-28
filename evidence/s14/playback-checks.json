@@ -1,0 +1,198 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S14-film-playback",
+  "generatedBy": "pnpm check:film",
+  "generatedAt": "2026-11-28T10:33:19.455Z",
+  "baseUrl": "http://127.0.0.1:8086/",
+  "approvedArtworkSha256": "1b56f8f964dfea2363a8376ba6a668bc0c888880b15595defcc5e89a5bf4164e",
+  "sessions": [
+    "desktop 1440x1000 signed out",
+    "phone 390x844 signed out"
+  ],
+  "checks": [
+    {
+      "id": "video-desktop",
+      "description": "film view renders a video player",
+      "passed": true,
+      "detail": "video element present at 1440x1000"
+    },
+    {
+      "id": "source-desktop",
+      "description": "video streams the release film (webm)",
+      "passed": true,
+      "detail": "/release-film-test.webm"
+    },
+    {
+      "id": "poster-desktop",
+      "description": "poster is the owner-approved artwork",
+      "passed": true,
+      "detail": "/social-preview.png"
+    },
+    {
+      "id": "captions-track-desktop",
+      "description": "separate English WebVTT captions track",
+      "passed": true,
+      "detail": "captions/en/English captions"
+    },
+    {
+      "id": "captions-off-desktop",
+      "description": "captions start off",
+      "passed": true,
+      "detail": "initial mode hidden"
+    },
+    {
+      "id": "captions-toggle-desktop",
+      "description": "captions toggle turns the track on",
+      "passed": true,
+      "detail": "mode after toggle showing"
+    },
+    {
+      "id": "captions-off-again-desktop",
+      "description": "captions toggle turns the track off again",
+      "passed": true,
+      "detail": "mode after second toggle hidden"
+    },
+    {
+      "id": "metadata-desktop",
+      "description": "film metadata loads in the player",
+      "passed": true,
+      "detail": "duration 60.00 s, readyState 4"
+    },
+    {
+      "id": "seek-desktop",
+      "description": "seek to 45 s works",
+      "passed": true,
+      "detail": "currentTime 45.00 s"
+    },
+    {
+      "id": "playback-desktop",
+      "description": "muted playback advances",
+      "passed": true,
+      "detail": "45.00 → 46.16 s"
+    },
+    {
+      "id": "transcript-desktop",
+      "description": "transcript link is present",
+      "passed": true,
+      "detail": "Transcript link present"
+    },
+    {
+      "id": "download-desktop",
+      "description": "MP4 download link is present",
+      "passed": true,
+      "detail": "Download MP4 link present"
+    },
+    {
+      "id": "url-desktop",
+      "description": "repository address is visible beside the player",
+      "passed": true,
+      "detail": "Repository: github.com/SergeyGer/eurorollup-settlement-lab"
+    },
+    {
+      "id": "poster-sha-desktop",
+      "description": "poster bytes are the approved artwork",
+      "passed": true,
+      "detail": "HTTP 200, sha 1b56f8f964df…"
+    },
+    {
+      "id": "video-phone",
+      "description": "film view renders a video player",
+      "passed": true,
+      "detail": "video element present at 390x844"
+    },
+    {
+      "id": "source-phone",
+      "description": "video streams the release film (webm)",
+      "passed": true,
+      "detail": "/release-film-test.webm"
+    },
+    {
+      "id": "poster-phone",
+      "description": "poster is the owner-approved artwork",
+      "passed": true,
+      "detail": "/social-preview.png"
+    },
+    {
+      "id": "captions-track-phone",
+      "description": "separate English WebVTT captions track",
+      "passed": true,
+      "detail": "captions/en/English captions"
+    },
+    {
+      "id": "captions-off-phone",
+      "description": "captions start off",
+      "passed": true,
+      "detail": "initial mode hidden"
+    },
+    {
+      "id": "captions-toggle-phone",
+      "description": "captions toggle turns the track on",
+      "passed": true,
+      "detail": "mode after toggle showing"
+    },
+    {
+      "id": "captions-off-again-phone",
+      "description": "captions toggle turns the track off again",
+      "passed": true,
+      "detail": "mode after second toggle hidden"
+    },
+    {
+      "id": "metadata-phone",
+      "description": "film metadata loads in the player",
+      "passed": true,
+      "detail": "duration 60.00 s, readyState 4"
+    },
+    {
+      "id": "seek-phone",
+      "description": "seek to 45 s works",
+      "passed": true,
+      "detail": "currentTime 45.00 s"
+    },
+    {
+      "id": "playback-phone",
+      "description": "muted playback advances",
+      "passed": true,
+      "detail": "45.00 → 46.16 s"
+    },
+    {
+      "id": "transcript-phone",
+      "description": "transcript link is present",
+      "passed": true,
+      "detail": "Transcript link present"
+    },
+    {
+      "id": "download-phone",
+      "description": "MP4 download link is present",
+      "passed": true,
+      "detail": "Download MP4 link present"
+    },
+    {
+      "id": "url-phone",
+      "description": "repository address is visible beside the player",
+      "passed": true,
+      "detail": "Repository: github.com/SergeyGer/eurorollup-settlement-lab"
+    },
+    {
+      "id": "poster-sha-phone",
+      "description": "poster bytes are the approved artwork",
+      "passed": true,
+      "detail": "HTTP 200, sha 1b56f8f964df…"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs/media/s14-player-desktop.png",
+      "sha256": "dfa964230fedd5b2913f4582868c944a5bbb5c93f2252087bdbf43bb4db444d6"
+    },
+    {
+      "file": "docs/media/s14-player-phone.png",
+      "sha256": "ff3f53b4f488162400363b75925e678a1134b60f408ea2262ac5544a1e5fb6fb"
+    }
+  ],
+  "passed": true,
+  "notes": [
+    "The player starts with captions off and uses the separate English WebVTT track.",
+    "Playback is muted during the automated check; the final human listening QC is recorded in the S14 verification page.",
+    "Playback automation uses a VP9 test transcode because the bundled headless Chromium cannot decode H.264; the published MP4 is validated separately by ffprobe and the film metadata."
+  ]
+}

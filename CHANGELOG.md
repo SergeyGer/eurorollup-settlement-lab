@@ -225,7 +225,39 @@ records current calendar dates.
 - 181 tests; CI rebuilds the policy matrix, verifies committed proofs and
   artifact hashes, and verifies the account-abstraction receipts offline.
 
+## [1.1.0] — Presentation update
+
+### Added
+
+- Owner-approved C2 social preview (1280x640) integrated as the README poster, the
+  GitHub Pages social/OG image, the Wiki film page and the film opening shot.
+- Release film view in the browser replay: streams the published MP4 with the English
+  WebVTT captions as a separate track (captions off by default, toggle on demand),
+  transcript, MP4 download and the repository address beside the player.
+- `pnpm check:sessions` (signed-out README desktop/phone and Wiki checks) and
+  `pnpm check:film` (player, captions toggle, seek to 45 s, muted playback and
+  phone-width player checks) with screenshots and machine-readable evidence.
+- README first screen restructured: purpose sentence, film/replay/cutoff/receipt/Wiki
+  actions above the fixture content; fixture tables moved to the Wiki.
+- Publication fixes: `pnpm verify --pack` accepts a pack directory or `manifest.json`;
+  `pnpm demo`, `pnpm devnet:up` and `pnpm devnet:down` aliases; `.gitattributes` LF
+  policy for hashed text with binary markers; `pnpm check:line-endings`.
+- REL-01 release attestation (`evidence/release-attestation.json`) recording the tag,
+  build commit, evidence/metadata-only diff and archive/media digests.
+
+### Changed
+
+- Re-cut release film (60.0 s, exactly 1800 frames, 1920x1080 at 30 fps): clean
+  captures without burned-in captions, owner-approved artwork opening frames 0-149,
+  full-frame end card with the repository URL on the optical centre, and the
+  specification's 131-word English narration (measured −15.8 LUFS / −2.1 dBTP).
+- S12 investor journey: asset-identity display precision (dEUR 2, eFUND/tWETH 6),
+  replay starts at the seed with direct links, receipts show what changed and the
+  evidence, held orders show reserved cash/blocking rule/next action, 390 px layout.
+- Version 1.1.0 across workspace packages.
+
 ## [1.0.0] — Release film and final release
+
 
 ### Added
 

@@ -3,9 +3,9 @@
   "reportId": "A08-public-release",
   "packId": "A08-release",
   "generatedBy": "pnpm a08:public-check",
-  "generatedAt": "2026-11-27T16:25:06.214Z",
-  "commit": "cb98283733d9ae381728b722eeba8cc75ad0bcbf",
-  "version": "1.0.0",
+  "generatedAt": "2026-11-28T10:35:02.682Z",
+  "commit": "6387c645c25f84b5f4be9b446ec31c767d77eecf",
+  "version": "1.1.0",
   "publicReplay": {
     "url": "https://sergeyger.github.io/eurorollup-settlement-lab/",
     "authentication": "none",
@@ -53,7 +53,7 @@
       "screenshots": [
         {
           "path": "docs/media/s09-public-replay.jpg",
-          "sha256": "5b7ad6efffee4157aae367111f1d151b7f641c76b655bb2998e2918460af51f6"
+          "sha256": "50e8e94c6871214e614e36c355282bc047703552f43b5a98c9426b2f2f9dfd33"
         },
         {
           "path": "docs/media/s09-eligibility.jpg",
@@ -71,12 +71,12 @@
       {
         "command": "pnpm verify",
         "exitCode": 0,
-        "durationMs": 1102
+        "durationMs": 1114
       },
       {
         "command": "pnpm demo:partner",
         "exitCode": 0,
-        "durationMs": 2301
+        "durationMs": 2362
       }
     ],
     "note": "Representative documented commands were run locally; the complete documented quickstart command set is exercised by pnpm release:checks."
@@ -102,13 +102,13 @@
     }
   ],
   "releasePackage": {
-    "fileName": "eurollup-settlement-lab-1.0.0.tar.gz",
+    "fileName": "eurollup-settlement-lab-1.1.0.tar.gz",
     "downloadMode": "local-build",
     "downloadUrl": null,
-    "sha256": "ee79d38389af6e6efbbd6fc0186221ab5e1f0a8679f09403b339dff6bf78f6d6",
-    "bytes": 5503425,
-    "manifestDigest": "a5514a4fe1ccd151c8c40a5b4a9a8044c4c61c0182264763a45645fabd38658a",
-    "manifestFileCount": 311,
+    "sha256": "73c7c1fb1e386b4d5d80e25ed3535f07f3a9e9f49b0508c21f0fb487c5713a21",
+    "bytes": 13097696,
+    "manifestDigest": "55e8d0c2991f30b2d306fdd1e5fcfbd3785e1c11302a585457c8844361fc6bdf",
+    "manifestFileCount": 363,
     "verified": {
       "downloaded": true,
       "extracted": true,
@@ -122,14 +122,14 @@
     "status": "complete",
     "requiredBy": "S10",
     "metadataFile": "media/film/film-metadata.json",
-    "metadataSha256": "3cc97f755c476696e1a9f586e04587cc347d1184382ae02bea125adbf8d9065b",
-    "filmSha256": "0af81effc863c16797eaa0e09c6d01cc180642d036c87d2fed6cef4580837b93",
+    "metadataSha256": "4a91eebfec4ddf590e185204835c32cb7579ab861fbf272cd3a1a0819d4ba9fe",
+    "filmSha256": "e0674bf476e4535c23f741ef18054d877446a4918da3df2f98b96bf0b762cde4",
     "frameCount": 1800,
     "durationSeconds": 60,
     "captionsFile": "media/film/release-film.vtt",
     "transcriptFile": "media/film/release-film-transcript.md",
-    "checksPassed": 14,
-    "checksTotal": 14,
+    "checksPassed": 17,
+    "checksTotal": 17,
     "checks": [
       {
         "id": "video-resolution",
@@ -165,31 +165,49 @@
         "id": "intro-range",
         "label": "frames 0-149 show the static social preview",
         "passed": true,
-        "detail": "SSIM 0.9998 (body 0.591)"
+        "detail": "SSIM 0.9993 (body 0.144)"
       },
       {
         "id": "end-range",
         "label": "frames 1650-1799 show the uninterrupted repository card",
         "passed": true,
-        "detail": "SSIM 0.9998 / 1.0000, 5 s"
+        "detail": "SSIM 0.9994 / 0.9999, 5 s"
       },
       {
         "id": "loudness-integrated",
         "label": "about -16 LUFS integrated",
         "passed": true,
-        "detail": "-15.9 LUFS"
+        "detail": "-15.8 LUFS"
       },
       {
         "id": "loudness-true-peak",
         "label": "at most -1 dBTP",
         "passed": true,
-        "detail": "-2.2 dBTP"
+        "detail": "-2.1 dBTP"
       },
       {
         "id": "end-card-url",
         "label": "repository URL readable on one line at 720p",
         "passed": true,
-        "detail": "1038px wide, singleLine=true"
+        "detail": "1001px wide, singleLine=true"
+      },
+      {
+        "id": "end-card-phone",
+        "label": "repository URL readable in a phone-width still",
+        "passed": true,
+        "detail": "305px wide at phone scale"
+      },
+      {
+        "id": "opening-artwork",
+        "label": "frames 0-149 use the owner-approved artwork",
+        "passed": true,
+        "detail": "SSIM 0.9708, approved sha 1b56f8f964df…"
+      },
+      {
+        "id": "captions-separate",
+        "label": "no narration text is burned into the export",
+        "passed": true,
+        "detail": "burned-in caption source absent: /root/projects/eurorollup-settlement-lab/media/film/release-film.ass"
       },
       {
         "id": "public-links",

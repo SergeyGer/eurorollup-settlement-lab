@@ -78,8 +78,12 @@ function main(): void {
     check(metadata["film"]["frameCount"] === 1800, "the film must have exactly 1800 frames");
     check(Math.abs(Number(metadata["film"]["durationSeconds"]) - 60) <= 0.05, "the film must be exactly 60.0 seconds");
     check(metadata["film"]["fps"] === "30/1" && metadata["film"]["width"] === 1920 && metadata["film"]["height"] === 1080, "the film must be 1920x1080 at constant 30 fps");
-    check(metadata["captions"]["burnedIn"] === true && Number(metadata["captions"]["safeMarginPercent"]) === 5, "captions must be burned in inside a 5% safe margin");
-    check(metadata["endCard"]["urlSingleLineAt720p"] === true, "the repository URL must be readable on one line at 720p");
+    check(metadata["captions"]["burnedIn"] === false && metadata["captions"]["separateTrack"] === true, "captions must be delivered separately and never burned into the frames");
+    check(metadata["endCard"]["urlSingleLineAt720p"] === true && metadata["endCard"]["urlSingleLineAtPhoneWidth"] === true, "the repository URL must be readable on one line at 720p and phone width");
+    check(metadata["socialPreview"]["approved"] === true, "the film must use the owner-approved artwork");
+    const approvedPath = join(repoRoot, "media", "social-preview", "approved-1280x640.png");
+    check(existsSync(approvedPath) && sha256File("media/social-preview/approved-1280x640.png") === metadata["socialPreview"]["sha256"], "the film opening artwork digest must match the approved artwork");
+    check(typeof metadata["publication"]?.["player"] === "string", "the film metadata must describe the accessible player");
     check(Number(metadata["narration"]["closingLineEndsAtSeconds"]) < 60, "the closing line must finish before the final frame");
     check(Math.abs(Number(metadata["narration"]["loudnessIntegratedLufs"]) + 16) <= 2, "integrated loudness must be about -16 LUFS");
     check(Number(metadata["narration"]["truePeakDbtp"]) <= -1, "true peak must be at most -1 dBTP");

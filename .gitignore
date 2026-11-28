@@ -57,3 +57,9 @@ circuits/**/Prover.toml
 
 # the release film is attached to the GitHub Release, not committed
 media/film/*.mp4
+
+# local-only film for player testing (the release MP4 is a GitHub Release asset)
+apps/web/public/*.mp4
+
+# local-only player test transcode (the published film is the release MP4)
+apps/web/public/*.webm
