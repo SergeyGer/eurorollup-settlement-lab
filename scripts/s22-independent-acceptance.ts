@@ -173,9 +173,6 @@ async function main(): Promise<void> {
     "evidence/s20/reconciliation-reorg.json",
     "evidence/s21/ops-batch-setting-benchmark.json",
     "evidence/s21/ops-money-authority.json",
-    "evidence/release-checks.json",
-    "evidence/a08/public-release.json",
-    "evidence/a08/release-package.json",
     "media/film/film-metadata.json",
   ];
   const evidenceDigests = Object.fromEntries(evidencePaths.filter((path) => existsSync(join(repoRoot, path))).map((path) => [path, createHash("sha256").update(readFileSync(join(repoRoot, path))).digest("hex")]));
