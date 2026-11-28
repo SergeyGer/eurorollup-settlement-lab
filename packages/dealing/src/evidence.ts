@@ -225,7 +225,11 @@ export interface EvidenceManifest {
 
 /** Normalizes --pack input: a pack directory or a path to its manifest.json. */
 export function resolvePackDirectory(pack: string): string {
-  const trimmed = pack.trim().replace(/\/+$/, "");
+  let trimmed = pack.trim();
+  // Strip trailing separators without a backtracking regular expression.
+  while (trimmed.length > 1 && trimmed.endsWith("/")) {
+    trimmed = trimmed.slice(0, -1);
+  }
   const manifestSuffix = "/manifest.json";
   if (trimmed === "manifest.json") {
     return ".";
