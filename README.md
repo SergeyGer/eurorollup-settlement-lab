@@ -1,12 +1,20 @@
 # EuroRollup Settlement Lab
 
-An open-source euro settlement sandbox for crypto trades and tokenized fund
-orders, with an AI Policy Lab that turns a plain-English dealing-rule question
-into a confirmed, replayable comparison.
+An open-source euro settlement sandbox for crypto trades and tokenized fund orders — from fund order to euro clearing to onchain evidence, with an AI Policy Lab that turns a plain-English dealing-rule question into a confirmed, replayable comparison.
 
-> Synthetic data only. The sandbox uses invented balances, prices, instruments
-> and identities. It moves no real funds, serves no real investors, and is not
-> financial, legal or regulatory advice.
+[Watch the 60-second film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4) · [Try the live replay](https://sergeyger.github.io/eurorollup-settlement-lab/) · [Run the cutoff experiment](https://sergeyger.github.io/eurorollup-settlement-lab/) · [Verify a receipt](docs/verification/s02-settlement-core.md) · [Wiki](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki)
+
+![Owner-approved social preview: a fund order moves through euro clearing to an OP Stack Layer 2 settlement record, with an AI-proposed rule kept for human review](media/social-preview/approved-1280x640.png)
+
+> **Synthetic data only.** The sandbox uses invented balances, prices, instruments and identities. It moves no real funds, serves no real investors, and is not financial, legal or regulatory advice.
+
+## Start here
+
+- Watch the [60-second release film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4) ([captions](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film.vtt), [transcript](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film-transcript.md)) or open the [live replay](https://sergeyger.github.io/eurorollup-settlement-lab/).
+- Read the [Wiki](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki) for fixtures, architecture, setup, the partner API, evidence and release history.
+- Quick start: Node.js 22+, `corepack enable`, `pnpm install`, `pnpm test`, `pnpm dev`. Commands are documented in the [Wiki Development-Setup](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki/Development-Setup) page and `package.json`.
+- Verify the evidence with `pnpm verify --pack evidence/g01` and the release matrix with `pnpm release:checks` / `pnpm release:verify`.
+- Licence: [Apache-2.0](LICENSE) and [NOTICE](NOTICE); published versions and evidence are in [Releases](https://github.com/SergeyGer/eurorollup-settlement-lab/releases) and [CHANGELOG](CHANGELOG.md).
 
 ## What the project demonstrates
 
@@ -28,38 +36,12 @@ Model output and computed simulation results are always labelled separately:
 a proposal is not an execution, and every numerical outcome is calculated by the
 deterministic engine after confirmation.
 
-## Golden fixtures
+## Release film and public replay
 
-All figures below are frozen inputs in `fixtures/` and are asserted by tests.
+The 60-second English-narrated film is attached to the [v1.0.0 release](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.0.0):
 
-### G01 — one investor and two investment lifecycles
-
-| Investor checkpoint | Spendable dEUR | Reserved dEUR | tWETH | eFUND |
-| --- | --- | --- | --- | --- |
-| Seed | 1,000.00 | 0.00 | 0 | 0 |
-| Buy €200 at €2,000 per tWETH | 799.95 | 0.00 | 0.100000 | 0 |
-| Request €300 at indicative NAV €100 | 499.95 | 300.00 | 0.100000 | 0 |
-| Strike and settle at NAV €96 | 499.95 | 0.00 | 0.100000 | 3.125000 |
-
-Closing portfolio value at the fixture marks of €2,000 and €96 is €999.95. A
-separate redemption case redeems one unit at €98 and leaves €597.95 spendable
-and 2.125000 units.
-
-### P01 — the Friday cutoff experiment
-
-Two independent €300 fund subscriptions from two verified investors, each
-starting with €1,000:
-
-| Order received Friday | Baseline · 16:00 cutoff | Candidate · 15:00 cutoff |
-| --- | --- | --- |
-| F-1450 · 14:50 UTC | Friday allocation, 3.125000 units at €96 | Friday allocation, 3.125000 units at €96 |
-| F-1530 · 15:30 UTC | Friday allocation, 3.125000 units at €96 | Monday allocation, 3.000000 units at €100 |
-
-Result card: **1 of 2 orders changes dealing date** and **€300 more reserved at
-Friday close**. F-1530 settles 72 hours later and receives 0.125000 fewer units
-at the supplied Monday NAV.
-
-## Public replay
+- [MP4 film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4) · [English WebVTT captions](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film.vtt) · [verbatim transcript](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film-transcript.md)
+- Frame, audio, caption and link checks: `media/film/film-metadata.json`; release identity and archive digests: `evidence/release-attestation.json`.
 
 The browser replay is published with GitHub Pages:
 <https://sergeyger.github.io/eurorollup-settlement-lab/>. It needs no wallet, model
@@ -70,6 +52,10 @@ The downloadable evidence package is built with `pnpm release:package` and attac
 to the GitHub Release; it contains the release-commit source, fixtures, schemas,
 evidence, benchmarks and documentation with a SHA-256 MANIFEST. See
 [`docs/release/README.md`](docs/release/README.md).
+
+## Golden fixtures
+
+The frozen fixture checkpoints, G01 and P01 tables and both calendars are documented in the [Wiki Fixtures page](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki/Fixtures). Every figure is asserted by tests and reproducible from `fixtures/`.
 
 ## Replay preview
 
@@ -243,15 +229,19 @@ pnpm policy:replay     # replay the P01 comparison and write its evidence pack
 pnpm policy:verify     # verify the committed P01 comparison pack
 pnpm policy:eval       # run the 40-prompt live-model evaluation (needs Ollama)
 pnpm policy:record     # capture a genuine live-model proposal
-pnpm verify            # verify the committed G01 evidence pack
+pnpm verify --pack evidence/g01   # verify a committed evidence pack
 pnpm dev               # browser: recorded replay, Local API lab and AI Policy Lab
 pnpm api               # local partner API on http://127.0.0.1:3000
-pnpm demo:partner      # SDK quickstart: G01 orders over HTTP
+pnpm demo              # SDK quickstart (alias of demo:partner): G01 orders over HTTP
+pnpm devnet:up         # controlled local OP Stack devnet (alias of devnet:local:up)
+pnpm devnet:down       # stop the local devnet
 pnpm api:openapi       # regenerate docs/api/openapi.json
 ```
 
 The browser "Local API lab" view needs the API running (`pnpm api`); the
-recorded replay works without a wallet, a model key or a network connection.
+recorded replay works without a wallet, a model key or a network connection. The
+[Wiki Development-Setup](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki/Development-Setup)
+page lists every alias and prerequisite.
 
 See [`docs/`](docs/README.md) for architecture, fixtures, evidence formats and
 the delivery plan, and the project Wiki for the reader-facing project pages.
@@ -270,7 +260,9 @@ circuits            Noir eligibility circuit and vectors
 devnet              Controlled local OP Stack devnet launcher and docs
 fixtures            Frozen synthetic inputs (G01, P01, calendars, instruments)
 schemas             Versioned JSON Schemas for receipts, journals and evidence packs
-evidence            Committed evidence packs for released gates
+evidence            Committed evidence packs for released gates (including REL checks)
+benchmarks          A07 economics and operations drill evidence
+media               Release film metadata, captions, transcript and card designs
 docs                Architecture, fixtures, plan, ADRs and verification notes
 ```
 

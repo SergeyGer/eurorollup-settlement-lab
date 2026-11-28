@@ -67,7 +67,15 @@ checkout) and refuses a mismatch.
 (replay, repository, release page, film/VTT/archive/release-check assets, Wiki home and
 the film page); **0 failures**.
 
-## Remaining S13 work (blocked on artwork approval)
+## Owner-approved artwork
+
+Revision **C2** was approved by the project owner (recorded in #46) and is now the
+canonical artwork at `media/social-preview/approved-1280x640.png` (SHA-256
+`1b56f8f9…`). It is used for the README first-screen poster, the GitHub Pages
+`apps/web/public/social-preview.png` social image and the Wiki film page; the film
+opening shot uses the same artwork in the S14 re-cut.
+
+## Remaining S13 work
 
 - README first screen with the owner-approved Social Preview and the two above-the-fold
   actions.

@@ -23,7 +23,7 @@ The required 60-second English-narrated film is attached to the GitHub Release:
 the verbatim transcript (`media/film/release-film-transcript.md`) and the frame/audio
 check record (`media/film/film-metadata.json`) are published with checksums.
 
-![Social preview](../../media/film/social-preview-1280x640.png)
+![Owner-approved social preview](../../media/social-preview/approved-1280x640.png)
 
 The film records both journeys from the release build: the G01 portfolio spot fill and
 fund lifecycle, then the Policy Lab P01 comparison with a genuine live-model proposal.

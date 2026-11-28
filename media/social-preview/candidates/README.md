@@ -23,7 +23,7 @@ explicitly approved revision.
 | A | Settlement flow: fund-order card, euro-clearing card and OP Stack L2 evidence card joined by arrows, with an AI rule-review card and a human-approval badge. | available |
 | B | Split ledger: traditional euro-clearing ledger on a light half, onchain batch record on a dark half, euro medallion at the seam, AI review card. | available |
 | C | Isometric stack: three settlement layers (business, euro clearing, settlement evidence), flow arrow and an AI review callout. | owner chose this direction; superseded by C2 |
-| C2 | Revision of C after owner feedback: larger typography throughout, especially the AI badge and its card. | **submitted for approval** |
+| C2 | Revision of C after owner feedback: larger typography throughout, especially the AI badge and its card. | **approved by the project owner; canonical copy at `media/social-preview/approved-1280x640.png`** |
 
 Owner feedback on revision C: approve the direction and increase the fonts, especially for
 the AI element. C2 implements that feedback and is the revision awaiting approval.
@@ -52,8 +52,8 @@ the AI element. C2 implements that feedback and is the revision awaiting approva
 | A | available |
 | B | available |
 | C | owner chose the C direction; typography feedback recorded |
-| C2 | awaiting owner decision |
+| C2 | **approved** — owner approval recorded in issue #46; canonical artwork at `media/social-preview/approved-1280x640.png` |
 
-Approval is recorded in issue #46. Integration into the README, Wiki and film starts only
-after the accepted revision and its digest are recorded; requested changes are applied as
-a new revision with a new digest.
+Owner decision: revision C2 approved. The approved artwork is used for the README poster,
+the GitHub Pages social image, the Wiki film page and the film opening shot. Any future
+change is a new revision with a new digest and a new approval record.

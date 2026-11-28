@@ -2,9 +2,49 @@
   "schemaVersion": "1.0.0",
   "reportId": "REL-02-link-check",
   "generatedBy": "pnpm check:links",
-  "generatedAt": "2026-11-28T09:50:26.267Z",
+  "generatedAt": "2026-11-28T10:01:42.629Z",
   "tag": "v1.0.0",
   "checks": [
+    {
+      "id": "relative:README.md:docs/verification/s02-settlement-core.md",
+      "target": "docs/verification/s02-settlement-core.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:media/social-preview/approved-1280x640.png",
+      "target": "media/social-preview/approved-1280x640.png",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:LICENSE",
+      "target": "LICENSE",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:NOTICE",
+      "target": "NOTICE",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
+      "id": "relative:README.md:CHANGELOG.md",
+      "target": "CHANGELOG.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
     {
       "id": "relative:README.md:docs/release/README.md",
       "target": "docs/release/README.md",
@@ -382,6 +422,14 @@
       "detail": "file exists"
     },
     {
+      "id": "relative:docs/README.md:verification/s13-publication-checks.md",
+      "target": "verification/s13-publication-checks.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
       "id": "relative:docs/README.md:evidence/README.md",
       "target": "evidence/README.md",
       "kind": "relative-file",
@@ -414,8 +462,8 @@
       "detail": "file exists"
     },
     {
-      "id": "relative:docs/release/README.md:../../media/film/social-preview-1280x640.png",
-      "target": "../../media/film/social-preview-1280x640.png",
+      "id": "relative:docs/release/README.md:../../media/social-preview/approved-1280x640.png",
+      "target": "../../media/social-preview/approved-1280x640.png",
       "kind": "relative-file",
       "status": null,
       "passed": true,
@@ -503,8 +551,8 @@
     }
   ],
   "summary": {
-    "total": 62,
-    "relativeFiles": 53,
+    "total": 68,
+    "relativeFiles": 59,
     "publicUrls": 9,
     "relativeFailures": 0,
     "urlFailures": 0
