@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/s17-sponsored-order.schema.json",
+  "title": "S17 sponsored actual order evidence",
+  "type": "object",
+  "required": ["schemaVersion", "reportId", "packId", "generatedBy", "generatedAt", "commit", "chains", "accountAbstraction", "deployments", "abis", "funding", "permits", "userOperations", "sponsoredFill", "includedRevert", "rejections", "recovery", "canonicalBlock", "canonicalBalances", "passed", "limitations", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "S17-sponsored-order" },
+    "packId": { "const": "S17" },
+    "generatedBy": { "type": "string" },
+    "generatedAt": { "type": "string" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "chains": { "type": "object", "required": ["l1ChainId", "l2ChainId"], "properties": { "l1ChainId": { "const": 11155111 }, "l2ChainId": { "const": 16584 } } },
+    "accountAbstraction": {
+      "type": "object",
+      "required": ["implementation", "aaPackageVersion", "entryPoint", "entryPointCodeHash", "account", "bundler", "beneficiary", "sponsor", "paymaster"],
+      "properties": {
+        "implementation": { "const": "ERC-4337 v0.7" },
+        "aaPackageVersion": { "const": "0.7.0" },
+        "entryPoint": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" },
+        "entryPointCodeHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "entryPoint": { "type": "string" }
+      }
+    },
+    "deployments": { "type": "array", "minItems": 9 },
+    "abis": { "type": "array", "minItems": 2 },
+    "funding": { "type": "object" },
+    "permits": { "type": "array", "minItems": 5 },
+    "userOperations": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["label", "permit", "permitHash", "userOpHash", "submitted", "userChargeWei", "sponsorDepositDelta", "beneficiaryDelta"],
+        "properties": {
+          "userOpHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+          "permitHash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+          "userChargeWei": { "const": "0" },
+          "submitted": { "type": "boolean" }
+        }
+      }
+    },
+    "sponsoredFill": { "type": "object", "required": ["orderId", "afterFill"] },
+    "includedRevert": { "type": "object", "required": ["orderId", "afterIncludedRevert", "userOperationEvent"] },
+    "rejections": { "type": "object", "required": ["budget", "expiredPermit", "replay"] },
+    "recovery": {
+      "type": "object",
+      "required": ["userOpHash", "foundTxHash", "originalTxHash", "sameTransaction", "receiptStatus", "eventSuccess", "orderSettledOnce", "replayEffect"],
+      "properties": {
+        "sameTransaction": { "const": true },
+        "receiptStatus": { "const": 1 },
+        "eventSuccess": { "const": true },
+        "orderSettledOnce": { "const": true }
+      }
+    },
+    "canonicalBlock": { "type": "object", "required": ["number", "hash"] },
+    "canonicalBalances": { "type": "object" },
+    "passed": { "const": true },
+    "limitations": { "type": "array", "minItems": 3 },
+    "notes": { "type": "array", "minItems": 2 }
+  }
+}
