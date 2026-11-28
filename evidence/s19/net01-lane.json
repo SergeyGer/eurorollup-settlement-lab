@@ -1,0 +1,550 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "NET-01-consensus-lane",
+  "packId": "S19",
+  "laneId": "NET01-NET01G-16584",
+  "generatedBy": "pnpm s19:run",
+  "generatedAt": "2026-11-28T14:28:54.565Z",
+  "commit": "ee37bf3a7876e654d806d23a23b2552b8c783b23",
+  "enclave": "net01g",
+  "chains": {
+    "l1ChainId": 3151908,
+    "l2ChainId": 16584,
+    "l1Preset": "minimal",
+    "consensus": "lighthouse",
+    "execution": "geth"
+  },
+  "manifests": [
+    {
+      "service": "el-1-geth",
+      "container": "el-1-geth-lighthouse--d7b9045581964531aebc0c867c22e61c",
+      "image": "ethereum/client-go:v1.16.1",
+      "imageId": "sha256:7da3466ca262685aa34a1e79180b2e60ff993dce64c9a1d5d36ab4921f4e135e",
+      "digest": "ethereum/client-go@sha256:7da3466ca262685aa34a1e79180b2e60ff993dce64c9a1d5d36ab4921f4e135e"
+    },
+    {
+      "service": "cl-1-lighthouse",
+      "container": "cl-1-lighthouse-geth--b54002b1ec0444ddb911b5c9592199e3",
+      "image": "sigp/lighthouse:v8.0.0",
+      "imageId": "sha256:975634e4c0761fbf669433e47b1b37628cd9aa312ddf7a1db19f0f7a6c11cf03",
+      "digest": "sigp/lighthouse@sha256:975634e4c0761fbf669433e47b1b37628cd9aa312ddf7a1db19f0f7a6c11cf03"
+    },
+    {
+      "service": "vc-1-geth",
+      "container": "vc-1-geth-lighthouse--7270cacc4fe043deb7656378c2017abb",
+      "image": "sigp/lighthouse:v8.0.0",
+      "imageId": "sha256:975634e4c0761fbf669433e47b1b37628cd9aa312ddf7a1db19f0f7a6c11cf03",
+      "digest": "sigp/lighthouse@sha256:975634e4c0761fbf669433e47b1b37628cd9aa312ddf7a1db19f0f7a6c11cf03"
+    },
+    {
+      "service": "op-el-",
+      "container": "op-el-16584-node0-op-reth--4aef0cd70d754ebbbf7d9a58ab14e820",
+      "image": "ghcr.io/paradigmxyz/op-reth:v1.6.0",
+      "imageId": "sha256:4849d278b965aa51104bef61e925fe5f62a59353e4a8c11771bdcbbea8004642",
+      "digest": "ghcr.io/paradigmxyz/op-reth@sha256:4849d278b965aa51104bef61e925fe5f62a59353e4a8c11771bdcbbea8004642"
+    },
+    {
+      "service": "op-cl-",
+      "container": "op-cl-16584-node0-op-node--94bfc3a3656647e092a5458767c6c08e",
+      "image": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.13.4",
+      "imageId": "sha256:e7e1f35128f39e8bfd4768f95c13036c22dc135fd7c11e3fbb51c087090c1756",
+      "digest": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node@sha256:e7e1f35128f39e8bfd4768f95c13036c22dc135fd7c11e3fbb51c087090c1756"
+    },
+    {
+      "service": "op-batcher",
+      "container": "op-batcher-16584-eurorollup--e50b30122daf4af693908231e71e7347",
+      "image": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-batcher:v1.14.0",
+      "imageId": "sha256:3a3f1f44417199bb2648d0c293d0e3f52a2a191d31ed88c092b0ee6a71b5c9a1",
+      "digest": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-batcher@sha256:3a3f1f44417199bb2648d0c293d0e3f52a2a191d31ed88c092b0ee6a71b5c9a1"
+    },
+    {
+      "service": "op-proposer",
+      "container": "op-proposer-16584-eurorollup--3f379aa32de4433bb67090575a398b2c",
+      "image": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-proposer:v1.10.0",
+      "imageId": "sha256:ecccc4b9bf659ac1b67ef239806b026b00774eb31e1114a661f4961c111b82cb",
+      "digest": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-proposer@sha256:ecccc4b9bf659ac1b67ef239806b026b00774eb31e1114a661f4961c111b82cb"
+    },
+    {
+      "service": "op-deployer",
+      "missing": true
+    }
+  ],
+  "versions": {
+    "geth": "Geth/v1.16.1-stable-12b4131f/linux-amd64/go1.24.4",
+    "beacon": {
+      "version": "Lighthouse/v8.0.0-e3ee7fe/x86_64-linux"
+    }
+  },
+  "configs": {
+    "rollupConfig": {
+      "genesis": {
+        "l1": {
+          "hash": "0x627a5349e444863979502ad4df5b3fe096343c96a4e1c39f906570ced0f6eca6",
+          "number": 15
+        },
+        "l2": {
+          "hash": "0x4baf8d3e8592b86028ea66d7d49c346c2aa51551b7666724ca9bef6632380113",
+          "number": 0
+        },
+        "l2_time": 1795872918,
+        "system_config": {
+          "batcherAddr": "0x490b26090c48099b2c442ddc66e9b3077392a136",
+          "overhead": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "scalar": "0x010000000000000000000000000000000000000000000000000c5fc500000558",
+          "gasLimit": 60000000,
+          "eip1559Params": "0x0000000000000000",
+          "operatorFeeParams": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      },
+      "block_time": 2,
+      "max_sequencer_drift": 600,
+      "seq_window_size": 3600,
+      "channel_timeout": 300,
+      "l1_chain_id": 3151908,
+      "l2_chain_id": 16584,
+      "regolith_time": 0,
+      "canyon_time": 0,
+      "delta_time": 0,
+      "ecotone_time": 0,
+      "fjord_time": 0,
+      "granite_time": 0,
+      "holocene_time": 0,
+      "isthmus_time": 0,
+      "batch_inbox_address": "0x0098faa3fd68e74587cfad4029165ae7a85a73b5",
+      "deposit_contract_address": "0x5f045f026bbbb02e309dadb54d7ad1fb3d535fc2",
+      "l1_system_config_address": "0x0a9e95884b76f2102f8b015f1de86dace22fe20f",
+      "protocol_versions_address": "0x0000000000000000000000000000000000000000",
+      "chain_op_config": {
+        "eip1559Elasticity": 6,
+        "eip1559Denominator": 50,
+        "eip1559DenominatorCanyon": 250
+      }
+    },
+    "genesisConfig": {
+      "genesisL2Hash": "0x4baf8d3e8592b86028ea66d7d49c346c2aa51551b7666724ca9bef6632380113",
+      "genesisL2Number": 0,
+      "batchInbox": "0x0098faa3fd68e74587cfad4029165ae7a85a73b5",
+      "portal": "0x5f045f026bbbb02e309dadb54d7ad1fb3d535fc2",
+      "l1ChainId": 3151908,
+      "chainId": 16584,
+      "blockTime": 2,
+      "seqWindowSize": 3600,
+      "configDigest": "98d557940d1af951c4e92923dbdf57cb0e3599f2a41927e904f5ce2c48ed13e6"
+    },
+    "l1Genesis": {
+      "number": 0,
+      "hash": "0xe7c731452d3c8e0a38b66dafebed8e6fbdee95ace058e01cf32938074e20f8cd"
+    },
+    "l2Genesis": {
+      "number": 0,
+      "hash": "0x4baf8d3e8592b86028ea66d7d49c346c2aa51551b7666724ca9bef6632380113"
+    },
+    "beaconGenesis": {
+      "genesis_time": "1795872822",
+      "genesis_validators_root": "0xd61ea484febacfae5298d52a2b581f3e305a51f3112a9241b968dccf019f7b11",
+      "genesis_fork_version": "0x10000038"
+    },
+    "fileArtifacts": {
+      "el_cl_genesis_data/bootstrap_nodes.txt": "22f5e25e9fc43f7e0072f610b8522c1074fef1c51f5d5bc39eabbee3ca8a15fe",
+      "el_cl_genesis_data/deposit_contract_block_hash.txt": "5a1614db265362bf21c74cc413bf8b01893bc76f4b682e5ac24a245b77472a7e",
+      "el_cl_genesis_data/genesis.ssz": "b5e6e3582100d2a3e31dd226950fadb499aa63a2ec6197d8cc9d1112423d2a76",
+      "el_cl_genesis_data/deposit_contract_block.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "el_cl_genesis_data/besu.json": "ddab677601971cf521739e5e3efd5a541305710f79673bd13a012ed8226d91fe",
+      "el_cl_genesis_data/config.yaml": "7e31343f83f795695a30d71fbc04030ac2163325e6b94bab5348afc2fcfb3254",
+      "el_cl_genesis_data/deposit_contract.txt": "8f0934aa294c16b6f45e8f40cc6dba969ad3527f458714146bf7d08178795d0f",
+      "el_cl_genesis_data/mnemonics.yaml": "54765cedb57863bed9a6af87915ff83e66c59e76022de0cb6ff88869f14bfe98",
+      "el_cl_genesis_data/genesis.json": "dae47ef7185cbd2cfa302191ca88cf68df63e0f1f9dd3aca1687d6f112b300b1",
+      "el_cl_genesis_data/genesis_validators_root.txt": "f6f7d576d1a4516197cd4d889f572ad1fc908548d9e74593460ca5230a2699cc",
+      "el_cl_genesis_data/chainspec.json": "eccf891803bb3ae5e37d2476271fbbc824535d19e938b9f8e24ae0b31d07295e",
+      "el_cl_genesis_data/parsed/parsedConsensusGenesis.json": "695151fdbac786df2dd2854a87ab07adc08564a69454436f74650d9e3667d2e2",
+      "op-deployer-configs/l1ProxyAdmin-16584.json": "adb05c6cecddf1bae859d5f01a931e07afaa3be8d3676d129ae370a5d6d4a7a3",
+      "op-deployer-configs/systemConfigOwner-16584.json": "adb05c6cecddf1bae859d5f01a931e07afaa3be8d3676d129ae370a5d6d4a7a3",
+      "op-deployer-configs/l2ProxyAdmin-16584.json": "adb05c6cecddf1bae859d5f01a931e07afaa3be8d3676d129ae370a5d6d4a7a3",
+      "op-deployer-configs/sequencer-16584.json": "b156f31be2a7dcfa6f8b1c5c8752df5b12b786d6bdd9ce567e61ff90eddf55ad",
+      "op-deployer-configs/sequencerFeeVaultRecipient-16584.json": "adb05c6cecddf1bae859d5f01a931e07afaa3be8d3676d129ae370a5d6d4a7a3",
+      "op-deployer-configs/rollup-16584.json": "4fb5fe5911dbc08e229d40c677d3db228754ab901b8bbbc012fabd61ba50a0aa",
+      "op-deployer-configs/intent-merged.json": "b914f07d92f3b8ae1be38f7af4895323a59efd81f01fd30a2a70fc71e22f4cf3",
+      "op-deployer-configs/l1FeeVaultRecipient-16584.json": "adb05c6cecddf1bae859d5f01a931e07afaa3be8d3676d129ae370a5d6d4a7a3",
+      "op-deployer-configs/batcher-16584.json": "48dd85e2035e6752e6ede6e9265d6111f87e18068321dd603242656da32812c3",
+      "op-deployer-configs/chainspec-16584.json": "7fe7934d9a732e245d0d0aa3078465081469a3074a5c5584452a5caeb80d0def",
+      "op-deployer-configs/intent-b.json": "6a7af8b1eed660a8f38cbcc8d529ecee130770bfb091ef66eada0ac181d777d1",
+      "op-deployer-configs/genesis-16584.json": "77490bb2f13f8c160c5d06a603c0e50fd94f544a460ce6771c7c598d46089c24",
+      "op-deployer-configs/state.json": "75f5034cc863a01511b005c37047494e9f4cf716490042fb327ca0889d5af285",
+      "op-deployer-configs/intent.yaml": "ca0021e60a2b4920c63a1d4bad05c521de44d5b1c2ab6d9f32c5d3227d952b05",
+      "op-deployer-configs/wallets.json": "fafec097f6e9f2c0c80d2cc49548b9427dae130325010cc0ca9ef06d75c61471",
+      "op-deployer-configs/proposer-16584.json": "f38306412c0cdc375fa61b746ab293e3712b97b12a5be036b1e7086c95e3e0ba",
+      "op-deployer-configs/baseFeeVaultRecipient-16584.json": "adb05c6cecddf1bae859d5f01a931e07afaa3be8d3676d129ae370a5d6d4a7a3",
+      "op-deployer-configs/challenger-16584.json": "0c99e2504e71c05ce039e05b030cfc93298c49f30672001a3cc45743af103337",
+      "op-deployer-configs/intent.toml": "8e4b5d30c795279a3fbb12ea5747f3b7698d95ce89bc01d19a5eaad7c66ac9a5",
+      "op-deployer-configs/intent-a.json": "c017bfe0a8cba9281115e2701ac73bb817130efa52b67eb881ee33d986a324f9"
+    }
+  },
+  "health": [
+    {
+      "probe": "l1-rpc",
+      "url": "http://127.0.0.1:33086",
+      "status": 200,
+      "detail": "Geth/v1.16.1-stable-12b4131f/linux-amd64/go1.24.4"
+    },
+    {
+      "probe": "beacon-health",
+      "url": "http://127.0.0.1:33091/eth/v1/node/health",
+      "status": 200,
+      "detail": "{\"version\":\"Lighthouse/v8.0.0-e3ee7fe/x86_64-linux\"}"
+    },
+    {
+      "probe": "op-node-rpc",
+      "url": "http://127.0.0.1:33100",
+      "status": 200,
+      "detail": "optimism_syncStatus reachable"
+    },
+    {
+      "probe": "l2-rpc",
+      "url": "http://127.0.0.1:33095",
+      "status": 200,
+      "detail": "chain id 16584"
+    },
+    {
+      "probe": "batcher-rpc",
+      "url": "http://127.0.0.1:33103",
+      "status": 200,
+      "detail": "http endpoint reachable"
+    },
+    {
+      "probe": "proposer-rpc",
+      "url": "http://127.0.0.1:33105",
+      "status": 200,
+      "detail": "http endpoint reachable"
+    }
+  ],
+  "heads": {
+    "before": {
+      "sampledAt": "2026-11-28T14:26:15.841Z",
+      "l1": {
+        "latest": {
+          "number": 524,
+          "hash": "0x1f0bafe03149aedd6f58c45877abb0545293c98a399e04948a1656312fcf74f6"
+        },
+        "safe": {
+          "number": 511,
+          "hash": "0xb7b6a8302373c5bef09cbcb82dd3cff10fb8e1c16c540e1ea7aa4acc9dd113ef"
+        },
+        "finalized": {
+          "number": 503,
+          "hash": "0xd869136c04b313b1073cc609ce9bfd1562d2cb6c5b657cb94d5f114bf58cc08c"
+        }
+      },
+      "beacon": {
+        "headSlot": 525,
+        "finalized": {
+          "epoch": "63",
+          "root": "0xfb7aa4fa85bf8c5866d4633f015d6f9923b0f4acf9b8f80a0804662baae7c5fa"
+        }
+      },
+      "l2": {
+        "unsafe": {
+          "number": 1528,
+          "hash": "0xeec386de67239dcce5911d2ad538dbed16bc9313c64cd64163a1f38defff6c71",
+          "timestamp": 1795875974
+        },
+        "safe": {
+          "number": 1511,
+          "hash": "0x8185862fbed50cbff29a627fb1086192fe4efe813b55981bcb6d9ba3780fa723",
+          "timestamp": 1795875940
+        },
+        "finalized": {
+          "number": 1287,
+          "hash": "0x471ffe5a6243f3fa81905937f30931d05ca73b80f54594bedca78ad338000624",
+          "timestamp": 1795875492
+        }
+      }
+    },
+    "after": {
+      "sampledAt": "2026-11-28T14:28:54.553Z",
+      "l1": {
+        "latest": {
+          "number": 551,
+          "hash": "0x6ef80499c3c04343ae15c95a1b96478d7a9e92e5558076e2b6b2661aee8f78cd"
+        },
+        "safe": {
+          "number": 543,
+          "hash": "0x7f501850d47d316e8e0b4b810e406f2c5c9ca096dcb0c24161ae6f7fd423c143"
+        },
+        "finalized": {
+          "number": 535,
+          "hash": "0x7917f862f21f7aaf94198f443b66d6d96558e17e9529cd7aca80241a31061a3a"
+        }
+      },
+      "beacon": {
+        "headSlot": 552,
+        "finalized": {
+          "epoch": "67",
+          "root": "0xd9b0cc22f3f5504e2c47b6c77a9a9e8a4e6dd9416a6a432e230198ca08561895"
+        }
+      },
+      "l2": {
+        "unsafe": {
+          "number": 1608,
+          "hash": "0xeb11adb1d6c1c09fc3fba051a694fc1f17300eac9d2c71da17300c3a75fccaec",
+          "timestamp": 1795876134
+        },
+        "safe": {
+          "number": 1590,
+          "hash": "0xed69b182106c9adedb343d995fb699650e9502a4dd2d4c06bfbee3803092d6d6",
+          "timestamp": 1795876098
+        },
+        "finalized": {
+          "number": 1481,
+          "hash": "0x66c3f01f4938a8f88dd9d9eef3ecfadf15583f9089a2ffefd1990d7522af9c58",
+          "timestamp": 1795875880
+        }
+      }
+    },
+    "beaconFinality": {
+      "previous_justified": {
+        "epoch": "67",
+        "root": "0xd9b0cc22f3f5504e2c47b6c77a9a9e8a4e6dd9416a6a432e230198ca08561895"
+      },
+      "current_justified": {
+        "epoch": "68",
+        "root": "0x0e9447d4eb1a6aee09c9051011d73f8c268bfadef6e353b0d3d9d05e64bf90be"
+      },
+      "finalized": {
+        "epoch": "67",
+        "root": "0xd9b0cc22f3f5504e2c47b6c77a9a9e8a4e6dd9416a6a432e230198ca08561895"
+      }
+    }
+  },
+  "activity": {
+    "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "transactions": [
+      {
+        "txHash": "0x512ea819f0feccb37edef9e1aa526f2a45fc4b79eb9787d093709843314f521c",
+        "blockNumber": 1530,
+        "blockHash": "0xd1ceab15e8c4121b829e9155211ae1df9bf61fda1434d41be76f09489c41667e",
+        "to": "0xe434c0C172d641522eAA845D660E0da3C7db251d"
+      },
+      {
+        "txHash": "0x0487e564f45ce56980f3e75456111c038ad6bad06a1c0c40b05b62a0abe3a8b9",
+        "blockNumber": 1532,
+        "blockHash": "0x9b6241a3c9e65f624cf2b82ce4496824d6300b27c4f0c7d155a353e6a956af5f",
+        "to": "0xdDBb911F5f59E29413bb7A861A5712FCe3218983"
+      },
+      {
+        "txHash": "0x91ff4608b73762d46e5b4a8af35fe629e5f0d82783b083677105b3bc42bcda71",
+        "blockNumber": 1534,
+        "blockHash": "0x742d242d3c09ebb9b723a1722a9b7792806a874275f636617582d0c44d5f34c8",
+        "to": "0xD4Ca26eBBF99a5D12276B4b92bf70253585d4466"
+      },
+      {
+        "txHash": "0x8229315394739d5d51f6409d54f6dd1a39b96668f32418f31c45a414170119a9",
+        "blockNumber": 1536,
+        "blockHash": "0xabb276f658a9a446325d8cf7b5744cab680ba50aade70d1464c01272108b16aa",
+        "to": "0x0CA1AC2B71F14575699544D2D850042690f71BfF"
+      },
+      {
+        "txHash": "0xa031c8b847be1c51885c1e5bc98e23c4e34a37ea1eb295b09b9298edf786a635",
+        "blockNumber": 1538,
+        "blockHash": "0xd38a7a0f13b287afdc4bd8079b5b3f45a57d3928c2efe8549ed8309e6dfba17d",
+        "to": "0x060466d9D5539E0997Fbc9C3E3f4Bf708F375E27"
+      },
+      {
+        "txHash": "0x1cac0d5b0c4dfd021884c9c2bf252485abadb278291c1b0febf7ede231eba461",
+        "blockNumber": 1540,
+        "blockHash": "0x6c4998c3f86d18fd0e7bce7a8816d9d033f06fa725047c94a2a1c5bd3535dd19",
+        "to": "0x05c564756BD83F111C74281D95e1BE3cd2ce42AC"
+      },
+      {
+        "txHash": "0xdf51e4ab0686293d1455d809346393572fac4da13a695e8c7c8842a3a1a30bf5",
+        "blockNumber": 1543,
+        "blockHash": "0x4f1ed40a4d4146ee85fa6be0e89affe04d1133f6e6fac17eddd841a5bb48150a",
+        "to": "0x6FCdCE4A2f04fe6E72B936C2c5aa10D8d46D7aEb"
+      },
+      {
+        "txHash": "0xd7aa637bf7a8086d23a2cd8a6688fe81572484bc37dd338d7355052cfd2b6ac0",
+        "blockNumber": 1545,
+        "blockHash": "0x40e53417c5c11958424f92c994d28a54ed91d9e16d9d5b174267dac08948d4c0",
+        "to": "0x97e4Bdc475C20416935878FDDdEf081799Bd8955"
+      }
+    ],
+    "lastBlock": 1545
+  },
+  "blob": {
+    "txHash": "0xd5594a0705bedf7b42b3631c7ca08a8d400f31adf301bc582a1fbe26fccda8b1",
+    "blockNumber": 530,
+    "blockHash": "0x8ca8fbfb5dc79addf2531e1afdbc45abdbd27130095e9c6e3b1160671110ba10",
+    "versionedHashes": [
+      "0x017d940436071a9db65720efcc2572c3fa8161256ddd26f33f0e9eec4b3f0e47"
+    ],
+    "blobGasUsed": "0x20000",
+    "blobGasPrice": "0x1",
+    "receiptStatus": 1,
+    "beaconBlock": {
+      "slot": 531,
+      "root": "0x4732416867c7fb15c18cf1ac15210011727bc1880e6ebd310e639a309d60c741",
+      "executionBlockHash": "0x8ca8fbfb5dc79addf2531e1afdbc45abdbd27130095e9c6e3b1160671110ba10",
+      "timestamp": "1795876008"
+    },
+    "sidecarCommitments": [
+      {
+        "index": "0",
+        "kzg_commitment": "0x881384625cadc2440d03676f98cd73fedb6b586c38c43e9bb1393ce2300ed132f37d33e6eacb4792070b9e68d8a879f7",
+        "kzg_proof": "0x925be783217271f30b7e3e698e89455dbbbe98af0887878b4b53e7495f846eb18d07e74ff8339dfb1db56e61add98098",
+        "blobSize": 262146,
+        "versionedHash": "0x017d940436071a9db65720efcc2572c3fa8161256ddd26f33f0e9eec4b3f0e47",
+        "matched": true
+      }
+    ],
+    "sidecarsStatus": 200,
+    "sidecarsNote": null
+  },
+  "derivation": {
+    "activityMatchesDerivation": true,
+    "safeHeadAfter": {
+      "number": 1590,
+      "hash": "0xed69b182106c9adedb343d995fb699650e9502a4dd2d4c06bfbee3803092d6d6",
+      "timestamp": 1795876098
+    },
+    "derivedBlock": {
+      "number": 1547,
+      "hash": "0x3ce8508a4c112f48889908cae6ada9c4579ff05b9361fc620130dcf82e98add8"
+    },
+    "note": "The deriving verifier and separate verifier node are recorded as pending in limitations; this step matches the sequencer/op-node derivation state.",
+    "derivingVerifier": {
+      "method": "independent op-reth + op-node verifier started from the lane's rollup/genesis configs",
+      "images": {
+        "opReth": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-reth:v2.4.0",
+        "opNode": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.19.3"
+      },
+      "endpoints": {
+        "verifierL2Rpc": "http://127.0.0.1:9545",
+        "verifierNodeRpc": "http://127.0.0.1:9548",
+        "sequencerL2Rpc": "http://127.0.0.1:33095",
+        "l1": "http://127.0.0.1:33086",
+        "beacon": "http://127.0.0.1:33091"
+      },
+      "configDigests": {
+        "genesis": "77490bb2f13f8c160c5d06a603c0e50fd94f544a460ce6771c7c598d46089c24",
+        "rollup": "4fb5fe5911dbc08e229d40c677d3db228754ab901b8bbbc012fabd61ba50a0aa"
+      },
+      "activityBlock": 1545,
+      "sequencerBlockHash": "0x40e53417c5c11958424f92c994d28a54ed91d9e16d9d5b174267dac08948d4c0",
+      "verifierBlockHash": "0x40e53417c5c11958424f92c994d28a54ed91d9e16d9d5b174267dac08948d4c0",
+      "match": true,
+      "verifierHeads": {
+        "unsafe": {
+          "hash": "0xbc0b7dc3813bb07b0acab64397ad17927f945f8e13f02838b06b01f88225a9fb",
+          "number": 1602,
+          "parentHash": "0x46bf584d16e66c03038852302e9dc8a28518a28a411e7eaf7f67805ca00b2a2a",
+          "timestamp": 1795876122,
+          "l1origin": {
+            "hash": "0xfc5eb10a6e74050db465053b64c1151ae9e8bec4fdfe7c6100752f37f988c464",
+            "number": 545
+          },
+          "sequenceNumber": 0
+        },
+        "safe": {
+          "hash": "0xbc0b7dc3813bb07b0acab64397ad17927f945f8e13f02838b06b01f88225a9fb",
+          "number": 1602,
+          "parentHash": "0x46bf584d16e66c03038852302e9dc8a28518a28a411e7eaf7f67805ca00b2a2a",
+          "timestamp": 1795876122,
+          "l1origin": {
+            "hash": "0xfc5eb10a6e74050db465053b64c1151ae9e8bec4fdfe7c6100752f37f988c464",
+            "number": 545
+          },
+          "sequenceNumber": 0
+        },
+        "finalized": {
+          "hash": "0x4baf8d3e8592b86028ea66d7d49c346c2aa51551b7666724ca9bef6632380113",
+          "number": 0,
+          "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "timestamp": 1795872918,
+          "l1origin": {
+            "hash": "0x627a5349e444863979502ad4df5b3fe096343c96a4e1c39f906570ced0f6eca6",
+            "number": 15
+          },
+          "sequenceNumber": 0
+        }
+      },
+      "matchedAt": "2026-11-28T14:29:18.555Z",
+      "passed": true
+    }
+  },
+  "finality": {
+    "l1Finalized": {
+      "number": 535,
+      "hash": "0x7917f862f21f7aaf94198f443b66d6d96558e17e9529cd7aca80241a31061a3a"
+    },
+    "beaconFinality": {
+      "previous_justified": {
+        "epoch": "67",
+        "root": "0xd9b0cc22f3f5504e2c47b6c77a9a9e8a4e6dd9416a6a432e230198ca08561895"
+      },
+      "current_justified": {
+        "epoch": "68",
+        "root": "0x0e9447d4eb1a6aee09c9051011d73f8c268bfadef6e353b0d3d9d05e64bf90be"
+      },
+      "finalized": {
+        "epoch": "67",
+        "root": "0xd9b0cc22f3f5504e2c47b6c77a9a9e8a4e6dd9416a6a432e230198ca08561895"
+      }
+    }
+  },
+  "withdrawal": {
+    "source": "evidence/a05/bridge-trace.json",
+    "repeatedOnAcceleratedLane": true,
+    "withdrawal": {
+      "l2Tx": "0x522aca350c61a246ab201cd2cf5f03956036d0e6f6e5cac0146a1b003e9f41bf",
+      "withdrawalHash": "0xfbdf46187f8f6d34e864473ee7b1c56d1c05d6c4a1aa32cd4f2acc4125ef79bc",
+      "valueWei": "100000000000000000"
+    },
+    "proving": {
+      "txHash": "0x08fa341056252c7b23edfcd7a374a078e8872570ab9a133dbe67ed13f905db90",
+      "blockNumber": 305
+    },
+    "finalization": {
+      "txHash": "0xee79950e4773d3bd95fac9c71f28e7554aa739e26272ac342abbc37a7136b951",
+      "blockNumber": 323,
+      "status": 1,
+      "recipientDeltaWei": "100000000000000000",
+      "relayedByL1CrossDomainMessenger": true
+    },
+    "timers": {
+      "proofMaturityDelaySeconds": "604800",
+      "disputeGameFinalityDelaySeconds": "302400",
+      "disputeGameMaxClockDurationSeconds": "302400",
+      "disputeGameClockExtensionSeconds": "10800"
+    },
+    "timeAcceleration": [
+      {
+        "requestedSeconds": 302507,
+        "before": 1795788931,
+        "after": 1796091440
+      },
+      {
+        "requestedSeconds": 604912,
+        "before": 1796091446,
+        "after": 1796696360
+      }
+    ],
+    "note": "Canonical portal withdrawal repeated on the accelerated calldata lane; the private L1 clock acceleration is recorded explicitly and no production-latency claim is made. Consensus-timer execution is not attempted because the real portal timers are seven days."
+  },
+  "subChecks": {
+    "laneHealthy": true,
+    "blobTransactionObserved": true,
+    "sidecarMatched": true,
+    "activityDerivedFromL1": true,
+    "l1FinalityCoveredBlob": true,
+    "headsSampled": true
+  },
+  "passed": true,
+  "limitations": [
+    "The deriving verifier (an independent verifier node) and the consensus-timer portal withdrawal are the remaining NET-01 items after this capture.",
+    "Sidecar availability depends on the beacon client API; when unavailable the versioned hash from the L1 transaction remains the DA commitment.",
+    "L1 is a minimal-preset local chain; recorded timestamps are local test-lane values."
+  ],
+  "notes": [
+    "The run identifier combines the enclave name and the L2 chain id: NET01-<ENCLAVE>-16584.",
+    "The batch activity is a set of real L2 transactions whose derivation is observed on the op-node safe head."
+  ]
+}

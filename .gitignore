@@ -66,3 +66,6 @@ apps/web/public/*.webm
 
 # S18 local acceptance working directory
 tmp-s18/
+
+# NET-01 local capture working directory
+tmp-s19/

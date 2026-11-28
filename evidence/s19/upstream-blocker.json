@@ -55,7 +55,8 @@
     "The Kurtosis lane provisioned the L1 execution and consensus clients, the L2 op-reth/op-node pair, op-batcher and op-proposer.",
     "The L1 beacon chain and geth produced and verified empty blocks.",
     "The L2 sequencer produced blocks and op-batcher published type-3 transactions carrying one blob each (blobs=1 in the batcher log).",
-    "The L2 chain id 16584 was configured and funded development accounts were reachable."
+    "The L2 chain id 16584 was configured and funded development accounts were reachable.",
+    "Attempt F with lighthouse v8.0.0 + geth v1.16.1 accepted blob blocks and completed the full NET-01 capture."
   ],
   "blocker": {
     "code": "NET01-UPSTREAM-CELL-PROOF-MISMATCH",
@@ -68,7 +69,7 @@
       "canonical portal withdrawal against consensus timers"
     ]
   },
-  "status": "blocked-upstream",
+  "status": "resolved",
   "impact": "NET-01 evidence cannot be captured on this lane yet. A05's calldata lane remains the working local path and all settlement/API/AA evidence is unaffected.",
   "nextOptions": [
     "Wait for an upstream optimism-package/ethereum-package image set whose genesis generator and lighthouse release agree on Fulu/PeerDAS cell proofs, then rerun devnet/net01/run.sh.",
@@ -85,12 +86,21 @@
     "/tmp/net01-run5.log"
   ],
   "limitations": [
-    "The blob DA, sidecar and consensus finality claims are not demonstrated and must not be inferred from this record.",
     "The canonical portal withdrawal is not re-executed on this lane; A05 uses recorded clock acceleration on the calldata lane.",
-    "The blocker is in the upstream packaging/toolchain, not in the repository contracts, API or evidence schemas."
+    "The blocker is in the upstream packaging/toolchain, not in the repository contracts, API or evidence schemas.",
+    "The failed-attempt history is kept for reproducibility; the verified configuration is attempt F."
   ],
   "notes": [
     "This record exists so the failed attempts and their exact errors are durable and the lane can be retried reproducibly.",
     "The local /tmp package patch that forced supernode=true was removed; keeping it would hide the real mismatch."
-  ]
+  ],
+  "resolution": {
+    "attempt": "F",
+    "params": "ethereum-package pinned revision e964e30 with genesis generator 5.0.6; lighthouse sigp/lighthouse:v8.0.0 (beacon + validator), geth ethereum/client-go:v1.16.1, participant supernode false; OP components pinned as recorded in devnet/net01/network-params.yaml",
+    "result": "the lane accepts blob blocks; op-batcher publishes type-3 transactions; the deriving verifier matches the sequencer activity block hash; L1 finality covers the blob transaction",
+    "evidence": "evidence/s19/net01-lane.json",
+    "verification": "pnpm s19:verify",
+    "record": "docs/verification/s19-net01-consensus-lane.md",
+    "note": "Attempts A\u2013E remain in this record so the upstream mismatch and the working pin are reproducible."
+  }
 }
