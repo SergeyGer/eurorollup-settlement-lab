@@ -68,6 +68,7 @@ const COMMANDS: readonly CommandSpec[] = [
   { id: "s16-verify", command: "pnpm s16:verify", timeoutMs: 300_000 },
   { id: "s17-verify", command: "pnpm s17:verify", timeoutMs: 300_000 },
   { id: "s18-verify", command: "pnpm s18:verify", timeoutMs: 300_000 },
+  { id: "s19-verify", command: "pnpm s19:verify", timeoutMs: 300_000 },
   { id: "openapi", command: "pnpm api:openapi -- --check", timeoutMs: 300_000 },
   { id: "pack-verify", command: "pnpm verify", timeoutMs: 300_000 },
   { id: "partner-demo", command: "pnpm demo:partner", timeoutMs: 300_000 },

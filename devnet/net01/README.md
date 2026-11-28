@@ -6,12 +6,13 @@ The lane from `docs/verification/s19-net01-attempt.md`: a real L1 consensus chai
 
 ## Status
 
-**Blocked by an upstream image/genesis mismatch.** The lane launches and the batcher
-publishes blob transactions, but the consensus client rejects every block that contains a
-blob with `InvalidCellProofLength { expected: 128, actual: 1 }`. The chain only makes
-progress with empty blocks, so blob DA, blob sidecars and L2 safe-head derivation from
-blobs cannot be captured yet. The details of the four attempted configurations are in
-`evidence/s19/upstream-blocker.json`; the lane recipe below is the last attempt.
+**Verified.** The image/genesis mismatch is resolved by pinning lighthouse v8.0.0 and
+geth v1.16.1 against the pinned genesis generator. The lane accepts blob blocks, the
+batcher publishes type-3 transactions, the deriving verifier matches the sequencer block
+hash and L1 finality covers the blob transaction. Evidence:
+`evidence/s19/net01-lane.json`, verification `pnpm s19:verify`, record
+`docs/verification/s19-net01-consensus-lane.md`. The failed attempts remain recorded in
+`evidence/s19/upstream-blocker.json`.
 
 ## Run
 
@@ -28,20 +29,12 @@ repository was tested against, resets `main.star` and runs the pinned parameters
 other components are pinned through the image tags in `network-params.yaml`; the genesis
 generator is pinned by the upstream ethereum-package revision.
 
-## Known blockers carried by the release
+## Operating notes
 
-- Blob blocks are rejected by the consensus client (cell proof length mismatch).
-- L1 consensus finality cannot advance past the point where the first blob transaction is
-  pending; the L2 safe head never leaves genesis.
-- The canonical portal withdrawal is therefore replayed from the accelerated calldata
-  lane (A05) with its recorded clock acceleration; it is not re-executed against
-  consensus timers on this lane.
-
-## Next options (tracked in issue #54)
-
-1. Wait for an upstream optimism-package/ethereum-package image set where the genesis
-   generator and lighthouse release agree on Fulu/PeerDAS cell proofs, then rerun.
-2. Pin a coherent set from an ethpandaops release CI image list instead of floating
-   client images.
-3. Build the L1 consensus image set from the same source revision as the genesis
-   generator when an upstream fix lands.
+- Blob blocks require the lighthouse/geth pair that matches the pinned genesis generator;
+  the verified pair is lighthouse v8.0.0 + geth v1.16.1. Do not move these images without
+  re-running the capture and `pnpm s19:verify`.
+- The canonical portal withdrawal is replayed from the accelerated calldata lane (A05)
+  with its recorded clock acceleration; the consensus lane uses the real seven-day portal
+  timers, which are not waited out. This is labelled in the evidence and is not a
+  production-latency claim.

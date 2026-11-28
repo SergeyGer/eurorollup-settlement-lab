@@ -1,5 +1,7 @@
 # NET-01 consensus-backed lane (single chain, minimal preset, blob DA).
 #
+# Verified configuration (NET-01 attempt F): lighthouse v8.0.0 + geth v1.16.1 start against
+# the pinned genesis generator and accept blob blocks (one KZG proof per blob).
 # The lane pins the L1 execution and consensus clients, the genesis generator and every
 # OP component so its genesis/config digests are reproducible. `supernode` stays false:
 # the consensus client must validate pre-Fulu blob blocks with one KZG proof per blob.
@@ -40,10 +42,10 @@ optimism_package:
 ethereum_package:
   participants:
     - el_type: geth
-      el_image: ethereum/client-go:v1.16.9
+      el_image: ethereum/client-go:v1.16.1
       cl_type: lighthouse
-      cl_image: sigp/lighthouse:v8.3.3
-      vc_image: sigp/lighthouse:v8.3.3
+      cl_image: sigp/lighthouse:v8.0.0
+      vc_image: sigp/lighthouse:v8.0.0
       supernode: false
       count: 1
   network_params:

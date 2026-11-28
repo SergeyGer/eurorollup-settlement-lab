@@ -44,8 +44,11 @@ mismatch between the pinned upstream package revision and the client releases), 
 older lighthouse release that would accept the pre-Fulu block cannot start against the
 generated genesis. The exact attempts are recorded in
 `evidence/s19/upstream-blocker.json` and `docs/verification/s19-net01-attempt.md`.
-The calldata lane remains the working local evidence path until the upstream mismatch is
-resolved; NET-01 stays open.
+The mismatch is resolved on the consensus lane by pinning lighthouse v8.0.0 and geth
+v1.16.1 against the pinned genesis generator; blob DA, sidecar commitments, L1 finality and
+the independent deriving verifier are captured in `evidence/s19/net01-lane.json` and
+`docs/verification/s19-net01-consensus-lane.md`. The calldata lane remains the fast local
+lane for iteration.
 
 ## Verification
 

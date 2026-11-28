@@ -97,6 +97,9 @@ jobs:
       - name: Verify the committed S18 settlement pack evidence
         run: pnpm s18:verify
 
+      - name: Verify the committed S19 NET-01 consensus lane evidence
+        run: pnpm s19:verify
+
       - name: Verify the committed release-check matrix
         run: pnpm release:verify
 

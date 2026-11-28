@@ -54,4 +54,11 @@ confirmed here with exact errors and four configuration attempts.
 2. Pin a coherent image list from an ethpandaops release CI.
 3. Build the L1 consensus images from the same source revision as the genesis generator.
 
-NET-01 remains open; the blocker is tracked in issue #54 with this record.
+## Resolution (attempt F)
+
+Pinning lighthouse `sigp/lighthouse:v8.0.0` (beacon + validator) and geth
+`ethereum/client-go:v1.16.1` against the pinned genesis generator resolves the mismatch:
+the lane accepts blob blocks. The full NET-01 capture and verification are recorded in
+[`s19-net01-consensus-lane.md`](s19-net01-consensus-lane.md) and
+`evidence/s19/net01-lane.json`. The failed attempts above stay on record for
+reproducibility.

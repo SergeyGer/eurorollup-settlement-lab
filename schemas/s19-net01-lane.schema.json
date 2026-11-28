@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/s19-net01-lane.schema.json",
+  "title": "NET-01 consensus-backed lane evidence",
+  "type": "object",
+  "required": ["schemaVersion", "reportId", "packId", "laneId", "generatedBy", "generatedAt", "commit", "enclave", "chains", "manifests", "versions", "configs", "health", "heads", "activity", "blob", "derivation", "finality", "withdrawal", "subChecks", "passed", "limitations", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "NET-01-consensus-lane" },
+    "packId": { "const": "S19" },
+    "laneId": { "type": "string", "pattern": "^NET01-" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "chains": { "type": "object", "required": ["l1ChainId", "l2ChainId"], "properties": { "l2ChainId": { "const": 16584 } } },
+    "manifests": { "type": "array", "minItems": 6 },
+    "versions": { "type": "object" },
+    "configs": { "type": "object", "required": ["genesisConfig", "l1Genesis", "l2Genesis", "beaconGenesis", "fileArtifacts"], "properties": { "genesisConfig": { "type": "object", "required": ["configDigest", "chainId", "batchInbox", "portal"] } } },
+    "health": { "type": "array", "minItems": 4 },
+    "heads": { "type": "object", "required": ["before", "after"] },
+    "activity": { "type": "object", "required": ["transactions", "lastBlock"], "properties": { "transactions": { "type": "array", "minItems": 8 } } },
+    "blob": { "type": "object", "required": ["txHash", "blockNumber", "blockHash", "versionedHashes", "blobGasUsed", "receiptStatus", "beaconBlock", "sidecarCommitments"], "properties": { "receiptStatus": { "const": 1 } } },
+    "derivation": { "type": "object", "required": ["activityMatchesDerivation", "derivingVerifier"], "properties": { "activityMatchesDerivation": { "const": true }, "derivingVerifier": { "type": "object", "required": ["match", "passed"], "properties": { "match": { "const": true }, "passed": { "const": true } } } } },
+    "finality": { "type": "object", "required": ["l1Finalized", "beaconFinality"] },
+    "withdrawal": { "type": "object", "required": ["source", "repeatedOnAcceleratedLane", "timers", "timeAcceleration", "finalization"], "properties": { "repeatedOnAcceleratedLane": { "const": true }, "timeAcceleration": { "type": "array", "minItems": 1 } } },
+    "subChecks": { "type": "object", "required": ["blobTransactionObserved", "sidecarMatched", "activityDerivedFromL1", "l1FinalityCoveredBlob"], "properties": { "blobTransactionObserved": { "const": true }, "sidecarMatched": { "const": true }, "activityDerivedFromL1": { "const": true }, "l1FinalityCoveredBlob": { "const": true } } },
+    "passed": { "const": true },
+    "limitations": { "type": "array", "minItems": 3 },
+    "notes": { "type": "array", "minItems": 2 }
+  }
+}
