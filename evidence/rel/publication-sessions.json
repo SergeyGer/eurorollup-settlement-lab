@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S13-publication-sessions",
+  "generatedBy": "pnpm check:sessions",
+  "generatedAt": "2026-11-28T10:07:38.956Z",
+  "commit": "ref: refs/heads/main",
+  "publicSurfaces": {
+    "repository": "https://github.com/SergeyGer/eurorollup-settlement-lab",
+    "wiki": "https://github.com/SergeyGer/eurorollup-settlement-lab/wiki",
+    "replay": "https://sergeyger.github.io/eurorollup-settlement-lab/",
+    "film": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4"
+  },
+  "approvedArtworkSha256": "1b56f8f964dfea2363a8376ba6a668bc0c888880b15595defcc5e89a5bf4164e",
+  "sessions": [
+    "README desktop 1440x1000 signed out",
+    "README phone 390x844 signed out",
+    "Wiki home desktop 1440x1000 signed out"
+  ],
+  "checks": [
+    {
+      "id": "readme-desktop-film-link",
+      "description": "README reaches the film in one click",
+      "passed": true,
+      "detail": "film action present on the first screen"
+    },
+    {
+      "id": "readme-desktop-replay-link",
+      "description": "README reaches the live replay in one click",
+      "passed": true,
+      "detail": "replay action present on the first screen"
+    },
+    {
+      "id": "readme-desktop-wiki-link",
+      "description": "README points at the Wiki",
+      "passed": true,
+      "detail": "Wiki action present"
+    },
+    {
+      "id": "readme-desktop-approved-artwork",
+      "description": "owner-approved social preview is visible",
+      "passed": true,
+      "detail": "image count 1, natural width 1280"
+    },
+    {
+      "id": "readme-phone-film-link",
+      "description": "README reaches the film in one click",
+      "passed": true,
+      "detail": "film action present on the first screen"
+    },
+    {
+      "id": "readme-phone-replay-link",
+      "description": "README reaches the live replay in one click",
+      "passed": true,
+      "detail": "replay action present on the first screen"
+    },
+    {
+      "id": "readme-phone-wiki-link",
+      "description": "README points at the Wiki",
+      "passed": true,
+      "detail": "Wiki action present"
+    },
+    {
+      "id": "readme-phone-approved-artwork",
+      "description": "owner-approved social preview is visible",
+      "passed": true,
+      "detail": "image count 1, natural width 1280"
+    },
+    {
+      "id": "wiki-status",
+      "description": "Wiki home shows the published release status",
+      "passed": true,
+      "detail": "release status current"
+    },
+    {
+      "id": "wiki-film-navigation",
+      "description": "Wiki home links to the film page",
+      "passed": true,
+      "detail": "film page reachable"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs/media/s13-readme-desktop.png",
+      "sha256": "3d6df8c79e84fa70468bbf5163a1b773b44d6b5cb22ada9e536df11f6449ddf6"
+    },
+    {
+      "file": "docs/media/s13-readme-phone.png",
+      "sha256": "6837019c5c8cfba5fec864f0b5983d88735fa547113e46bec0b145d473cd9357"
+    },
+    {
+      "file": "docs/media/s13-wiki-home.png",
+      "sha256": "0a20ec1418e130b07643a07a25bb50d8e4c4f32c132a70e27a6d4ae967fed472"
+    }
+  ],
+  "passed": true,
+  "notes": [
+    "All pages were opened without cookies or tokens.",
+    "The GitHub repository Social Preview setting itself is a manual repository setting; the approved PNG is ready for that upload."
+  ]
+}
