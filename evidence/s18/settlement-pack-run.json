@@ -3,17 +3,17 @@
   "reportId": "S18-settlement-pack",
   "packId": "S18",
   "generatedBy": "pnpm s18:run",
-  "generatedAt": "2026-11-28T12:46:06.119Z",
-  "commit": "e9f683a1cc7c976dcf5b2cd396012c7b5e2fa2c8",
+  "generatedAt": "2026-11-28T12:47:57.353Z",
+  "commit": "52bb5ef0df342fb972bc36685fc00a4cb9909106",
   "chains": {
     "l1ChainId": 11155111,
     "l2ChainId": 16584,
     "lane": "controlled local OP Stack devnet (calldata DA development mode)"
   },
   "run": {
-    "runId": "order_921ddc6a-ee02-43c2-887b-d4151e39fb90",
-    "orderId": "order_921ddc6a-ee02-43c2-887b-d4151e39fb90",
-    "quoteId": "quote_bd3600b0-5dd2-4eea-b780-e8a77f43f3e1",
+    "runId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "quoteId": "quote_df62d05c-9f6a-4832-a59d-43bda3a11705",
     "accountId": "investor-ada"
   },
   "api": {
@@ -24,11 +24,11 @@
       "policyEpoch": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
       "dataMode": "local-fixture"
     },
-    "endpoint": "/v1/runs/order_921ddc6a-ee02-43c2-887b-d4151e39fb90/evidence"
+    "endpoint": "/v1/runs/order_692d8a3d-a40e-43c9-ace7-4ff88361757a/evidence"
   },
   "order": {
-    "orderId": "order_921ddc6a-ee02-43c2-887b-d4151e39fb90",
-    "quoteId": "quote_bd3600b0-5dd2-4eea-b780-e8a77f43f3e1",
+    "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "quoteId": "quote_df62d05c-9f6a-4832-a59d-43bda3a11705",
     "accountId": "investor-ada",
     "kind": "SPOT_BUY",
     "assetId": "tWETH",
@@ -38,13 +38,13 @@
     "chainState": "NOT_SUBMITTED",
     "reasonCode": null,
     "policyEpoch": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
-    "traceId": "trace_cb9b144c-4079-4936-adaa-264ea5cbb2ba",
+    "traceId": "trace_c03a203a-628c-42d8-a6b1-9419eea6b8dd",
     "createdAt": "2026-11-20T15:00:00Z",
     "updatedAt": "2026-11-20T15:00:00Z",
     "dealingTerms": null,
     "receipt": {
       "schemaVersion": "1.0",
-      "orderId": "order_921ddc6a-ee02-43c2-887b-d4151e39fb90",
+      "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
       "businessState": "FILLED",
       "assetId": "tWETH",
       "unitsBase": "100000000000000000",
@@ -57,7 +57,7 @@
     },
     "moneyMovements": [
       {
-        "entryId": "EV-order_921ddc6a-ee02-43c2-887b-d4151e39fb90-FILL-JE",
+        "entryId": "EV-order_692d8a3d-a40e-43c9-ace7-4ff88361757a-FILL-JE",
         "occurredAt": "2026-11-20T15:00:00Z",
         "description": "Bought 0.100000 tWETH for 200.00 dEUR plus 0.05 dEUR fixed charge",
         "postings": [
@@ -105,8 +105,8 @@
   "pack": {
     "schemaVersion": "1.0.0",
     "packId": "SETTLEMENT-PACK",
-    "runId": "order_921ddc6a-ee02-43c2-887b-d4151e39fb90",
-    "orderId": "order_921ddc6a-ee02-43c2-887b-d4151e39fb90",
+    "runId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
     "environment": {
       "dataMode": "local-fixture",
       "serviceVersion": "0.5.0",
@@ -116,8 +116,8 @@
       "policyHash": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c"
     },
     "order": {
-      "orderId": "order_921ddc6a-ee02-43c2-887b-d4151e39fb90",
-      "quoteId": "quote_bd3600b0-5dd2-4eea-b780-e8a77f43f3e1",
+      "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+      "quoteId": "quote_df62d05c-9f6a-4832-a59d-43bda3a11705",
       "accountId": "investor-ada",
       "kind": "SPOT_BUY",
       "assetId": "tWETH",
@@ -126,7 +126,7 @@
       "businessState": "FILLED",
       "chainState": "NOT_SUBMITTED",
       "reasonCode": null,
-      "traceId": "trace_cb9b144c-4079-4936-adaa-264ea5cbb2ba",
+      "traceId": "trace_c03a203a-628c-42d8-a6b1-9419eea6b8dd",
       "policyEpoch": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
       "createdAt": "2026-11-20T15:00:00Z",
       "updatedAt": "2026-11-20T15:00:00Z",
@@ -137,7 +137,7 @@
       "chainStateField": "NOT_SUBMITTED",
       "receipt": {
         "schemaVersion": "1.0",
-        "orderId": "order_921ddc6a-ee02-43c2-887b-d4151e39fb90",
+        "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
         "businessState": "FILLED",
         "assetId": "tWETH",
         "unitsBase": "100000000000000000",
@@ -152,7 +152,7 @@
       "reasonCode": null,
       "journalEntries": [
         {
-          "entryId": "EV-order_921ddc6a-ee02-43c2-887b-d4151e39fb90-FILL-JE",
+          "entryId": "EV-order_692d8a3d-a40e-43c9-ace7-4ff88361757a-FILL-JE",
           "occurredAt": "2026-11-20T15:00:00Z",
           "description": "Bought 0.100000 tWETH for 200.00 dEUR plus 0.05 dEUR fixed charge",
           "postings": [
@@ -289,24 +289,24 @@
     ],
     "chain": {
       "status": "OBSERVED",
-      "orderIdBytes32": "0x45a58c51c62a9dc51dd1f330b2510191d88c52c04daf2ff4aa963b67906b557d",
+      "orderIdBytes32": "0x853e35cf25b86083f0e30bad1e5eab59dc85efc2232c70830f9b9ef4b764632b",
       "userOpHash": null,
-      "txHash": "0x2c841a9cf9f5cdf886be7ccfcfed9ea2ca84252544feeef42a380fa09e4dc280",
+      "txHash": "0x663d5cc04521149b5fe6fbce10160140a1c7b36acdf1aa2eda42fbcf63316778",
       "logIndex": 3,
-      "l2BlockHash": "0x5a32e1bdb1503252b0ae71c295d0c07fce99ce82bd253b956aa780f9364ac982",
-      "l2BlockNumber": 262,
-      "canonicalBlockNumber": 263,
-      "canonicalBlockHash": "0x5ae69aedfa2460c3644780d052cdad13ee6023cad52ede90cd48c91b151591b5",
+      "l2BlockHash": "0x4c5a734081027853a0efe248d7a6c7ace6a35d3a34ee73593aea31f885345573",
+      "l2BlockNumber": 317,
+      "canonicalBlockNumber": 318,
+      "canonicalBlockHash": "0x210331aa47ddb78956b61f13657d90e3688257d0fc670e67b8919cd0234cafd5",
       "l1BatchReference": null,
       "policyHash": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
-      "observedAt": "2026-11-28T12:45:58.000Z",
+      "observedAt": "2026-11-28T12:47:48.000Z",
       "receiptStatus": 1,
       "contracts": {
-        "settlement": "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
-        "dEUR": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
-        "tWETH": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
-        "fund": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
-        "escrow": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F"
+        "settlement": "0x851356ae760d987E095750cCeb3bC6014560891C",
+        "dEUR": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+        "tWETH": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+        "fund": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
+        "escrow": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8"
       },
       "observations": [
         {
@@ -346,13 +346,13 @@
           "amountBase": "0"
         },
         {
-          "account": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+          "account": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8",
           "role": "escrow",
           "assetId": "dEUR",
           "amountBase": "0"
         }
       ],
-      "witnessSha256": "400e14706f3ce55c2580a9c149e2e1857939cd7e24a463243a185e06963290fe",
+      "witnessSha256": "54390bf89856984db8e3f44d9a155626890c4710e4bd00d0702709ca5762e1ef",
       "unknowns": [
         {
           "field": "chain.userOpHash",
@@ -377,44 +377,44 @@
     "generatedAt": "2026-11-20T15:00:00Z",
     "manifest": {
       "algorithm": "sha256-canonical-json",
-      "packDigest": "45026ce9e008583bfacabd8917bcfe5c7242173acdde244b950fa6a7da755625",
+      "packDigest": "3f768c4bd6c138709bf6d098b47f53a1f113dedc3f008572a17eb06d8d2f7b21",
       "sections": {
-        "order": "95d2b17da4aa6aeecf2d9b37b0b2f5ab8c3a2d96edd2759bdaa5493ddb442d16",
-        "business": "d22962691fdeae5e8511f04c211ae5acea9ef461d43ac5391f8968f32434954b",
+        "order": "b8ad26eafb368aec53353a8012a94d4d88f37d8e5c8c42cd2cf9b83646cc2664",
+        "business": "a7e7d797cbd4ca92c78d84ad141792826988c629d14ed506cc900a30642cf1b0",
         "costs": "2a415a2b5b5c539166e5a31590c683915e1e4621eadbfc3d10baa6da6739c3f2",
-        "chain": "964e2e15ed86dd9e73f6f2869a1cdca53c61de2c366640261ab847ddab5d3650",
+        "chain": "960c7acf0498949f2e5fbbdec4607a95636f587ce59fbc317976bc7dedfdb8b2",
         "environment": "466f390f32d003f62235a9e198e5a110e599827f51aec7e57805a591bd611c81"
       },
       "externalArtifacts": [
         {
           "name": "chain-witness",
-          "sha256": "400e14706f3ce55c2580a9c149e2e1857939cd7e24a463243a185e06963290fe"
+          "sha256": "54390bf89856984db8e3f44d9a155626890c4710e4bd00d0702709ca5762e1ef"
         }
       ]
     }
   },
-  "packSha256": "4a3656f5aad8bfd88a513fa67f87bab58d2fbd23a0e01565e607383ed6c9f92c",
+  "packSha256": "96338e453f7481352cccab734c20b08faed318d533a961dade9c0d6fa51b62c2",
   "chainWitness": {
-    "orderId": "order_921ddc6a-ee02-43c2-887b-d4151e39fb90",
+    "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
     "chainId": 16584,
-    "orderIdBytes32": "0x45a58c51c62a9dc51dd1f330b2510191d88c52c04daf2ff4aa963b67906b557d",
+    "orderIdBytes32": "0x853e35cf25b86083f0e30bad1e5eab59dc85efc2232c70830f9b9ef4b764632b",
     "userOpHash": null,
-    "txHash": "0x2c841a9cf9f5cdf886be7ccfcfed9ea2ca84252544feeef42a380fa09e4dc280",
+    "txHash": "0x663d5cc04521149b5fe6fbce10160140a1c7b36acdf1aa2eda42fbcf63316778",
     "logIndex": 3,
-    "l2BlockHash": "0x5a32e1bdb1503252b0ae71c295d0c07fce99ce82bd253b956aa780f9364ac982",
-    "l2BlockNumber": 262,
-    "canonicalBlockNumber": 263,
-    "canonicalBlockHash": "0x5ae69aedfa2460c3644780d052cdad13ee6023cad52ede90cd48c91b151591b5",
+    "l2BlockHash": "0x4c5a734081027853a0efe248d7a6c7ace6a35d3a34ee73593aea31f885345573",
+    "l2BlockNumber": 317,
+    "canonicalBlockNumber": 318,
+    "canonicalBlockHash": "0x210331aa47ddb78956b61f13657d90e3688257d0fc670e67b8919cd0234cafd5",
     "l1BatchReference": null,
     "policyHash": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
-    "observedAt": "2026-11-28T12:45:58.000Z",
+    "observedAt": "2026-11-28T12:47:48.000Z",
     "receiptStatus": 1,
     "contracts": {
-      "settlement": "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
-      "dEUR": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
-      "tWETH": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
-      "fund": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
-      "escrow": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F"
+      "settlement": "0x851356ae760d987E095750cCeb3bC6014560891C",
+      "dEUR": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+      "tWETH": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      "fund": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
+      "escrow": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8"
     },
     "observations": [
       {
@@ -454,7 +454,7 @@
         "amountBase": "0"
       },
       {
-        "account": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+        "account": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8",
         "role": "escrow",
         "assetId": "dEUR",
         "amountBase": "0"
@@ -472,9 +472,9 @@
     ]
   },
   "canonicalBlock": {
-    "number": 263,
-    "hash": "0x5ae69aedfa2460c3644780d052cdad13ee6023cad52ede90cd48c91b151591b5",
-    "timestamp": 1795869960
+    "number": 318,
+    "hash": "0x210331aa47ddb78956b61f13657d90e3688257d0fc670e67b8919cd0234cafd5",
+    "timestamp": 1795870070
   },
   "comparisons": [
     {
@@ -518,16 +518,16 @@
     "offline": {
       "exitCode": 0,
       "firstMismatch": null,
-      "output": "settlement pack verified: 30 checks, run order_921ddc6a-ee02-43c2-887b-d4151e39fb90 (offline)"
+      "output": "settlement pack verified: 30 checks, run order_692d8a3d-a40e-43c9-ace7-4ff88361757a (offline)"
     },
     "chainFollow": {
       "exitCode": 0,
       "firstMismatch": null,
-      "output": "settlement pack verified: 45 checks, run order_921ddc6a-ee02-43c2-887b-d4151e39fb90 (with chain follow)"
+      "output": "settlement pack verified: 45 checks, run order_692d8a3d-a40e-43c9-ace7-4ff88361757a (with chain follow)"
     },
     "tampered": {
       "exitCode": 1,
-      "firstMismatch": "MISMATCH: manifest-section-business: expected 08f8995b77f91a105e32ba03dedb859ead80c3032358dfcfc70ccf08a6b18b6f observed d22962691fdeae5e8511f04c211ae5acea9ef461d43ac5391f8968f32434954b",
+      "firstMismatch": "MISMATCH: manifest-section-business: expected eb7862b331c6b209fae29be2614e4e195e9717f09ae6c1ff90199fc0061fa58b observed a7e7d797cbd4ca92c78d84ad141792826988c629d14ed506cc900a30642cf1b0",
       "mutation": "business.receipt.cashDeployedBase +1 base unit"
     }
   },
@@ -535,10 +535,10 @@
     "url": "http://127.0.0.1:8089/",
     "receiptVisible": true,
     "screenshot": "docs/media/s18-receipt-download.png",
-    "screenshotSha256": "19710ceae20e71153c46e58268b5b9a270cae0e5c03e824924ffe1eb09396a0e",
-    "downloadedSha256": "4a3656f5aad8bfd88a513fa67f87bab58d2fbd23a0e01565e607383ed6c9f92c",
+    "screenshotSha256": "36e8fddc01547ef058f754e862e979ab7453dc0ab271cb91282258744bbebdb2",
+    "downloadedSha256": "96338e453f7481352cccab734c20b08faed318d533a961dade9c0d6fa51b62c2",
     "matchesApiPack": true,
-    "suggestedFilename": "settlement-pack-order_921ddc6a-ee02-43c2-887b-d4151e39fb90.json"
+    "suggestedFilename": "settlement-pack-order_692d8a3d-a40e-43c9-ace7-4ff88361757a.json"
   },
   "unknowns": [
     {
