@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "reportId": "REL-02-line-endings",
   "generatedBy": "pnpm check:line-endings",
-  "generatedAt": "2026-11-28T10:37:52.428Z",
-  "commit": "6387c645c25f84b5f4be9b446ec31c767d77eecf",
+  "generatedAt": "2026-11-28T10:45:29.485Z",
+  "commit": "3af773ec9297103557e3a11ed3e971c1f2db7a41",
   "attributes": {
     "path": ".gitattributes",
     "sha256": "df918e7fe3c65875aa0818bdbd87f338d0a8a7e58b53bbf1eaa5e94ffbd3ab11"

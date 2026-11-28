@@ -3,8 +3,8 @@
   "reportId": "A08-public-release",
   "packId": "A08-release",
   "generatedBy": "pnpm a08:public-check",
-  "generatedAt": "2026-11-28T10:35:02.682Z",
-  "commit": "6387c645c25f84b5f4be9b446ec31c767d77eecf",
+  "generatedAt": "2026-11-28T10:44:32.464Z",
+  "commit": "3af773ec9297103557e3a11ed3e971c1f2db7a41",
   "version": "1.1.0",
   "publicReplay": {
     "url": "https://sergeyger.github.io/eurorollup-settlement-lab/",
@@ -53,15 +53,15 @@
       "screenshots": [
         {
           "path": "docs/media/s09-public-replay.jpg",
-          "sha256": "50e8e94c6871214e614e36c355282bc047703552f43b5a98c9426b2f2f9dfd33"
+          "sha256": "c196986575898729c76801a7c90965d6cffe197931e0dda0c23bbf6c05070b96"
         },
         {
           "path": "docs/media/s09-eligibility.jpg",
-          "sha256": "61d7c90a64c0ffee02d04dfda015dc6bf9b6eb378ff3e27421b4e03c4b2770c3"
+          "sha256": "9326d71dd9d7b331cef668a5bf54db98b36ac00d99d1394b9471fbcadd4da557"
         },
         {
           "path": "docs/media/s09-economics.jpg",
-          "sha256": "5ee64f4e558a40b7f4bf1cadd35c4f8c80cd016665406b9837c8cd2544fabe54"
+          "sha256": "f77fade66c3d9eb0a4271f5a875b8186f50ca862c9dc756ed385e10bad6f1ca2"
         }
       ]
     }
@@ -71,12 +71,12 @@
       {
         "command": "pnpm verify",
         "exitCode": 0,
-        "durationMs": 1114
+        "durationMs": 1014
       },
       {
         "command": "pnpm demo:partner",
         "exitCode": 0,
-        "durationMs": 2362
+        "durationMs": 2248
       }
     ],
     "note": "Representative documented commands were run locally; the complete documented quickstart command set is exercised by pnpm release:checks."
@@ -105,9 +105,9 @@
     "fileName": "eurollup-settlement-lab-1.1.0.tar.gz",
     "downloadMode": "local-build",
     "downloadUrl": null,
-    "sha256": "73c7c1fb1e386b4d5d80e25ed3535f07f3a9e9f49b0508c21f0fb487c5713a21",
-    "bytes": 13097696,
-    "manifestDigest": "55e8d0c2991f30b2d306fdd1e5fcfbd3785e1c11302a585457c8844361fc6bdf",
+    "sha256": "a59681497b262bd154128b18acf29847771f1bd5826fdebbd9c5d970c3f5b1ba",
+    "bytes": 13087598,
+    "manifestDigest": "87a9516ba6ed7959ee807dd26b3e097823f3e5da5cf067260ee2d66f92f9b2b4",
     "manifestFileCount": 363,
     "verified": {
       "downloaded": true,
@@ -122,7 +122,7 @@
     "status": "complete",
     "requiredBy": "S10",
     "metadataFile": "media/film/film-metadata.json",
-    "metadataSha256": "4a91eebfec4ddf590e185204835c32cb7579ab861fbf272cd3a1a0819d4ba9fe",
+    "metadataSha256": "3c4f999234607b4736a9ab98e72ff68b0a911101d51182626a6b447aae47f6a5",
     "filmSha256": "e0674bf476e4535c23f741ef18054d877446a4918da3df2f98b96bf0b762cde4",
     "frameCount": 1800,
     "durationSeconds": 60,
