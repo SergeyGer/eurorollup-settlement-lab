@@ -43,9 +43,9 @@ contract SettlementSliceTest {
         settlement = new DvPSettlement(cash, spot, fund, escrow, feeRecipient, issuerTreasury);
         escrow.setOperator(address(settlement));
         fund.setMinter(address(settlement), true);
-        fund.setEligible(investor, true);
-        fund.setEligible(dealer, true);
-        fund.setEligible(issuerTreasury, true);
+        fund.setAllowlisted(investor, true);
+        fund.setAllowlisted(dealer, true);
+        fund.setAllowlisted(issuerTreasury, true);
 
         cash.mint(investor, 1_000 * CASH_UNIT);
         cash.mint(issuerTreasury, 500 * CASH_UNIT);
@@ -92,15 +92,14 @@ contract SettlementSliceTest {
         assert(fund.totalSupply() == 2_125_000);
     }
 
-    function testRestrictedTransfersRequireEligibility() public {
+    /// S16 moved the restriction from this local allowlist to the onchain eligibility
+    /// registry (see EligibilityGate.t.sol); without a registry configured the instrument
+    /// remains freely transferable for the S15 unit tests.
+    function testTransfersWorkWithoutRegistryConfigured() public {
         fund.mint(investor, 1_000_000);
         vm.prank(investor);
-        vm.expectRevert();
-        fund.transfer(address(0xBAD), 1);
-        fund.setEligible(address(0xBAD), true);
-        vm.prank(investor);
-        fund.transfer(address(0xBAD), 1_000);
-        assert(fund.balanceOf(address(0xBAD)) == 1_000);
+        fund.transfer(dealer, 1_000);
+        assert(fund.balanceOf(dealer) == 1_000);
     }
 
     function testEscrowOnlyOperator() public {

@@ -1,0 +1,882 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S16-eligibility-onchain",
+  "packId": "S16",
+  "generatedBy": "pnpm s16:run",
+  "generatedAt": "2026-11-28T11:51:42.012Z",
+  "commit": "992b18daa4070764bbcb17fb3d65aa5447d58d36",
+  "chains": {
+    "l1ChainId": 11155111,
+    "l2ChainId": 16584,
+    "lane": "controlled local OP Stack devnet (calldata DA development mode)"
+  },
+  "accounts": {
+    "synthetic": true,
+    "investor": "0xdF1C8638E3e4fBC3ff9F501E5F900c1F38ECA914",
+    "dealer": "0xdFd305BD30b7BCE337669C5c541f0aD40FDAd36d",
+    "issuerTreasury": "0xe6Aa733df2Ca8Ae249905215A0Dd861CD648DA4f",
+    "feeRecipient": "0xFE2bbE71f921C7861106329f6F105231dAFC6319",
+    "issuer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "stranger": "0xb108D4f7C6CB9d59Cf2ec0b9940607A4F6c06C2F",
+    "note": "Deterministic lab accounts on the controlled devnet; the eligibility trees are built over these wallets, not the static fixture personas."
+  },
+  "circuit": {
+    "circuitId": "eligibility",
+    "circuitSha256": "c462f2378c0eb8e96ec08c32106bee1dfb82bd181d4f702d52d0aa4832c3d642",
+    "noirVersion": "1.0.0",
+    "bbVersion": "6.1.0",
+    "evmVkHash": "08c564e278e92731c98d1283f9381d8162ca6f65f2933202021fa9901ee3016d",
+    "publicInputCount": 7,
+    "proofSystem": "ultra_honk_evm",
+    "treeDepth": 3,
+    "note": "EVM-target verification key generated from the committed eligibility circuit; the Solidity verifier is committed at contracts/src/verifier/HonkVerifier.sol."
+  },
+  "verifier": {
+    "deployment": {
+      "name": "verifier",
+      "contract": "HonkVerifier",
+      "address": "0xDde063eBe8E85D666AD99f731B4Dbf8C98F29708",
+      "txHash": "0x2d09733c8c2b39b092209559eb4650180e287781c184c5aefe1636d1a17662dd",
+      "blockNumber": 762,
+      "codeHash": "0x6e13470f0df5d498ca7343f392b049b0bfc6483494f1f606fba0ddc883fe71db",
+      "abiSha256": "7a810993776276a63e2babd571cb2b3b7863c0b02acd023a1cc02940c6099556"
+    },
+    "onchainVerified": true,
+    "tamperedAccepted": false,
+    "tamperedError": {
+      "reverted": true,
+      "reason": "unknown",
+      "data": null
+    }
+  },
+  "fixtures": {
+    "path": "evidence/s16/eligibility-fixtures.json",
+    "sha256": "ac006a50e7a59ead51dfd951e123e86048784f1aa71025b87ae66e358ab47c7c",
+    "epoch1Root": "1134547697550897275490608689143418436430495383469159499777687547620456395634",
+    "epoch2Root": "6249846189996286586290240503991431932619143542568433563719256863768579871995",
+    "chainId": 16584
+  },
+  "proofs": [
+    {
+      "label": "investor-e1-subscription",
+      "holder": "0xdF1C8638E3e4fBC3ff9F501E5F900c1F38ECA914",
+      "gate": "FUND_SUBSCRIPTION",
+      "epoch": 1,
+      "root": "1134547697550897275490608689143418436430495383469159499777687547620456395634",
+      "proofBytes": 8384,
+      "proofSha256": "5979eca3dbd411692f7f15b41659c3e96922c34233343d540935c9d244d468c5",
+      "publicInputs": [
+        "0x000000000000000000000000df1c8638e3e4fbc3ff9f501e5f900c1f38eca914",
+        "0x02822198fae3ed8ea1a6d1c2185959b072dcfb7e59a7b0ac9b1940bacadbf372",
+        "0x00000000000000000000000000000000000000000000000000000000000040c8",
+        "0x0000000000000000000000002000000000000000000000000000000000000002",
+        "0x0000000000000000000000000000000000000000000000000000000000000003",
+        "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "0x0000000000000000000000000000000000000000000000000000000070dbd880"
+      ],
+      "localVerified": true
+    },
+    {
+      "label": "investor-e1-transfer",
+      "holder": "0xdF1C8638E3e4fBC3ff9F501E5F900c1F38ECA914",
+      "gate": "SHARE_TRANSFER",
+      "epoch": 1,
+      "root": "1134547697550897275490608689143418436430495383469159499777687547620456395634",
+      "proofBytes": 8384,
+      "proofSha256": "6ac47e857e9c36e35dc426365ab27b1395f128ec8bf3998675e086e8531758fe",
+      "publicInputs": [
+        "0x000000000000000000000000df1c8638e3e4fbc3ff9f501e5f900c1f38eca914",
+        "0x02822198fae3ed8ea1a6d1c2185959b072dcfb7e59a7b0ac9b1940bacadbf372",
+        "0x00000000000000000000000000000000000000000000000000000000000040c8",
+        "0x0000000000000000000000002000000000000000000000000000000000000004",
+        "0x0000000000000000000000000000000000000000000000000000000000000003",
+        "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "0x0000000000000000000000000000000000000000000000000000000070dbd880"
+      ],
+      "localVerified": true
+    },
+    {
+      "label": "dealer-e1-transfer",
+      "holder": "0xdFd305BD30b7BCE337669C5c541f0aD40FDAd36d",
+      "gate": "SHARE_TRANSFER",
+      "epoch": 1,
+      "root": "1134547697550897275490608689143418436430495383469159499777687547620456395634",
+      "proofBytes": 8384,
+      "proofSha256": "911d706b1c0311a0f4b5cf784c603265c26e9e1aaccb61bd479af7cfef777ad0",
+      "publicInputs": [
+        "0x000000000000000000000000dfd305bd30b7bce337669c5c541f0ad40fdad36d",
+        "0x02822198fae3ed8ea1a6d1c2185959b072dcfb7e59a7b0ac9b1940bacadbf372",
+        "0x00000000000000000000000000000000000000000000000000000000000040c8",
+        "0x0000000000000000000000002000000000000000000000000000000000000004",
+        "0x0000000000000000000000000000000000000000000000000000000000000003",
+        "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "0x0000000000000000000000000000000000000000000000000000000070dbd880"
+      ],
+      "localVerified": true
+    },
+    {
+      "label": "dealer-e1-redemption",
+      "holder": "0xdFd305BD30b7BCE337669C5c541f0aD40FDAd36d",
+      "gate": "FUND_REDEMPTION",
+      "epoch": 1,
+      "root": "1134547697550897275490608689143418436430495383469159499777687547620456395634",
+      "proofBytes": 8384,
+      "proofSha256": "468bbf501aba8f735fb51ff3010db03c3c2e73b0b51d0bde28eea8b4a22e0bd2",
+      "publicInputs": [
+        "0x000000000000000000000000dfd305bd30b7bce337669c5c541f0ad40fdad36d",
+        "0x02822198fae3ed8ea1a6d1c2185959b072dcfb7e59a7b0ac9b1940bacadbf372",
+        "0x00000000000000000000000000000000000000000000000000000000000040c8",
+        "0x0000000000000000000000002000000000000000000000000000000000000003",
+        "0x0000000000000000000000000000000000000000000000000000000000000003",
+        "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "0x0000000000000000000000000000000000000000000000000000000070dbd880"
+      ],
+      "localVerified": true
+    },
+    {
+      "label": "investor-expired-e1-subscription",
+      "holder": "0xdF1C8638E3e4fBC3ff9F501E5F900c1F38ECA914",
+      "gate": "FUND_SUBSCRIPTION",
+      "epoch": 1,
+      "root": "1134547697550897275490608689143418436430495383469159499777687547620456395634",
+      "proofBytes": 8384,
+      "proofSha256": "0ac99f5dbb462faefed93718b31125c593d7065568fb4f0778a7231e40b83005",
+      "publicInputs": [
+        "0x000000000000000000000000df1c8638e3e4fbc3ff9f501e5f900c1f38eca914",
+        "0x02822198fae3ed8ea1a6d1c2185959b072dcfb7e59a7b0ac9b1940bacadbf372",
+        "0x00000000000000000000000000000000000000000000000000000000000040c8",
+        "0x0000000000000000000000002000000000000000000000000000000000000002",
+        "0x0000000000000000000000000000000000000000000000000000000000000003",
+        "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "0x000000000000000000000000000000000000000000000000000000006553f100"
+      ],
+      "localVerified": true
+    },
+    {
+      "label": "investor-e2-subscription",
+      "holder": "0xdF1C8638E3e4fBC3ff9F501E5F900c1F38ECA914",
+      "gate": "FUND_SUBSCRIPTION",
+      "epoch": 2,
+      "root": "6249846189996286586290240503991431932619143542568433563719256863768579871995",
+      "proofBytes": 8384,
+      "proofSha256": "d9a70185c89aa80a0ce8bf2e5ece98318976990a251e946d932880b9c4966f3a",
+      "publicInputs": [
+        "0x000000000000000000000000df1c8638e3e4fbc3ff9f501e5f900c1f38eca914",
+        "0x0dd1499f49b041ebf5d01a51d706f468341a4a4c766f67b415915441de9b14fb",
+        "0x00000000000000000000000000000000000000000000000000000000000040c8",
+        "0x0000000000000000000000002000000000000000000000000000000000000002",
+        "0x0000000000000000000000000000000000000000000000000000000000000003",
+        "0x0000000000000000000000000000000000000000000000000000000000000002",
+        "0x0000000000000000000000000000000000000000000000000000000070dbd880"
+      ],
+      "localVerified": true
+    },
+    {
+      "label": "investor-e2-redemption",
+      "holder": "0xdF1C8638E3e4fBC3ff9F501E5F900c1F38ECA914",
+      "gate": "FUND_REDEMPTION",
+      "epoch": 2,
+      "root": "6249846189996286586290240503991431932619143542568433563719256863768579871995",
+      "proofBytes": 8384,
+      "proofSha256": "2d8650904a63c688233e23c1ec12eb71834c8b4086b5ed1fb4858da452f7cd0d",
+      "publicInputs": [
+        "0x000000000000000000000000df1c8638e3e4fbc3ff9f501e5f900c1f38eca914",
+        "0x0dd1499f49b041ebf5d01a51d706f468341a4a4c766f67b415915441de9b14fb",
+        "0x00000000000000000000000000000000000000000000000000000000000040c8",
+        "0x0000000000000000000000002000000000000000000000000000000000000003",
+        "0x0000000000000000000000000000000000000000000000000000000000000003",
+        "0x0000000000000000000000000000000000000000000000000000000000000002",
+        "0x0000000000000000000000000000000000000000000000000000000070dbd880"
+      ],
+      "localVerified": true
+    }
+  ],
+  "deployments": [
+    {
+      "name": "verifier",
+      "contract": "HonkVerifier",
+      "address": "0xDde063eBe8E85D666AD99f731B4Dbf8C98F29708",
+      "txHash": "0x2d09733c8c2b39b092209559eb4650180e287781c184c5aefe1636d1a17662dd",
+      "blockNumber": 762,
+      "codeHash": "0x6e13470f0df5d498ca7343f392b049b0bfc6483494f1f606fba0ddc883fe71db",
+      "abiSha256": "7a810993776276a63e2babd571cb2b3b7863c0b02acd023a1cc02940c6099556"
+    },
+    {
+      "name": "registry",
+      "contract": "EligibilityRegistry",
+      "address": "0xD5724171C2b7f0AA717a324626050BD05767e2C6",
+      "txHash": "0x82aa25310cfdd377f5e1080ec975204399374d8ec068f532c6a53b239539f3af",
+      "blockNumber": 764,
+      "codeHash": "0x96046dd1351b08c5701165472c4ca46edd250c0dbe58eca0ca4a622734db9101",
+      "abiSha256": "bea8509a338a8acd2c3d8d44d943a21b9f3db498bfcdf9424b6718a60a987165"
+    },
+    {
+      "name": "cash",
+      "contract": "Token",
+      "address": "0x70eE76691Bdd9696552AF8d4fd634b3cF79DD529",
+      "txHash": "0xf52565d037b9c509a3c5df415c16f383209fffd491d027c1ff5ddfdb7bada830",
+      "blockNumber": 766,
+      "codeHash": "0x4b04ead4907e36b41d9e0abf073e0e8fa7e4dd8a06012d0be8b0802870ab71d9",
+      "abiSha256": "1e167d59e2d31ba0456e43d8f97eac05d3d0b9b2bfc9cd47a420ba4aadd71bf8"
+    },
+    {
+      "name": "spot",
+      "contract": "Token",
+      "address": "0x8B190573374637f144AC8D37375d97fd84cBD3a0",
+      "txHash": "0xfbae2b517db0a9ddbebce1287216a5da5e32b80a8d926a97279776493069ff3a",
+      "blockNumber": 768,
+      "codeHash": "0x9acfe3633bc0bd28cb940cdb44d5f51c6ba400ad5e8b4ca9497ee31e10e89225",
+      "abiSha256": "1e167d59e2d31ba0456e43d8f97eac05d3d0b9b2bfc9cd47a420ba4aadd71bf8"
+    },
+    {
+      "name": "fund",
+      "contract": "RestrictedShare",
+      "address": "0x9385556B571ab92bf6dC9a0DbD75429Dd4d56F91",
+      "txHash": "0x9003c91c546fdb08c07c5c916c55bdba7a8a7b21008a1011844928d58cb3daf9",
+      "blockNumber": 770,
+      "codeHash": "0x7a6034775a6735b693010c70c0a7ef13a50a8a154e7499c8c4953be231f88adb",
+      "abiSha256": "b26f339c042484486441a65e1c246805eb5ed547d1b9cd2b58b57140fe98bd81"
+    },
+    {
+      "name": "escrow",
+      "contract": "Escrow",
+      "address": "0x162700d1613DfEC978032A909DE02643bC55df1A",
+      "txHash": "0x06c2e5dc5802212d938046402713982d6b4f5d223f7d4f1d313bdb9103c3a942",
+      "blockNumber": 772,
+      "codeHash": "0xacfb15d5958b492f82b7b1c1a697a62ebea334c455a1bd0424846c6c043e7e11",
+      "abiSha256": "86cc404abb71666a13b0afc45b80d842df62f6ae8a69e7936ae478fe12d44ed4"
+    },
+    {
+      "name": "settlement",
+      "contract": "DvPSettlement",
+      "address": "0x67aD6EA566BA6B0fC52e97Bc25CE46120fdAc04c",
+      "txHash": "0x084c813b50773aec4259eade877e15d4874ae675bc92d8b025a457bd25d55584",
+      "blockNumber": 774,
+      "codeHash": "0x1b9dbee2ee4dc90c33f1761d526bb5efa0571e357415456f7a792177903bd5d2",
+      "abiSha256": "af685da7de55d0f20f5eac63cd759edc69c401ad7174c1b6ba5ff0e20e692555"
+    }
+  ],
+  "abis": [
+    {
+      "name": "HonkVerifier",
+      "path": "contracts/abi/HonkVerifier.json",
+      "sha256": "7a810993776276a63e2babd571cb2b3b7863c0b02acd023a1cc02940c6099556",
+      "abiLength": 2
+    },
+    {
+      "name": "EligibilityRegistry",
+      "path": "contracts/abi/EligibilityRegistry.json",
+      "sha256": "bea8509a338a8acd2c3d8d44d943a21b9f3db498bfcdf9424b6718a60a987165",
+      "abiLength": 40
+    },
+    {
+      "name": "Token",
+      "path": "contracts/abi/Token.json",
+      "sha256": "1e167d59e2d31ba0456e43d8f97eac05d3d0b9b2bfc9cd47a420ba4aadd71bf8",
+      "abiLength": 15
+    },
+    {
+      "name": "RestrictedShare",
+      "path": "contracts/abi/RestrictedShare.json",
+      "sha256": "b26f339c042484486441a65e1c246805eb5ed547d1b9cd2b58b57140fe98bd81",
+      "abiLength": 28
+    },
+    {
+      "name": "Escrow",
+      "path": "contracts/abi/Escrow.json",
+      "sha256": "86cc404abb71666a13b0afc45b80d842df62f6ae8a69e7936ae478fe12d44ed4",
+      "abiLength": 11
+    },
+    {
+      "name": "DvPSettlement",
+      "path": "contracts/abi/DvPSettlement.json",
+      "sha256": "af685da7de55d0f20f5eac63cd759edc69c401ad7174c1b6ba5ff0e20e692555",
+      "abiLength": 17
+    }
+  ],
+  "funding": {
+    "l1ToL2DepositTx": null,
+    "actorFunding": []
+  },
+  "transactions": [
+    {
+      "stage": "wiring",
+      "label": "registry.setRequiredClass(FUND_SUBSCRIPTION, VERIFIED)",
+      "txHash": "0x95b7cdc67b7d86303cc5a5a5b950624b8819d8d4bc0f92cdb2a41519b90a3df3",
+      "blockNumber": 776,
+      "gasUsed": "47521",
+      "status": 1
+    },
+    {
+      "stage": "wiring",
+      "label": "registry.setRequiredClass(SHARE_TRANSFER, VERIFIED)",
+      "txHash": "0x1f34f9ef485a69cfd255b74a3a85232526b3c6a29abe9b4288ffdda0785fa64f",
+      "blockNumber": 778,
+      "gasUsed": "47521",
+      "status": 1
+    },
+    {
+      "stage": "wiring",
+      "label": "registry.setRequiredClass(FUND_REDEMPTION, BASIC)",
+      "txHash": "0x40644b77afe222df6f48fc8fae9621c400c2e58978e2829bcb85de07aee87eba",
+      "blockNumber": 780,
+      "gasUsed": "47521",
+      "status": 1
+    },
+    {
+      "stage": "wiring",
+      "label": "registry.publishRoot(epoch-1, policy version 1)",
+      "txHash": "0x40a9574812070923d68b786d7220d9ca31cacea2f516e7029bccbd1d34b80950",
+      "blockNumber": 782,
+      "gasUsed": "71041",
+      "status": 1
+    },
+    {
+      "stage": "wiring",
+      "label": "fund.configureEligibility(registry, transfer/subscription/redemption gates)",
+      "txHash": "0x75b8a0d95bba4d31cd265824f10bda6efad497bd949882c601deb9785c6e077e",
+      "blockNumber": 784,
+      "gasUsed": "114913",
+      "status": 1
+    },
+    {
+      "stage": "wiring",
+      "label": "share.setMinter(settlement) for allocations and redemptions",
+      "txHash": "0x594840b3f4b3220d86cc75a67bd517c71de5538f7427c5ddf1e0938dbdff25c9",
+      "blockNumber": 787,
+      "gasUsed": "47820",
+      "status": 1
+    },
+    {
+      "stage": "wiring",
+      "label": "escrow.setOperator(settlement)",
+      "txHash": "0xd1857471a852414f6394932930d99c7d801e4b004d2db8a19a4a9a60e930d443",
+      "blockNumber": 789,
+      "gasUsed": "30122",
+      "status": 1
+    },
+    {
+      "stage": "approvals",
+      "label": "registry.verifyAndCache(0xdF1C86…, FUND_SUBSCRIPTION)",
+      "txHash": "0xa766b9fc6afd00ea2823d4491bfda0f0a2872af97fbf2399da76b6c531b5c2a4",
+      "blockNumber": 791,
+      "gasUsed": "900241",
+      "status": 1
+    },
+    {
+      "stage": "approvals",
+      "label": "registry.verifyAndCache(0xdF1C86…, SHARE_TRANSFER)",
+      "txHash": "0xd35cefb3ec5d0916123aed6c03876e904cd6e2caf49b58bc372b7feb74aa6989",
+      "blockNumber": 793,
+      "gasUsed": "900181",
+      "status": 1
+    },
+    {
+      "stage": "approvals",
+      "label": "registry.verifyAndCache(0xdFd305…, SHARE_TRANSFER)",
+      "txHash": "0x82b671e02656739ebe47096b572f2fa0ce279c0e97487c6066b81a9067f68459",
+      "blockNumber": 795,
+      "gasUsed": "900301",
+      "status": 1
+    },
+    {
+      "stage": "approvals",
+      "label": "registry.verifyAndCache(0xdFd305…, FUND_REDEMPTION)",
+      "txHash": "0xfc35b311f6e5d655945b2c9db84dfeaca93bd7664f92cbe9e809bcf5aab59ebb",
+      "blockNumber": 797,
+      "gasUsed": "900253",
+      "status": 1
+    },
+    {
+      "stage": "seed",
+      "label": "cash.mint(investor, 1000 dEUR)",
+      "txHash": "0x34dac4db6ccb43dda6933911f71b80e4f6774bab5230d7cedbf54717cb2857b5",
+      "blockNumber": 799,
+      "gasUsed": "70451",
+      "status": 1
+    },
+    {
+      "stage": "seed",
+      "label": "cash.mint(issuerTreasury, 500 dEUR)",
+      "txHash": "0x638d47a3fdd5dc8ecf0607775053421e930a6413776c4aa73c8a0912935a3645",
+      "blockNumber": 801,
+      "gasUsed": "53351",
+      "status": 1
+    },
+    {
+      "stage": "seed",
+      "label": "spot.mint(dealer, 1 tWETH)",
+      "txHash": "0x7209f160bab659ad0f6e6f5ae0fcd8a1691bae727ea90163a512bf362a58cbd5",
+      "blockNumber": 803,
+      "gasUsed": "70487",
+      "status": 1
+    },
+    {
+      "stage": "approvals",
+      "label": "investor approves settlement cash",
+      "txHash": "0x0632fcdeb99866752db9ef085c90c4d318bfb186e64e4e7569136e30c1a0c950",
+      "blockNumber": 805,
+      "gasUsed": "46464",
+      "status": 1
+    },
+    {
+      "stage": "approvals",
+      "label": "investor approves escrow cash",
+      "txHash": "0x662d28d4a7e55a65d03948d63c7725f7d255783a648740c365c0a8f6a9afdce4",
+      "blockNumber": 807,
+      "gasUsed": "46452",
+      "status": 1
+    },
+    {
+      "stage": "approvals",
+      "label": "dealer approves settlement tWETH",
+      "txHash": "0x8699ae2ab79de81cba00eb7a29291890e65b6ecb42e3d813870c2290dbb1640b",
+      "blockNumber": 809,
+      "gasUsed": "46464",
+      "status": 1
+    },
+    {
+      "stage": "approvals",
+      "label": "issuerTreasury approves settlement cash",
+      "txHash": "0x574338e59144dbbd57436ddc6800e880efd15f4f8e8bffad05f710eb572d3518",
+      "blockNumber": 812,
+      "gasUsed": "46464",
+      "status": 1
+    },
+    {
+      "stage": "spot",
+      "label": "settlement.executeSpot(G01-SPOT-01) (no eligibility needed for spot)",
+      "txHash": "0xa655968855672b9bc8ee20e731cef198a63ba80fa918b6d60f0f01f908c45b55",
+      "blockNumber": 814,
+      "gasUsed": "126924",
+      "status": 1
+    },
+    {
+      "stage": "enforcement",
+      "label": "settlement.reserveFund(ENF-01, investor, 10 dEUR)",
+      "txHash": "0xe7fd6f1c4bd0e6d4ce8bf6485738f28c3a59663ea5ec01b35bc4690e2f860272",
+      "blockNumber": 816,
+      "gasUsed": "89384",
+      "status": 1
+    },
+    {
+      "stage": "enforcement",
+      "label": "settlement.allocateFund(ENF-01, investor, 0.100000 eFUND)",
+      "txHash": "0x22938e338ae9b234c7c9996813233eace05f493e5ad246e1e108e6cd40f7e84b",
+      "blockNumber": 818,
+      "gasUsed": "120611",
+      "status": 1
+    },
+    {
+      "stage": "enforcement",
+      "label": "fund.transfer(investor → dealer, 0.050000 eFUND)",
+      "txHash": "0x5cb433adca3e84ce43f7f54d8b5ed804208eaf9d955395d9163ce3f1f1ed7110",
+      "blockNumber": 820,
+      "gasUsed": "77029",
+      "status": 1
+    },
+    {
+      "stage": "enforcement",
+      "label": "settlement.redeemFund(ENF-RED-01, dealer, 0.050000 eFUND → 5 dEUR)",
+      "txHash": "0xcde02d8d78ca056f8595189eaf489de2d41386eb62a182c81d0b764e7c1d2c2c",
+      "blockNumber": 822,
+      "gasUsed": "81209",
+      "status": 1
+    },
+    {
+      "stage": "reserved",
+      "label": "settlement.reserveFund(G01-FUND-01, investor, 300 dEUR)",
+      "txHash": "0xcda7ff87f3a0a06b0d83d3090493e55daa5f4ac062f331a277793aa1710c06a5",
+      "blockNumber": 824,
+      "gasUsed": "89384",
+      "status": 1
+    },
+    {
+      "stage": "rotation",
+      "label": "registry.publishRoot(epoch-2, policy version 2)",
+      "txHash": "0x58c644ae0c0c1c62e1109a640a8b3e6727ff2e1e03641230d111fd3e7727adcb",
+      "blockNumber": 826,
+      "gasUsed": "36841",
+      "status": 1
+    },
+    {
+      "stage": "recovery",
+      "label": "registry.verifyAndCache(investor, FUND_SUBSCRIPTION, epoch-2 proof)",
+      "txHash": "0x9b8ac35aa2feafe05b71ae4029251d073da41e48456530eff80d1606d84a3087",
+      "blockNumber": 831,
+      "gasUsed": "866029",
+      "status": 1
+    },
+    {
+      "stage": "recovery",
+      "label": "settlement.allocateFund(G01-FUND-01) after re-proof",
+      "txHash": "0x2f38b2ffac39e9531b752881df1ded3f890c27df8968e965d6d8fc293715eb85",
+      "blockNumber": 833,
+      "gasUsed": "86411",
+      "status": 1
+    },
+    {
+      "stage": "redeemed",
+      "label": "registry.verifyAndCache(investor, FUND_REDEMPTION, epoch-2 proof)",
+      "txHash": "0x9f53cc579fe65cae3523348a8d0bcb894072ec440143e5277d5cab475d36329f",
+      "blockNumber": 835,
+      "gasUsed": "900265",
+      "status": 1
+    },
+    {
+      "stage": "redeemed",
+      "label": "settlement.redeemFund(G01-RED-01, investor, 1.000000 eFUND → 98 dEUR)",
+      "txHash": "0x42d4d54e7fee766f8f3f4c1a6e6ea913b6bd88028312c36d9ef2e4b266a0ba72",
+      "blockNumber": 837,
+      "gasUsed": "86033",
+      "status": 1
+    }
+  ],
+  "failedTransactions": {
+    "txHash": "0x5791e57aa17fe54a6690a412954758ffd7d2384cf10ed8a12bf156f45721cf1c",
+    "blockNumber": 828,
+    "gasUsed": "77572",
+    "status": 0
+  },
+  "failures": [
+    {
+      "label": "tampered-proof-registry",
+      "expectedRevert": true,
+      "passed": true,
+      "reverted": true,
+      "reason": "unknown",
+      "data": null
+    },
+    {
+      "label": "expired-proof",
+      "expectedRevert": true,
+      "passed": true,
+      "reverted": true,
+      "reason": "EligibilityExpired",
+      "args": [
+        "0xdF1C8638E3e4fBC3ff9F501E5F900c1F38ECA914",
+        "1700000000",
+        "1795866621"
+      ],
+      "selector": "0x26d3d4ae"
+    },
+    {
+      "label": "unauthorized-issuer",
+      "expectedRevert": true,
+      "passed": true,
+      "reverted": true,
+      "reason": "UnauthorizedIssuer",
+      "args": [
+        "0xb108D4f7C6CB9d59Cf2ec0b9940607A4F6c06C2F"
+      ],
+      "selector": "0x5d5e2cb2"
+    },
+    {
+      "label": "stale-allocation",
+      "expectedRevert": true,
+      "passed": true,
+      "reverted": true,
+      "reason": "EligibilityStale",
+      "args": [
+        "0xdF1C8638E3e4fBC3ff9F501E5F900c1F38ECA914",
+        "1",
+        "2"
+      ],
+      "selector": "0x8ea1cf13"
+    },
+    {
+      "label": "stale-transfer",
+      "expectedRevert": true,
+      "passed": true,
+      "reverted": true,
+      "reason": "EligibilityStale",
+      "args": [
+        "0xdFd305BD30b7BCE337669C5c541f0aD40FDAd36d",
+        "1",
+        "2"
+      ],
+      "selector": "0x8ea1cf13"
+    },
+    {
+      "label": "second-allocation",
+      "expectedRevert": true,
+      "passed": true,
+      "reverted": true,
+      "reason": "Error",
+      "args": [
+        "Escrow: insufficient reservation"
+      ],
+      "selector": "0x08c379a0"
+    }
+  ],
+  "stages": [
+    {
+      "stage": "seed",
+      "blockNumber": 813,
+      "expected": {
+        "investorCash": "1000000000",
+        "investorSpot": "0",
+        "investorFund": "0",
+        "dealerCash": "0",
+        "dealerSpot": "1000000000000000000",
+        "feeRecipientCash": "0",
+        "issuerTreasuryCash": "500000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "0"
+      },
+      "observed": {
+        "investorCash": "1000000000",
+        "investorSpot": "0",
+        "investorFund": "0",
+        "dealerCash": "0",
+        "dealerSpot": "1000000000000000000",
+        "feeRecipientCash": "0",
+        "issuerTreasuryCash": "500000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "0"
+      },
+      "mismatches": [],
+      "passed": true
+    },
+    {
+      "stage": "spot",
+      "blockNumber": 814,
+      "expected": {
+        "investorCash": "799950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "0",
+        "dealerCash": "200000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "500000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "0"
+      },
+      "observed": {
+        "investorCash": "799950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "0",
+        "dealerCash": "200000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "500000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "0"
+      },
+      "mismatches": [],
+      "passed": true
+    },
+    {
+      "stage": "enforcement",
+      "blockNumber": 822,
+      "expected": {
+        "investorCash": "789950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "50000",
+        "dealerCash": "205000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "505000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "50000"
+      },
+      "observed": {
+        "investorCash": "789950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "50000",
+        "dealerCash": "205000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "505000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "50000"
+      },
+      "mismatches": [],
+      "passed": true
+    },
+    {
+      "stage": "reserved",
+      "blockNumber": 824,
+      "expected": {
+        "investorCash": "489950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "50000",
+        "dealerCash": "205000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "505000000",
+        "escrowCash": "300000000",
+        "fundTotalSupply": "50000"
+      },
+      "observed": {
+        "investorCash": "489950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "50000",
+        "dealerCash": "205000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "505000000",
+        "escrowCash": "300000000",
+        "fundTotalSupply": "50000"
+      },
+      "mismatches": [],
+      "passed": true
+    },
+    {
+      "stage": "stale-blocked",
+      "blockNumber": 828,
+      "expected": {
+        "escrowReserved": "300000000",
+        "investorFund": "50000",
+        "unitsIssued": "0"
+      },
+      "observed": {
+        "escrowReserved": "300000000",
+        "investorFund": "50000",
+        "unitsIssued": "0"
+      },
+      "mismatches": [],
+      "passed": true,
+      "note": "Root rotation made the cached approval stale; the allocation reverted before any share was minted and the escrow kept the EUR 300 reservation."
+    },
+    {
+      "stage": "recovered",
+      "blockNumber": 833,
+      "expected": {
+        "investorCash": "489950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "3175000",
+        "dealerCash": "205000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "805000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "3175000"
+      },
+      "observed": {
+        "investorCash": "489950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "3175000",
+        "dealerCash": "205000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "805000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "3175000"
+      },
+      "mismatches": [],
+      "passed": true
+    },
+    {
+      "stage": "redeemed",
+      "blockNumber": 837,
+      "expected": {
+        "investorCash": "587950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "2175000",
+        "dealerCash": "205000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "707000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "2175000"
+      },
+      "observed": {
+        "investorCash": "587950000",
+        "investorSpot": "100000000000000000",
+        "investorFund": "2175000",
+        "dealerCash": "205000000",
+        "dealerSpot": "900000000000000000",
+        "feeRecipientCash": "50000",
+        "issuerTreasuryCash": "707000000",
+        "escrowCash": "0",
+        "fundTotalSupply": "2175000"
+      },
+      "mismatches": [],
+      "passed": true
+    }
+  ],
+  "staleRequest": {
+    "orderId": "G01-FUND-01",
+    "approvedPolicyVersion": 1,
+    "currentPolicyVersion": 2,
+    "approvedEpoch": 1,
+    "currentEpoch": 2,
+    "stateAfterFailure": {
+      "failedTx": {
+        "txHash": "0x5791e57aa17fe54a6690a412954758ffd7d2384cf10ed8a12bf156f45721cf1c",
+        "blockNumber": 828,
+        "gasUsed": "77572",
+        "status": 0
+      },
+      "escrowReserved": "300000000",
+      "escrowCash": "300000000",
+      "investorFund": "50000",
+      "fundTotalSupply": "50000",
+      "policy": {
+        "root": "0x0dd1499f49b041ebf5d01a51d706f468341a4a4c766f67b415915441de9b14fb",
+        "epoch": 2,
+        "policyVersion": 2,
+        "publishedAt": 1795866677
+      }
+    }
+  },
+  "approvals": {
+    "afterEpoch1": {
+      "investorSubscription": true,
+      "investorTransfer": true,
+      "dealerTransfer": true,
+      "dealerRedemption": true
+    },
+    "afterRotation": {
+      "investorSubscription": false,
+      "investorTransfer": false,
+      "dealerTransfer": false
+    },
+    "final": {
+      "investorAfterRecovery": {
+        "subscription": true,
+        "redemption": true,
+        "transfer": false
+      },
+      "dealerAfterRotation": {
+        "transfer": false,
+        "redemption": false
+      }
+    }
+  },
+  "policy": {
+    "root": "0x0dd1499f49b041ebf5d01a51d706f468341a4a4c766f67b415915441de9b14fb",
+    "epoch": 2,
+    "policyVersion": 2,
+    "publishedAt": 1795866677
+  },
+  "canonicalBlock": {
+    "number": 838,
+    "hash": "0x561a05740a4d4bf4f2733ac60eb0396ff5276d1b3155f1eab5a3d6ca22c4a46e",
+    "timestamp": 1795866701
+  },
+  "balancesAtCanonicalBlock": {
+    "investorCash": "587950000",
+    "investorSpot": "100000000000000000",
+    "investorFund": "2175000",
+    "dealerCash": "205000000",
+    "dealerSpot": "900000000000000000",
+    "feeRecipientCash": "50000",
+    "issuerTreasuryCash": "707000000",
+    "escrowCash": "0",
+    "fundTotalSupply": "2175000"
+  },
+  "passed": true,
+  "limitations": [
+    "The eligibility issuer and the settlement operator are the same synthetic lab account; production separation is S21 (authority reconciliation).",
+    "Proof generation uses the pinned native bb/Noir toolchain offchain; only verification runs onchain.",
+    "Screening policy is represented by the class codes of the synthetic fixtures, not a real sanctions provider.",
+    "The slice runs on the controlled local L2 with calldata DA; L1 consensus/blob DA is NET-01 (S19)."
+  ],
+  "notes": [
+    "All eight proofs are real UltraHonk proofs for the EVM target; the generated Solidity verifier checks them onchain.",
+    "The root rotation scenario fails closed: the reservation is preserved, zero shares are issued, and the documented recovery re-proves under the new root and settles the same reservation once.",
+    "Expired credentials, an unauthorized issuer and a tampered proof are rejected with decoded custom errors."
+  ]
+}

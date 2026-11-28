@@ -59,6 +59,8 @@
     "release:verify": "tsx scripts/verify-release-checks.ts",
     "s15:run": "tsx scripts/s15-settlement-slice.ts",
     "s15:verify": "tsx scripts/verify-s15-evidence.ts",
+    "s16:run": "tsx scripts/s16-eligibility-onchain.ts",
+    "s16:verify": "tsx scripts/verify-s16-evidence.ts",
     "scenario:api": "tsx apps/api/scripts/run-evidence.ts",
     "scenario:boundary": "tsx packages/dealing/src/cli.ts boundary",
     "scenario:golden": "tsx packages/dealing/src/cli.ts golden",
