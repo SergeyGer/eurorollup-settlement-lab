@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/s18-settlement-pack-run.schema.json",
+  "title": "S18 settlement pack acceptance evidence",
+  "type": "object",
+  "required": ["schemaVersion", "reportId", "packId", "generatedBy", "generatedAt", "commit", "chains", "run", "api", "order", "pack", "packSha256", "chainWitness", "canonicalBlock", "comparisons", "verification", "ui", "unknowns", "passed", "limitations", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "reportId": { "const": "S18-settlement-pack" },
+    "packId": { "const": "S18" },
+    "generatedBy": { "type": "string" },
+    "generatedAt": { "type": "string" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "chains": { "type": "object", "required": ["l1ChainId", "l2ChainId"], "properties": { "l1ChainId": { "const": 11155111 }, "l2ChainId": { "const": 16584 } } },
+    "run": { "type": "object", "required": ["runId", "orderId", "quoteId", "accountId"] },
+    "api": { "type": "object", "required": ["baseUrl", "endpoint"] },
+    "order": { "type": "object", "required": ["orderId", "businessState", "receipt"] },
+    "pack": { "type": "object", "required": ["schemaVersion", "packId", "runId", "manifest", "business", "chain"] },
+    "packSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "chainWitness": { "type": "object", "required": ["orderId", "txHash", "logIndex", "l2BlockHash", "canonicalBlockHash", "policyHash", "receiptStatus"] },
+    "canonicalBlock": { "type": "object", "required": ["number", "hash"] },
+    "comparisons": { "type": "array", "minItems": 4, "items": { "type": "object", "required": ["label", "business", "chain", "matched"] } },
+    "verification": {
+      "type": "object",
+      "required": ["offline", "chainFollow", "tampered"],
+      "properties": {
+        "offline": { "type": "object", "required": ["exitCode"], "properties": { "exitCode": { "const": 0 } } },
+        "chainFollow": { "type": "object", "required": ["exitCode"], "properties": { "exitCode": { "const": 0 } } },
+        "tampered": { "type": "object", "required": ["exitCode", "firstMismatch"], "properties": { "exitCode": { "type": "integer", "minimum": 1 } } }
+      }
+    },
+    "ui": { "type": "object", "required": ["receiptVisible", "screenshot", "downloadedSha256", "matchesApiPack"], "properties": { "matchesApiPack": { "const": true }, "receiptVisible": { "const": true } } },
+    "unknowns": { "type": "array", "minItems": 1 },
+    "passed": { "const": true },
+    "limitations": { "type": "array", "minItems": 3 },
+    "notes": { "type": "array", "minItems": 2 }
+  }
+}

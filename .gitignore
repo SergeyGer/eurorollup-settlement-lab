@@ -63,3 +63,6 @@ apps/web/public/*.mp4
 
 # local-only player test transcode (the published film is the release MP4)
 apps/web/public/*.webm
+
+# S18 local acceptance working directory
+tmp-s18/

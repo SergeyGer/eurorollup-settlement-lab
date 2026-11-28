@@ -78,6 +78,7 @@ export interface ApiConfigOptions {
   readonly ollamaBaseUrl?: string;
   readonly ollamaModel?: string;
   readonly modelTimeoutMs?: number;
+  readonly chainWitnessPath?: string | null;
 }
 
 export interface ApiConfig {
@@ -102,6 +103,7 @@ export interface ApiConfig {
   readonly modelTemperature: number;
   readonly modelSeed: number;
   readonly modelTimeoutMs: number;
+  readonly chainWitnessPath: string | null;
 }
 
 /** Repository root, resolved from this module rather than the process cwd. */
@@ -153,6 +155,9 @@ export function createApiConfig(options: ApiConfigOptions = {}): ApiConfig {
       (process.env["MODEL_TIMEOUT_MS"] === undefined
         ? DEFAULT_MODEL_TIMEOUT_MS
         : Number(process.env["MODEL_TIMEOUT_MS"])),
+    chainWitnessPath:
+      options.chainWitnessPath ??
+      (process.env["CHAIN_WITNESS_PATH"] === undefined ? null : process.env["CHAIN_WITNESS_PATH"]),
   };
 }
 

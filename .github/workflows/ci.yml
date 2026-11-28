@@ -94,6 +94,9 @@ jobs:
       - name: Verify the committed S17 sponsored order evidence
         run: pnpm s17:verify
 
+      - name: Verify the committed S18 settlement pack evidence
+        run: pnpm s18:verify
+
       - name: Verify the committed release-check matrix
         run: pnpm release:verify
 

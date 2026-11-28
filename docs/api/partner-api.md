@@ -303,6 +303,14 @@ content digest, prompt version and availability. The adapter has one capability
 (drafting a typed scenario) and no access to signing keys, shell tools, chain RPC
 methods or portfolio writes.
 
+### `GET /v1/runs/{runId}/evidence`
+
+Download the versioned settlement pack for one investment run (`runId` is the accepted
+order id). The pack contains the order and business state, journal entries, time-stamped
+cost inputs, the observed chain status kept separate from business state, a manifest of
+canonical section digests, and null-with-reason fields when chain data is unavailable.
+`schemaVersion` is `1.0.0`; the response sets `content-disposition: attachment`.
+
 ### `GET /v1/scenario-runs/{runId}/evidence`
 
 Downloads the versioned P01 comparison pack (`application/json` attachment) with
