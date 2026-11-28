@@ -190,7 +190,7 @@ async function main(): Promise<void> {
   await send("wiring", "escrow.setOperator(settlement)", escrow.setOperator(settlementAddress) as never);
   await send("wiring", "fund.setMinter(settlement)", fund.setMinter(settlementAddress, true) as never);
   for (const [label, wallet] of Object.entries(actors)) {
-    await send("eligibility", `fund.setEligible(${label})`, fund.setEligible(wallet.address, true) as never);
+    await send("eligibility", `fund.setEligible(${label})`, fund.setAllowlisted(wallet.address, true) as never);
   }
 
   // Initial synthetic balances from the G01 fixture seed and dealer inventory.

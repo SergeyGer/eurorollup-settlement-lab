@@ -3,8 +3,8 @@
   "reportId": "S15-settlement-slice",
   "packId": "S15",
   "generatedBy": "pnpm s15:run",
-  "generatedAt": "2026-11-28T11:10:43.325Z",
-  "commit": "3d4dc337dcdc2f89a5700ab044873b9954ef67d6",
+  "generatedAt": "2026-11-28T12:04:14.632Z",
+  "commit": "c13d229baff58c46d28fe2273d53b5b72aa11f7f",
   "chains": {
     "l1ChainId": 11155111,
     "l2ChainId": 16584,
@@ -25,17 +25,17 @@
     "cash": {
       "symbol": "dEUR",
       "decimals": 6,
-      "address": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44"
+      "address": "0xb007167714e2940013EC3bb551584130B7497E22"
     },
     "spot": {
       "symbol": "tWETH",
       "decimals": 18,
-      "address": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f"
+      "address": "0x6b39b761b1b64C8C095BF0e3Bb0c6a74705b4788"
     },
     "fund": {
       "symbol": "eFUND",
       "decimals": 6,
-      "address": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
+      "address": "0xeC827421505972a2AE9C320302d3573B42363C26",
       "restricted": true
     }
   },
@@ -43,46 +43,46 @@
     {
       "name": "cash",
       "contract": "Token",
-      "address": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
-      "txHash": "0xb4c64122d687ec93efb611e8e93fba8b9a81be300442741f10e99f11c7af1bc5",
-      "blockNumber": 126,
+      "address": "0xb007167714e2940013EC3bb551584130B7497E22",
+      "txHash": "0x1f874fd78e2391b9c2387de9e806e65c237533991800586a5fed2709795eb0eb",
+      "blockNumber": 1170,
       "codeHash": "0x4b04ead4907e36b41d9e0abf073e0e8fa7e4dd8a06012d0be8b0802870ab71d9",
       "abiSha256": "1e167d59e2d31ba0456e43d8f97eac05d3d0b9b2bfc9cd47a420ba4aadd71bf8"
     },
     {
       "name": "spot",
       "contract": "Token",
-      "address": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
-      "txHash": "0x37f25e2276b2ab096a018d1b465c21968d0523decdda63119a51611fb964fe3d",
-      "blockNumber": 128,
+      "address": "0x6b39b761b1b64C8C095BF0e3Bb0c6a74705b4788",
+      "txHash": "0xe5963e90f3ff8ebc87bc4876b6a1d9e68b3a48365e76ccabcfaaacde157b8942",
+      "blockNumber": 1172,
       "codeHash": "0x9acfe3633bc0bd28cb940cdb44d5f51c6ba400ad5e8b4ca9497ee31e10e89225",
       "abiSha256": "1e167d59e2d31ba0456e43d8f97eac05d3d0b9b2bfc9cd47a420ba4aadd71bf8"
     },
     {
       "name": "fund",
       "contract": "RestrictedShare",
-      "address": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
-      "txHash": "0x216050607c66b01140e5ff9fd72772b06a46a6fa892c6c9ef6f2fd02e4f55215",
-      "blockNumber": 131,
-      "codeHash": "0xabea27cfee448d87437647c5cbc7509014f88512c1fcf83c1ad71401fa36b1b8",
-      "abiSha256": "47ceb2e3ba8d340bf353ab7d144f8d43410069104389c541d0dc0179d063f605"
+      "address": "0xeC827421505972a2AE9C320302d3573B42363C26",
+      "txHash": "0x53eb5ba1bf67c4296aeb27ab6d007b08cf363308d6b730d6740906c4cd1f0f1b",
+      "blockNumber": 1174,
+      "codeHash": "0x7a6034775a6735b693010c70c0a7ef13a50a8a154e7499c8c4953be231f88adb",
+      "abiSha256": "b26f339c042484486441a65e1c246805eb5ed547d1b9cd2b58b57140fe98bd81"
     },
     {
       "name": "escrow",
       "contract": "Escrow",
-      "address": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
-      "txHash": "0x3e8f0478913e4f221c5fa4dcffa537d9166075b5abe35b7d234618d06a04e641",
-      "blockNumber": 133,
-      "codeHash": "0xb360298d49296c79710610473c9c1775426ef18ebe8babad1f9e98145f560f54",
+      "address": "0x74Df809b1dfC099E8cdBc98f6a8D1F5c2C3f66f8",
+      "txHash": "0x55679acc3ff672762afb183b39d6392f22915884a378a72f66a478db6c0adcdf",
+      "blockNumber": 1176,
+      "codeHash": "0x14c04bd5b0b0e5743f2bfaf8b4162e8fac4c83914c24daebe395d4ccf782c93a",
       "abiSha256": "86cc404abb71666a13b0afc45b80d842df62f6ae8a69e7936ae478fe12d44ed4"
     },
     {
       "name": "settlement",
       "contract": "DvPSettlement",
-      "address": "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
-      "txHash": "0x0b016a090dbbe2067379532961fe73f91035fa518887e304a22de97325eb54c3",
-      "blockNumber": 135,
-      "codeHash": "0xe4c2397016ad3c72905b030f811396a6da107cb4ab10247df6cf37148079a845",
+      "address": "0x3f9A1B67F3a3548e0ea5c9eaf43A402d12b6a273",
+      "txHash": "0x774c5515ea0d1e85eb440013792e9f101357c9b228928084e5179e0445237503",
+      "blockNumber": 1178,
+      "codeHash": "0xd5ccb5dc367fe23f623d9fba310b82e0d831ca3dd818bb38998728a2fddeb25d",
       "abiSha256": "af685da7de55d0f20f5eac63cd759edc69c401ad7174c1b6ba5ff0e20e692555"
     }
   ],
@@ -96,8 +96,8 @@
     {
       "name": "RestrictedShare",
       "path": "contracts/abi/RestrictedShare.json",
-      "sha256": "47ceb2e3ba8d340bf353ab7d144f8d43410069104389c541d0dc0179d063f605",
-      "abiLength": 22
+      "sha256": "b26f339c042484486441a65e1c246805eb5ed547d1b9cd2b58b57140fe98bd81",
+      "abiLength": 28
     },
     {
       "name": "Escrow",
@@ -120,144 +120,144 @@
     {
       "stage": "wiring",
       "label": "escrow.setOperator(settlement)",
-      "txHash": "0x604cb4e40b737fafd9fd7f1d00dd463c57d72e70f8380aeb91d4d3ae9c485a7e",
-      "blockNumber": 137,
-      "gasUsed": "30110",
+      "txHash": "0x9f03826320937c6040b3044003cacb63f435deffb0c976d6895decc5491f677b",
+      "blockNumber": 1180,
+      "gasUsed": "30122",
       "status": 1
     },
     {
       "stage": "wiring",
       "label": "fund.setMinter(settlement)",
-      "txHash": "0x36351a8fff52c4a05c198d57b995f26e122928447352924e0a90cfa13e4301ff",
-      "blockNumber": 139,
-      "gasUsed": "47808",
+      "txHash": "0x74140ae05e418bc8cdf201eb383fe70ef2242ce5664234d67502b760543ff525",
+      "blockNumber": 1182,
+      "gasUsed": "47820",
       "status": 1
     },
     {
       "stage": "eligibility",
       "label": "fund.setEligible(investor)",
-      "txHash": "0x711fa463da235321433f72049c8a103203d444fecfc06aaaba5f4eca0f4a07ef",
-      "blockNumber": 141,
-      "gasUsed": "47833",
+      "txHash": "0x6e8f10dd910142c3f01a6f2f1c1dd0113c821e3081e651ffa773fb559330491f",
+      "blockNumber": 1184,
+      "gasUsed": "47810",
       "status": 1
     },
     {
       "stage": "eligibility",
       "label": "fund.setEligible(dealer)",
-      "txHash": "0x5620d426b10380f609de36f5b370da25b84bbeab0b13b8c77a4b00d20182b773",
-      "blockNumber": 143,
-      "gasUsed": "47833",
+      "txHash": "0xc6678b0828cc33fe16020c300123eab1c986b049b87663ef1e5afe339a9b5a78",
+      "blockNumber": 1186,
+      "gasUsed": "47810",
       "status": 1
     },
     {
       "stage": "eligibility",
       "label": "fund.setEligible(feeRecipient)",
-      "txHash": "0xf1d456316e8bb83b9473d6fe6d11f4a02b8ee92f2fb1a03f946b3ac6d8d12c17",
-      "blockNumber": 145,
-      "gasUsed": "47833",
+      "txHash": "0xefe45fc3d1d3d0e46dd8d725f5c1a9d279e9f4935e09d1ac3f866e7298bd7146",
+      "blockNumber": 1188,
+      "gasUsed": "47810",
       "status": 1
     },
     {
       "stage": "eligibility",
       "label": "fund.setEligible(issuerTreasury)",
-      "txHash": "0x2ca9a2392b76215bf0a31ba79d876eaa5b3128f8cafae0e5271197ec75b0bba3",
-      "blockNumber": 147,
-      "gasUsed": "47833",
+      "txHash": "0xc3486a445fbaa24f77c009238d6503d981580165c1339b9ac6563ed220c04893",
+      "blockNumber": 1190,
+      "gasUsed": "47810",
       "status": 1
     },
     {
       "stage": "seed",
       "label": "cash.mint(investor, 1000 dEUR)",
-      "txHash": "0xe6ef18e7c94c4b7bd9ca899e4322be4d546a0ee577cfc2c587119baca225d6e0",
-      "blockNumber": 149,
+      "txHash": "0xa886ba435e38c771d3065048edbdd6e059f868b52ac57878b9b2e00ed1b2da04",
+      "blockNumber": 1192,
       "gasUsed": "70451",
       "status": 1
     },
     {
       "stage": "seed",
       "label": "cash.mint(issuerTreasury, 500 dEUR)",
-      "txHash": "0xc583105bc3898ddee047299cafa18a3e422c20b3081a87161e9037f0b4f0b9d7",
-      "blockNumber": 151,
+      "txHash": "0x9542c5148edd7aacbf4a1a54a40cc45f9503723da2f2abbce87abd68bbcbe66f",
+      "blockNumber": 1194,
       "gasUsed": "53351",
       "status": 1
     },
     {
       "stage": "seed",
       "label": "spot.mint(dealer, 1 tWETH)",
-      "txHash": "0x210bfb833b6905e57bb687606b0e30645319581af105c7475c1bb29cd37947e3",
-      "blockNumber": 153,
+      "txHash": "0x9b2e015148d8da3b408891281e0484976706d5a14ab2ecb5656fffe08122080f",
+      "blockNumber": 1196,
       "gasUsed": "70487",
       "status": 1
     },
     {
       "stage": "approvals",
       "label": "investor approves settlement cash",
-      "txHash": "0x0959dec9047a42b281422f71a3f7244a4e769858b5f537798351e49548ac3742",
-      "blockNumber": 155,
-      "gasUsed": "46452",
+      "txHash": "0xa08d193148856d2c4ad5c4eaec19acb8f3364185c6d7fd426e3a75ae2aebed63",
+      "blockNumber": 1198,
+      "gasUsed": "46464",
       "status": 1
     },
     {
       "stage": "approvals",
       "label": "investor approves escrow cash",
-      "txHash": "0xf23eb7051a92441d3674b07d195fd10e70447062edeeebedf71dacf505341473",
-      "blockNumber": 157,
+      "txHash": "0x6924c9946da3e72badb76cbff3e603525b8c88afeec5bacc0e4e993e78361450",
+      "blockNumber": 1201,
       "gasUsed": "46464",
       "status": 1
     },
     {
       "stage": "approvals",
       "label": "dealer approves settlement tWETH",
-      "txHash": "0x3e297c1a4117fa025158466dd95ab03543a7c550b9fe2b2050d3c48c29c07a88",
-      "blockNumber": 159,
-      "gasUsed": "46452",
+      "txHash": "0x4ac3339ac141ed2483da7972201b46887f93af3d56b3ebd0e7d8d7a1d49bea03",
+      "blockNumber": 1203,
+      "gasUsed": "46464",
       "status": 1
     },
     {
       "stage": "approvals",
       "label": "issuerTreasury approves settlement cash",
-      "txHash": "0xfb53e28e9a49c10b98544bd8f8812622ff83b34d381e5a6c95b6c8a7f7dfdb96",
-      "blockNumber": 161,
-      "gasUsed": "46452",
+      "txHash": "0xe730aa133a76254fe072d085fcd5ce56d93e96836bcff52efc7c0846ae448bdb",
+      "blockNumber": 1205,
+      "gasUsed": "46464",
       "status": 1
     },
     {
       "stage": "spot",
       "label": "settlement.executeSpot(G01-SPOT-01)",
-      "txHash": "0xa2d9e002d16623537cfe973164f74eb937887ea07d947193d7285fcd9fd18690",
-      "blockNumber": 164,
+      "txHash": "0x0f7293235a0323e95bff243ef6f2216739e587415a2bc6e6350af24bd518f9da",
+      "blockNumber": 1207,
       "gasUsed": "126924",
       "status": 1
     },
     {
       "stage": "reserved",
       "label": "settlement.reserveFund(G01-FUND-01)",
-      "txHash": "0x1f61ca683ebd63430b62a8613a58dd0fb8f2bbc9eef59ba110ea639b0102304d",
-      "blockNumber": 166,
+      "txHash": "0x28616697c40a3bd2844fa306259c410befa27d64d725618045857521d0c98c06",
+      "blockNumber": 1209,
       "gasUsed": "89384",
       "status": 1
     },
     {
       "stage": "allocated",
       "label": "settlement.allocateFund(G01-FUND-01)",
-      "txHash": "0x2238cb8c8cadfefee1bae3d8331f44e3925bf7f40d2008fae272923583fcaac2",
-      "blockNumber": 168,
-      "gasUsed": "101454",
+      "txHash": "0x2362fe5f5d7de77aa76ebfe586f177a25ff6509b025082de14af44f9c93f2c43",
+      "blockNumber": 1211,
+      "gasUsed": "105852",
       "status": 1
     },
     {
       "stage": "redeemed",
       "label": "settlement.redeemFund(G01-RED-01)",
-      "txHash": "0xfffcf985b7459514f345571a97bea2cee87f6090180c0922d8ab563f9e5a8223",
-      "blockNumber": 170,
-      "gasUsed": "66875",
+      "txHash": "0x74d590ac35fce1847c41ec2c459b6055991f8cdd3d3c7954ef28106ae6bc43ac",
+      "blockNumber": 1213,
+      "gasUsed": "71274",
       "status": 1
     }
   ],
   "stages": [
     {
       "stage": "seed",
-      "blockNumber": 162,
+      "blockNumber": 1206,
       "orderId": null,
       "expected": {
         "investorCash": "1000000000",
@@ -286,7 +286,7 @@
     },
     {
       "stage": "spot",
-      "blockNumber": 164,
+      "blockNumber": 1207,
       "orderId": null,
       "expected": {
         "investorCash": "799950000",
@@ -315,7 +315,7 @@
     },
     {
       "stage": "reserved",
-      "blockNumber": 166,
+      "blockNumber": 1209,
       "orderId": null,
       "expected": {
         "investorCash": "499950000",
@@ -344,7 +344,7 @@
     },
     {
       "stage": "allocated",
-      "blockNumber": 168,
+      "blockNumber": 1211,
       "orderId": null,
       "expected": {
         "investorCash": "499950000",
@@ -373,7 +373,7 @@
     },
     {
       "stage": "redeemed",
-      "blockNumber": 170,
+      "blockNumber": 1213,
       "orderId": null,
       "expected": {
         "investorCash": "597950000",
@@ -402,9 +402,9 @@
     }
   ],
   "canonicalBlock": {
-    "number": 171,
-    "hash": "0xd43c2e7d97b3ac6dad1458eb8b7034dcd3ac8022564f2176ee6fbeb0defb702c",
-    "timestamp": 1795864242
+    "number": 1214,
+    "hash": "0x83a680c17cb3063ca61ba9680bdc4c4df021ac771b9e037b1f62a97d461bcddc",
+    "timestamp": 1795867453
   },
   "balancesAtCanonicalBlock": {
     "investorCash": "597950000",
