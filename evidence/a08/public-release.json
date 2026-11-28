@@ -3,9 +3,9 @@
   "reportId": "A08-public-release",
   "packId": "A08-release",
   "generatedBy": "pnpm a08:public-check",
-  "generatedAt": "2026-11-28T10:44:32.464Z",
-  "commit": "3af773ec9297103557e3a11ed3e971c1f2db7a41",
-  "version": "1.1.0",
+  "generatedAt": "2026-11-28T16:20:38.487Z",
+  "commit": "1536162e994daf1d0019631cc309b57a1cdbccf2",
+  "version": "1.2.0",
   "publicReplay": {
     "url": "https://sergeyger.github.io/eurorollup-settlement-lab/",
     "authentication": "none",
@@ -22,7 +22,12 @@
       "title": "EuroRollup Settlement Lab — portfolio replay",
       "pageErrors": [],
       "consoleErrors": [],
-      "expectedConsoleErrors": [],
+      "expectedConsoleErrors": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ],
       "views": [
         {
           "button": "Recorded replay",
@@ -71,12 +76,12 @@
       {
         "command": "pnpm verify",
         "exitCode": 0,
-        "durationMs": 1014
+        "durationMs": 1006
       },
       {
         "command": "pnpm demo:partner",
         "exitCode": 0,
-        "durationMs": 2248
+        "durationMs": 2204
       }
     ],
     "note": "Representative documented commands were run locally; the complete documented quickstart command set is exercised by pnpm release:checks."
@@ -102,13 +107,13 @@
     }
   ],
   "releasePackage": {
-    "fileName": "eurollup-settlement-lab-1.1.0.tar.gz",
+    "fileName": "eurollup-settlement-lab-1.2.0.tar.gz",
     "downloadMode": "local-build",
     "downloadUrl": null,
-    "sha256": "a59681497b262bd154128b18acf29847771f1bd5826fdebbd9c5d970c3f5b1ba",
-    "bytes": 13087598,
-    "manifestDigest": "87a9516ba6ed7959ee807dd26b3e097823f3e5da5cf067260ee2d66f92f9b2b4",
-    "manifestFileCount": 363,
+    "sha256": "2c4cdf43f785881fc2ec75b4a46649edc4c7bf1e41c8770608c92b13c7151f54",
+    "bytes": 13758287,
+    "manifestDigest": "b996fb139536ac5dbf6b322f902250c7a1cb32e6f5134596c63cb283aa06812c",
+    "manifestFileCount": 451,
     "verified": {
       "downloaded": true,
       "extracted": true,
