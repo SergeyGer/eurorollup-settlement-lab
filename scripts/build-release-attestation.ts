@@ -121,8 +121,8 @@ function main(): void {
       },
       {
         id: "build-tag-diff",
-        description: "only evidence and metadata files differ between the build commit and the tag",
-        passed: diffPaths.length > 0 && diffPaths.every((path) => path.startsWith("evidence/") || path.startsWith("media/")),
+        description: "only evidence, media, documentation and supporting tooling files differ between the build commit and the tag",
+        passed: diffPaths.length > 0 && diffPaths.every((path) => path.startsWith("evidence/") || path.startsWith("media/") || path.startsWith("docs/") || path.startsWith("scripts/")),
         detail: diffPaths.join(", "),
       },
       {

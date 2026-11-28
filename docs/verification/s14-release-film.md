@@ -34,7 +34,11 @@ English caption track, initial hidden mode, toggle on and off, metadata duration
 seek to 45 s, muted playback advancing, transcript/download links and the repository
 address. Screenshots: `docs/media/s14-player-desktop.png`, `s14-player-phone.png`.
 
-Automation note: the bundled headless Chromium cannot decode H.264, so the playback
+Automation note: the bundled headless Chromium cannot decode H.264, so the decode/seek
 control checks run against a VP9 test transcode of the same film; the published MP4 is
-validated by ffprobe/film metadata. A human listening pass on speakers and a phone was
-**not** performed in this environment and is recorded as an open item rather than claimed.
+validated by ffprobe/film metadata. The public Pages player is re-checked against the live
+`v1.1.0` asset with `PLAYBACK_SKIP_DECODE=1`: structure, caption track and toggle, poster
+digest, transcript/download links, repository address and a signed-out HTTP 200 for the
+8,376,057-byte MP4 are recorded in the same evidence file. A human listening pass on
+speakers and a phone was **not** performed in this environment and is recorded as an open
+item rather than claimed.

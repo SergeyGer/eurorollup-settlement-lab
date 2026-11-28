@@ -38,8 +38,8 @@ tracker issue.
   and the signed-out link check are implemented and verified; README first-screen and the
   Wiki map remain open pending the owner-approved Social Preview.
 - S14: film re-cut with the owner-approved artwork, separate WebVTT captions and the
-  accessible player is implemented and verified; the `v1.1.0` presentation release is
-  in progress.
+  accessible player is implemented and verified; `v1.1.0` is published. The GitHub
+  repository Social Preview upload remains the only manual step (issue #46).
 - S15–S22: not started.
 
 ## Gates and external inputs

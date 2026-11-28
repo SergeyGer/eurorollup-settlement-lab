@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "reportId": "REL-02-link-check",
   "generatedBy": "pnpm check:links",
-  "generatedAt": "2026-11-28T10:01:42.629Z",
-  "tag": "v1.0.0",
+  "generatedAt": "2026-11-28T10:50:12.351Z",
+  "tag": "v1.1.0",
   "checks": [
     {
       "id": "relative:README.md:docs/verification/s02-settlement-core.md",
@@ -430,6 +430,14 @@
       "detail": "file exists"
     },
     {
+      "id": "relative:docs/README.md:verification/s14-release-film.md",
+      "target": "verification/s14-release-film.md",
+      "kind": "relative-file",
+      "status": null,
+      "passed": true,
+      "detail": "file exists"
+    },
+    {
       "id": "relative:docs/README.md:evidence/README.md",
       "target": "evidence/README.md",
       "kind": "relative-file",
@@ -494,40 +502,40 @@
       "detail": "HTTP 200 signed out"
     },
     {
-      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.0.0",
-      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.0.0",
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.1.0",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.1.0",
       "kind": "public-url",
       "status": 200,
       "passed": true,
       "detail": "HTTP 200 signed out"
     },
     {
-      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4",
-      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-release-film-1.0.0.mp4",
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/eurollup-release-film-1.1.0.mp4",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/eurollup-release-film-1.1.0.mp4",
       "kind": "public-url",
       "status": 200,
       "passed": true,
       "detail": "HTTP 200 signed out"
     },
     {
-      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-settlement-lab-1.0.0.tar.gz",
-      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/eurollup-settlement-lab-1.0.0.tar.gz",
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/eurollup-settlement-lab-1.1.0.tar.gz",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/eurollup-settlement-lab-1.1.0.tar.gz",
       "kind": "public-url",
       "status": 200,
       "passed": true,
       "detail": "HTTP 200 signed out"
     },
     {
-      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film.vtt",
-      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-film.vtt",
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/release-film.vtt",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/release-film.vtt",
       "kind": "public-url",
       "status": 200,
       "passed": true,
       "detail": "HTTP 200 signed out"
     },
     {
-      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-checks.json",
-      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.0.0/release-checks.json",
+      "id": "url:https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/release-checks.json",
+      "target": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/release-checks.json",
       "kind": "public-url",
       "status": 200,
       "passed": true,
@@ -551,8 +559,8 @@
     }
   ],
   "summary": {
-    "total": 68,
-    "relativeFiles": 59,
+    "total": 69,
+    "relativeFiles": 60,
     "publicUrls": 9,
     "relativeFailures": 0,
     "urlFailures": 0

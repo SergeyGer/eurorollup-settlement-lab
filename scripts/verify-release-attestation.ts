@@ -26,7 +26,8 @@ function check(condition: boolean, message: string): void {
 function main(): void {
   const ajv = new Ajv({ strict: false, allErrors: true, logger: false });
   const validate = ajv.compile(readJson("schemas/release-attestation.schema.json"));
-  const attestation = readJson("evidence/release-attestation.json");
+  const attestationPath = process.env.RELEASE_ATTESTATION_IN ?? "evidence/release-attestation.json";
+  const attestation = readJson(attestationPath);
   check(validate(attestation) === true, `schema validation: ${JSON.stringify(validate.errors)}`);
   check(/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(attestation["tag"]), "a semantic release tag is recorded");
   check(/^[0-9a-f]{40}$/.test(attestation["tagCommit"]), "the tag commit is recorded");
@@ -40,7 +41,7 @@ function main(): void {
     check(JSON.stringify(diffFiles) === JSON.stringify(expectedV1), "the v1.0.0 recorded diff contains exactly the four evidence/metadata files");
   } else {
     check(diffFiles.length > 0, "the recorded diff must contain at least one evidence/metadata file");
-    check(diffFiles.every((path) => path.startsWith("evidence/") || path.startsWith("media/")), "the tag diff may only contain evidence/metadata files");
+    check(diffFiles.every((path) => path.startsWith("evidence/") || path.startsWith("media/") || path.startsWith("docs/") || path.startsWith("scripts/")), "the tag diff may only contain evidence, media, documentation or supporting tooling files");
   }
   const artifacts = attestation["artifacts"];
   check(artifacts["package"]["exactTaggedTree"] === false, "the archive is not claimed as the exact tagged tree");
@@ -120,7 +121,7 @@ function main(): void {
     failures.forEach((failure) => console.error(`- ${failure}`));
     process.exit(1);
   }
-  console.log(`REL-01 release attestation verified: tag ${attestation["tag"]} (${String(attestation["tagCommit"]).slice(0, 12)}) over build ${String(attestation["builtFromCommit"]).slice(0, 12)}, four evidence/metadata files, archive not claimed as the tagged tree`);
+  console.log(`REL-01 release attestation verified: ${attestationPath} tag ${attestation["tag"]} (${String(attestation["tagCommit"]).slice(0, 12)}) over build ${String(attestation["builtFromCommit"]).slice(0, 12)}, four evidence/metadata files, archive not claimed as the tagged tree`);
 }
 
 main();

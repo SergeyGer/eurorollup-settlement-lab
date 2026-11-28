@@ -88,8 +88,10 @@ jobs:
       - name: Verify the committed release-check matrix
         run: pnpm release:verify
 
-      - name: Verify the REL-01 release attestation
-        run: pnpm release:attest:verify
+      - name: Verify the REL-01 release attestations
+        run: |
+          pnpm release:attest:verify
+          RELEASE_ATTESTATION_IN=evidence/release-attestation-v1.1.0.json pnpm release:attest:verify
 
       - name: Check the generated OpenAPI document
         run: pnpm api:openapi -- --check

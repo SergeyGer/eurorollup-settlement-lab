@@ -34,7 +34,9 @@ See [`../verification/s10-release-film.md`](../verification/s10-release-film.md)
 ## Release attestation
 
 `evidence/release-attestation.json` records the v1.0.0 tag commit, the build commit, the
-four evidence/metadata files that differ between them and the archive/film digests. The
+four evidence/metadata files that differ between them and the archive/film digests;
+`evidence/release-attestation-v1.1.0.json` records the same relationship for the
+presentation release (`v1.1.0` over build commit `3af773e`). The
 archive is explicitly marked `exactTaggedTree: false` because it was built from the
 release-code commit, not from the tagged tree. Verify with
 `pnpm release:attest:verify` (also run in CI).

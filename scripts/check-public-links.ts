@@ -13,6 +13,7 @@ const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
 const evidenceDir = join(repoRoot, "evidence", "rel");
 const repositoryUrl = "https://github.com/SergeyGer/eurorollup-settlement-lab";
 const tag = process.env.CHECK_LINK_TAG ?? "v1.0.0";
+const version = tag.replace(/^v/, "");
 const publicReplayUrl = "https://sergeyger.github.io/eurorollup-settlement-lab/";
 
 interface LinkCheck {
@@ -83,8 +84,8 @@ async function main(): Promise<void> {
     publicReplayUrl,
     repositoryUrl,
     `${repositoryUrl}/releases/tag/${tag}`,
-    `${repositoryUrl}/releases/download/${tag}/eurollup-release-film-1.0.0.mp4`,
-    `${repositoryUrl}/releases/download/${tag}/eurollup-settlement-lab-1.0.0.tar.gz`,
+    `${repositoryUrl}/releases/download/${tag}/eurollup-release-film-${version}.mp4`,
+    `${repositoryUrl}/releases/download/${tag}/eurollup-settlement-lab-${version}.tar.gz`,
     `${repositoryUrl}/releases/download/${tag}/release-film.vtt`,
     `${repositoryUrl}/releases/download/${tag}/release-checks.json`,
     `${repositoryUrl}/wiki`,
