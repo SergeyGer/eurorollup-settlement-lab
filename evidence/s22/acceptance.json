@@ -1,0 +1,370 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S22-independent-acceptance",
+  "packId": "S22",
+  "generatedBy": "pnpm s22:accept",
+  "generatedAt": "2026-11-28T16:18:36.540Z",
+  "commit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+  "shortCommit": "7c90e176b6a2",
+  "tree": "806b3ee5086bc2ad2e2f26f789ff0374d9852194",
+  "environment": {
+    "node": "v22.23.3",
+    "pnpm": "9.15.4",
+    "platform": "linux/x64",
+    "forge": "forge Version: 1.10.1",
+    "acceptedWorktreeClean": true,
+    "independentClone": {
+      "commit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "tree": "806b3ee5086bc2ad2e2f26f789ff0374d9852194",
+      "cloneStatusClean": true
+    },
+    "dateNote": "The acceptance record deliberately carries no calendar date; provenance is the commit hash and generatedAt ISO timestamp."
+  },
+  "attribution": {
+    "executedInCleanClone": [
+      "S22-AC-01",
+      "S22-AC-02",
+      "S22-AC-03",
+      "S22-AC-04",
+      "S22-AC-05",
+      "S22-AC-06",
+      "S22-AC-07",
+      "S22-AC-08",
+      "S22-AC-09"
+    ],
+    "executedInAcceptedWorktree": [
+      "S22-AC-10",
+      "S22-AC-11",
+      "S22-AC-12",
+      "S22-AC-13",
+      "S22-AC-14",
+      "S22-AC-19"
+    ],
+    "verifiedFromEvidence": [
+      "S22-AC-08",
+      "S22-AC-09",
+      "S22-AC-19"
+    ],
+    "note": "The verifiers ran from a fresh clone of the accepted commit with the pinned dependency store shared for tooling; the toolchain and walkthrough tests ran in the accepted clean worktree. A separate-host rebuild was not executed in this environment and is attributed as such."
+  },
+  "evidenceDigests": {
+    "evidence/s15/settlement-slice.json": "df644517a51c5afd45697537fc41873b4bca758d7a0411f16620eed62a69e8d6",
+    "evidence/s16/eligibility-onchain.json": "14b1e0320b2eff683eeea294b40667a5891635c50fd2c066ef80ce9375b6686b",
+    "evidence/s17/sponsored-order.json": "063a24481a2198dc697f6c42969ab9589a7103fc3ddef2157667b91ca65cf8f7",
+    "evidence/s18/settlement-pack-run.json": "3a1c95d5522228434b68486d6e101f6337b9147740ee290be383ba0b1430fa56",
+    "evidence/s19/net01-lane.json": "119aae8c40f4ba04664eb4ee1028fb983338cda8e8b04a4caacf820a48df970f",
+    "evidence/s20/reconciliation-reorg.json": "fc4f6ecbeb2c9ff032da469d20c6125c37798028386065fb59669f4c2fe117bc",
+    "evidence/s21/ops-batch-setting-benchmark.json": "38195976ef2a05be995a776b4f5ecd5386adc53ac8fd78b9daef2d90f01eb433",
+    "evidence/s21/ops-money-authority.json": "cc836014d4b615118a35dcca12bded6a48411801d9cc27a9234b13d0093d8f87",
+    "evidence/release-checks.json": "51d222d62ff4e1ee257fd135f78d03c111f2d08c9f813cd0f0a2a422ac521c83",
+    "evidence/a08/public-release.json": "9051460e94140365be0983ea13adec1df31eb30f2ee222745af3adf4d6c64c1b",
+    "evidence/a08/release-package.json": "65ada268d47e130e95291fa4a5ce32c7627d86dedbc53ef97c5f6e4280d0d7ca",
+    "media/film/film-metadata.json": "3c4f999234607b4736a9ab98e72ff68b0a911101d51182626a6b447aae47f6a5"
+  },
+  "requirements": [
+    {
+      "id": "S22-AC-01",
+      "title": "Settlement slice deterministic replay (SET-01)",
+      "mode": "deterministic",
+      "command": "node /root/projects/eurorollup-settlement-lab/node_modules/.bin/tsx scripts/verify-s15-evidence.ts",
+      "environment": "independent clone 7c90e176b6a2 / pinned store",
+      "expected": "5 contracts, 17 transactions, stage sequence and final balances verified",
+      "evidenceLink": "evidence/s15/settlement-slice.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "S15 settlement slice verified: 5 contracts, 17 transactions, stages seed → spot → reserved → allocated → redeemed, canonical block 1214, final investor cash 597950000 base units, 2.125 eFUND",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-02",
+      "title": "On-chain eligibility and root rotation (SET-02)",
+      "mode": "policy-boundary",
+      "command": "node /root/projects/eurorollup-settlement-lab/node_modules/.bin/tsx scripts/verify-s16-evidence.ts",
+      "environment": "independent clone 7c90e176b6a2 / pinned store",
+      "expected": "real ultra_honk proofs, rotation and exactly-once recovery verified",
+      "evidenceLink": "evidence/s16/eligibility-onchain.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "S16 onchain eligibility verified: 7 real proofs (ultra_honk_evm), Solidity verifier accepted them, root rotation blocked 29 transactions' worth of flow, recovery settled the reservation once, canonical block 1130",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-03",
+      "title": "Sponsored order and negative paths (SET-03)",
+      "mode": "negative-path",
+      "command": "node /root/projects/eurorollup-settlement-lab/node_modules/.bin/tsx scripts/verify-s17-evidence.ts",
+      "environment": "independent clone 7c90e176b6a2 / pinned store",
+      "expected": "zero user charge, sponsor paid every bundle, included revert recorded",
+      "evidenceLink": "evidence/s17/sponsored-order.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "S17 sponsored order verified: ERC-4337 v0.7, 6 user operations (4 submitted), user charge zero, sponsor paid every bundle, included revert recorded, recovery matched the mined receipt, canonical block 481",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-04",
+      "title": "Settlement pack and tamper detection (SET-04)",
+      "mode": "negative-path",
+      "command": "node /root/projects/eurorollup-settlement-lab/node_modules/.bin/tsx scripts/verify-s18-evidence.ts",
+      "environment": "independent clone 7c90e176b6a2 / pinned store",
+      "expected": "pack digest and canonical witness verified; the tampered copy is refused",
+      "evidenceLink": "evidence/s18/settlement-pack-run.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "S18 settlement pack verified: run order_692d8a3d-a40e-43c9-ace7-4ff88361757a, pack digest 3f768c4bd6c1…, chain tx 0x663d5cc0… log 3 at canonical block 318, tamper exit 1 with first mismatch",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-05",
+      "title": "Consensus-backed lane, blob DA and deriving verifier (NET-01)",
+      "mode": "live-lane",
+      "command": "node /root/projects/eurorollup-settlement-lab/node_modules/.bin/tsx scripts/verify-s19-evidence.ts",
+      "environment": "independent clone 7c90e176b6a2 / pinned store",
+      "expected": "blob transaction/beacon sidecar, L1 finality and independent deriving verifier match",
+      "evidenceLink": "evidence/s19/net01-lane.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "NET-01 verified: blob 0xd5594a07… on L1 block 530, beacon slot 531, 1 matched sidecar(s), deriving verifier matches activity block 1545, L1 finalized 535, withdrawal accel 302507+604912s",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-06",
+      "title": "Canonical reconciliation and reorg recovery (LED-01)",
+      "mode": "negative-path",
+      "command": "node /root/projects/eurorollup-settlement-lab/node_modules/.bin/tsx scripts/verify-s20-evidence.ts",
+      "environment": "independent clone 7c90e176b6a2 / pinned store",
+      "expected": "noncanonical anchor rejected, orphan/replay, release-once, restart and conservation verified",
+      "evidenceLink": "evidence/s20/reconciliation-reorg.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "LED-01 verified: 3 orphaned events, 3 replayed, 3 duplicates skipped, noncanonical anchor rejected, restart equal, 9 audit entries, zero per-account differences at exact block hash",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-07",
+      "title": "Operations benchmark and authority reconciliation (OPS-01/OPS-02)",
+      "mode": "deterministic",
+      "command": "node /root/projects/eurorollup-settlement-lab/node_modules/.bin/tsx scripts/verify-s21-evidence.ts",
+      "environment": "independent clone 7c90e176b6a2 / pinned store",
+      "expected": "six-run benchmark selection and money/authority/drill evidence verified",
+      "evidenceLink": "evidence/s21/ops-batch-setting-benchmark.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "OPS-01 verified: 6 runs, selected setting 4 (miss=false), aggregate p95 4blk=68544ms, 12blk=68513ms\nOPS-02 verified: bundle allocation sum, OP-lane component receipts/residual, RPC failover, batcher pause/resume, indexer restore and timelocked 2-of-3 upgrade with forward recovery.",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-08",
+      "title": "Release-check matrix",
+      "mode": "package",
+      "command": "node /root/projects/eurorollup-settlement-lab/node_modules/.bin/tsx scripts/verify-release-checks.ts",
+      "environment": "independent clone 7c90e176b6a2 / pinned store",
+      "expected": "A01–A09 gates pass or carry recorded limitations; no pending/failed gate",
+      "evidenceLink": "evidence/release-checks.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "S08 release checks verified on commit a8499f082154: 8 pass, 1 pass with recorded limitations, 0 pending (A08), 0 failed",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-09",
+      "title": "Public release checks (A08)",
+      "mode": "public-walkthrough",
+      "command": "node /root/projects/eurorollup-settlement-lab/node_modules/.bin/tsx scripts/verify-a08-evidence.ts",
+      "environment": "independent clone 7c90e176b6a2 / pinned store",
+      "expected": "public replay, clean browser views, quickstart, links, package and film checks passed",
+      "evidenceLink": "evidence/a08/public-release.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "A08 public-release evidence verified: https://sergeyger.github.io/eurorollup-settlement-lab/ HTTP 200, 5 browser views, 3 public links, package eurollup-settlement-lab-1.1.0.tar.gz sha256 a59681497b26…; film complete",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-10",
+      "title": "TypeScript typecheck",
+      "mode": "deterministic",
+      "command": "pnpm typecheck",
+      "environment": "accepted worktree / pinned toolchain",
+      "expected": "all workspace projects typecheck",
+      "evidenceLink": "package.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "> eurorollup-settlement-lab@1.2.0 typecheck /root/projects/eurorollup-settlement-lab\n> tsc -p packages/dealing/tsconfig.json --noEmit && tsc -p packages/policy-lab/tsconfig.json --noEmit && tsc -p packages/economics/tsconfig.json --noEmit && tsc -p packages/eligibility/tsconfig.json --noEmit && tsc -p packages/sdk/tsconfig.json --noEmit && tsc -p apps/api/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-11",
+      "title": "Application and library test suite",
+      "mode": "deterministic",
+      "command": "pnpm test",
+      "environment": "accepted worktree / pinned toolchain",
+      "expected": "all vitest suites pass",
+      "evidenceLink": "package.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "\n    Isolate  23 workers spawned · ~265ms startup each (spawn + environment, per file)\n             at least ~605ms faster with isolate: false — reuses workers across files instead of one per file",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-12",
+      "title": "Production build",
+      "mode": "deterministic",
+      "command": "pnpm build",
+      "environment": "accepted worktree / pinned toolchain",
+      "expected": "all packages and the web app build",
+      "evidenceLink": "package.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "dist/assets/barretenberg-threads-CaKDmM8U.js  5,414.10 kB │ gzip: 4,041.14 kB │ map: 5,414.41 kB\n\n✓ built in 1.01s",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-13",
+      "title": "Foundry contract tests",
+      "mode": "deterministic",
+      "command": "pnpm contracts:test",
+      "environment": "accepted worktree / forge",
+      "expected": "all settlement, eligibility, sponsorship and authority tests pass",
+      "evidenceLink": "contracts/README.md",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "Ran 4 test suites in 19.84ms (24.50ms CPU time): 31 tests passed, 0 failed, 0 skipped (31 total tests)",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-14",
+      "title": "Final walkthrough: replay portfolio and change the P01 cutoff (F-1530)",
+      "mode": "policy-boundary",
+      "command": "vitest run packages/policy-lab/test/p01.test.ts",
+      "environment": "accepted worktree / pinned toolchain",
+      "expected": "the cutoff change moves exactly F-1530 to Monday, reserves EUR 300 and reduces its units from 3.125000 to 3.000000 (unit delta -125000)",
+      "evidenceLink": "packages/policy-lab/test/p01.test.ts",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "      Tests  15 passed (15)\n   Start at  16:18:33\n   Duration  521ms (import 46%, transform 39%, tests 11%, worker 3%) — the assertions cover changedOrderIds [P01-F-1530], unit delta -125000 and the confirmation step",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-15",
+      "title": "Public landing page and replay reachable signed out",
+      "mode": "public-walkthrough",
+      "command": "GET https://sergeyger.github.io/eurorollup-settlement-lab/",
+      "environment": "unauthenticated HTTP",
+      "expected": "HTTP 200 with the EuroRollup replay application",
+      "evidenceLink": "evidence/a08/public-release.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "HTTP 200 (text/html; charset=utf-8); missing markers: []",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-16",
+      "title": "Release film and captions addressable from the public release",
+      "mode": "public-walkthrough",
+      "command": "GET release film asset v1.1.0",
+      "environment": "unauthenticated HTTP",
+      "expected": "the tagged release serves the 60-second film",
+      "evidenceLink": "media/film/film-metadata.json",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "HTTP 200; application/octet-stream",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-17",
+      "title": "Separate WebVTT captions published and addressable",
+      "mode": "public-walkthrough",
+      "command": "GET raw media/film/release-film.vtt",
+      "environment": "unauthenticated HTTP",
+      "expected": "HTTP 200 WEBVTT captions that start off in the player",
+      "evidenceLink": "media/film/release-film.vtt",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "HTTP 200; text/plain; charset=utf-8",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-18",
+      "title": "Earlier tagged releases stay addressable",
+      "mode": "public-walkthrough",
+      "command": "GET https://github.com/SergeyGer/eurorollup-settlement-lab/releases",
+      "environment": "unauthenticated HTTP",
+      "expected": "the release page lists the earlier v1.1.0 release",
+      "evidenceLink": "docs/release/README.md",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "observed": "HTTP 200; missing markers: []",
+      "disposition": "qualified",
+      "incompleteReason": null
+    },
+    {
+      "id": "S22-AC-19",
+      "title": "Downloadable release package and manifest",
+      "mode": "package",
+      "sourceCommit": "7c90e176b6a2c7ecc084ecf0dc54e935c119ad31",
+      "command": "read evidence/a08/release-package.json",
+      "environment": "accepted worktree",
+      "expected": "deterministic archive with a MANIFEST.json whose digests re-extract cleanly",
+      "observed": "file eurollup-settlement-lab-1.1.0.tar.gz sha256 a59681497b26…, 363 manifest files, manifestMatches=true",
+      "evidenceLink": "evidence/a08/release-package.json",
+      "disposition": "qualified",
+      "incompleteReason": null
+    }
+  ],
+  "gatesSummary": {
+    "total": 19,
+    "qualified": 19,
+    "incomplete": 0,
+    "failed": 0
+  },
+  "walkthrough": {
+    "landingPage": {
+      "url": "https://sergeyger.github.io/eurorollup-settlement-lab/",
+      "status": 200,
+      "ok": true,
+      "missingMarkers": [],
+      "contentType": "text/html; charset=utf-8"
+    },
+    "filmAsset": {
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/eurollup-release-film-1.1.0.mp4",
+      "status": 200,
+      "ok": true,
+      "missingMarkers": [],
+      "contentType": "application/octet-stream"
+    },
+    "captions": {
+      "url": "https://raw.githubusercontent.com/SergeyGer/eurorollup-settlement-lab/main/media/film/release-film.vtt",
+      "status": 200,
+      "ok": true,
+      "missingMarkers": [],
+      "contentType": "text/plain; charset=utf-8"
+    },
+    "releases": {
+      "url": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases",
+      "status": 200,
+      "ok": true,
+      "missingMarkers": [],
+      "contentType": "text/html; charset=utf-8"
+    },
+    "f1530": {
+      "command": "vitest run packages/policy-lab/test/p01.test.ts",
+      "exitCode": 0,
+      "evidence": "packages/policy-lab/test/p01.test.ts",
+      "observed": "changedOrderIds [P01-F-1530], unit delta -125000, EUR 300 extra reservation"
+    },
+    "liveInvestment": {
+      "command": "verify-s18-evidence.ts",
+      "canonical": "G01 investment witness at the canonical block with tamper exit 1"
+    }
+  },
+  "repositoryUrl": "https://github.com/SergeyGer/eurorollup-settlement-lab",
+  "publicReplayUrl": "https://sergeyger.github.io/eurorollup-settlement-lab/",
+  "passed": true,
+  "limitations": [
+    "A separate-host rebuild was not executed; the source independence is a fresh clone of the accepted commit, with the pinned dependency store shared for offline tooling.",
+    "The public walkthrough uses unauthenticated HTTP checks and the committed A08 browser evidence; the acceptance record attributes what was executed versus verified from evidence."
+  ],
+  "notes": [
+    "Release-page gates: all gates are qualified in this record; the release notes display the gate table and link the tagged earlier releases.",
+    "The record contains no calendar date in its content; generatedAt is an ISO provenance timestamp."
+  ]
+}

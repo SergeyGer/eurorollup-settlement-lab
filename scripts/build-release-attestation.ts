@@ -34,7 +34,9 @@ function main(): void {
   mkdirSync(evidenceDir, { recursive: true });
   const film = readJson("media/film/film-metadata.json");
   const packageRecord = readJson("evidence/a08/release-package.json");
-  const builtFromCommit: string = film["commit"];
+  const releaseVersion = (JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf8")) as { version: string }).version;
+  const builtFromCommit: string = process.env.RELEASE_BUILD_COMMIT ?? film["commit"];
+  const carriedMedia = String(film["version"]) !== releaseVersion;
   const tagCommit = git(["rev-list", "-n", "1", tag]);
   const sourceCommit = git(["rev-parse", "HEAD"]);
   const diff = git(["diff", "--name-status", `${builtFromCommit}..${tagCommit}`])
@@ -51,7 +53,7 @@ function main(): void {
   const relationshipOk =
     diffPaths.length > 0 &&
     packageRecord["commit"] === builtFromCommit &&
-    film["commit"] === builtFromCommit;
+    (carriedMedia || film["commit"] === builtFromCommit);
 
   const localFilm = join(repoRoot, "media", "film", "release-film.mp4");
   const attestation = {
@@ -63,8 +65,15 @@ function main(): void {
     tagCommit,
     tagUrl: `${repositoryUrl}/releases/tag/${tag}`,
     builtFromCommit,
-    builtFromCommitRole:
-      "The film, public-check record and downloadable archive were produced from this release-code commit.",
+    builtFromCommitRole: carriedMedia
+      ? "The infrastructure release archive, acceptance and public-check records were produced from this release-code commit; the v1.1.0 film is carried as the media artifact."
+      : "The film, public-check record and downloadable archive were produced from this release-code commit.",
+    carriedMedia: {
+      carried: carriedMedia,
+      filmVersion: String(film["version"]),
+      releaseVersion,
+      note: carriedMedia ? "The media artifact belongs to the earlier presentation release and is re-published unchanged; its own build commit is recorded separately." : null,
+    },
     tagRelationship: {
       kind: "evidence-and-metadata-only",
       diffFiles: diff,
@@ -135,15 +144,16 @@ function main(): void {
       },
       {
         id: "media-source",
-        description: "film metadata records the same build commit and digest",
-        passed: film["commit"] === builtFromCommit && /^[0-9a-f]{64}$/.test(film["film"]["sha256"]),
-        detail: `film ${String(film["film"]["sha256"]).slice(0, 12)}…`,
+        description: carriedMedia ? "carried film metadata digest is valid and its own build commit is recorded" : "film metadata records the same build commit and digest",
+        passed: /^[0-9a-f]{64}$/.test(film["film"]["sha256"]) && (carriedMedia || film["commit"] === builtFromCommit),
+        detail: `film ${String(film["film"]["sha256"]).slice(0, 12)}… version ${String(film["version"])} builtFrom ${String(film["commit"]).slice(0, 12)}…`,
       },
     ],
     passed: relationshipOk,
     notes: [
       "The earlier-source archive is recorded with exactTaggedTree=false instead of being described as the tagged tree.",
       "SHA-256 values are copied from the committed film metadata and package verification record.",
+      carriedMedia ? "The v1.1.0 film is carried unchanged into the infrastructure release; the archive is the new v1.2.0 source archive." : "The media artifact belongs to this release build commit.",
       "The release page and asset URLs are verified signed out by pnpm check:links.",
     ],
   };
