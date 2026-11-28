@@ -2,8 +2,10 @@
 
 Audit-brief UX-03 asks for a five-participant test script with actual outcomes and a
 target of at least four of five unaided completions on the investor task. This page
-publishes the script and the recording template. **Status: blocked on participant
-sessions** — no outcomes are claimed here.
+publishes the script and the recording template. **Status: deferred by the project
+owner's decision** — the pilot is recorded as blocked and the published script plus the
+automated legibility/accessibility checks are accepted as the milestone fallback. No
+participant outcomes are claimed.
 
 ## Participants and setup
 
@@ -54,10 +56,17 @@ Most common failure: <ranked list>
 Fix applied before filming: <change + issue/commit>
 ```
 
-## Blocked status
+## Deferred status and fallback
 
-The pilot needs five real participants and observed outcomes. Until those sessions are
-provided, this page records the blocked state explicitly (the alternative accepted for
-this milestone is the published script plus the automated legibility/a11y checks in
-`evidence/s12/investor-journey-checks.json`). When outcomes arrive, they are appended
-here, the most common failure is fixed and the issue is commented with the counts.
+The project owner selected fallback option (b) for this milestone: the pilot is recorded
+as **blocked/deferred** rather than claimed as run. The published artefact is this script
+plus the automated checks:
+
+- 18/18 investor-journey UI checks at 1440x1000 and 390x844
+  (`evidence/s12/investor-journey-checks.json`), including keyboard Home/End/arrow/Space
+  navigation, direct links, six-decimal quantities and 390 px no-horizontal-scroll.
+- The accessibility checklist in [`s12-accessibility-checklist.md`](s12-accessibility-checklist.md).
+
+When five participant sessions become available, the outcomes are appended to this page,
+the most common failure is fixed before the film re-cut, and the counts are reported in
+the issue. Until then the milestone records the fallback explicitly.
