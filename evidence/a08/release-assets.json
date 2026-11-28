@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S22-release-assets-v1.2.0",
+  "generatedBy": "pnpm release:assets",
+  "generatedAt": "2026-11-28T16:30:21.950Z",
+  "tag": "v1.2.0",
+  "version": "1.2.0",
+  "commit": "ref: refs/heads/step/S22-release-prep",
+  "files": [
+    {
+      "name": "acceptance.json",
+      "sha256": "c9b09ba3c498bb4035973e81fa8d3d9990ad48ba32e869ec3eae6f7d7faf3c07",
+      "bytes": 18947,
+      "source": "evidence/s22/acceptance.json"
+    },
+    {
+      "name": "eurollup-settlement-lab-1.2.0.tar.gz",
+      "sha256": "2c4cdf43f785881fc2ec75b4a46649edc4c7bf1e41c8770608c92b13c7151f54",
+      "bytes": 13758287,
+      "source": "release/eurollup-settlement-lab-1.2.0.tar.gz"
+    },
+    {
+      "name": "film-metadata.json",
+      "sha256": "3c4f999234607b4736a9ab98e72ff68b0a911101d51182626a6b447aae47f6a5",
+      "bytes": 7859,
+      "source": "media/film/film-metadata.json"
+    },
+    {
+      "name": "link-check.json",
+      "sha256": "ee329efb284a89f8e9f6f840355a62db0ea56939e9868e37c496a1306a780f8e",
+      "bytes": 17125,
+      "source": "evidence/rel/link-check.json"
+    },
+    {
+      "name": "playback-checks.json",
+      "sha256": "81fcdb0da393f309ccc0ae92de8b215ad87558756aaafa482fafab4c3865fef6",
+      "bytes": 6536,
+      "source": "evidence/s14/playback-checks.json"
+    },
+    {
+      "name": "public-release.json",
+      "sha256": "bd7fde7fc7a286590b8cb01af19080d49efeee44992085896b8e65bc7e665414",
+      "bytes": 7534,
+      "source": "evidence/a08/public-release.json"
+    },
+    {
+      "name": "release-attestation-v1.2.0.json",
+      "sha256": "6360846686dc914fac2cb7851f59b4093f56a6b3f4925ca99290e8f6e3ddc56f",
+      "bytes": 5712,
+      "source": "evidence/release-attestation-v1.2.0.json"
+    },
+    {
+      "name": "release-checks.json",
+      "sha256": "07174a026231c46dbdebabe05ce3c51affe2aae10b50990ba958bfbb6b16882d",
+      "bytes": 48668,
+      "source": "evidence/release-checks.json"
+    },
+    {
+      "name": "release-film-transcript.md",
+      "sha256": "24e9bf2621c701d71fa117cae1740e8bb8eff398fa08f79468ba17283bfd7936",
+      "bytes": 1087,
+      "source": "media/film/release-film-transcript.md"
+    },
+    {
+      "name": "release-film.mp4",
+      "sha256": "e0674bf476e4535c23f741ef18054d877446a4918da3df2f98b96bf0b762cde4",
+      "bytes": 8376057,
+      "source": "media/film/release-film.mp4"
+    },
+    {
+      "name": "release-film.vtt",
+      "sha256": "04d24f32b54fb663e8bab35a3633d627667a449e03476bd12728d63d82d91182",
+      "bytes": 1012,
+      "source": "media/film/release-film.vtt"
+    },
+    {
+      "name": "release-package.json",
+      "sha256": "5ba3b894b2554ef332112be12cf5fbd991e59668a84b3ecefc228fbc15ea0ee3",
+      "bytes": 1038,
+      "source": "evidence/a08/release-package.json"
+    },
+    {
+      "name": "social-preview-1280x640.png",
+      "sha256": "1b56f8f964dfea2363a8376ba6a668bc0c888880b15595defcc5e89a5bf4164e",
+      "bytes": 475150,
+      "source": "media/social-preview/approved-1280x640.png"
+    },
+    {
+      "name": "checksums.txt",
+      "sha256": "4ee66be7b7bc096142f11df52a9dee76187d2cfeaba2de379547d971a20e7bdd",
+      "bytes": 1149,
+      "source": "generated"
+    }
+  ],
+  "notes": [
+    "The source archive is built from the release-code commit and its MANIFEST is verified by the package builder.",
+    "The v1.1.0 film is carried unchanged; its metadata records the presentation-release build commit.",
+    "The release page links the acceptance record, the gate table and the earlier tagged releases."
+  ]
+}

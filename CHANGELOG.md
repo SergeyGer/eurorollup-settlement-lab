@@ -225,6 +225,38 @@ records current calendar dates.
 - 181 tests; CI rebuilds the policy matrix, verifies committed proofs and
   artifact hashes, and verifies the account-abstraction receipts offline.
 
+## [1.2.0] — Settlement and protocol infrastructure
+
+### Added
+
+- Settlement data availability: a transferable settlement pack whose canonical witness,
+  pack digest and receipt log are re-verified from the chain, with a deliberately
+  tampered copy refused at the first mismatch.
+- On-chain eligibility and root rotation with real UltraHonk proofs, a scoped
+  sponsorship paymaster and sponsored orders with negative paths.
+- A consensus-backed lane with pinned clients, blob DA transactions, beacon sidecar
+  commitments, L1 finality and an independent deriving verifier that matches the
+  sequencer block hash; the earlier image/genesis blocker and its resolution stay on
+  record.
+- Canonical reconciliation and reorg recovery: exact-block-hash anchors, noncanonical
+  rejection, orphan marking, rewind/replay, release-once reservations, duplicate
+  delivery, interrupted restart and per-asset conservation.
+- Operations benchmark (4 and 12 L1 blocks; six runs, nearest-rank p50/p95, L1
+  expenditure, per-success cost, 4 blocks selected) and money/authority reconciliation
+  with RPC failover, batcher pause/resume, indexer restore and a timelocked two-of-three
+  upgrade rehearsal with forward recovery.
+- Independent acceptance: 19 gates executed from a fresh clone of the accepted commit
+  and the clean accepted worktree, with an explicit attribution of executed versus
+  evidence-verified gates.
+
+### Evidence
+
+- `evidence/s15`–`evidence/s21` gate evidence, `evidence/s22/acceptance.json`,
+  `evidence/release-checks.json`, `evidence/a08/release-package.json`,
+  `evidence/release-attestation-v1.2.0.json`.
+- Release `v1.2.0` with the deterministic source archive, carried release film and
+  captions, public/playback/link checks, acceptance record, attestation and checksums.
+
 ## [1.1.0] — Presentation update
 
 ### Added

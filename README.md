@@ -2,7 +2,7 @@
 
 An open-source euro settlement sandbox for crypto trades and tokenized fund orders — from fund order to euro clearing to onchain evidence, with an AI Policy Lab that turns a plain-English dealing-rule question into a confirmed, replayable comparison.
 
-[Watch the 60-second film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/eurollup-release-film-1.1.0.mp4) · [Try the live replay](https://sergeyger.github.io/eurorollup-settlement-lab/) · [Run the cutoff experiment](https://sergeyger.github.io/eurorollup-settlement-lab/) · [Verify a receipt](docs/verification/s02-settlement-core.md) · [Wiki](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki)
+[Watch the 60-second film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.2.0/release-film.mp4) · [Try the live replay](https://sergeyger.github.io/eurorollup-settlement-lab/) · [Run the cutoff experiment](https://sergeyger.github.io/eurorollup-settlement-lab/) · [Verify a receipt](docs/verification/s02-settlement-core.md) · [Wiki](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki)
 
 ![Owner-approved social preview: a fund order moves through euro clearing to an OP Stack Layer 2 settlement record, with an AI-proposed rule kept for human review](media/social-preview/approved-1280x640.png)
 
@@ -10,7 +10,7 @@ An open-source euro settlement sandbox for crypto trades and tokenized fund orde
 
 ## Start here
 
-- Watch the [60-second release film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/eurollup-release-film-1.1.0.mp4) ([captions](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/release-film.vtt), [transcript](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/release-film-transcript.md)) or open the [live replay](https://sergeyger.github.io/eurorollup-settlement-lab/).
+- Watch the [60-second release film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.2.0/release-film.mp4) ([captions](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.2.0/release-film.vtt), [transcript](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.2.0/release-film-transcript.md)) or open the [live replay](https://sergeyger.github.io/eurorollup-settlement-lab/).
 - Read the [Wiki](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki) for fixtures, architecture, setup, the partner API, evidence and release history.
 - Quick start: Node.js 22+, `corepack enable`, `pnpm install`, `pnpm test`, `pnpm dev`. Commands are documented in the [Wiki Development-Setup](https://github.com/SergeyGer/eurorollup-settlement-lab/wiki/Development-Setup) page and `package.json`.
 - Verify the evidence with `pnpm verify --pack evidence/g01`, the release matrix with `pnpm release:checks` / `pnpm release:verify`, and the public surfaces with `pnpm check:sessions`.
@@ -38,9 +38,9 @@ deterministic engine after confirmation.
 
 ## Release film and public replay
 
-The 60-second English-narrated film is available from the replay (**Release film** view with captions off by default) and attached to the [v1.1.0 release](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.0.0):
+The 60-second English-narrated film is available from the replay (**Release film** view with captions off by default) and attached to the [v1.2.0 release](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.2.0):
 
-- [MP4 film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/eurollup-release-film-1.1.0.mp4) · [English WebVTT captions](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/release-film.vtt) · [verbatim transcript](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.1.0/release-film-transcript.md)
+- [MP4 film](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.2.0/release-film.mp4) · [English WebVTT captions](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.2.0/release-film.vtt) · [verbatim transcript](https://github.com/SergeyGer/eurorollup-settlement-lab/releases/download/v1.2.0/release-film-transcript.md)
 - Frame, audio, caption and link checks: `media/film/film-metadata.json`; playback checks: `evidence/s14/playback-checks.json`.
 
 The browser replay is published with GitHub Pages:
@@ -303,6 +303,14 @@ merged, and larger steps are tagged as GitHub Releases.
   captions, transcript, frame/audio/link checks and the completed A01–A09 matrix;
   downloadable package and public replay. Final `A08` gate passes on the tagged
   commit.
+- `v1.1.0` — presentation update: owner-approved social preview artwork, re-cut
+  60-second film with separate WebVTT captions and a captions-off player, README and
+  Wiki navigation, portability and release attestation.
+- `v1.2.0` — settlement and protocol infrastructure: settlement pack with canonical
+  witness and tamper refusal, on-chain eligibility, sponsored orders, consensus-backed
+  blob-DA lane with an independent deriving verifier, canonical reconciliation and
+  reorg recovery, operations benchmarks and money/authority reconciliation, and
+  independent acceptance with a 19-gate record.
 
 See the development roadmap in the GitHub Issues and
 [`docs/plan/roadmap.md`](docs/plan/roadmap.md). API surface:
