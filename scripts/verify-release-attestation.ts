@@ -41,7 +41,7 @@ function main(): void {
     check(JSON.stringify(diffFiles) === JSON.stringify(expectedV1), "the v1.0.0 recorded diff contains exactly the four evidence/metadata files");
   } else {
     check(diffFiles.length > 0, "the recorded diff must contain at least one evidence/metadata file");
-    check(diffFiles.every((path) => path.startsWith("evidence/") || path.startsWith("media/") || path.startsWith("docs/") || path.startsWith("scripts/")), "the tag diff may only contain evidence, media, documentation or supporting tooling files");
+    check(diffFiles.every((path) => path.startsWith("evidence/") || path.startsWith("media/") || path.startsWith("docs/") || path.startsWith("scripts/") || path.startsWith("schemas/")), "the tag diff may only contain evidence, media, documentation or supporting tooling files");
   }
   const artifacts = attestation["artifacts"];
   check(artifacts["package"]["exactTaggedTree"] === false, "the archive is not claimed as the exact tagged tree");
