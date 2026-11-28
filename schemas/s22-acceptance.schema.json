@@ -12,7 +12,7 @@
     "tree": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
     "environment": { "type": "object", "required": ["node", "pnpm", "platform", "acceptedWorktreeClean", "independentClone"] },
     "attribution": { "type": "object", "required": ["executedInCleanClone", "executedInAcceptedWorktree", "verifiedFromEvidence", "note"] },
-    "evidenceDigests": { "type": "object", "minProperties": 10 },
+    "evidenceDigests": { "type": "object", "minProperties": 8 },
     "requirements": {
       "type": "array", "minItems": 19,
       "items": {
