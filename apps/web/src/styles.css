@@ -1503,3 +1503,10 @@ body {
   color: var(--muted);
   line-height: 1.5;
 }
+
+.settlement-pack-link {
+  color: #7fe9d2;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

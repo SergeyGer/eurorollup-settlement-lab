@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://eurorollup.test/schemas/settlement-pack.schema.json",
+  "title": "Investment settlement pack",
+  "type": "object",
+  "required": ["schemaVersion", "packId", "runId", "orderId", "generatedAt", "environment", "manifest", "order", "business", "costs", "chain", "unknowns"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "packId": { "const": "SETTLEMENT-PACK" },
+    "runId": { "type": "string", "minLength": 1 },
+    "orderId": { "type": "string", "minLength": 1 },
+    "generatedAt": { "type": "string" },
+    "environment": {
+      "type": "object",
+      "required": ["dataMode", "serviceVersion", "engineVersion", "policyId", "policyVersion", "policyHash"],
+      "properties": {
+        "serviceVersion": { "type": "string" },
+        "engineVersion": { "type": "string" },
+        "policyId": { "type": "string" },
+        "policyVersion": { "type": "integer" },
+        "policyHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "required": ["algorithm", "packDigest", "sections", "externalArtifacts"],
+      "properties": {
+        "algorithm": { "const": "sha256-canonical-json" },
+        "packDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "sections": {
+          "type": "object",
+          "required": ["order", "business", "costs", "chain", "environment"],
+          "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        },
+        "externalArtifacts": { "type": "array" }
+      }
+    },
+    "order": {
+      "type": "object",
+      "required": ["orderId", "accountId", "kind", "businessState", "chainState", "policyEpoch"],
+      "properties": {
+        "orderId": { "type": "string" },
+        "accountId": { "type": "string" },
+        "kind": { "type": "string" },
+        "amountBase": { "type": "string" },
+        "businessState": { "type": "string" },
+        "chainState": { "type": "string" },
+        "policyEpoch": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "business": {
+      "type": "object",
+      "required": ["businessState", "chainStateField", "receipt", "journalEntries", "portfolio", "journalBalances"],
+      "properties": {
+        "businessState": { "type": "string" },
+        "chainStateField": { "type": "string" },
+        "receipt": { "type": ["object", "null"] },
+        "journalEntries": { "type": "array" },
+        "portfolio": { "type": "object" },
+        "journalBalances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["account", "accountKind", "assetId", "amountBase"],
+            "properties": { "amountBase": { "type": "string", "pattern": "^-?[0-9]+$" } }
+          }
+        }
+      }
+    },
+    "costs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "value", "asOf", "source"],
+        "properties": { "value": { "type": "string" }, "asOf": { "type": "string" } }
+      }
+    },
+    "chain": {
+      "type": "object",
+      "required": ["status", "orderIdBytes32", "userOpHash", "txHash", "logIndex", "l2BlockHash", "l2BlockNumber", "canonicalBlockNumber", "canonicalBlockHash", "l1BatchReference", "policyHash", "unknowns"],
+      "properties": {
+        "status": { "enum": ["OBSERVED", "NOT_ATTACHED"] },
+        "orderIdBytes32": { "type": ["string", "null"], "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "userOpHash": { "type": ["string", "null"] },
+        "txHash": { "type": ["string", "null"], "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "logIndex": { "type": ["integer", "null"] },
+        "l2BlockHash": { "type": ["string", "null"], "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "l2BlockNumber": { "type": ["integer", "null"] },
+        "canonicalBlockNumber": { "type": ["integer", "null"] },
+        "canonicalBlockHash": { "type": ["string", "null"], "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "l1BatchReference": { "type": ["string", "null"] },
+        "policyHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "receiptStatus": { "type": ["integer", "null"] },
+        "contracts": { "type": "object" },
+        "observations": { "type": "array" },
+        "witnessSha256": { "type": ["string", "null"] },
+        "unknowns": { "type": "array" }
+      }
+    },
+    "unknowns": { "type": "array" }
+  }
+}

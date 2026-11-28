@@ -423,6 +423,30 @@
         }
       }
     },
+    "/v1/runs/{runId}/evidence": {
+      "get": {
+        "summary": "Download the settlement pack for an investment run (runId is the orderId): order and business state, journal, time-stamped cost inputs, separately tracked observed chain status and a manifest",
+        "tags": [
+          "partner"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "path",
+            "name": "runId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
     "/v1/portfolios": {
       "get": {
         "summary": "List synthetic accounts with their cash",

@@ -246,6 +246,26 @@ export function registerRoutes(app: FastifyInstance, ctx: AppContext): void {
   );
 
   app.get(
+    "/v1/runs/:runId/evidence",
+    {
+      schema: {
+        tags: ["partner"],
+        summary:
+          "Download the settlement pack for an investment run (runId is the orderId): order and business state, journal, time-stamped cost inputs, separately tracked observed chain status and a manifest",
+        params: runIdParamsSchema,
+      },
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const { runId } = request.params as { runId: string };
+      const evidence = ctx.settlementPack.getRunEvidence(runId);
+      return reply
+        .header("content-disposition", `attachment; filename="${evidence.fileName}"`)
+        .type("application/json")
+        .send(evidence.json);
+    },
+  );
+
+  app.get(
     "/v1/portfolios",
     { schema: { tags: ["partner"], summary: "List synthetic accounts with their cash" } },
     async () => ctx.portfolio.listPortfolios(),

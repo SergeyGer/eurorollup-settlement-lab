@@ -107,14 +107,27 @@ function statusClass(state: string): string {
 function ReceiptDetails({ order }: { order: Order }): JSX.Element {
   if (order.receipt !== null) {
     return (
-      <dl className="receipt-grid">
-        {Object.entries(order.receipt).map(([key, value]) => (
-          <div key={key} className="receipt-row">
-            <dt>{key}</dt>
-            <dd>{String(value)}</dd>
-          </div>
-        ))}
-      </dl>
+      <>
+        <dl className="receipt-grid">
+          {Object.entries(order.receipt).map(([key, value]) => (
+            <div key={key} className="receipt-row">
+              <dt>{key}</dt>
+              <dd>{String(value)}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="ticket-note">
+          <a
+            className="settlement-pack-link"
+            href={`${API_BASE_URL}/v1/runs/${encodeURIComponent(order.orderId)}/evidence`}
+            download={`settlement-pack-${order.orderId}.json`}
+            data-testid="settlement-pack-link"
+          >
+            Download settlement pack
+          </a>{" "}
+          · order and business state, journal entries, cost inputs, observed chain status and manifest
+        </p>
+      </>
     );
   }
   if (order.decline !== null) {

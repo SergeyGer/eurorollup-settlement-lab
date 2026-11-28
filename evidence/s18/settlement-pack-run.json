@@ -1,0 +1,565 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S18-settlement-pack",
+  "packId": "S18",
+  "generatedBy": "pnpm s18:run",
+  "generatedAt": "2026-11-28T12:47:57.353Z",
+  "commit": "52bb5ef0df342fb972bc36685fc00a4cb9909106",
+  "chains": {
+    "l1ChainId": 11155111,
+    "l2ChainId": 16584,
+    "lane": "controlled local OP Stack devnet (calldata DA development mode)"
+  },
+  "run": {
+    "runId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "quoteId": "quote_df62d05c-9f6a-4832-a59d-43bda3a11705",
+    "accountId": "investor-ada"
+  },
+  "api": {
+    "baseUrl": "http://127.0.0.1:3000",
+    "health": {
+      "serviceVersion": "0.5.0",
+      "engineVersion": "0.2.1",
+      "policyEpoch": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
+      "dataMode": "local-fixture"
+    },
+    "endpoint": "/v1/runs/order_692d8a3d-a40e-43c9-ace7-4ff88361757a/evidence"
+  },
+  "order": {
+    "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "quoteId": "quote_df62d05c-9f6a-4832-a59d-43bda3a11705",
+    "accountId": "investor-ada",
+    "kind": "SPOT_BUY",
+    "assetId": "tWETH",
+    "side": "BUY",
+    "amountBase": "200000000",
+    "businessState": "FILLED",
+    "chainState": "NOT_SUBMITTED",
+    "reasonCode": null,
+    "policyEpoch": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
+    "traceId": "trace_c03a203a-628c-42d8-a6b1-9419eea6b8dd",
+    "createdAt": "2026-11-20T15:00:00Z",
+    "updatedAt": "2026-11-20T15:00:00Z",
+    "dealingTerms": null,
+    "receipt": {
+      "schemaVersion": "1.0",
+      "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+      "businessState": "FILLED",
+      "assetId": "tWETH",
+      "unitsBase": "100000000000000000",
+      "assetDecimals": 18,
+      "cashAssetId": "dEUR",
+      "cashDeployedBase": "200000000",
+      "cashDecimals": 6,
+      "priceEurPerUnit": "2000.00",
+      "investorChargeBase": "50000"
+    },
+    "moneyMovements": [
+      {
+        "entryId": "EV-order_692d8a3d-a40e-43c9-ace7-4ff88361757a-FILL-JE",
+        "occurredAt": "2026-11-20T15:00:00Z",
+        "description": "Bought 0.100000 tWETH for 200.00 dEUR plus 0.05 dEUR fixed charge",
+        "postings": [
+          {
+            "accountKind": "dealer",
+            "accountId": "dealer-inventory",
+            "assetId": "dEUR",
+            "amountBase": "200000000"
+          },
+          {
+            "accountKind": "dealer",
+            "accountId": "dealer-inventory",
+            "assetId": "tWETH",
+            "amountBase": "-100000000000000000"
+          },
+          {
+            "accountKind": "feeRecipient",
+            "accountId": "fee-recipient",
+            "assetId": "dEUR",
+            "amountBase": "50000"
+          },
+          {
+            "accountKind": "investor",
+            "accountId": "investor-ada",
+            "assetId": "dEUR",
+            "amountBase": "-200000000"
+          },
+          {
+            "accountKind": "investor",
+            "accountId": "investor-ada",
+            "assetId": "dEUR",
+            "amountBase": "-50000"
+          },
+          {
+            "accountKind": "investor",
+            "accountId": "investor-ada",
+            "assetId": "tWETH",
+            "amountBase": "100000000000000000"
+          }
+        ]
+      }
+    ],
+    "decline": null
+  },
+  "pack": {
+    "schemaVersion": "1.0.0",
+    "packId": "SETTLEMENT-PACK",
+    "runId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "environment": {
+      "dataMode": "local-fixture",
+      "serviceVersion": "0.5.0",
+      "engineVersion": "0.2.1",
+      "policyId": "eFUND-dealing",
+      "policyVersion": 1,
+      "policyHash": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c"
+    },
+    "order": {
+      "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+      "quoteId": "quote_df62d05c-9f6a-4832-a59d-43bda3a11705",
+      "accountId": "investor-ada",
+      "kind": "SPOT_BUY",
+      "assetId": "tWETH",
+      "side": "BUY",
+      "amountBase": "200000000",
+      "businessState": "FILLED",
+      "chainState": "NOT_SUBMITTED",
+      "reasonCode": null,
+      "traceId": "trace_c03a203a-628c-42d8-a6b1-9419eea6b8dd",
+      "policyEpoch": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
+      "createdAt": "2026-11-20T15:00:00Z",
+      "updatedAt": "2026-11-20T15:00:00Z",
+      "dealingTerms": null
+    },
+    "business": {
+      "businessState": "FILLED",
+      "chainStateField": "NOT_SUBMITTED",
+      "receipt": {
+        "schemaVersion": "1.0",
+        "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+        "businessState": "FILLED",
+        "assetId": "tWETH",
+        "unitsBase": "100000000000000000",
+        "assetDecimals": 18,
+        "cashAssetId": "dEUR",
+        "cashDeployedBase": "200000000",
+        "cashDecimals": 6,
+        "priceEurPerUnit": "2000.00",
+        "investorChargeBase": "50000"
+      },
+      "decline": null,
+      "reasonCode": null,
+      "journalEntries": [
+        {
+          "entryId": "EV-order_692d8a3d-a40e-43c9-ace7-4ff88361757a-FILL-JE",
+          "occurredAt": "2026-11-20T15:00:00Z",
+          "description": "Bought 0.100000 tWETH for 200.00 dEUR plus 0.05 dEUR fixed charge",
+          "postings": [
+            {
+              "accountKind": "dealer",
+              "accountId": "dealer-inventory",
+              "assetId": "dEUR",
+              "amountBase": "200000000"
+            },
+            {
+              "accountKind": "dealer",
+              "accountId": "dealer-inventory",
+              "assetId": "tWETH",
+              "amountBase": "-100000000000000000"
+            },
+            {
+              "accountKind": "feeRecipient",
+              "accountId": "fee-recipient",
+              "assetId": "dEUR",
+              "amountBase": "50000"
+            },
+            {
+              "accountKind": "investor",
+              "accountId": "investor-ada",
+              "assetId": "dEUR",
+              "amountBase": "-200000000"
+            },
+            {
+              "accountKind": "investor",
+              "accountId": "investor-ada",
+              "assetId": "dEUR",
+              "amountBase": "-50000"
+            },
+            {
+              "accountKind": "investor",
+              "accountId": "investor-ada",
+              "assetId": "tWETH",
+              "amountBase": "100000000000000000"
+            }
+          ]
+        }
+      ],
+      "portfolio": {
+        "accountId": "investor-ada",
+        "displayName": "Ada (synthetic, verified)",
+        "persona": "verified",
+        "asOf": "2026-11-20T15:00:00Z",
+        "dataMode": "local-fixture",
+        "blockHash": null,
+        "balances": {
+          "dEUR": {
+            "availableBase": "799950000",
+            "reservedBase": "0"
+          },
+          "tWETH": {
+            "availableBase": "100000000000000000",
+            "reservedBase": "0"
+          },
+          "eFUND": {
+            "availableBase": "0",
+            "reservedBase": "0"
+          }
+        },
+        "markedValueBase": "999950000",
+        "marks": [
+          {
+            "assetId": "tWETH",
+            "priceBase": "2000000000",
+            "source": "dealer-fixture-quote",
+            "asOf": "2026-11-20T15:00:00Z",
+            "stale": false
+          },
+          {
+            "assetId": "eFUND",
+            "priceBase": "100000000",
+            "source": "indicative-fixture-nav",
+            "asOf": "2026-11-20T15:00:00Z",
+            "stale": false
+          }
+        ],
+        "excludedHoldings": [],
+        "pendingOrders": []
+      },
+      "journalBalances": [
+        {
+          "account": "dealer-inventory",
+          "accountKind": "dealer",
+          "assetId": "dEUR",
+          "amountBase": "200000000"
+        },
+        {
+          "account": "dealer-inventory",
+          "accountKind": "dealer",
+          "assetId": "tWETH",
+          "amountBase": "-100000000000000000"
+        },
+        {
+          "account": "fee-recipient",
+          "accountKind": "feeRecipient",
+          "assetId": "dEUR",
+          "amountBase": "50000"
+        },
+        {
+          "account": "investor-ada",
+          "accountKind": "investor",
+          "assetId": "dEUR",
+          "amountBase": "-200050000"
+        },
+        {
+          "account": "investor-ada",
+          "accountKind": "investor",
+          "assetId": "tWETH",
+          "amountBase": "100000000000000000"
+        }
+      ]
+    },
+    "costs": [
+      {
+        "name": "dealer-spot-price",
+        "value": "2000000000",
+        "assetId": "tWETH",
+        "asOf": "2026-11-20T15:00:00Z",
+        "source": "dealer fixture price source",
+        "policyVersion": 1
+      },
+      {
+        "name": "charge-ceiling",
+        "value": "50000",
+        "assetId": "dEUR",
+        "asOf": "2026-11-20T15:00:00Z",
+        "source": "dealing policy charge ceiling",
+        "policyVersion": 1
+      }
+    ],
+    "chain": {
+      "status": "OBSERVED",
+      "orderIdBytes32": "0x853e35cf25b86083f0e30bad1e5eab59dc85efc2232c70830f9b9ef4b764632b",
+      "userOpHash": null,
+      "txHash": "0x663d5cc04521149b5fe6fbce10160140a1c7b36acdf1aa2eda42fbcf63316778",
+      "logIndex": 3,
+      "l2BlockHash": "0x4c5a734081027853a0efe248d7a6c7ace6a35d3a34ee73593aea31f885345573",
+      "l2BlockNumber": 317,
+      "canonicalBlockNumber": 318,
+      "canonicalBlockHash": "0x210331aa47ddb78956b61f13657d90e3688257d0fc670e67b8919cd0234cafd5",
+      "l1BatchReference": null,
+      "policyHash": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
+      "observedAt": "2026-11-28T12:47:48.000Z",
+      "receiptStatus": 1,
+      "contracts": {
+        "settlement": "0x851356ae760d987E095750cCeb3bC6014560891C",
+        "dEUR": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+        "tWETH": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+        "fund": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
+        "escrow": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8"
+      },
+      "observations": [
+        {
+          "account": "0x307130048CEcCF6bCfB59D7aF58352c3E79945ED",
+          "role": "investor",
+          "assetId": "dEUR",
+          "amountBase": "799950000"
+        },
+        {
+          "account": "0x307130048CEcCF6bCfB59D7aF58352c3E79945ED",
+          "role": "investor",
+          "assetId": "tWETH",
+          "amountBase": "100000000000000000"
+        },
+        {
+          "account": "0x6fFf326Fb06dcC091e635ecC5Ea6D55F03D07B96",
+          "role": "dealer",
+          "assetId": "dEUR",
+          "amountBase": "200000000"
+        },
+        {
+          "account": "0x6fFf326Fb06dcC091e635ecC5Ea6D55F03D07B96",
+          "role": "dealer",
+          "assetId": "tWETH",
+          "amountBase": "900000000000000000"
+        },
+        {
+          "account": "0xd808304fD2038AD9Ff569c804241Bc5946f009bE",
+          "role": "fee",
+          "assetId": "dEUR",
+          "amountBase": "50000"
+        },
+        {
+          "account": "0xeD1Be3E41B0aecF02A111FE62F05E61f7237cD9d",
+          "role": "issuer",
+          "assetId": "dEUR",
+          "amountBase": "0"
+        },
+        {
+          "account": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8",
+          "role": "escrow",
+          "assetId": "dEUR",
+          "amountBase": "0"
+        }
+      ],
+      "witnessSha256": "54390bf89856984db8e3f44d9a155626890c4710e4bd00d0702709ca5762e1ef",
+      "unknowns": [
+        {
+          "field": "chain.userOpHash",
+          "reason": "the witness was produced on the operator settlement lane, which does not create an ERC-4337 user operation; the sponsored lane is recorded separately in S17"
+        },
+        {
+          "field": "chain.l1BatchReference",
+          "reason": "the calldata development lane does not record the L1 batch reference of a single L2 transaction"
+        }
+      ]
+    },
+    "unknowns": [
+      {
+        "field": "chain.userOpHash",
+        "reason": "the witness was produced on the operator settlement lane, which does not create an ERC-4337 user operation; the sponsored lane is recorded separately in S17"
+      },
+      {
+        "field": "chain.l1BatchReference",
+        "reason": "the calldata development lane does not record the L1 batch reference of a single L2 transaction"
+      }
+    ],
+    "generatedAt": "2026-11-20T15:00:00Z",
+    "manifest": {
+      "algorithm": "sha256-canonical-json",
+      "packDigest": "3f768c4bd6c138709bf6d098b47f53a1f113dedc3f008572a17eb06d8d2f7b21",
+      "sections": {
+        "order": "b8ad26eafb368aec53353a8012a94d4d88f37d8e5c8c42cd2cf9b83646cc2664",
+        "business": "a7e7d797cbd4ca92c78d84ad141792826988c629d14ed506cc900a30642cf1b0",
+        "costs": "2a415a2b5b5c539166e5a31590c683915e1e4621eadbfc3d10baa6da6739c3f2",
+        "chain": "960c7acf0498949f2e5fbbdec4607a95636f587ce59fbc317976bc7dedfdb8b2",
+        "environment": "466f390f32d003f62235a9e198e5a110e599827f51aec7e57805a591bd611c81"
+      },
+      "externalArtifacts": [
+        {
+          "name": "chain-witness",
+          "sha256": "54390bf89856984db8e3f44d9a155626890c4710e4bd00d0702709ca5762e1ef"
+        }
+      ]
+    }
+  },
+  "packSha256": "96338e453f7481352cccab734c20b08faed318d533a961dade9c0d6fa51b62c2",
+  "chainWitness": {
+    "orderId": "order_692d8a3d-a40e-43c9-ace7-4ff88361757a",
+    "chainId": 16584,
+    "orderIdBytes32": "0x853e35cf25b86083f0e30bad1e5eab59dc85efc2232c70830f9b9ef4b764632b",
+    "userOpHash": null,
+    "txHash": "0x663d5cc04521149b5fe6fbce10160140a1c7b36acdf1aa2eda42fbcf63316778",
+    "logIndex": 3,
+    "l2BlockHash": "0x4c5a734081027853a0efe248d7a6c7ace6a35d3a34ee73593aea31f885345573",
+    "l2BlockNumber": 317,
+    "canonicalBlockNumber": 318,
+    "canonicalBlockHash": "0x210331aa47ddb78956b61f13657d90e3688257d0fc670e67b8919cd0234cafd5",
+    "l1BatchReference": null,
+    "policyHash": "67e5a54fa452fb205883ed4222eb9a2cde1b5d2491de1f1e37c1f35323828b2c",
+    "observedAt": "2026-11-28T12:47:48.000Z",
+    "receiptStatus": 1,
+    "contracts": {
+      "settlement": "0x851356ae760d987E095750cCeb3bC6014560891C",
+      "dEUR": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+      "tWETH": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      "fund": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
+      "escrow": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8"
+    },
+    "observations": [
+      {
+        "account": "0x307130048CEcCF6bCfB59D7aF58352c3E79945ED",
+        "role": "investor",
+        "assetId": "dEUR",
+        "amountBase": "799950000"
+      },
+      {
+        "account": "0x307130048CEcCF6bCfB59D7aF58352c3E79945ED",
+        "role": "investor",
+        "assetId": "tWETH",
+        "amountBase": "100000000000000000"
+      },
+      {
+        "account": "0x6fFf326Fb06dcC091e635ecC5Ea6D55F03D07B96",
+        "role": "dealer",
+        "assetId": "dEUR",
+        "amountBase": "200000000"
+      },
+      {
+        "account": "0x6fFf326Fb06dcC091e635ecC5Ea6D55F03D07B96",
+        "role": "dealer",
+        "assetId": "tWETH",
+        "amountBase": "900000000000000000"
+      },
+      {
+        "account": "0xd808304fD2038AD9Ff569c804241Bc5946f009bE",
+        "role": "fee",
+        "assetId": "dEUR",
+        "amountBase": "50000"
+      },
+      {
+        "account": "0xeD1Be3E41B0aecF02A111FE62F05E61f7237cD9d",
+        "role": "issuer",
+        "assetId": "dEUR",
+        "amountBase": "0"
+      },
+      {
+        "account": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8",
+        "role": "escrow",
+        "assetId": "dEUR",
+        "amountBase": "0"
+      }
+    ],
+    "unknowns": [
+      {
+        "field": "chain.userOpHash",
+        "reason": "the witness was produced on the operator settlement lane, which does not create an ERC-4337 user operation; the sponsored lane is recorded separately in S17"
+      },
+      {
+        "field": "chain.l1BatchReference",
+        "reason": "the calldata development lane does not record the L1 batch reference of a single L2 transaction"
+      }
+    ]
+  },
+  "canonicalBlock": {
+    "number": 318,
+    "hash": "0x210331aa47ddb78956b61f13657d90e3688257d0fc670e67b8919cd0234cafd5",
+    "timestamp": 1795870070
+  },
+  "comparisons": [
+    {
+      "label": "investor dEUR",
+      "business": "799950000",
+      "chain": "799950000",
+      "matched": true
+    },
+    {
+      "label": "investor tWETH",
+      "business": "100000000000000000",
+      "chain": "100000000000000000",
+      "matched": true
+    },
+    {
+      "label": "dealer dEUR movement",
+      "business": "200000000",
+      "chain": "200000000",
+      "matched": true
+    },
+    {
+      "label": "fee dEUR movement",
+      "business": "50000",
+      "chain": "50000",
+      "matched": true
+    },
+    {
+      "label": "issuer dEUR movement",
+      "business": "0",
+      "chain": "0",
+      "matched": true
+    },
+    {
+      "label": "escrow dEUR movement",
+      "business": "0",
+      "chain": "0",
+      "matched": true
+    }
+  ],
+  "verification": {
+    "offline": {
+      "exitCode": 0,
+      "firstMismatch": null,
+      "output": "settlement pack verified: 30 checks, run order_692d8a3d-a40e-43c9-ace7-4ff88361757a (offline)"
+    },
+    "chainFollow": {
+      "exitCode": 0,
+      "firstMismatch": null,
+      "output": "settlement pack verified: 45 checks, run order_692d8a3d-a40e-43c9-ace7-4ff88361757a (with chain follow)"
+    },
+    "tampered": {
+      "exitCode": 1,
+      "firstMismatch": "MISMATCH: manifest-section-business: expected eb7862b331c6b209fae29be2614e4e195e9717f09ae6c1ff90199fc0061fa58b observed a7e7d797cbd4ca92c78d84ad141792826988c629d14ed506cc900a30642cf1b0",
+      "mutation": "business.receipt.cashDeployedBase +1 base unit"
+    }
+  },
+  "ui": {
+    "url": "http://127.0.0.1:8089/",
+    "receiptVisible": true,
+    "screenshot": "docs/media/s18-receipt-download.png",
+    "screenshotSha256": "36e8fddc01547ef058f754e862e979ab7453dc0ab271cb91282258744bbebdb2",
+    "downloadedSha256": "96338e453f7481352cccab734c20b08faed318d533a961dade9c0d6fa51b62c2",
+    "matchesApiPack": true,
+    "suggestedFilename": "settlement-pack-order_692d8a3d-a40e-43c9-ace7-4ff88361757a.json"
+  },
+  "unknowns": [
+    {
+      "field": "chain.userOpHash",
+      "reason": "the witness was produced on the operator settlement lane, which does not create an ERC-4337 user operation; the sponsored lane is recorded separately in S17"
+    },
+    {
+      "field": "chain.l1BatchReference",
+      "reason": "the calldata development lane does not record the L1 batch reference of a single L2 transaction"
+    }
+  ],
+  "passed": true,
+  "limitations": [
+    "The chain witness is attached to the run through an operator-produced witness artifact (CHAIN_WITNESS_PATH); the API does not yet run a chain reader itself, which arrives with NET-01.",
+    "The witness uses the operator settlement lane; userOpHash is null with a reason, while the sponsored ERC-4337 lane is recorded in S17.",
+    "The calldata development lane does not record an L1 batch reference for a single L2 transaction, so that field is null with a reason.",
+    "Balances are compared at one canonical L2 block; issuer treasury and escrow start at zero on this lane so their movements and balances coincide."
+  ],
+  "notes": [
+    "The pack keeps business state and observed chain status in separate objects; unavailable chain fields are null with reasons.",
+    "The tampered copy changes one receipt amount and the verifier exits non-zero with the first manifest-section mismatch.",
+    "The UI download and the API response are byte-identical."
+  ]
+}

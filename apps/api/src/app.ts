@@ -28,6 +28,7 @@ import { IssuerService } from "./services/issuer.js";
 import { OrderWorker } from "./worker.js";
 import { ScenarioService } from "./services/scenarios.js";
 import { EligibilityService } from "./services/eligibility.js";
+import { SettlementPackService } from "./services/settlement-pack.js";
 import { ModelService } from "./services/model-service.js";
 import { registerRoutes } from "./routes.js";
 import { problem, toApiProblem } from "./problems.js";
@@ -57,6 +58,7 @@ export interface AppContext {
   readonly model: ModelService;
   readonly scenarios: ScenarioService;
   readonly eligibility: EligibilityService;
+  readonly settlementPack: SettlementPackService;
   readonly worker: OrderWorker;
   resetDemo(): void;
   close(): Promise<void>;
@@ -82,6 +84,7 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
   const model = new ModelService(config, options.modelPort);
   const scenarios = new ScenarioService(db, config, clock, ids, model);
   const eligibility = new EligibilityService(db, config, clock);
+  const settlementPack = new SettlementPackService(db, config, orders, portfolio);
   const worker = new OrderWorker(db, config, engine, clock, {
     scenarioRunner: (runId) => {
       scenarios.executeRun(runId);
@@ -137,6 +140,7 @@ export async function createApp(options: CreateAppOptions = {}): Promise<AppCont
     model,
     scenarios,
     eligibility,
+    settlementPack,
     worker,
   };
 
