@@ -2,15 +2,15 @@
   "schemaVersion": "1.0.0",
   "reportId": "REL-02-line-endings",
   "generatedBy": "pnpm check:line-endings",
-  "generatedAt": "2026-11-28T12:05:16.750Z",
-  "commit": "c13d229baff58c46d28fe2273d53b5b72aa11f7f",
+  "generatedAt": "2026-11-28T12:28:01.369Z",
+  "commit": "2a1c93bf5f35826eed0c3710ad97cc9697914b6d",
   "attributes": {
     "path": ".gitattributes",
     "sha256": "df918e7fe3c65875aa0818bdbd87f338d0a8a7e58b53bbf1eaa5e94ffbd3ab11"
   },
   "counts": {
-    "trackedFiles": 396,
-    "textLf": 353,
+    "trackedFiles": 406,
+    "textLf": 363,
     "binary": 43,
     "indexOffenders": 0,
     "worktreeOffenders": 0

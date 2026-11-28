@@ -61,6 +61,8 @@
     "s15:verify": "tsx scripts/verify-s15-evidence.ts",
     "s16:run": "tsx scripts/s16-eligibility-onchain.ts",
     "s16:verify": "tsx scripts/verify-s16-evidence.ts",
+    "s17:run": "tsx scripts/s17-sponsored-order.ts",
+    "s17:verify": "tsx scripts/verify-s17-evidence.ts",
     "scenario:api": "tsx apps/api/scripts/run-evidence.ts",
     "scenario:boundary": "tsx packages/dealing/src/cli.ts boundary",
     "scenario:golden": "tsx packages/dealing/src/cli.ts golden",

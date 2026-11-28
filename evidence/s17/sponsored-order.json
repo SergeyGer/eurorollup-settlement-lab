@@ -1,0 +1,511 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S17-sponsored-order",
+  "packId": "S17",
+  "generatedBy": "pnpm s17:run",
+  "generatedAt": "2026-11-28T12:26:26.377Z",
+  "commit": "2a1c93bf5f35826eed0c3710ad97cc9697914b6d",
+  "chains": {
+    "l1ChainId": 11155111,
+    "l2ChainId": 16584,
+    "lane": "controlled local OP Stack devnet (calldata DA development mode)"
+  },
+  "accountAbstraction": {
+    "implementation": "ERC-4337 v0.7",
+    "aaPackageVersion": "0.7.0",
+    "entryPointArtifactSha256": "952e7ce1e69354b9e80d0e68e0cbcc64f9304dd25c17170c3732114ea5421b04",
+    "bundler": "0xa574ace31147a631DF2dd56F9aeCe21a15712646",
+    "beneficiary": "0x2566011b754D83f6F9A07d96a6D706EaA8032dF3",
+    "entryPoint": "0xc0F115A19107322cFBf1cDBC7ea011C19EbDB4F8",
+    "entryPointCodeHash": "0xca2680a817ff5d5740052917c7b5b8a88dd0bf815b042d3ef78616204a63d2a5",
+    "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+    "accountOwner": "0x2DbE67721acc9c4037733002c32a7Ca1B370FcdA",
+    "sponsor": "0x91a309Bdf0D978687C96A5029978fd5c25B429b0",
+    "paymaster": "0x34B40BA116d5Dec75548a9e9A8f15411461E8c70",
+    "note": "The user account keeps zero native balance and pays no gas; the sponsor deposit at the EntryPoint covers the bundle."
+  },
+  "deployments": [
+    {
+      "name": "entryPoint",
+      "contract": "EntryPoint",
+      "address": "0xc0F115A19107322cFBf1cDBC7ea011C19EbDB4F8",
+      "txHash": "0xa0d485b446fbef5ad3a4f6b13554743380cbf47761b7025b019416fee747de21",
+      "blockNumber": 440,
+      "codeHash": "0xca2680a817ff5d5740052917c7b5b8a88dd0bf815b042d3ef78616204a63d2a5",
+      "abiSha256": null
+    },
+    {
+      "name": "simpleAccountFactory",
+      "contract": "SimpleAccountFactory",
+      "address": "0xc96304e3c037f81dA488ed9dEa1D8F2a48278a75",
+      "txHash": "0x291284bd78c7294c22ada59c5ed8ab2cf3f6cc29c110dd598c98743575391a4c",
+      "blockNumber": 442,
+      "codeHash": "0x3632caff117f8ca7d57f73be46a68879f66e096fce13e1e551d6b92f74bd8b55",
+      "abiSha256": null
+    },
+    {
+      "name": "paymaster",
+      "contract": "ScopedSponsorshipPaymaster",
+      "address": "0x34B40BA116d5Dec75548a9e9A8f15411461E8c70",
+      "txHash": "0x0007890708b4c819734ad6d1438809d763cda9daf03a17bef30bd9fbb77cb42d",
+      "blockNumber": 444,
+      "codeHash": "0x80d9a7387f4902fa687ace1542917f8450a76e1051b26ad4e664400eee46596b",
+      "abiSha256": "531fbe39e54a18d3a0a8f4c915a94e82367abb0a4ab53e69a15810e23d689440"
+    },
+    {
+      "name": "cash",
+      "contract": "Token",
+      "address": "0xD0141E899a65C95a556fE2B27e5982A6DE7fDD7A",
+      "txHash": "0x3e45a1e9ad8bfa3f60e93b353bde6757226f9efbc27c4154849e77782c80be65",
+      "blockNumber": 446,
+      "codeHash": "0x4b04ead4907e36b41d9e0abf073e0e8fa7e4dd8a06012d0be8b0802870ab71d9",
+      "abiSha256": "1e167d59e2d31ba0456e43d8f97eac05d3d0b9b2bfc9cd47a420ba4aadd71bf8"
+    },
+    {
+      "name": "spot",
+      "contract": "Token",
+      "address": "0x07882Ae1ecB7429a84f1D53048d35c4bB2056877",
+      "txHash": "0xc75a08e0ef385bdf520f64b881b3247d21c7db1547878f44acb671423eff732e",
+      "blockNumber": 449,
+      "codeHash": "0x9acfe3633bc0bd28cb940cdb44d5f51c6ba400ad5e8b4ca9497ee31e10e89225",
+      "abiSha256": "1e167d59e2d31ba0456e43d8f97eac05d3d0b9b2bfc9cd47a420ba4aadd71bf8"
+    },
+    {
+      "name": "fund",
+      "contract": "RestrictedShare",
+      "address": "0x22753E4264FDDc6181dc7cce468904A80a363E44",
+      "txHash": "0x21ac201c1a649567470b3e28fb9cf45f07a9d29615ef6c484683fdde6298c20d",
+      "blockNumber": 451,
+      "codeHash": "0x7a6034775a6735b693010c70c0a7ef13a50a8a154e7499c8c4953be231f88adb",
+      "abiSha256": "b26f339c042484486441a65e1c246805eb5ed547d1b9cd2b58b57140fe98bd81"
+    },
+    {
+      "name": "escrow",
+      "contract": "Escrow",
+      "address": "0xA7c59f010700930003b33aB25a7a0679C860f29c",
+      "txHash": "0x132b5216b97a9f88f5d9e5ff6a5e8d55776bd3139b9ca5ee84d7d3207f53d698",
+      "blockNumber": 453,
+      "codeHash": "0x146ad68cf408d368eabe1c56583e94ae1c4b02221d84211d208a72bfd989874e",
+      "abiSha256": "86cc404abb71666a13b0afc45b80d842df62f6ae8a69e7936ae478fe12d44ed4"
+    },
+    {
+      "name": "settlement",
+      "contract": "DvPSettlement",
+      "address": "0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c",
+      "txHash": "0x37bec5f53c8ec8383b115c99b88c1b30b1c101df2348c40268e9e0318862c9a0",
+      "blockNumber": 455,
+      "codeHash": "0x2e8cd267fceb96737abb2956f4553c734fd456c35191a987b64ca396115f5c3f",
+      "abiSha256": "af685da7de55d0f20f5eac63cd759edc69c401ad7174c1b6ba5ff0e20e692555"
+    },
+    {
+      "name": "orderEntry",
+      "contract": "RetailOrderEntry",
+      "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+      "txHash": "0xa6a58425b318cc327bc7d86bbc3c73039dc10dd6adf85bab15d4f94771405d19",
+      "blockNumber": 457,
+      "codeHash": "0x0bcdbbb3d6e27403e0c49a6adc3aa977d08ac4ee3daca2b89080b00f6f446f32",
+      "abiSha256": "73536e9ed057be23c8526eedcf17275270d63d2f7f4deaecafdf73d45b5462fa"
+    }
+  ],
+  "abis": [
+    {
+      "name": "ScopedSponsorshipPaymaster",
+      "path": "contracts/abi/ScopedSponsorshipPaymaster.json",
+      "sha256": "531fbe39e54a18d3a0a8f4c915a94e82367abb0a4ab53e69a15810e23d689440"
+    },
+    {
+      "name": "RetailOrderEntry",
+      "path": "contracts/abi/RetailOrderEntry.json",
+      "sha256": "73536e9ed057be23c8526eedcf17275270d63d2f7f4deaecafdf73d45b5462fa"
+    }
+  ],
+  "funding": {
+    "actorFunding": []
+  },
+  "permits": [
+    {
+      "label": "approve-permit",
+      "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+      "target": "0xD0141E899a65C95a556fE2B27e5982A6DE7fDD7A",
+      "selector": "0x095ea7b3",
+      "chainId": 16584,
+      "permitNonce": 1,
+      "validUntil": 1795872367,
+      "maxCost": "3750000000000000",
+      "permitHash": "0x534e969dc970cb67826ced519164c4de7b16b8cd6079545b58f48b34b70e96f6",
+      "sponsorSignature": "0x305b72caafc93c78d5fa917308f769eff706a0875eaa3727c11212369c2546e503a49e9bc2254ea291df4018dd72487a60f1ce8b959c2a1b4c1ce4666ecf36621c"
+    },
+    {
+      "label": "g01-order-permit",
+      "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+      "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+      "selector": "0xe214f1fb",
+      "chainId": 16584,
+      "permitNonce": 2,
+      "validUntil": 1795872367,
+      "maxCost": "3750000000000000",
+      "permitHash": "0x268e28ec8aeac42edaf469abd224194f8c0ee760a9bad14b48184365eba4f7a0",
+      "sponsorSignature": "0xdf022bd135c56dca350ef356ca0874b231fc39d4d993882cd72c46b8454b99435c98fc1cdfc227ad35e48cf1d7af6465ad2183c99b791c2f9faac2cc0252ae851b"
+    },
+    {
+      "label": "expired-order-permit",
+      "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+      "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+      "selector": "0xe214f1fb",
+      "chainId": 16584,
+      "permitNonce": 3,
+      "validUntil": 1795872367,
+      "maxCost": "3750000000000000",
+      "permitHash": "0x940e90140669224f747b9c34c95ac39b6b434eab47f77d268fa6c993b8dfc065",
+      "sponsorSignature": "0x847991f26dea5f47819193198b72420c52a7ebadb3678c40a16be7afed8b024f525b97eba5b030355dd09e811cb063e2988f171dde27a35550b19b9d6c7671431b"
+    },
+    {
+      "label": "budget-permit",
+      "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+      "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+      "selector": "0xe214f1fb",
+      "chainId": 16584,
+      "permitNonce": 4,
+      "validUntil": 1795872367,
+      "maxCost": "1000",
+      "permitHash": "0xb178a1dad5ecc1e050c2037a6e34266d72a82bcd197d7e7e9511f7651796b51c",
+      "sponsorSignature": "0x9b3d61fbe85ca300ba9c8c7943f1816591ec0a94f9ff7defd72b74bcaf91831e4d7020c622ee39ec22eacd20e1a8cbc586794dad7f8956e6e0d42a2985f7e6a21b"
+    },
+    {
+      "label": "expired-permit",
+      "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+      "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+      "selector": "0xe214f1fb",
+      "chainId": 16584,
+      "permitNonce": 5,
+      "validUntil": 1795868766,
+      "maxCost": "3750000000000000",
+      "permitHash": "0x864d5b3151229d8af84a32faeb4774caeba7ccf102a8215a855a9313d7e2cf8d",
+      "sponsorSignature": "0xf194e269064e1b573952ab5a4a43232f6055860018a9750a5f5c6724cdafb0c847dfef387ef0c0eabe755061c23a8b191ea183c914eb51c92422df64c23e32431c"
+    },
+    {
+      "label": "replay-permit",
+      "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+      "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+      "selector": "0xe214f1fb",
+      "chainId": 16584,
+      "permitNonce": 6,
+      "validUntil": 1795872367,
+      "maxCost": "3750000000000000",
+      "permitHash": "0x4e8728f11b6f86140713a42ba1f3de7851d13591c80072da69d3e305f0492d43",
+      "sponsorSignature": "0x13a65eb47029dadb22a46ed7b272e319651ee35b8d7819a8d62e1f0572cd4963494cb52c8b111550309e0cf2a5489d92d616e5cb0f9b39f29a98139939b779ba1b"
+    }
+  ],
+  "userOperations": [
+    {
+      "label": "sponsored-approval",
+      "permit": {
+        "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+        "target": "0xD0141E899a65C95a556fE2B27e5982A6DE7fDD7A",
+        "selector": "0x095ea7b3",
+        "chainId": 16584,
+        "permitNonce": 1,
+        "validUntil": 1795872367,
+        "maxCost": "3750000000000000"
+      },
+      "permitHash": "0x534e969dc970cb67826ced519164c4de7b16b8cd6079545b58f48b34b70e96f6",
+      "userOpHash": "0x97925469ea46b0c1a3162b3329796b2329b9c2c26e79f64e9e67f827715997bc",
+      "simulationRevert": null,
+      "submitted": true,
+      "outerTxHash": "0x49e7cdbc80dc929fd3697b11cdb16ab4dee34ba5c69d9972f217cc983fcc20cb",
+      "outerTxStatus": 1,
+      "outerGasUsed": "168623",
+      "blockNumber": 473,
+      "userOperationEvent": {
+        "success": true,
+        "actualGasCost": "292598965303168",
+        "actualGasUsed": "252832"
+      },
+      "userChargeWei": "0",
+      "sponsorDepositBefore": "200000000000000000",
+      "sponsorDepositAfter": "199707401034696832",
+      "sponsorDepositDelta": "-292598965303168",
+      "beneficiaryBefore": "502271176991882885",
+      "beneficiaryAfter": "502563775957186053",
+      "beneficiaryDelta": "292598965303168",
+      "receipt": {
+        "txHash": "0x49e7cdbc80dc929fd3697b11cdb16ab4dee34ba5c69d9972f217cc983fcc20cb",
+        "status": 1,
+        "blockNumber": 473,
+        "gasUsed": "168623"
+      }
+    },
+    {
+      "label": "sponsored-fill",
+      "permit": {
+        "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+        "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+        "selector": "0xe214f1fb",
+        "chainId": 16584,
+        "permitNonce": 2,
+        "validUntil": 1795872367,
+        "maxCost": "3750000000000000"
+      },
+      "permitHash": "0x268e28ec8aeac42edaf469abd224194f8c0ee760a9bad14b48184365eba4f7a0",
+      "userOpHash": "0x02ccb421d6e90193afc8c072adf6efd354efd1909a46b97cbbacf5acadf28b3a",
+      "simulationRevert": null,
+      "submitted": true,
+      "outerTxHash": "0x2581245a53240b6b3285bd38c7557b2ff14c84c1231a3a402a89ac0ef68c1fc4",
+      "outerTxStatus": 1,
+      "outerGasUsed": "260248",
+      "blockNumber": 476,
+      "userOperationEvent": {
+        "success": true,
+        "actualGasCost": "384675950879740",
+        "actualGasUsed": "332930"
+      },
+      "userChargeWei": "0",
+      "sponsorDepositBefore": "199707401034696832",
+      "sponsorDepositAfter": "199322725083817092",
+      "sponsorDepositDelta": "-384675950879740",
+      "beneficiaryBefore": "502563775957186053",
+      "beneficiaryAfter": "502948451908065793",
+      "beneficiaryDelta": "384675950879740",
+      "receipt": {
+        "txHash": "0x2581245a53240b6b3285bd38c7557b2ff14c84c1231a3a402a89ac0ef68c1fc4",
+        "status": 1,
+        "blockNumber": 476,
+        "gasUsed": "260248"
+      }
+    },
+    {
+      "label": "included-revert",
+      "permit": {
+        "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+        "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+        "selector": "0xe214f1fb",
+        "chainId": 16584,
+        "permitNonce": 3,
+        "validUntil": 1795872367,
+        "maxCost": "3750000000000000"
+      },
+      "permitHash": "0x940e90140669224f747b9c34c95ac39b6b434eab47f77d268fa6c993b8dfc065",
+      "userOpHash": "0x476841075ee54fe7a06b29bbefe1234f6c1c2aec306165cedcdc852cba886d7a",
+      "simulationRevert": null,
+      "submitted": true,
+      "outerTxHash": "0x518538fc8370ba9b4342e9154bff4fc0f3076b38df5401736b6f2805c441b8c4",
+      "outerTxStatus": 1,
+      "outerGasUsed": "134580",
+      "blockNumber": 478,
+      "userOperationEvent": {
+        "success": false,
+        "actualGasCost": "253737442510638",
+        "actualGasUsed": "219837"
+      },
+      "userChargeWei": "0",
+      "sponsorDepositBefore": "199322725083817092",
+      "sponsorDepositAfter": "199068987641306454",
+      "sponsorDepositDelta": "-253737442510638",
+      "beneficiaryBefore": "502948451908065793",
+      "beneficiaryAfter": "503202189350576431",
+      "beneficiaryDelta": "253737442510638",
+      "receipt": {
+        "txHash": "0x518538fc8370ba9b4342e9154bff4fc0f3076b38df5401736b6f2805c441b8c4",
+        "status": 1,
+        "blockNumber": 478,
+        "gasUsed": "134580"
+      }
+    },
+    {
+      "label": "budget-rejection",
+      "permit": {
+        "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+        "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+        "selector": "0xe214f1fb",
+        "chainId": 16584,
+        "permitNonce": 4,
+        "validUntil": 1795872367,
+        "maxCost": "1000"
+      },
+      "permitHash": "0xb178a1dad5ecc1e050c2037a6e34266d72a82bcd197d7e7e9511f7651796b51c",
+      "userOpHash": "0xa79f9a26258d8617606ab2eb44f0190609b1ea5874954be2d88ddaedc97f3d5a",
+      "simulationRevert": "FailedOpWithRevert(0,AA33 reverted,0x3a0bdd9c000000000000000000000000000000000000000000000000000d529ae9e8600000000000000000000000000000000000000000000000000000000000000003e8)",
+      "submitted": false,
+      "outerTxHash": null,
+      "outerTxStatus": null,
+      "outerGasUsed": null,
+      "blockNumber": null,
+      "userOperationEvent": null,
+      "userChargeWei": "0",
+      "sponsorDepositBefore": "199068987641306454",
+      "sponsorDepositAfter": "199068987641306454",
+      "sponsorDepositDelta": "0",
+      "beneficiaryBefore": "503202189350576431",
+      "beneficiaryAfter": "503202189350576431",
+      "beneficiaryDelta": "0",
+      "receipt": null
+    },
+    {
+      "label": "permit-expiry-rejection",
+      "permit": {
+        "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+        "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+        "selector": "0xe214f1fb",
+        "chainId": 16584,
+        "permitNonce": 5,
+        "validUntil": 1795868766,
+        "maxCost": "3750000000000000"
+      },
+      "permitHash": "0x864d5b3151229d8af84a32faeb4774caeba7ccf102a8215a855a9313d7e2cf8d",
+      "userOpHash": "0x6f67c9303c0f61b4c5fbdacf8f0a352e5161f660d07967db43c105184d3cd873",
+      "simulationRevert": "FailedOpWithRevert(0,AA33 reverted,0x77654fc7000000000000000000000000000000000000000000000000000000006b0ac85e000000000000000000000000000000000000000000000000000000006b0ac86d)",
+      "submitted": false,
+      "outerTxHash": null,
+      "outerTxStatus": null,
+      "outerGasUsed": null,
+      "blockNumber": null,
+      "userOperationEvent": null,
+      "userChargeWei": "0",
+      "sponsorDepositBefore": "199068987641306454",
+      "sponsorDepositAfter": "199068987641306454",
+      "sponsorDepositDelta": "0",
+      "beneficiaryBefore": "503202189350576431",
+      "beneficiaryAfter": "503202189350576431",
+      "beneficiaryDelta": "0",
+      "receipt": null
+    },
+    {
+      "label": "replay-blocked",
+      "permit": {
+        "account": "0x15A2AB32fEEeBd784C220C19F97571028a14d3E2",
+        "target": "0x276C216D241856199A83bf27b2286659e5b877D3",
+        "selector": "0xe214f1fb",
+        "chainId": 16584,
+        "permitNonce": 6,
+        "validUntil": 1795872367,
+        "maxCost": "3750000000000000"
+      },
+      "permitHash": "0x4e8728f11b6f86140713a42ba1f3de7851d13591c80072da69d3e305f0492d43",
+      "userOpHash": "0xed046d685f96ceb598ca65e0222cffcdbd90a5b8cd2ebbb8a589f2041c9c2968",
+      "simulationRevert": null,
+      "submitted": true,
+      "outerTxHash": "0xb23db2a3ab5e78d22a5f9a2194bf88d07eea1030f5ac3c52bc9122f488db5c6f",
+      "outerTxStatus": 1,
+      "outerGasUsed": "134217",
+      "blockNumber": 480,
+      "userOperationEvent": {
+        "success": false,
+        "actualGasCost": "253080454260123",
+        "actualGasUsed": "219499"
+      },
+      "userChargeWei": "0",
+      "sponsorDepositBefore": "199068987641306454",
+      "sponsorDepositAfter": "198815907187046331",
+      "sponsorDepositDelta": "-253080454260123",
+      "beneficiaryBefore": "503202189350576431",
+      "beneficiaryAfter": "503455269804836554",
+      "beneficiaryDelta": "253080454260123",
+      "receipt": {
+        "txHash": "0xb23db2a3ab5e78d22a5f9a2194bf88d07eea1030f5ac3c52bc9122f488db5c6f",
+        "status": 1,
+        "blockNumber": 480,
+        "gasUsed": "134217"
+      }
+    }
+  ],
+  "sponsoredFill": {
+    "orderId": "0xfc0ad950c322cbb79baf62e56248a34da106cabdafe9ec8ee348dcaccc3d2cba",
+    "deadline": "1795872367",
+    "afterFill": {
+      "accountCash": "799950000",
+      "accountSpot": "100000000000000000",
+      "dealerCash": "200000000",
+      "dealerSpot": "900000000000000000",
+      "feeCash": "50000",
+      "accountNative": "0"
+    }
+  },
+  "includedRevert": {
+    "orderId": "0x0dc5335636d95a95b4cdc49b51361acb52bc512fbab2465ff857b689731c84c3",
+    "simulationRevert": null,
+    "afterIncludedRevert": {
+      "accountCash": "799950000",
+      "accountSpot": "100000000000000000",
+      "dealerCash": "200000000",
+      "dealerSpot": "900000000000000000",
+      "feeCash": "50000"
+    },
+    "userOperationEvent": {
+      "success": false,
+      "actualGasCost": "253737442510638",
+      "actualGasUsed": "219837"
+    }
+  },
+  "rejections": {
+    "budget": {
+      "label": "budget-rejection",
+      "submitted": false,
+      "simulationRevert": "FailedOpWithRevert(0,AA33 reverted,0x3a0bdd9c000000000000000000000000000000000000000000000000000d529ae9e8600000000000000000000000000000000000000000000000000000000000000003e8)"
+    },
+    "expiredPermit": {
+      "label": "permit-expiry-rejection",
+      "submitted": false,
+      "simulationRevert": "FailedOpWithRevert(0,AA33 reverted,0x77654fc7000000000000000000000000000000000000000000000000000000006b0ac85e000000000000000000000000000000000000000000000000000000006b0ac86d)"
+    },
+    "replay": {
+      "label": "replay-blocked",
+      "simulationRevert": null,
+      "userOperationEvent": {
+        "success": false,
+        "actualGasCost": "253080454260123",
+        "actualGasUsed": "219499"
+      }
+    }
+  },
+  "recovery": {
+    "method": "EntryPoint UserOperationEvent log lookup by userOpHash",
+    "userOpHash": "0x02ccb421d6e90193afc8c072adf6efd354efd1909a46b97cbbacf5acadf28b3a",
+    "foundTxHash": "0x2581245a53240b6b3285bd38c7557b2ff14c84c1231a3a402a89ac0ef68c1fc4",
+    "originalTxHash": "0x2581245a53240b6b3285bd38c7557b2ff14c84c1231a3a402a89ac0ef68c1fc4",
+    "sameTransaction": true,
+    "receiptStatus": 1,
+    "blockNumber": 476,
+    "eventSuccess": true,
+    "eventActualGasCost": "384675950879740",
+    "accountCashUnchanged": "799950000",
+    "accountSpotUnchanged": "100000000000000000",
+    "orderSettledOnce": true,
+    "transactionFromBundler": true,
+    "replayEffect": {
+      "replayEventSuccess": false,
+      "orderSettledOnce": true,
+      "accountCash": "799950000",
+      "accountSpot": "100000000000000000",
+      "dealerCash": "200000000",
+      "dealerSpot": "900000000000000000",
+      "feeCash": "50000"
+    }
+  },
+  "canonicalBlock": {
+    "number": 481,
+    "hash": "0xd8f4b9011d5bd9a37aae43c8988dcc24baf301cfb1a70bdabfe455911fd60782",
+    "timestamp": 1795868785
+  },
+  "canonicalBalances": {
+    "accountCash": "799950000",
+    "accountSpot": "100000000000000000",
+    "accountNative": "0",
+    "dealerCash": "200000000",
+    "dealerSpot": "900000000000000000",
+    "feeCash": "50000",
+    "sponsorDeposit": "198815907187046331",
+    "beneficiaryNative": "503455269804836554"
+  },
+  "passed": true,
+  "limitations": [
+    "The sponsor, bundler and beneficiary are synthetic lab wallets on the controlled local L2; no external bundler network is used.",
+    "EntryPoint v0.7 does not account for the OP Stack L1 data fee in its gas charge; L1 fee accounting is part of NET-01/OPS-02 on the OP lane.",
+    "The permit signature scheme is a domain-separated EIP-191 digest over the permit fields (local lab scheme), not a production paymaster policy engine.",
+    "The paymaster allows exactly one target/method pair per permit and one permit use; broader policy is S21."
+  ],
+  "notes": [
+    "A lost bundler response is recovered by querying the EntryPoint UserOperationEvent log by userOpHash and reusing the mined receipt, not by resubmitting the request.",
+    "The order entry gateway marks the order id settled, so a repeated request is included as a failed user operation and moves no money.",
+    "Successful and included-failure bundles are paid from the sponsor deposit; the user account's native balance delta is zero in every submitted bundle."
+  ]
+}

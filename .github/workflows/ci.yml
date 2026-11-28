@@ -91,6 +91,9 @@ jobs:
       - name: Verify the committed S16 onchain eligibility evidence
         run: pnpm s16:verify
 
+      - name: Verify the committed S17 sponsored order evidence
+        run: pnpm s17:verify
+
       - name: Verify the committed release-check matrix
         run: pnpm release:verify
 

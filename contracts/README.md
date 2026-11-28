@@ -11,12 +11,14 @@ lab-grade contracts: they are **not** audited production protocol code.
 | `DvPSettlement.sol` | Atomic one-step settlement calls: spot delivery-versus-payment, escrow-funded allocation, and redemption (burn shares, pay cash). |
 | `EligibilityRegistry.sol` | Issuer roots per epoch/policy version, onchain UltraHonk verification and cached per-gate approvals with expiry. |
 | `verifier/HonkVerifier.sol` | Generated EVM-target Solidity verifier for the committed eligibility circuit (VK hash committed in the contract). |
+| `ScopedSponsorshipPaymaster.sol` | ERC-4337 v0.7 paymaster that validates one target/method-scoped, expiring, sponsor-signed permit per operation. |
+| `RetailOrderEntry.sol` | Settlement operator gateway for sponsored account orders; order ids are single-use. |
 
 ## Build and test
 
 ```bash
 pnpm contracts:build   # forge build --root contracts
-pnpm contracts:test    # forge test --root contracts (17 tests)
+pnpm contracts:test    # forge test --root contracts (27 tests)
 ```
 
 ABIs for the evidence pack are committed under `contracts/abi/`; compiled artifacts stay
@@ -35,6 +37,12 @@ wallet-bound trees over the synthetic accounts, generates real EVM-target UltraH
 proofs, caches approvals, exercises every enforcement point and the root-rotation recovery
 on the same devnet. It writes `evidence/s16/eligibility-onchain.json` and
 `evidence/s16/eligibility-fixtures.json`; `pnpm s16:verify` checks them offline.
+
+`pnpm s17:run` deploys the pinned ERC-4337 v0.7 EntryPoint, the scoped sponsorship
+paymaster and the order entry gateway, then submits sponsored user operations for the G01
+spot fill on the same devnet, covering included revert, pre-submission budget/expiry
+rejection and lost-response recovery. It writes `evidence/s17/sponsored-order.json`;
+`pnpm s17:verify` checks it offline.
 
 ## Scope boundaries
 
