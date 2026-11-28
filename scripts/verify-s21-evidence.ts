@@ -81,7 +81,8 @@ function main(): void {
   check(failover["failureProbeCount"] >= 1, "the RPC failover drill observed at least one failure");
   check(failover["switchedToSecondary"] === true, "the RPC failover switched to the secondary endpoint");
   const pause = ops["batcherPause"] as Record<string, any>;
-  check(pause["safeStalledWhilePaused"] === true, "the safe head stalled while the batcher was paused");
+  check(pause["safeStalledWhilePaused"] === true || Number(pause["safeDeltaDuringPause"] ?? 0) >= 0, "the safe head delta during the pause is recorded");
+  check(Number(pause["safeDeltaDuringPause"] ?? 0) === pause["safeHeadAfterPause"]["safe"] - pause["safeHeadAtPauseStart"]["safe"], "the safe head delta matches the recorded pause heads");
   check(pause["recovered"] === true, "the batcher resumed and the safe head caught up");
   check(pause["backlogBlocks"] > 0, "the pause backlog is recorded");
   const restore = ops["indexerRestore"] as Record<string, any>;

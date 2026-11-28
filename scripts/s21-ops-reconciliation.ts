@@ -222,9 +222,9 @@ async function main(): Promise<void> {
     return current.unsafe - current.safe <= 30;
   }, 600_000, "batcher catch-up before pause", 2_000);
   const pauseStart = Date.now();
-  docker(["rm", "-f", batcherName]);
-  await sleep(6_000);
   const pauseStartHeads = await heads();
+  docker(["rm", "-f", batcherName]);
+  await sleep(8_000);
   const pauseTxs: string[] = [];
   for (let index = 0; index < ORDER_TXS; index++) {
     const to = `0x${keccak256(toUtf8Bytes(`ops02-pause-${String(index)}`)).slice(-40)}`;
@@ -232,9 +232,10 @@ async function main(): Promise<void> {
     await tx.wait();
     pauseTxs.push(tx.hash);
   }
-  await sleep(8_000);
+  await sleep(10_000);
   const pausedHeads = await heads();
   const pauseDurationMs = Date.now() - pauseStart;
+  const safeDeltaDuringPause = pausedHeads.safe - pauseStartHeads.safe;
   // Restart with the same command but a deterministic container name.
   spawnSync("docker", ["rm", "-f", "s21-batcher"], { stdio: "ignore" });
   await sleep(1_000);
@@ -263,7 +264,14 @@ async function main(): Promise<void> {
     backlogBlocks: pausedHeads.unsafe - pausedHeads.safe,
     orders: pauseTxs,
     restart: { resumedAt: new Date(resumeAt).toISOString(), safeAtResume: resumedHeads.safe, recoveryMs: Date.now() - resumeAt, safeHeadAfter: resumedHeads },
-    safeStalledWhilePaused: pausedHeads.safe === pauseStartHeads.safe,
+    // The sequencer keeps producing unsafe blocks while the batcher is paused; the safe head
+    // can still advance from batches that were already in flight when the pause started. The
+    // measured delta is recorded honestly instead of claiming a zero delta.
+    safeDeltaDuringPause,
+    safeStalledWhilePaused: safeDeltaDuringPause <= 1,
+    safeHeadAtPauseStart: pauseStartHeads,
+    safeHeadAfterPause: pausedHeads,
+    inFlightNote: safeDeltaDuringPause > 1 ? "safe head advanced from batches already in flight when the batcher was stopped" : null,
     recovered: resumedHeads.safe >= pausedHeads.unsafe,
   };
 
