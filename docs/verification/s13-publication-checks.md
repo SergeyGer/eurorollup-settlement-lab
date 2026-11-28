@@ -89,15 +89,17 @@ opening shot uses the same artwork in the S14 re-cut.
 Screenshots: `docs/media/s13-readme-desktop.png`, `s13-readme-phone.png`,
 `s13-wiki-home.png`.
 
-## Remaining manual step
+## Repository Social Preview
 
-The GitHub **repository Social Preview** setting has no public API. The approved 1280x640
-PNG (`media/social-preview/approved-1280x640.png`, SHA-256 `1b56f8f9…`) is ready for the
-repository owner to upload in Settings; every repository-controlled surface already uses
-it. This is tracked in #46.
+`pnpm check:social` reads the public repository page's `og:image`, downloads it without
+authentication and compares it with the owner-approved revision C2. `evidence/rel/social-preview.json`
+records 5/5 checks: the public page answers, publishes a custom social image, the image
+downloads (HTTP 200), its SHA-256 equals the approved artwork (`1b56f8f9…`) and its
+dimensions are 1280x640. The manual settings upload performed by the project owner is
+therefore verified, not claimed.
 
 ## Remaining S13 work
 
 None: the README first screen, the Wiki map, the command/link fixes, the portability and
-attestation checks and the signed-out sessions are complete. The Wiki page map itself is
-maintained in the Wiki repository.
+attestation checks, the signed-out sessions and the repository Social Preview are
+complete.

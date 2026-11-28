@@ -22,6 +22,13 @@ Evidence: `media/film/film-metadata.json` (checks, digests, composition notes) a
 `media/film/checksums.txt`. Reproduce with `pnpm film:build` (needs ffmpeg, Piper,
 Playwright Chromium, the local API with Ollama and a served web build).
 
+## Approved artwork on every surface
+
+The owner-approved C2 artwork is used for the README poster, the Pages social image, the
+Wiki film page, the film opening frames and the repository Social Preview. `pnpm check:social`
+verifies the uploaded repository social preview against the approved digest
+(`evidence/rel/social-preview.json`).
+
 ## Accessible playback (`pnpm check:film`)
 
 The browser replay has a **Release film** view that streams the release MP4; the English

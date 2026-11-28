@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "REL-02-repository-social-preview",
+  "generatedBy": "pnpm check:social",
+  "generatedAt": "2026-11-28T10:53:43.065Z",
+  "repository": "https://github.com/SergeyGer/eurorollup-settlement-lab",
+  "ogImageUrl": "https://repository-images.githubusercontent.com/1471624059/4b3551f9-17d6-4689-8f7e-e7a2198e9a9c",
+  "approvedArtwork": {
+    "path": "media/social-preview/approved-1280x640.png",
+    "sha256": "1b56f8f964dfea2363a8376ba6a668bc0c888880b15595defcc5e89a5bf4164e",
+    "size": "1280x640"
+  },
+  "uploaded": {
+    "bytes": 475150,
+    "sha256": "1b56f8f964dfea2363a8376ba6a668bc0c888880b15595defcc5e89a5bf4164e",
+    "contentType": "image/png",
+    "dimensions": {
+      "width": 1280,
+      "height": 640
+    }
+  },
+  "checks": [
+    {
+      "id": "repository-page",
+      "description": "public repository page answers signed out",
+      "passed": true,
+      "detail": "HTTP 200"
+    },
+    {
+      "id": "og-image",
+      "description": "repository page publishes an og:image (custom social preview)",
+      "passed": true,
+      "detail": "https://repository-images.githubusercontent.com/1471624059/4b3551f9-17d6-4689-8f7e-e7a2198e9a9c"
+    },
+    {
+      "id": "image-download",
+      "description": "social preview image downloads signed out",
+      "passed": true,
+      "detail": "HTTP 200 image/png 475150 bytes"
+    },
+    {
+      "id": "approved-digest",
+      "description": "uploaded social preview is the owner-approved revision C2",
+      "passed": true,
+      "detail": "uploaded sha 1b56f8f964dfea23…, approved 1b56f8f964dfea23…"
+    },
+    {
+      "id": "dimensions",
+      "description": "social preview is 1280x640",
+      "passed": true,
+      "detail": "1280x640"
+    }
+  ],
+  "passed": true,
+  "notes": [
+    "GitHub's repository Social Preview has no public REST API; this check verifies the public page metadata and image bytes.",
+    "The owner uploaded the approved PNG manually in the repository settings; the digests match."
+  ]
+}
