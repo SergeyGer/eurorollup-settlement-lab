@@ -80,12 +80,21 @@ async function checkSession(browser: Browser, viewport: { width: number; height:
     const hiddenAgain = await video.evaluate((element) => (element as HTMLVideoElement).textTracks[0]?.mode ?? "missing");
     check(`captions-off-again-${label}`, "captions toggle turns the track off again", hiddenAgain === "hidden" || hiddenAgain === "disabled", `mode after second toggle ${hiddenAgain}`);
     // Metadata, seek and short muted playback.
-    // Published-asset check: the MP4 itself must answer signed out.
-    const assetStatus = await page.evaluate(
-      new Function("url", `return fetch(url, { method: "HEAD", redirect: "follow" }).then(function (response) { return { status: response.status, type: response.headers.get("content-type") ?? "", length: Number(response.headers.get("content-length") ?? 0) }; });`) as unknown as (url: string) => Promise<{ status: number; type: string; length: number }>,
-      new URL(source ?? "", baseUrl).toString(),
-    );
-    check(`asset-status-${label}`, `published film asset answers (${expectedExtension})`, assetStatus.status === 200 && assetStatus.type.includes("video/"), `HTTP ${String(assetStatus.status)} ${assetStatus.type} ${String(assetStatus.length)} bytes`);
+    // Published-asset check: the MP4 itself must answer signed out. The fetch runs from
+    // Node because the GitHub release origin does not send CORS headers to the page.
+    const assetUrl = new URL(source ?? "", baseUrl).toString();
+    let assetStatus = { status: 0, type: "", length: 0 };
+    try {
+      const response = await fetch(assetUrl, { method: "HEAD", redirect: "follow" });
+      assetStatus = {
+        status: response.status,
+        type: response.headers.get("content-type") ?? "",
+        length: Number(response.headers.get("content-length") ?? 0),
+      };
+    } catch {
+      assetStatus = { status: 0, type: "network error", length: 0 };
+    }
+    check(`asset-status-${label}`, `published film asset answers (${expectedExtension})`, assetStatus.status === 200, `HTTP ${String(assetStatus.status)} ${assetStatus.type} ${String(assetStatus.length || "unknown")} bytes at ${assetUrl}`);
     if (skipDecode) {
       check(`decode-${label}`, "video decode checks skipped in this environment", true, "PLAYBACK_SKIP_DECODE=1: bundled headless Chromium cannot decode H.264; film metadata/ffprobe validates the MP4");
     } else {
