@@ -122,7 +122,7 @@ async function main(): Promise<void> {
   addRequirement({ id: "S22-AC-10", title: "TypeScript typecheck", mode: "deterministic", command: "pnpm typecheck", environment: "accepted worktree / pinned toolchain", expected: "all workspace projects typecheck", evidenceLink: "package.json", }, typecheck);
   const tests = run("pnpm", ["test"], repoRoot, 600_000);
   results["S22-AC-11"] = tests;
-  addRequirement({ id: "S22-AC-11", title: "Application and library test suite", mode: "deterministic", command: "pnpm test", environment: "accepted worktree / pinned toolchain", expected: "all vitest suites pass", evidenceLink: "package.json" }, tests, { observed: tests.stdoutTail.split("\n").filter((line) => line.includes("Tests") || line.includes("passed")).join(" ") });
+  addRequirement({ id: "S22-AC-11", title: "Application and library test suite", mode: "deterministic", command: "pnpm test", environment: "accepted worktree / pinned toolchain", expected: "all vitest suites pass", evidenceLink: "package.json" }, tests, { observed: (tests.stdoutTail.split("\n").filter((line) => line.includes("Tests") || line.includes("passed")).join(" ") || tests.stdoutTail) });
   const build = run("pnpm", ["build"], repoRoot, 600_000);
   results["S22-AC-12"] = build;
   addRequirement({ id: "S22-AC-12", title: "Production build", mode: "deterministic", command: "pnpm build", environment: "accepted worktree / pinned toolchain", expected: "all packages and the web app build", evidenceLink: "package.json" }, build);
