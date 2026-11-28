@@ -67,6 +67,8 @@ const COMMANDS: readonly CommandSpec[] = [
   { id: "openapi", command: "pnpm api:openapi -- --check", timeoutMs: 300_000 },
   { id: "pack-verify", command: "pnpm verify", timeoutMs: 300_000 },
   { id: "partner-demo", command: "pnpm demo:partner", timeoutMs: 300_000 },
+  { id: "line-endings", command: "pnpm check:line-endings", timeoutMs: 300_000 },
+  { id: "release-attestation", command: "pnpm release:attest:verify", timeoutMs: 300_000 },
   ...(a08EvidenceExists ? [{ id: "a08-verify", command: "pnpm a08:verify", timeoutMs: 300_000 }] : []),
 ];
 

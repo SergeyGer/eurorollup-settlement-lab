@@ -223,6 +223,23 @@ export interface EvidenceManifest {
   readonly files: readonly EvidenceFileRef[];
 }
 
+/** Normalizes --pack input: a pack directory or a path to its manifest.json. */
+export function resolvePackDirectory(pack: string): string {
+  let trimmed = pack.trim();
+  // Strip trailing separators without a backtracking regular expression.
+  while (trimmed.length > 1 && trimmed.endsWith("/")) {
+    trimmed = trimmed.slice(0, -1);
+  }
+  const manifestSuffix = "/manifest.json";
+  if (trimmed === "manifest.json") {
+    return ".";
+  }
+  if (trimmed.endsWith(manifestSuffix)) {
+    return trimmed.slice(0, -manifestSuffix.length);
+  }
+  return trimmed;
+}
+
 export function buildEvidenceManifest(params: {
   packId: string;
   run: GoldenRun;

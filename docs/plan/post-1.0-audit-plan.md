@@ -34,7 +34,10 @@ tracker issue.
   five-participant usability pilot is recorded as blocked/deferred by the project owner's
   decision, with the published script plus automated legibility/accessibility checks as
   the accepted milestone fallback.
-- S13–S22: not started.
+- S13: publication commands/aliases, LF line-ending policy, REL-01 release attestation
+  and the signed-out link check are implemented and verified; README first-screen and the
+  Wiki map remain open pending the owner-approved Social Preview.
+- S14–S22: not started.
 
 ## Gates and external inputs
 

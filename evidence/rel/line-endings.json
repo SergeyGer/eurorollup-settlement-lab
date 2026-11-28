@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "REL-02-line-endings",
+  "generatedBy": "pnpm check:line-endings",
+  "generatedAt": "2026-11-28T09:51:54.556Z",
+  "commit": "8c2feb1302db4d4941448165747b36f721e58378",
+  "attributes": {
+    "path": ".gitattributes",
+    "sha256": "df918e7fe3c65875aa0818bdbd87f338d0a8a7e58b53bbf1eaa5e94ffbd3ab11"
+  },
+  "counts": {
+    "trackedFiles": 348,
+    "textLf": 312,
+    "binary": 36,
+    "indexOffenders": 0,
+    "worktreeOffenders": 0
+  },
+  "offenders": [],
+  "worktreeOffenders": [],
+  "hashedAttributeChecks": [
+    {
+      "path": "evidence/g01/golden-run.json",
+      "attributes": "evidence/g01/golden-run.json: text: set; evidence/g01/golden-run.json: eol: lf"
+    },
+    {
+      "path": "evidence/a05/protocol-run.json",
+      "attributes": "evidence/a05/protocol-run.json: text: set; evidence/a05/protocol-run.json: eol: lf"
+    },
+    {
+      "path": "schemas/golden-run.schema.json",
+      "attributes": "schemas/golden-run.schema.json: text: set; schemas/golden-run.schema.json: eol: lf"
+    },
+    {
+      "path": "media/film/release-film.vtt",
+      "attributes": "media/film/release-film.vtt: text: set; media/film/release-film.vtt: eol: lf"
+    }
+  ],
+  "simulatedWindowsCheckout": {
+    "method": "git worktree with core.autocrlf=true and core.eol=crlf",
+    "nativeWindows": false,
+    "note": "A real Windows checkout is not available on this host; the simulation records the attribute policy.",
+    "file": "evidence/g01/golden-run.json",
+    "crlfPresent": false,
+    "sha256": "34d7859195906655471d06eabc02ef9f22cd95b8cad38101f019db53395b990d",
+    "shaMatchesRepository": true,
+    "bytes": 25886
+  },
+  "passed": true,
+  "notes": [
+    "Every published evidence, schema and fixture path is pinned to LF; binary assets are marked binary.",
+    "The repository was renormalised after adding .gitattributes; no tracked file content changed.",
+    "Hashed file byte digests remain strict; only the checkout line-ending policy changed."
+  ]
+}
