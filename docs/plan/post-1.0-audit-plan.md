@@ -40,7 +40,9 @@ tracker issue.
 - S14: film re-cut with the owner-approved artwork, separate WebVTT captions and the
   accessible player is implemented and verified; `v1.1.0` is published. The GitHub
   repository Social Preview upload remains the only manual step (issue #46).
-- S15–S22: not started.
+- S15: contract-backed settlement slice implemented (tokens, restricted share, escrow,
+  atomic DvP, G01 on the controlled L2 with canonical balance witness); release evidence
+  in progress. S16–S22 remain.
 
 ## Gates and external inputs
 

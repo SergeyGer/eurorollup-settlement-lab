@@ -150,9 +150,17 @@ async function syncStatus(): Promise<Record<string, Record<string, unknown>>> {
   return await nodeCall<Record<string, Record<string, unknown>>>("optimism_syncStatus", []);
 }
 
+/** op-node versions return sync-status numbers either as JSON numbers or as hex strings. */
+function parseNodeQuantity(value: unknown): number {
+  if (typeof value === "number") return Number.isFinite(value) ? value : 0;
+  if (typeof value !== "string") return 0;
+  const parsed = value.startsWith("0x") ? Number.parseInt(value.slice(2), 16) : Number.parseInt(value, 10);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
 function headNumber(status: Record<string, Record<string, unknown>>, key: string): number {
   const head = status[key];
-  return head === undefined ? 0 : Number.parseInt(String(head["number"]), 16);
+  return head === undefined ? 0 : parseNodeQuantity(head["number"]);
 }
 
 async function waitFor(condition: () => Promise<boolean>, timeoutMs: number, label: string): Promise<void> {

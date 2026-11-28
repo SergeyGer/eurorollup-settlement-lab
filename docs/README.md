@@ -28,6 +28,7 @@ fixture dates and version numbers are content, not publication dates.
 | [`verification/s12-accessibility-checklist.md`](verification/s12-accessibility-checklist.md) | S12 accessibility checklist used as the pilot fallback. |
 | [`verification/s13-publication-checks.md`](verification/s13-publication-checks.md) | S13 publication commands, line-ending policy, REL-01 attestation and link check. |
 | [`verification/s14-release-film.md`](verification/s14-release-film.md) | S14 film re-cut: approved artwork, separate captions, playback checks. |
+| [`verification/s15-settlement-slice.md`](verification/s15-settlement-slice.md) | S15 settlement slice: contracts, G01 on L2 and the canonical balance witness. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |
 | [`glossary.md`](glossary.md) | Shared vocabulary for the domain, the Policy Lab and the rollup. |
 | [`operations/`](operations/) | Runbooks, drills and incident records. |

@@ -70,9 +70,17 @@ interface Heads {
   safe: number;
   finalized: number;
 }
+/** op-node versions return sync-status numbers either as JSON numbers or as hex strings. */
+function parseNodeQuantity(value: unknown): number {
+  if (typeof value === "number") return Number.isFinite(value) ? value : 0;
+  if (typeof value !== "string") return 0;
+  const parsed = value.startsWith("0x") ? Number.parseInt(value.slice(2), 16) : Number.parseInt(value, 10);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
 async function heads(): Promise<Heads> {
-  const status = await nodeCall<Record<string, Record<string, string>>>("optimism_syncStatus", []);
-  const value = (key: string): number => Number.parseInt(status[key]?.["number"] ?? "0x0", 16);
+  const status = await nodeCall<Record<string, Record<string, unknown>>>("optimism_syncStatus", []);
+  const value = (key: string): number => parseNodeQuantity(status[key]?.["number"]);
   return { unsafe: value("unsafe_l2"), safe: value("safe_l2"), finalized: value("finalized_l2") };
 }
 async function l1Head(): Promise<number> {
