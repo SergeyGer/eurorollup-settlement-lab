@@ -1,0 +1,215 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "S21-OPS-02-money-and-authority",
+  "packId": "S21",
+  "generatedBy": "pnpm s21:reconcile",
+  "generatedAt": "2026-11-28T15:52:31.030Z",
+  "commit": "764f60e5b3729b2862082725b2dd2f2d86ae5f8d",
+  "lane": {
+    "mode": "local-op-stack-devnet",
+    "chainId": 16584,
+    "daMode": "calldata",
+    "workDir": "/root/projects/eurorollup-settlement-lab/.devnet-local/run",
+    "l1Rpc": "http://127.0.0.1:8545",
+    "l2Rpc": "http://127.0.0.1:9545",
+    "nodeRpc": "http://127.0.0.1:9547",
+    "batcherImage": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-batcher:v1.16.11",
+    "batchInbox": "0x0098faa3fd68e74587cfad4029165ae7a85a73b5",
+    "consensus": "anvil L1 with a two-second block clock"
+  },
+  "anvilBundle": {
+    "source": "evidence/a07/bundle-reconciliation.json",
+    "sourceSha256": "80131b24a5aeebd6b00d8d704f878ec57b094e40579dcdd1e77c2ed3797288c7",
+    "outerTxHash": "0x9c38a36aa768c1301fbd01419330d9101b114380c34d8e11f80559532ca417f1",
+    "executionFeeWei": "257949913782357",
+    "sponsorPaidWei": "472351559302104",
+    "bundlerRevenueWei": "472351559302104",
+    "allocationsSumWei": "472351559302104",
+    "allocationsPlusResidualEqualPayment": true,
+    "l1DataFeeWei": null,
+    "operatorFeeWei": null,
+    "unavailable": [
+      "l1DataFeeWei",
+      "operatorFeeWei"
+    ],
+    "expectedExecutionCostWei": "257949913782357",
+    "expectedSponsorPaymentWei": "472351559302104"
+  },
+  "opLane": {
+    "source": "evidence/s21/ops-batch-setting-benchmark.json",
+    "batchTxCount": 32,
+    "componentReceipts": {
+      "l1ExecutionGasFeeWei": "13527660616161508",
+      "l1BlobGasFeeWei": "0",
+      "measuredL1ExpenditureWei": "13527660616161508"
+    },
+    "sponsorContributionWei": null,
+    "sponsorContributionReason": "the consensus lane benchmark uses plain orders with no ERC-4337 paymaster; the sponsored contribution is measured on the Anvil bundle (S17) and recorded there",
+    "beneficiaryRevenueWei": null,
+    "beneficiaryRevenueReason": "no ERC-4337 beneficiary/relayer on this benchmark lane",
+    "residualWei": "0",
+    "residualExplanation": "measured L1 expenditure minus the measured execution and blob components",
+    "unavailable": [
+      "sponsorContributionWei",
+      "beneficiaryRevenueWei",
+      "l1DataFeeSeparateWei",
+      "operatorFeeWei"
+    ],
+    "unavailableReasons": {
+      "sponsorContributionWei": "no paymaster on the benchmark lane",
+      "beneficiaryRevenueWei": "no ERC-4337 beneficiary on the benchmark lane",
+      "l1DataFeeSeparateWei": "the blob gas receipt is the applicable L1 data cost on this lane; no separate L1 data fee component exists",
+      "operatorFeeWei": "no operator fee is configured on the lane"
+    }
+  },
+  "rpcFailover": {
+    "primary": "http://127.0.0.1:9",
+    "secondary": "direct op-reth host endpoint",
+    "probes": [
+      {
+        "target": "dead-primary",
+        "ok": false,
+        "latencyMs": 28,
+        "blockNumber": null,
+        "error": "fetch failed"
+      },
+      {
+        "target": "dead-primary",
+        "ok": false,
+        "latencyMs": 0,
+        "blockNumber": null,
+        "error": "fetch failed"
+      },
+      {
+        "target": "dead-primary",
+        "ok": false,
+        "latencyMs": 1,
+        "blockNumber": null,
+        "error": "fetch failed"
+      },
+      {
+        "target": "direct-op-reth",
+        "ok": true,
+        "latencyMs": 0,
+        "blockNumber": 1053,
+        "error": null
+      }
+    ],
+    "switchedToSecondary": true,
+    "recoveredAfterRestart": true,
+    "failureProbeCount": 3
+  },
+  "batcherPause": {
+    "batcher": {
+      "image": "us-docker.pkg.dev/oplabs-tools-artifacts/images/op-batcher:v1.16.11",
+      "command": [
+        "op-batcher",
+        "--l1-eth-rpc=http://127.0.0.1:8545",
+        "--l2-eth-rpc=http://127.0.0.1:9545",
+        "--rollup-rpc=http://127.0.0.1:9547",
+        "--private-key=0x4bbbf85ce3377467afe5d46f804f221813b2bb87f24d81f60f1fcdbf7cbf4356",
+        "--data-availability-type=calldata",
+        "--throttle.unsafe-da-bytes-lower-threshold=0",
+        "--max-channel-duration=12",
+        "--poll-interval=1s",
+        "--num-confirmations=1",
+        "--sub-safety-margin=2",
+        "--resubmission-timeout=20s",
+        "--rpc.addr=0.0.0.0",
+        "--rpc.port=9548",
+        "--rpc.enable-admin",
+        "--log.level=info"
+      ]
+    },
+    "pauseDurationMs": 34880,
+    "pauseStartHeads": {
+      "unsafe": 1059,
+      "safe": 1054
+    },
+    "pausedHeads": {
+      "unsafe": 1074,
+      "safe": 1054
+    },
+    "backlogBlocks": 20,
+    "orders": [
+      "0x497452b9782443a6b281eaa4636ce196a7bc6484395f5c2b2a55992126183bc6",
+      "0x127978284538400bb0b0ef95265b755cb677c859fc03e96520da111ebff6f054",
+      "0xef5f92d543b2e01be168cbae6819d16ecc6353e4f7a9fe48e522d0cc1fcdfc91",
+      "0x225d673e8e61fb2570e466e0124bd17ccbdc8e27cde669b0c51b47a190b4f96a",
+      "0x3e356b89363e2adadcfed713d91dba8b32311b4b43d6d39cc22939f7170114d7"
+    ],
+    "restart": {
+      "resumedAt": "2026-11-28T15:51:25.778Z",
+      "safeAtResume": 1075,
+      "recoveryMs": 2028,
+      "safeHeadAfter": {
+        "unsafe": 1078,
+        "safe": 1075
+      }
+    },
+    "safeStalledWhilePaused": true,
+    "recovered": true
+  },
+  "indexerRestore": {
+    "source": "benchmarks/indexer-restore.json",
+    "sourceSha256": "8435d2fcad7d52ee1e15d0a08b2cdde0e9076b6968a2b210e0c3b815709379d3",
+    "reportId": "A07-indexer-restore-drill",
+    "discrepancyDetected": true,
+    "promotionRefused": true,
+    "refusalReason": "statement digest and per-asset balances disagree with the canonical replay",
+    "restoredDigestEqualsPreRestore": true,
+    "checkpointDigest": "0a8f3e1101c17cdbb2e369673bbfac9f5644a63987e1ac79c0b5ecac033287ce",
+    "ledgerRestart": {
+      "source": "evidence/s20/reconciliation-reorg.json",
+      "sourceSha256": "fc4f6ecbeb2c9ff032da469d20c6125c37798028386065fb59669f4c2fe117bc",
+      "checkpointSha256": "c0e1421eacd7c0c3b3aa40acb777c710be01eedb25539356e727b7500e73e13b",
+      "equal": true
+    }
+  },
+  "upgradeRehearsal": {
+    "chain": {
+      "mode": "controlled anvil",
+      "chainId": 16584
+    },
+    "contracts": {
+      "authority": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "target": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+    },
+    "owners": [
+      "0x86981160d92bB420f3F96F166E31CbB2c57414E2",
+      "0xacF6926FE0bB7C22eC98755bc5a490DfEFB7d4Df",
+      "0xf035d6Fbfc1c9228c120056587D79B947C1785F7"
+    ],
+    "timelockDelaySeconds": 10,
+    "successfulUpgrade": {
+      "proposalId": "0x9a8f1f911b65a5d2f09d3682e8fd3fb2d197e9967ec01255c6b08d579568d5a0",
+      "eta": 1795881175,
+      "earlyActivationRejected": true,
+      "earlyActivationReason": "execution reverted: TimelockNotElapsed(uint64,uint64)",
+      "executionTx": "0x28cb3493779ac15cc00482db238f1942022df3303eb72382aea84b742227d484",
+      "activationBlock": 10,
+      "executed": true,
+      "version": "7"
+    },
+    "failureAndRecovery": {
+      "proposalId": "0x498a21a09dffb64d8d24ef77904a2adda22871194ccf9c401a56cbae95ffe74d",
+      "executionTx": "0xe0ee39a0165be638b0d1bad624a55675205451a4c60d710e50562e9bf8ade0ca",
+      "failed": true,
+      "executed": false,
+      "recoveryTx": "0x31d61d38f72f50eae592fcca978a9bb9289b5c1e74d785cb01039ec409ad0d2f",
+      "versionAfterRecovery": "9",
+      "recovered": true
+    },
+    "nonOwnerRejected": true
+  },
+  "passed": true,
+  "limitations": [
+    "The OP-lane benchmark does not carry a paymaster; sponsor contribution and beneficiary revenue are therefore null on that lane with reasons, while the sponsored bundle reconciliation is the recorded Anvil lane evidence.",
+    "The RPC failover drill stops the proxyd container on the local lane instead of failing a production provider.",
+    "The upgrade rehearsal runs on a controlled anvil chain with a ten-second timelock, not the production authority delay."
+  ],
+  "notes": [
+    "The Anvil two-operation bundle figures match the audit brief exactly; allocations plus residual equal the sponsor payment.",
+    "RPC failover, batcher pause/resume and indexer restore are archived with their raw probes/measurements."
+  ]
+}

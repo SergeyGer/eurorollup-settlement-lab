@@ -18,7 +18,7 @@ lab-grade contracts: they are **not** audited production protocol code.
 
 ```bash
 pnpm contracts:build   # forge build --root contracts
-pnpm contracts:test    # forge test --root contracts (27 tests)
+pnpm contracts:test    # forge test --root contracts (31 tests)
 ```
 
 ABIs for the evidence pack are committed under `contracts/abi/`; compiled artifacts stay

@@ -103,6 +103,9 @@ jobs:
       - name: Verify the committed S20 reconciliation evidence
         run: pnpm s20:verify
 
+      - name: Verify the committed S21 operations evidence
+        run: pnpm s21:verify
+
       - name: Verify the committed release-check matrix
         run: pnpm release:verify
 

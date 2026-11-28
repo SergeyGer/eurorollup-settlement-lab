@@ -35,6 +35,7 @@ fixture dates and version numbers are content, not publication dates.
 | [`verification/s19-net01-attempt.md`](verification/s19-net01-attempt.md) | S19 NET-01 attempt: failed client image configurations and the recorded upstream blocker. |
 | [`verification/s19-net01-consensus-lane.md`](verification/s19-net01-consensus-lane.md) | S19 NET-01 result: blob DA, sidecar commitment, L1 finality, deriving verifier and head samples. |
 | [`verification/s20-canonical-reconciliation.md`](verification/s20-canonical-reconciliation.md) | S20 LED-01: exact-hash anchors, noncanonical rejection, reorg recovery and conservation. |
+| [`verification/s21-ops-evidence.md`](verification/s21-ops-evidence.md) | S21 OPS-01/02: batch-setting benchmark, money reconciliation, failover/pause-restore drills and authority rehearsal. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |
 | [`glossary.md`](glossary.md) | Shared vocabulary for the domain, the Policy Lab and the rollup. |
 | [`operations/`](operations/) | Runbooks, drills and incident records. |
