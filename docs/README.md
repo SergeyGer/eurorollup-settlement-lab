@@ -26,6 +26,7 @@ fixture dates and version numbers are content, not publication dates.
 | [`verification/s12-investor-journey.md`](verification/s12-investor-journey.md) | S12 investor journey: display precision, replay entry, receipt next actions and UI checks. |
 | [`verification/s12-usability-pilot.md`](verification/s12-usability-pilot.md) | S12 five-participant usability pilot script, scoring and deferred status. |
 | [`verification/s12-accessibility-checklist.md`](verification/s12-accessibility-checklist.md) | S12 accessibility checklist used as the pilot fallback. |
+| [`verification/s13-publication-checks.md`](verification/s13-publication-checks.md) | S13 publication commands, line-ending policy, REL-01 attestation and link check. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |
 | [`glossary.md`](glossary.md) | Shared vocabulary for the domain, the Policy Lab and the rollup. |
 | [`operations/`](operations/) | Runbooks, drills and incident records. |

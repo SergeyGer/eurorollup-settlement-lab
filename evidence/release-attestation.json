@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "reportId": "REL-01-release-attestation",
   "generatedBy": "pnpm release:attest",
-  "generatedAt": "2026-11-28T09:49:32.759Z",
+  "generatedAt": "2026-11-28T09:50:27.193Z",
   "tag": "v1.0.0",
   "tagCommit": "9dbe565ee5226a4b8969de9e55036d645ed36784",
   "tagUrl": "https://github.com/SergeyGer/eurorollup-settlement-lab/releases/tag/v1.0.0",
@@ -62,7 +62,7 @@
     }
   },
   "source": {
-    "commit": "14e86bd4ca18ff9b420c822c36dc3811b67e9e15",
+    "commit": "8c2feb1302db4d4941448165747b36f721e58378",
     "repository": "https://github.com/SergeyGer/eurorollup-settlement-lab",
     "publicReplay": "https://sergeyger.github.io/eurorollup-settlement-lab/"
   },

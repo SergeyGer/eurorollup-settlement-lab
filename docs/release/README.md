@@ -31,6 +31,14 @@ The opening 150 frames show the social preview, the closing 150 frames show the
 repository card with the canonical URL, and the middle 1500 frames show the journeys.
 See [`../verification/s10-release-film.md`](../verification/s10-release-film.md).
 
+## Release attestation
+
+`evidence/release-attestation.json` records the v1.0.0 tag commit, the build commit, the
+four evidence/metadata files that differ between them and the archive/film digests. The
+archive is explicitly marked `exactTaggedTree: false` because it was built from the
+release-code commit, not from the tagged tree. Verify with
+`pnpm release:attest:verify` (also run in CI).
+
 ## Downloadable package
 
 `pnpm release:package` builds a deterministic source archive of the release commit

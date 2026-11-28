@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "reportId": "REL-02-link-check",
   "generatedBy": "pnpm check:links",
-  "generatedAt": "2026-11-28T09:49:48.996Z",
+  "generatedAt": "2026-11-28T09:50:26.267Z",
   "tag": "v1.0.0",
   "checks": [
     {
@@ -326,12 +326,12 @@
       "detail": "file exists"
     },
     {
-      "id": "relative:docs/README.md:architecture/adr/",
-      "target": "architecture/adr/",
+      "id": "relative:docs/README.md:architecture/overview.md",
+      "target": "architecture/overview.md",
       "kind": "relative-file",
       "status": null,
-      "passed": false,
-      "detail": "missing file referenced from docs/README.md"
+      "passed": true,
+      "detail": "file exists"
     },
     {
       "id": "relative:docs/README.md:fixtures/",
@@ -414,12 +414,12 @@
       "detail": "file exists"
     },
     {
-      "id": "relative:docs/release/README.md:social-preview-1280x640.png",
-      "target": "social-preview-1280x640.png",
+      "id": "relative:docs/release/README.md:../../media/film/social-preview-1280x640.png",
+      "target": "../../media/film/social-preview-1280x640.png",
       "kind": "relative-file",
       "status": null,
-      "passed": false,
-      "detail": "missing file referenced from docs/release/README.md"
+      "passed": true,
+      "detail": "file exists"
     },
     {
       "id": "relative:docs/release/README.md:../verification/s10-release-film.md",
@@ -506,10 +506,10 @@
     "total": 62,
     "relativeFiles": 53,
     "publicUrls": 9,
-    "relativeFailures": 2,
+    "relativeFailures": 0,
     "urlFailures": 0
   },
-  "passed": false,
+  "passed": true,
   "notes": [
     "Public URLs are fetched without cookies or tokens; the replay and release assets must answer signed out.",
     "Relative links are resolved inside the checkout; evidence packs referenced by URL are checked as release assets."
