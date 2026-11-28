@@ -10,6 +10,7 @@ fixture dates and version numbers are content, not publication dates.
 | --- | --- |
 | [`reference/specification.md`](reference/specification.md) | The project specification (Markdown conversion; the DOCX in the same directory is the normative source). |
 | [`plan/roadmap.md`](plan/roadmap.md) | Delivery steps, milestone exit evidence, acceptance gates and release train. |
+| [`plan/post-1.0-audit-plan.md`](plan/post-1.0-audit-plan.md) | Post-1.0 audit programme: M7 presentation update and M8 settlement infrastructure. |
 | [`architecture/overview.md`](architecture/overview.md) | Components, state model, determinism rules and repository layout. |
 | [`api/partner-api.md`](api/partner-api.md) | Partner API surface, roles, idempotency, error contract and local fixture controls. |
 | [`policy-lab/p01-friday-cutoff.md`](policy-lab/p01-friday-cutoff.md) | AI Policy Lab proposal contract, P01 replay, boundary cases and cross-runtime digests. |
@@ -22,6 +23,8 @@ fixture dates and version numbers are content, not publication dates.
 | [`fixtures/`](fixtures/) | Frozen inputs: G01 portfolio, P01 cutoff experiment, calendar, instruments and boundary cases. |
 | [`release/README.md`](release/README.md) | Public replay URL, release film, downloadable package and the A08 public checks. |
 | [`verification/s10-release-film.md`](verification/s10-release-film.md) | S10 film verification: frames, narration, loudness, captions and link checks. |
+| [`verification/s12-investor-journey.md`](verification/s12-investor-journey.md) | S12 investor journey: display precision, replay entry, receipt next actions and UI checks. |
+| [`verification/s12-usability-pilot.md`](verification/s12-usability-pilot.md) | S12 five-participant usability pilot script, scoring and blocked status. |
 | [`evidence/README.md`](evidence/README.md) | Evidence pack structure, hashing rules and verifier usage. |
 | [`glossary.md`](glossary.md) | Shared vocabulary for the domain, the Policy Lab and the rollup. |
 | [`operations/`](operations/) | Runbooks, drills and incident records. |

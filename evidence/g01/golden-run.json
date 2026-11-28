@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "fixtureId": "G01",
   "fixtureVersion": "1.0.0",
-  "engineVersion": "0.2.0",
+  "engineVersion": "0.2.1",
   "calendar": {
     "calendarId": "LAB-UTC-1",
     "version": "1.0.0"
@@ -297,7 +297,7 @@
           "occurredAt": "2026-11-20T17:01:00Z",
           "businessEffects": [
             "Reserved cash released: 300.00 dEUR",
-            "Investor eFUND: +3.12 eFUND",
+            "Investor eFUND: +3.125000 eFUND",
             "Investor residual cash: +0.00 dEUR",
             "Applied NAV: 96.00 EUR per unit"
           ],
@@ -461,7 +461,8 @@
               "kind": "fund-subscription",
               "status": "AWAITING_NAV",
               "dealingDate": "2026-11-20",
-              "reason": "AWAITING_AUTHORIZED_NAV"
+              "reason": "AWAITING_AUTHORIZED_NAV",
+              "reservedCashBase": "300000000"
             }
           ]
         },
@@ -520,7 +521,7 @@
         "totalMarkedValueBase": "999950000",
         "pendingOrders": []
       },
-      "businessDigest": "308c143f41e0d38f3454b269b60cab5ad3b43c325107b011a38544bcbafa5715"
+      "businessDigest": "1e50549f75d5e09d3aefff0e0ecd8ab5d860f8405acae8e99cb172f5f88460ee"
     },
     {
       "caseId": "G01-R",
@@ -556,8 +557,8 @@
           "description": "Reserved 1.000000 eFUND units for redemption; dealing day 2026-11-23 assigned",
           "occurredAt": "2026-11-20T17:05:00Z",
           "businessEffects": [
-            "Investor eFUND: -1.00 eFUND",
-            "Fund escrow eFUND: +1.00 eFUND",
+            "Investor eFUND: -1.000000 eFUND",
+            "Fund escrow eFUND: +1.000000 eFUND",
             "Assigned dealing day: 2026-11-23"
           ],
           "journal": [
@@ -609,7 +610,7 @@
           "occurredAt": "2026-11-23T17:01:00Z",
           "businessEffects": [
             "Investor cash: +98.00 dEUR",
-            "Investor eFUND burned: -1.00 eFUND",
+            "Investor eFUND burned: -1.000000 eFUND",
             "Issuer treasury cash: -98.00 dEUR"
           ],
           "journal": [
@@ -729,15 +730,15 @@
         "totalMarkedValueBase": "1006200000",
         "pendingOrders": []
       },
-      "businessDigest": "281a7d3ae08735c6b936869dd67dafcb149c0ad4f8db6b44606c1a1f0f85e04d"
+      "businessDigest": "7544859bc4679802d06617607cb38a5321f136ff75a6ed1e850fa7ec83b7de9e"
     }
   ],
-  "businessDigest": "e2dc0b07bca023a90d05f8f72a26d849066df694e766499a65b280ea350657df",
+  "businessDigest": "90d71143b4174ae6be6948c61edaf5770cf5c10200129402bbc9c79417a70179",
   "checksums": {
     "inputs": "b173bf488facbea5b669dfdbe38cb6dee78d48120d56241e7c916cf78c07e49e",
-    "steps": "6984ec2b279e60411d3e1f725c2e1260372763a91ee4aa9e865d6eb61fd9d5ed",
+    "steps": "4685d7c2e2542226c1b4ec82ece58d56c3e4c3fefaea92c4459235cdc9bfae76",
     "journal": "59c0e4a77cd17739948ea3b9485f192ed7325654ae46a073c669d03df66a7cd3",
     "receipts": "21d8d77d9ac7e3ce55d31a68534d8266dd9483d2ec2c36de3397a69a03478bdb",
-    "checkpoints": "4a8abb57f65700114154330f12c2b63ae10cec53765b16ae9f8d14f6d0eebf41"
+    "checkpoints": "c36e47e2d1abeb0de7a332c32511a2c3af6b118ef1b8380084a85a8f71473e5c"
   }
 }
