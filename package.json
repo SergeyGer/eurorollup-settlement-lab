@@ -45,6 +45,8 @@
     "eligibility:verify": "tsx packages/eligibility/src/cli.ts verify",
     "film:build": "tsx scripts/build-release-film.ts",
     "local:evidence": "tsx scripts/local-evidence.ts",
+    "net01:down": "bash devnet/net01/down.sh",
+    "net01:up": "bash devnet/net01/run.sh",
     "policy:eval": "tsx packages/policy-lab/src/cli.ts eval",
     "policy:eval:mock": "tsx packages/policy-lab/src/cli.ts eval --adapter mock",
     "policy:model:status": "tsx packages/policy-lab/src/cli.ts model-status",

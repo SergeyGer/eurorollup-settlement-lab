@@ -1,0 +1,53 @@
+# NET-01 consensus-backed lane (single chain, minimal preset, blob DA).
+#
+# The lane pins the L1 execution and consensus clients, the genesis generator and every
+# OP component so its genesis/config digests are reproducible. `supernode` stays false:
+# the consensus client must validate pre-Fulu blob blocks with one KZG proof per blob.
+optimism_package:
+  chains:
+    eurorollup:
+      network_params:
+        network: eurorollup
+        network_id: "16584"
+        seconds_per_slot: 2
+        fjord_time_offset: 0
+        granite_time_offset: 0
+        holocene_time_offset: 0
+        isthmus_time_offset: 0
+        fund_dev_accounts: true
+      participants:
+        node0:
+          sequencer: true
+          el:
+            type: op-reth
+            image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-reth:v2.4.0
+          cl:
+            type: op-node
+            image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.19.3
+      batcher_params:
+        image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-batcher:v1.16.11
+        extra_params:
+          - --max-channel-duration=1
+      proposer_params:
+        image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-proposer:v1.16.3
+        proposal_interval: 15s
+  op_contract_deployer_params:
+    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-deployer:v0.4.2
+    l1_artifacts_locator: tag://op-contracts/v4.0.0
+    l2_artifacts_locator: tag://op-contracts/v4.0.0
+  global_log_level: info
+  persistent: false
+ethereum_package:
+  participants:
+    - el_type: geth
+      el_image: ethereum/client-go:v1.16.9
+      cl_type: lighthouse
+      cl_image: sigp/lighthouse:v8.3.3
+      vc_image: sigp/lighthouse:v8.3.3
+      supernode: false
+      count: 1
+  network_params:
+    preset: minimal
+    genesis_delay: 5
+    perfect_peerdas_enabled: false
+    additional_preloaded_contracts: '{"0x4e59b44847b379578588920cA78FbF26c0B4956C": {"balance": "0ETH", "code": "0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe03601600081602082378035828234f58015156039578182fd5b8082525050506014600cf3", "storage": {}, "nonce": "1"}}'
